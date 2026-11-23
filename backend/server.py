@@ -100,13 +100,14 @@ def api_cases(include_fixtures: bool = False) -> dict[str, Any]:
             cids.append(imp_cid)
     if include_fixtures:
         cids.append("web_fixture")
-    items = [engine.build_case_bundle(cid, persist=False)["case_info"] for cid in cids]
+    categories = cat_reg.load_categories()
+    items = engine.build_case_summaries(cids, categories=categories)
     return {
         "status": "OK",
         "product": engine.PRODUCT_NAME,
         "version": engine.WORKBENCH_VERSION,
         "default_case_id": "code_xr_uiux",
-        "categories": cat_reg.list_categories(),
+        "categories": cat_reg.list_categories(categories=categories),
         "cases": items,
     }
 

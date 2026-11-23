@@ -144,6 +144,14 @@ def verify(run: VerificationRun) -> None:
         page.screenshot(path=str(shot_dir / "v4_workbench_cat_rules_1440x900.png"), full_page=False)
 
         # Test "+ 解析 URL" dialog end-to-end
+        bundle_requests = []
+        case_bundle_url = f"{run.base_url}/api/case/{e2e_case}/bundle"
+
+        def record_bundle_request(request):
+            if request.method == "GET" and request.url == case_bundle_url:
+                bundle_requests.append(request.url)
+
+        page.on("request", record_bundle_request)
         page.click("#importBtn")
         page.wait_for_selector("#importDialog[open]", timeout=5000)
         page.fill("#impUrlInput", f"{run.base_url}/cases/weeksync_paper_web/app/index.html")
@@ -159,6 +167,7 @@ def verify(run: VerificationRun) -> None:
         page.wait_for_selector('#tree .tn-row[data-eu="eu_L3_imp_hero_stage"]', timeout=5000)
         page.click('#tree .tn-row[data-eu="eu_L3_imp_hero_stage"]')
         stage_frame.locator('[data-eu-id="eu_L3_imp_hero_stage"].kaiwu-eu-highlight').wait_for(state="visible", timeout=5000)
+        assert not bundle_requests, "imports should reuse the bundle already returned by the parser"
 
         page.screenshot(path=str(shot_dir / "v4_workbench_imported_url_1440x900.png"), full_page=False)
         browser.close()

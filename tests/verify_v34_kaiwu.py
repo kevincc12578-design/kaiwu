@@ -580,6 +580,11 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
             ctx.screenshots.append({"path": str(shot1), "caption": "开物v3.4三窗格检验台与Code XR全段联动"})
             ctx.record_pass(cat, "three_pane_linkage", f"三屏联动生效：点击 {target_eu} 后左骨架/中解释链/右DOM 同步高亮")
 
+            source_readback = ctx.run.get_json("/api/case/code_xr_uiux/bundle")["readback"]
+            assert target_eu in source_readback["stage_trace_ids"], "source readback omitted the observed EU"
+            expect(stage_frame.locator(f'[data-eu-id="{target_eu}"]')).to_have_count(1)
+            ctx.record_pass(cat, "stage_trace_readback", f"{target_eu} 的源码索引与舞台 DOM 一致")
+
             # 5.3 Code XR 右窗格内交互：收起左侧栏 + 真实鼠标悬停 Dock 邻近放大 + Analytics 切换
             # 点击中窗格邻近放大拆分节点 eu_L4_feat_proximity_magnify 或直接触发收起侧栏
             page.locator('#timeline .tl-seg[data-i="2"]').click()  # 1.60-2.23s 邻近放大段

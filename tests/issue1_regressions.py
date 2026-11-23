@@ -11,6 +11,7 @@ from unittest.mock import patch
 from urllib.error import HTTPError
 
 from PIL import Image
+import yaml
 
 from verification_env import VerificationRun
 
@@ -237,6 +238,32 @@ def _persist_concurrent_confirmations(run: VerificationRun) -> None:
     engine.update_case_assumptions(case, "ALL", "reset")
 
 
+def _case_summaries_track_state_and_category_changes(run: VerificationRun) -> None:
+    case_id = "code_xr_poster"
+
+    def summary():
+        return next(item for item in run.get_json("/api/cases")["cases"] if item["case_id"] == case_id)
+
+    case_url = f"/api/case/{case_id}"
+    details = run.get_json(f"{case_url}/bundle")
+    assert summary() == details["case_info"]
+    mutation = run.post_json(f"{case_url}/confirm_assumption", {"action": "confirm_all"})
+    assert mutation["admission_status"] == "RELEASE_READY"
+    assert summary() == mutation["bundle"]["case_info"]
+    run.post_json(f"{case_url}/confirm_assumption", {"action": "reset", "assumption_id": "ALL"})
+    assert summary()["admission_status"] == "PROVISIONAL"
+
+    category_path = run.root / "categories" / f"{details['case_info']['category_id']}.yaml"
+    original = category_path.read_bytes()
+    category = yaml.safe_load(original)
+    category["name"] = "Local audit category"
+    try:
+        category_path.write_text(yaml.safe_dump(category, allow_unicode=True), encoding="utf-8")
+        assert summary()["category_name"] == "Local audit category"
+    finally:
+        category_path.write_bytes(original)
+
+
 def verify_regressions(run: VerificationRun) -> int:
     sys.path.insert(0, str(run.root / "backend"))
     checks = (
@@ -244,7 +271,7 @@ def verify_regressions(run: VerificationRun) -> int:
         _reject_unavailable_page, _round_trip_import_update, _keep_frame_timeline_when_sampling,
         _reject_invalid_video_inputs, _decode_direct_video,
         _block_rules_without_handlers, _keep_committed_state_after_write_failure,
-        _persist_concurrent_confirmations,
+        _persist_concurrent_confirmations, _case_summaries_track_state_and_category_changes,
     )
     failures = []
     for check in checks:

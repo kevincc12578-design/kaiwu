@@ -25,6 +25,7 @@ const S = {
   caseSeq: 0,
   bundle: null,
   nodes: new Map(),
+  atoms: new Map(),
   rootId: null,
   gates: null,
   admission: null,
@@ -210,11 +211,11 @@ async function boot() {
   }
 }
 
-async function loadCase(id) {
+async function loadCase(id, suppliedBundle) {
   const mySeq = ++S.caseSeq;
   let b;
   try {
-    b = await api(`/api/case/${encodeURIComponent(id)}/bundle`);
+    b = suppliedBundle ?? await api(`/api/case/${encodeURIComponent(id)}/bundle`);
     if (b.case_id !== id) throw new Error("案例响应与选择不一致");
   } catch (error) {
     if (mySeq !== S.caseSeq) return;
@@ -247,6 +248,14 @@ function applyBundle(b, { fresh = false } = {}) {
   if (b.case_id) { S.caseId = b.case_id; $("#caseSelect").value = b.case_id; syncSelectLabel($("#caseSelect")); }
   const tree = b.eu_tree || {};
   S.nodes = new Map((tree.nodes || []).map((n) => [n.eu_id, n]));
+  S.atoms = new Map();
+  for (const [category, entries] of Object.entries(tree.atomic_registry || {})) {
+    if (entries && typeof entries === "object") {
+      for (const [atomId, atom] of Object.entries(entries)) {
+        S.atoms.set(atomId, { atom_id: atomId, category, ...(atom || {}) });
+      }
+    }
+  }
   S.rootId = tree.root_id || ((tree.nodes || []).find((n) => !n.parent_id) || {}).eu_id;
   S.gates = b.gates;
   S.admission = b.admission_status;
@@ -414,8 +423,6 @@ async function clearSandbox() {
   const reqCase = S.caseId, reqSeq = S.caseSeq;
   const reviewSeq = ++S.reviewSeq;
   try {
-    await post(`/api/case/${encodeURIComponent(reqCase)}/test_rule_gate`, { preset: "reset" });
-    if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     const b = await api(`/api/case/${encodeURIComponent(reqCase)}/bundle`);
     if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     S.sandbox = null;
@@ -703,13 +710,6 @@ function buildLocalExplain(id) {
     if (pn) ancestors.unshift({ eu_id: pn.eu_id, name: pn.name, level: pn.level, adaptation_badge: badgeTextOf(pn) });
   }
   const l4 = [], l5 = [];
-  const reg = (S.bundle.eu_tree && S.bundle.eu_tree.atomic_registry) || {};
-  const atomMap = new Map();
-  Object.entries(reg).forEach(([cat, dict]) => {
-    if (dict && typeof dict === "object") {
-      Object.entries(dict).forEach(([aid, a]) => atomMap.set(aid, { atom_id: aid, category: cat, ...(a || {}) }));
-    }
-  });
   const walkSub = (cid) => {
     const cn = nodeOf(cid);
     if (!cn) return;
@@ -718,7 +718,7 @@ function buildLocalExplain(id) {
       const refs = cn.atom_refs || [];
       if (refs.length) {
         refs.forEach((aid) => {
-          const at = atomMap.get(aid) || { atom_id: aid, name: cn.name };
+          const at = S.atoms.get(aid) || { atom_id: aid, name: cn.name };
           l5.push({ eu_id: cn.eu_id, atom_id: aid, category: at.category, name: at.name || cn.name, value: at.value });
         });
       } else l5.push({ eu_id: cn.eu_id, atom_id: cn.eu_id, name: cn.name });
@@ -1168,7 +1168,7 @@ function bindStatic() {
         S.categories = listData.categories || S.categories;
         renderCaseSelector(res.case_id);
         impDlg.close();
-        await loadCase(res.case_id);
+        await loadCase(res.case_id, res.bundle);
         toast(`解析完成：${res.category_info?.category_name || res.case_id}`);
       } catch (err) {
         $("#impStatus").textContent = err.message || "解析失败";

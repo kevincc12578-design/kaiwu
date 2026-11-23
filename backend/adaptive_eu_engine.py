@@ -15,8 +15,9 @@ import datetime as dt
 import json
 import re
 import tempfile
+from contextlib import nullcontext
 from pathlib import Path
-from typing import Any
+from typing import Any, NamedTuple
 
 import cases_catalog as catalog_mod
 import category_registry as cat_reg
@@ -3102,10 +3103,14 @@ def evaluate_three_layer_gates(
     target_rule_hint: str | None = None,
     forced_admission_override: str | None = None,
     category_id: str | None = None,
+    *,
+    rule_modules: list[dict[str, Any]] | None = None,
+    templates: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], str]:
     """按 modality + scope=all + domain 动态激活 12 条规则并执行真实求值。"""
-    all_modules = load_all_rule_modules()
-    templates = load_all_templates()
+    all_modules = load_all_rule_modules() if rule_modules is None else rule_modules
+    if templates is None:
+        templates = load_all_templates()
     total_lib_rules = sum(len(m.get("rules", [])) for m in all_modules)
 
     active_modules: list[dict[str, Any]] = []
@@ -3257,11 +3262,13 @@ def _get_case_meta(case_id: str) -> dict[str, Any]:
     raise UnknownCaseError(f"Unknown case_id: {case_id}")
 
 
-def get_counterfactual_presets(case_id: str | None = None) -> list[dict[str, Any]]:
+def get_counterfactual_presets(
+    case_id: str | None = None, *, rule_modules: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     presets: list[dict[str, Any]] = []
     all_meta = _get_all_case_meta()
     all_case_ids = list(all_meta.keys())
-    for mod in load_all_rule_modules():
+    for mod in load_all_rule_modules() if rule_modules is None else rule_modules:
         layer = str(mod["layer"])
         rk = mod.get("route_key")
         if rk == "modality":
@@ -3556,7 +3563,6 @@ def build_eu_tree_for_case(case_id: str) -> dict[str, Any]:
 
 
 def _build_raw_case_components(case_id: str, persist_skeleton: bool = False) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]], dict[str, Any]]:
-    _get_case_meta(case_id)
     skeleton = skel_mod.extract_case_skeleton(case_id, persist=persist_skeleton)
     eu_tree = build_eu_tree_for_case(case_id)
     assumptions = get_case_assumptions(case_id)
@@ -3564,18 +3570,28 @@ def _build_raw_case_components(case_id: str, persist_skeleton: bool = False) -> 
     return skeleton, eu_tree, assumptions, readback
 
 
-def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
-    """构建并返回指定案例的完整 inspection_bundle.json 结构。"""
-    if case_id not in CASE_META:
-        with parsers_mod.CASE_FILES_LOCK:
-            return _build_case_bundle(case_id, persist)
-    return _build_case_bundle(case_id, persist)
+class _CaseLibrary(NamedTuple):
+    rule_modules: list[dict[str, Any]]
+    templates: dict[str, dict[str, Any]]
+    categories: dict[str, dict[str, Any]]
 
 
-def _build_case_bundle(case_id: str, persist: bool) -> dict[str, Any]:
+def _load_case_library(categories: dict[str, dict[str, Any]] | None = None) -> _CaseLibrary:
+    return _CaseLibrary(
+        load_all_rule_modules(), load_all_templates(),
+        cat_reg.load_categories() if categories is None else categories,
+    )
+
+
+def _case_read_scope(case_id: str):
+    # Imported case paths can change together while a new snapshot is published.
+    return nullcontext() if case_id in CASE_META else parsers_mod.CASE_FILES_LOCK
+
+
+def _evaluate_case(case_id: str, library: _CaseLibrary, persist_skeleton: bool = False) -> dict[str, Any]:
     meta = _get_case_meta(case_id)
-    cat_info = cat_reg.get_case_category(case_id, meta)
-    skeleton, eu_tree, assumptions, readback = _build_raw_case_components(case_id, persist_skeleton=persist)
+    cat_info = cat_reg.get_case_category(case_id, meta, categories=library.categories)
+    skeleton, eu_tree, assumptions, readback = _build_raw_case_components(case_id, persist_skeleton=persist_skeleton)
     gates, admission = evaluate_three_layer_gates(
         modality=meta["modality"],
         domain=meta["domain"],
@@ -3584,11 +3600,11 @@ def _build_case_bundle(case_id: str, persist: bool) -> dict[str, Any]:
         assumptions=assumptions,
         readback=readback,
         category_id=cat_info["category_id"],
+        rule_modules=library.rule_modules,
+        templates=library.templates,
     )
     open_cnt = sum(1 for a in assumptions if a.get("status") == "open")
     rule_summary = " → ".join(f"{l['prefix']} {l['passed']}/{l['total']}" for l in gates["layers"])
-    category_audit = cat_reg.evaluate_category_audit(cat_info["category_id"], skeleton, eu_tree, readback)
-
     case_info = {
         **meta,
         "category_id": cat_info["category_id"],
@@ -3600,7 +3616,7 @@ def _build_case_bundle(case_id: str, persist: bool) -> dict[str, Any]:
         "total_assumptions_count": len(assumptions),
         "active_rule_summary": rule_summary,
     }
-    bundle = {
+    return {
         "status": "OK",
         "version": WORKBENCH_VERSION,
         "schema_version": SCHEMA_VERSION,
@@ -3609,20 +3625,41 @@ def _build_case_bundle(case_id: str, persist: bool) -> dict[str, Any]:
         "open_assumptions_count": open_cnt,
         "stage_url": meta["stage_url"],
         "case_info": case_info,
-        "category_audit": category_audit,
         "skeleton": skeleton,
         "eu_tree": eu_tree,
         "gates": gates,
         "assumptions": assumptions,
         "readback": readback,
-        "counterfactual_presets": get_counterfactual_presets(case_id),
-        "error_ledger": load_error_ledger(),
     }
 
-    if persist and case_id != "web_fixture":
-        out_path = CASES_DIR / case_id / "inspection_bundle.json"
-        _write_json_atomically(out_path, bundle)
-    return bundle
+
+def build_case_summaries(
+    case_ids: list[str], *, categories: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """Evaluate each case with one shared rule, template and category snapshot."""
+    library = _load_case_library(categories)
+    summaries = []
+    for case_id in case_ids:
+        with _case_read_scope(case_id):
+            summaries.append(_evaluate_case(case_id, library)["case_info"])
+    return summaries
+
+
+def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
+    """构建并返回指定案例的完整 inspection_bundle.json 结构。"""
+    library = _load_case_library()
+    with _case_read_scope(case_id):
+        bundle = _evaluate_case(case_id, library, persist_skeleton=persist)
+        bundle["category_audit"] = cat_reg.evaluate_category_audit(
+            bundle["case_info"]["category_id"], bundle["skeleton"], bundle["eu_tree"], bundle["readback"],
+            categories=library.categories,
+        )
+        bundle["counterfactual_presets"] = get_counterfactual_presets(case_id, rule_modules=library.rule_modules)
+        bundle["error_ledger"] = load_error_ledger()
+        if persist and case_id != "web_fixture":
+            out_path = CASES_DIR / case_id / "inspection_bundle.json"
+            _write_json_atomically(out_path, bundle)
+        return bundle
 
 
 def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
@@ -3696,7 +3733,9 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
 
 def explain_eu_node(case_id: str, eu_id: str) -> dict[str, Any]:
     """组装指定 EU 节点的向上祖先链 (L0->parent)、向下特征/L5原子链、横向交互边与关联假设。"""
-    bundle = build_case_bundle(case_id, persist=False)
+    library = _load_case_library()
+    with _case_read_scope(case_id):
+        bundle = _evaluate_case(case_id, library)
     eu_tree = bundle["eu_tree"]
     by_id = {n["eu_id"]: n for n in eu_tree["nodes"]}
     if eu_id not in by_id:
