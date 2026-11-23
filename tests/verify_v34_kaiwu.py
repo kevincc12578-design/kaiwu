@@ -652,6 +652,39 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
             expect(page.locator("#statusPill")).to_contain_text("PROVISIONAL", timeout=15000)
             ctx.record_pass(cat, "ui_counterfactual_blocked_reset", "浏览器端触发 GU-03 反事实 BLOCKED 横幅归因并成功复位")
 
+            # 同一案例连续操作时，慢响应不能覆盖最后一次选择。
+            slow = "violate_GU03_missing_proximity_magnify"
+            recent = "violate_GU04_defensive_microcopy"
+            endpoint = "**/api/case/code_xr_uiux/test_rule_gate"
+            delayed = []
+
+            def order_response(route):
+                if route.request.post_data_json["preset"] == slow:
+                    delayed.append(route)
+                else:
+                    route.continue_()
+
+            page.route(endpoint, order_response)
+            with page.expect_request(lambda req: req.url.endswith("/test_rule_gate") and req.post_data_json["preset"] == slow):
+                page.evaluate("(preset) => { window.slowVerificationRequest = injectPreset(preset); }", slow)
+            page.evaluate("(preset) => injectPreset(preset)", recent)
+            expect(page.locator("#banner")).to_contain_text("GU-04")
+            assert len(delayed) == 1
+            delayed[0].continue_()
+            page.evaluate("window.slowVerificationRequest")
+            expect(page.locator("#presetSelect")).to_have_value(recent, timeout=1000)
+            expect(page.locator("#banner")).to_contain_text("GU-04", timeout=1000)
+            page.unroute(endpoint, order_response)
+            ctx.record_pass(cat, "same_case_request_order", "乱序返回后保留最新反事实预设")
+
+            bundle_endpoint = "**/api/case/code_xr_poster/bundle"
+            page.route(bundle_endpoint, lambda route: route.fulfill(json={"status": "ERROR", "message": "验证用加载失败"}))
+            page.locator("#caseSelect").select_option("code_xr_poster")
+            expect(page.locator("#caseSelect")).to_have_value("code_xr_uiux", timeout=5000)
+            expect(page.locator("#modalChip")).to_contain_text("VIDEO")
+            page.unroute(bundle_endpoint)
+            ctx.record_pass(cat, "case_failure_keeps_last_bundle", "加载失败时选择器和舞台保留同一案例")
+
             # 5.5 切换 code_xr_poster 平面设计案例 + 网格预览 + 全假设签认 RELEASE_READY
             page.locator("#caseSelect").select_option("code_xr_poster")
             expect(page.locator("#modalChip")).to_contain_text("IMAGE", timeout=15000)

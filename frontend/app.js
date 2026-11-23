@@ -30,6 +30,7 @@ const S = {
   admission: null,
   readback: null,
   sandbox: null,
+  reviewSeq: 0,
   selected: null,
   explainSeq: 0,
   open: new Set(),
@@ -211,9 +212,23 @@ async function boot() {
 
 async function loadCase(id) {
   const mySeq = ++S.caseSeq;
+  let b;
+  try {
+    b = await api(`/api/case/${encodeURIComponent(id)}/bundle`);
+    if (b.case_id !== id) throw new Error("案例响应与选择不一致");
+  } catch (error) {
+    if (mySeq !== S.caseSeq) return;
+    if (S.caseId) {
+      $("#caseSelect").value = S.caseId;
+      syncSelectLabel($("#caseSelect"));
+    }
+    throw error;
+  }
+  if (mySeq !== S.caseSeq) return;
   S.caseId = id;
   S.sandbox = null;
   S.selected = null;
+  S.pendingHighlight = null;
   S.segIdx = 0;
   S.query = "";
   S.explainSeq++;
@@ -223,8 +238,6 @@ async function loadCase(id) {
   $("#explain").hidden = true;
   $("#explain").innerHTML = "";
   history.replaceState(null, "", `?case=${encodeURIComponent(id)}`);
-  const b = await api(`/api/case/${encodeURIComponent(id)}/bundle`);
-  if (mySeq !== S.caseSeq) return;
   applyBundle(b, { fresh: true });
 }
 
@@ -374,12 +387,12 @@ function renderPresets() {
 }
 
 async function injectPreset(preset) {
-  if (!preset) return clearSandbox(Boolean(S.sandbox));
+  if (!preset || preset === "reset") return clearSandbox();
   const reqCase = S.caseId, reqSeq = S.caseSeq;
+  const reviewSeq = ++S.reviewSeq;
   try {
     const r = await post(`/api/case/${encodeURIComponent(reqCase)}/test_rule_gate`, { preset });
-    if (S.caseId !== reqCase || S.caseSeq !== reqSeq) return;
-    if (preset === "reset") return clearSandbox(false);
+    if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     $("#presetSelect").value = preset;
     syncSelectLabel($("#presetSelect"));
     S.sandbox = { preset, result: r };
@@ -392,22 +405,27 @@ async function injectPreset(preset) {
       const first = (r.violated_node_ids || []).find((id) => nodeOf(id));
       if (first) selectEu(first, { from: "banner", scroll: true });
     } else toast("沙盒求值通过");
-  } catch (e) { toast(e.message, true); }
+  } catch (e) {
+    if (S.caseSeq === reqSeq && S.reviewSeq === reviewSeq) toast(e.message, true);
+  }
 }
 
-async function clearSandbox(callApi = true) {
+async function clearSandbox() {
   const reqCase = S.caseId, reqSeq = S.caseSeq;
+  const reviewSeq = ++S.reviewSeq;
   try {
-    if (callApi) await post(`/api/case/${encodeURIComponent(reqCase)}/test_rule_gate`, { preset: "reset" });
-    if (S.caseId !== reqCase || S.caseSeq !== reqSeq) return;
+    await post(`/api/case/${encodeURIComponent(reqCase)}/test_rule_gate`, { preset: "reset" });
+    if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
+    const b = await api(`/api/case/${encodeURIComponent(reqCase)}/bundle`);
+    if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     S.sandbox = null;
     $("#presetSelect").value = "";
     syncSelectLabel($("#presetSelect"));
-    const b = await api(`/api/case/${encodeURIComponent(reqCase)}/bundle`);
-    if (S.caseId !== reqCase || S.caseSeq !== reqSeq) return;
     applyBundle(b);
     toast("门禁已复位");
-  } catch (e) { toast(e.message, true); }
+  } catch (e) {
+    if (S.caseSeq === reqSeq && S.reviewSeq === reviewSeq) toast(e.message, true);
+  }
 }
 
 /* ---------------- 底部水平骨架测绘坞 (#paneLeft) ---------------- */
@@ -874,17 +892,23 @@ async function renderLedger() {
 
 async function confirmAssumption(action, assumption_id) {
   const reqCase = S.caseId, reqSeq = S.caseSeq;
+  const reviewSeq = ++S.reviewSeq;
   try {
     const body = { action, assumption_id: assumption_id || "all" };
     const r = await post(`/api/case/${encodeURIComponent(reqCase)}/confirm_assumption`, body);
-    if (S.caseId !== reqCase || S.caseSeq !== reqSeq) return;
+    if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     S.sandbox = null;
     $("#presetSelect").value = "";
     syncSelectLabel($("#presetSelect"));
     if (r.bundle) applyBundle(r.bundle); else await loadCase(reqCase);
     const n = r.open_assumptions_count ?? openCount();
-    toast(action === "reset" ? `已重置 · 待确认假设 ${n}` : n === 0 ? "全部签认 · RELEASE_READY" : `已确认 · 待确认假设 ${n}`);
-  } catch (e) { toast(e.message, true); }
+    let notice = action === "reset" ? `已重置 · 待确认假设 ${n}` : `已确认 · 待确认假设 ${n}`;
+    if (r.admission_status === "BLOCKED") notice += " · BLOCKED";
+    else if (r.admission_status === "RELEASE_READY") notice = "全部签认 · RELEASE_READY";
+    toast(notice);
+  } catch (e) {
+    if (S.caseSeq === reqSeq && S.reviewSeq === reviewSeq) toast(e.message, true);
+  }
 }
 
 /* ---------------- 右上方超大主舞台 (#paneRight) ---------------- */
@@ -938,7 +962,7 @@ function loadFrame() {
 }
 function sendFrame(msg) {
   const f = frame();
-  if (f && f.contentWindow) f.contentWindow.postMessage(msg, "*");
+  if (f && f.contentWindow) f.contentWindow.postMessage(msg, location.origin);
 }
 function postHighlight(id) {
   S.pendingHighlight = id;
@@ -1186,7 +1210,7 @@ function bindStatic() {
     const v = e.target.value;
     $("#injectBtn").disabled = !v;
     if (v) injectPreset(v);
-    else if (S.sandbox) clearSandbox();
+    else clearSandbox();
   });
   $("#injectBtn").addEventListener("click", () => injectPreset($("#presetSelect").value));
   $("#resetBtn").addEventListener("click", () => clearSandbox());
@@ -1301,9 +1325,13 @@ function bindStatic() {
     S.frameLoaded = true;
     fitStage();
     const id = S.pendingHighlight || S.selected;
-    if (id) setTimeout(() => postHighlight(id), 220);
+    const caseSeq = S.caseSeq;
+    if (id) setTimeout(() => {
+      if (caseSeq === S.caseSeq && id === S.selected) postHighlight(id);
+    }, 220);
   });
   window.addEventListener("message", (e) => {
+    if (e.source !== frame().contentWindow || e.origin !== location.origin) return;
     const d = e.data;
     if (!d || typeof d !== "object") return;
     if (d.type === "KAIWU_SELECT_EU" && d.eu_id) {
