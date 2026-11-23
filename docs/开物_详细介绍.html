@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>开物 · Kaiwu Adaptive-EU Design Workbench 详细介绍</title>
+<style>
+:root{
+  --paper:#f6f2ea; --paper2:#efe9dd; --card:#fffdf8; --ink:#1d1a16; --ink2:#4a443b; --mute:#8a8273;
+  --line:#e2dacb; --line2:#d3c8b4; --accent:#4636a8; --accent-soft:#ece9fb; --coral:#e9644e; --coral-soft:#fdece8;
+  --green:#1f8a5b; --green-soft:#e5f4ec; --amber:#b7791f; --amber-soft:#fbf1dc; --red:#c0392b; --red-soft:#fbe6e3;
+  --mono:"JetBrains Mono","Cascadia Code",Consolas,"SFMono-Regular",monospace;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.75 var(--sans);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+code,.mono{font-family:var(--mono);font-size:.86em}
+code{background:var(--paper2);border:1px solid var(--line);padding:1px 6px;border-radius:5px;white-space:nowrap}
+a{color:var(--accent);text-decoration:none}
+/* layout */
+.layout{display:grid;grid-template-columns:248px minmax(0,1fr);max-width:1440px;margin:0 auto}
+nav.toc{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 18px 28px 26px;border-right:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--ink);display:grid;place-items:center;color:var(--paper);font-weight:800;font-size:17px}
+.brand b{font-size:17px;letter-spacing:.04em}
+.brand span{display:block;font:11px var(--mono);color:var(--mute)}
+nav.toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+nav.toc li{counter-increment:t}
+nav.toc a{display:flex;gap:10px;padding:6px 10px;border-radius:8px;color:var(--ink2);font-size:13.5px;line-height:1.4}
+nav.toc a::before{content:counter(t,decimal-leading-zero);font:11px/1.9 var(--mono);color:var(--mute)}
+nav.toc a:hover{background:var(--paper2)}
+nav.toc a.on{background:var(--ink);color:var(--paper)}
+nav.toc a.on::before{color:#b9b0a0}
+main{padding:0 56px 120px;min-width:0}
+section{padding:72px 0 8px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.eyebrow{font:12px var(--mono);letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
+h2{font-size:30px;line-height:1.25;margin:0 0 14px;letter-spacing:.01em}
+h3{font-size:19px;margin:36px 0 12px}
+p{margin:0 0 14px;color:var(--ink2)}
+.lead{font-size:17px;color:var(--ink2);max-width:860px}
+/* hero */
+.hero{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+.hero .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.tag{font:12px var(--mono);padding:4px 10px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tag.v{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.hero h1{font-size:54px;line-height:1.1;margin:0 0 6px;letter-spacing:.02em}
+.hero h1 small{display:block;font-size:20px;font-weight:500;color:var(--mute);letter-spacing:.02em;margin-top:10px}
+.hero .slogan{font-size:22px;font-weight:600;margin:26px 0 12px;max-width:900px;line-height:1.55}
+.hero .slogan em{font-style:normal;background:linear-gradient(transparent 62%,#d9d3fb 0)}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:30px 0 34px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat b{display:block;font:700 28px/1.2 var(--mono);color:var(--ink)}
+.stat span{font-size:12.5px;color:var(--mute)}
+/* figures */
+figure{margin:22px 0 26px}
+.shot{border-radius:14px;overflow:hidden;border:1px solid var(--line2);background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.03),0 18px 40px -22px rgba(40,30,10,.35);cursor:zoom-in}
+.shot img{width:100%}
+figcaption{font-size:13px;color:var(--mute);margin-top:10px;display:flex;gap:8px;align-items:baseline}
+figcaption b{font:600 11px var(--mono);color:var(--accent);letter-spacing:.06em}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:start}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h4{margin:0 0 6px;font-size:15.5px}
+.card p{margin:0;font-size:13.5px}
+.pain{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.pain .card{position:relative;padding-top:16px}
+.pain .x{font:12px var(--mono);color:var(--red);margin-bottom:6px}
+.pain .fix{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line2);font-size:13px;color:var(--green)}
+.pain .fix code{background:var(--green-soft);border-color:#cde9d9;color:var(--green)}
+/* tables */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13.5px;margin:14px 0 22px}
+.tbl th{background:var(--paper2);text-align:left;font-weight:600;color:var(--ink2);padding:10px 14px;border-bottom:1px solid var(--line);font-size:12.5px}
+.tbl td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink2)}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td:first-child{white-space:nowrap}
+/* flow */
+.flow{display:flex;align-items:stretch;gap:0;margin:26px 0 10px;overflow-x:auto;padding-bottom:6px}
+.flow .st{flex:1 0 128px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 12px 14px;position:relative}
+.flow .st .n{font:11px var(--mono);color:var(--mute)}
+.flow .st b{display:block;font-size:14px;margin:2px 0 4px}
+.flow .st span{font-size:12px;color:var(--mute);line-height:1.5;display:block}
+.flow .ar{flex:0 0 26px;display:grid;place-items:center;color:var(--line2);font-size:18px}
+.flow .st.hl{background:var(--ink);border-color:var(--ink)}
+.flow .st.hl b{color:var(--paper)} .flow .st.hl span,.flow .st.hl .n{color:#b9b0a0}
+.states{display:flex;gap:12px;margin:14px 0}
+.pill{font:600 12px var(--mono);padding:5px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.r{background:var(--red-soft);color:var(--red)} .pill.a{background:var(--amber-soft);color:var(--amber)} .pill.g{background:var(--green-soft);color:var(--green)}
+/* Y diagram */
+.ydia{display:grid;grid-template-columns:1fr 80px 1fr 80px 1fr;align-items:center;margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+.ycol{display:flex;flex-direction:column;gap:10px}
+.ycol .lab{font:11px var(--mono);color:var(--mute);letter-spacing:.08em;margin-bottom:2px}
+.ybox{border-radius:12px;padding:12px 14px;border:1.5px solid}
+.ybox b{font:700 14px var(--mono)} .ybox span{display:block;font-size:12.5px;color:var(--ink2)}
+.yP{border-color:#b8c7f0;background:#eef2fd} .yP b{color:#2f53b8}
+.yG{border-color:#c9bff2;background:var(--accent-soft)} .yG b{color:var(--accent)}
+.yO{border-color:#f2c3b8;background:var(--coral-soft)} .yO b{color:#c24b35}
+.yarr svg{width:100%;height:190px}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+.rmod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.rmod h5{margin:0 0 8px;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
+.rmod h5 code{font-size:11px}
+.rmod ul{margin:0;padding:0;list-style:none}
+.rmod li{display:flex;gap:10px;font-size:13px;padding:5px 0;border-top:1px dashed var(--line);color:var(--ink2);line-height:1.5}
+.rmod li:first-child{border-top:0}
+.rmod li i{font:600 11.5px/1.75 var(--mono);font-style:normal;color:var(--accent);flex:0 0 44px}
+.rmod.p li i{color:#2f53b8} .rmod.o li i{color:#c24b35}
+/* tree */
+.tree{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:13.5px}
+.lv{display:flex;align-items:center;gap:10px;padding:5px 0}
+.lv i{font:600 11px var(--mono);font-style:normal;padding:2px 7px;border-radius:5px;background:var(--paper2);color:var(--ink2);border:1px solid var(--line)}
+.lv .bd{font:11px var(--mono);padding:1px 7px;border-radius:5px;margin-left:auto}
+.bd.s{background:#fff1d6;color:#a5650b}.bd.f{background:var(--green-soft);color:var(--green)}.bd.a{background:var(--accent-soft);color:var(--accent)}.bd.t{background:#eef2fd;color:#2f53b8}
+.edges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.edge{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.edge code{display:inline-block;background:var(--accent-soft);border-color:#d8d2f7;color:var(--accent);font-size:11.5px;margin-bottom:6px}
+.edge p{margin:0;font-size:13px}
+.edge small{display:block;color:var(--mute);font-size:12px;margin-top:4px}
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:20px 0}
+.tl .seg{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:zoom-in}
+.tl .seg img{aspect-ratio:3/4;object-fit:cover;object-position:top;width:100%;background:#222}
+.tl .seg div{padding:8px 10px}
+.tl .seg b{font:600 11.5px var(--mono);display:block;color:var(--accent)}
+.tl .seg span{font-size:12.5px;color:var(--ink2)}
+.bar{display:flex;height:10px;border-radius:999px;overflow:hidden;margin-top:6px}
+.bar span{display:block}
+/* cases */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.filters button{font:13px var(--sans);border:1px solid var(--line2);background:var(--card);padding:6px 14px;border-radius:999px;cursor:pointer;color:var(--ink2)}
+.filters button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.case .imgs{position:relative;aspect-ratio:16/10;background:#ddd;overflow:hidden;cursor:zoom-in}
+.case .imgs img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .35s}
+.case .imgs img.ref{opacity:0}
+.case .imgs:hover img.ref{opacity:1}
+.case .imgs .hint{position:absolute;left:10px;bottom:10px;font:11px var(--mono);background:rgba(20,18,14,.78);color:#fff;padding:3px 8px;border-radius:6px;z-index:2}
+.case .imgs:hover .hint::after{content:" · 参考源"}
+.case .imgs .hint::after{content:" · 生成产物"}
+.case .body{padding:12px 14px 14px}
+.case h4{margin:0;font-size:14.5px}
+.case .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.case .meta span{font:11px var(--mono);padding:2px 7px;border-radius:5px;background:var(--paper2);color:var(--ink2)}
+.case .meta span.m-video{background:#fdecef;color:#b5304f}.case .meta span.m-image{background:#fff1d6;color:#a5650b}.case .meta span.m-web{background:#eef2fd;color:#2f53b8}
+.case p{font-size:12.5px;margin:8px 0 0;color:var(--mute)}
+.featured{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;margin:18px 0 30px}
+/* misc */
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 10px 10px 0;margin:18px 0;color:var(--ink2);font-size:14px}
+.callout.warn{border-color:var(--coral);background:var(--coral-soft)}
+pre{background:#1d1a16;color:#efe9dd;padding:16px 18px;border-radius:12px;overflow:auto;font:13px/1.7 var(--mono)}
+pre .c{color:#8a8273}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+.cat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.cat .hd{display:flex;justify-content:space-between;align-items:center}
+.cat .hd b{font-size:14.5px}
+.cat .hd span{font:11px var(--mono);color:var(--mute)}
+.cat p{font-size:13px;margin:6px 0 8px}
+.cat .n{font:600 12px var(--mono);color:var(--accent)}
+.chk{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0}
+.chk .card b{font:700 26px var(--mono);color:var(--green)}
+.chk .card span{display:block;font-size:12.5px;color:var(--mute)}
+.res{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.res .card{padding:14px 16px}
+.res .card i{font:600 11px var(--mono);font-style:normal;color:var(--mute)}
+.res .card h4{font-size:14px;margin:4px 0 8px}
+.res .card code{background:var(--accent-soft);border-color:#d8d2f7;color:var(--accent)}
+footer{padding:40px 0 0;color:var(--mute);font-size:12.5px}
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(20,17,12,.88);display:none;align-items:center;justify-content:center;z-index:99;padding:30px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:96vw;max-height:88vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+#lb p{position:fixed;bottom:18px;left:0;right:0;text-align:center;color:#e8e1d3;font-size:13px;margin:0}
+@media (max-width:1100px){
+  .layout{grid-template-columns:1fr} nav.toc{display:none} main{padding:0 22px 80px}
+  .stats{grid-template-columns:repeat(3,1fr)} .pain,.res{grid-template-columns:1fr 1fr}
+  .cases,.rules,.cats,.edges,.grid3{grid-template-columns:1fr 1fr} .chk{grid-template-columns:repeat(3,1fr)}
+  .split,.featured,.grid2{grid-template-columns:1fr} .tl{grid-template-columns:repeat(3,1fr)}
+  .ydia{grid-template-columns:1fr;gap:10px} .yarr{display:none} .hero h1{font-size:40px}
+}
+@media (max-width:640px){.cases,.rules,.cats,.edges,.grid3,.pain,.res{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+@media print{nav.toc{display:none}.layout{grid-template-columns:1fr}section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+  <div class="brand"><div class="logo">物</div><div><b>开物 Kaiwu</b><span>v3.4.0 · 详细介绍</span></div></div>
+  <ol id="tocList">
+    <li><a href="#s-intro">一句话定位</a></li>
+    <li><a href="#s-pain">要解决的问题</a></li>
+    <li><a href="#s-flow">整体工作流</a></li>
+    <li><a href="#s-bench">检验工作台</a></li>
+    <li><a href="#s-rules">三层正交规则</a></li>
+    <li><a href="#s-tree">自适应语义树</a></li>
+    <li><a href="#s-honest">诚实放行</a></li>
+    <li><a href="#s-cf">反事实沙盒</a></li>
+    <li><a href="#s-readback">生成侧回检</a></li>
+    <li><a href="#s-baseline">主基线 Code XR</a></li>
+    <li><a href="#s-cases">21 个案例</a></li>
+    <li><a href="#s-parse">分类与解析</a></li>
+    <li><a href="#s-api">接口与 AI 工具</a></li>
+    <li><a href="#s-ledger">残差台账</a></li>
+    <li><a href="#s-qa">质量验收</a></li>
+    <li><a href="#s-start">快速开始</a></li>
+  </ol>
+</nav>
+
+<main>
+<!-- HERO -->
+<header class="hero" id="s-intro">
+  <div class="tags"><span class="tag v">v3.4.0</span><span class="tag">本地离线 · 零构建</span><span class="tag">端口 4340</span><span class="tag">录屏 / 静图 / 网页 → UI/UX / 平面</span></div>
+  <h1>开物<small>Kaiwu Adaptive-EU Design Workbench · 自适应设计单元工作台</small></h1>
+  <p class="slogan">先拆解、再生成、全程可证伪——把录屏、静图或网页解析成同一棵 <em>L0~L5 自适应语义树</em>，经 <em>三层正交规则门禁</em> 逐条把关后，产出可编辑、可交互、可回检的 UI 网页或平面印刷稿。</p>
+  <p class="lead">开物不只回答"做出来了没有"，更回答"<b>做得对不对、凭什么、哪里还没确认</b>"。每一个产物元素都能追溯到源素材里的证据，每一条规则都能被故意制造的错误验证真的会拦截。</p>
+  <div class="stats">
+    <div class="stat"><b>24</b><span>条 BLOCKER 规则</span></div>
+    <div class="stat"><b>12</b><span>条/项目动态激活</span></div>
+    <div class="stat"><b>6</b><span>级语义树 L0~L5</span></div>
+    <div class="stat"><b>6</b><span>大产品品类</span></div>
+    <div class="stat"><b>21</b><span>个复刻案例</span></div>
+    <div class="stat"><b>59/59</b><span>验收项通过</span></div>
+  </div>
+  <figure><div class="shot"><img src="intro_assets/wb_tree.jpg" alt="开物工作台总览"></div>
+  <figcaption><b>FIG.01</b>开物检验工作台：左侧自适应 EU 树，中间是实时运行的复刻产物，底部为录屏六时段骨架测绘坞。</figcaption></figure>
+</header>
+
+<!-- PAIN -->
+<section id="s-pain">
+  <div class="eyebrow">01 · Why</div>
+  <h2>它要解决什么问题</h2>
+  <p class="lead">"照着参考做一版界面"时，真正的失败往往不是做不出来，而是<b>做出来了却说不清对不对</b>。下面 8 个问题全部来自真实项目过程，开物为每一个都配了一条会自动拦截的硬规则。</p>
+  <div class="pain" id="painGrid"></div>
+</section>
+
+<!-- FLOW -->
+<section id="s-flow">
+  <div class="eyebrow">02 · How</div>
+  <h2>整体工作流</h2>
+  <p class="lead">任何输入都先变成同一种中间表示（EU 树 + 横向边 + 原子注册表），再经过同一套规则引擎判定，最后由独立回检确认产物真的兑现了语义。</p>
+  <div class="flow">
+    <div class="st"><span class="n">01</span><b>源输入</b><span>录屏 / 静图 / 网页 URL</span></div><div class="ar">→</div>
+    <div class="st"><span class="n">02</span><b>骨架测绘</b><span>本地解析器提取几何、时段、色彩</span></div><div class="ar">→</div>
+    <div class="st"><span class="n">03</span><b>品类识别</b><span>6 大产品品类路由</span></div><div class="ar">→</div>
+    <div class="st"><span class="n">04</span><b>模板锚定</b><span>4 大 L1 领地打底</span></div><div class="ar">→</div>
+    <div class="st"><span class="n">05</span><b>自适应伸缩</b><span>分裂 / 折叠 / 裁剪 / 挂载</span></div><div class="ar">→</div>
+    <div class="st hl"><span class="n">06</span><b>三层门禁</b><span>解析 → 总规则 → 生成</span></div><div class="ar">→</div>
+    <div class="st"><span class="n">07</span><b>生成产物</b><span>真 DOM 网页 / 矢量平面稿</span></div><div class="ar">→</div>
+    <div class="st"><span class="n">08</span><b>独立回检</b><span>扫描产物源码回灌门禁</span></div>
+  </div>
+  <p>最终给出三态之一的准入结论：</p>
+  <div class="states"><span class="pill r">BLOCKED · 任一规则失败</span><span class="pill a">PROVISIONAL · 通过但仍有未签认假设</span><span class="pill g">RELEASE_READY · 可交付</span></div>
+  <h3>核心概念速览</h3>
+  <table class="tbl">
+    <tr><th>概念</th><th>含义</th></tr>
+    <tr><td><b>EU</b> 设计单元</td><td>被识别、约束、生成、回检的最小语义单元；<code>eu_id</code> 全局唯一，同时是产物 DOM 的 <code>data-eu-id</code>。</td></tr>
+    <tr><td><b>L0~L5</b> 六级树</td><td>产品 → 领地 → 区域 → 组件 → 特征 → 原子；单父、父子层级差恰为 1、直接子数 ≤ 7。</td></tr>
+    <tr><td><b>横向边</b></td><td>交互与联动只走 6 类白名单边，不进入纵向包含树。</td></tr>
+    <tr><td><b>原子注册表</b></td><td>L5 原子的唯一来源，分 surface / typography / layout / motion / evidence 五区段，节点与原子双向索引。</td></tr>
+    <tr><td><b>骨架</b></td><td>源输入的几何与时间测绘：视口、时段、包络框、裁切变换、噪声区、观测值。</td></tr>
+    <tr><td><b>假设</b></td><td>素材无法证实、但生成时必须先定下来的内容，须显式登记并人工签认。</td></tr>
+  </table>
+</section>
+
+<!-- WORKBENCH -->
+<section id="s-bench">
+  <div class="eyebrow">03 · Workbench</div>
+  <h2>检验工作台：三窗格联动</h2>
+  <p class="lead">零构建的原生 HTML/CSS/JS，离线可用。"宣纸瑞士"风格的三窗格把<b>源素材、语义树与门禁、真实产物</b>放在同一屏，任意一处点选，另外两处同步高亮。</p>
+  <div class="grid2">
+    <figure><div class="shot"><img src="intro_assets/wb_gates.jpg" alt="三层规则门禁"></div><figcaption><b>FIG.02</b>「三层规则」页签：本项目激活的 12 条规则逐条显示结果与度量值，每条可一键"演练"。</figcaption></figure>
+    <figure><div class="shot"><img src="intro_assets/wb_ledger.jpg" alt="假设与台账"></div><figcaption><b>FIG.03</b>「假设与台账」页签：未签认假设可逐条确认或全部签认，下方为 RES-KW 残差台账。</figcaption></figure>
+  </div>
+  <table class="tbl">
+    <tr><th>区域</th><th>内容</th></tr>
+    <tr><td>顶栏</td><td>案例切换、"解析 URL"导入、三层门禁计数、准入状态、反事实沙盒（注入 / 复位）、自检</td></tr>
+    <tr><td>左窗格</td><td>自适应 EU 树（可搜索、带"分裂 / 折叠 / L5"徽标）· 三层规则 · 假设与台账</td></tr>
+    <tr><td>右上舞台</td><td>iframe 内嵌可交互产物；桌面 / 390px、正常 / 邻近放大 / Analytics 状态切换，并排对照、全高舞台</td></tr>
+    <tr><td>底部测绘坞</td><td>源素材缩略图、骨架 / bbox / 时间轴图层开关、分段时间轴与当前时段激活 EU</td></tr>
+  </table>
+  <div class="grid2">
+    <figure><div class="shot"><img src="intro_assets/wb_import.jpg" alt="URL 导入"></div><figcaption><b>FIG.04</b>真机 URL 三断点自动解析：无头 Chromium 在 1440/768/390px 实测并自动分类。</figcaption></figure>
+    <figure><div class="shot"><img src="intro_assets/wb_xray.jpg" alt="自举审计"></div><figcaption><b>FIG.05</b>自举审计：工作台用自己的 EU 体系审计自己——73 个节点、DOM 溯源 100%、7 条横向边。</figcaption></figure>
+  </div>
+  <div class="callout">联动协议：父窗口 → iframe 发送 <code>KAIWU_HIGHLIGHT_EU</code> / <code>KAIWU_PREVIEW_ACTION</code>；iframe → 父窗口回传 <code>KAIWU_SELECT_EU</code>，随即请求 <code>/explain/{eu_id}</code> 刷新解释链（祖先、L4 特征、L5 原子、横向边、假设、绑定规则）。</div>
+</section>
+
+<!-- RULES -->
+<section id="s-rules">
+  <div class="eyebrow">04 · Rules</div>
+  <h2>Y 型三层正交规则体系</h2>
+  <p class="lead">规则按 <b>输入模态 × 通用约束 × 输出领域</b> 三层正交组织：三种输入汇入同一层总规则，再分流到两种输出领域。全库 24 条，每个项目只激活与其路由匹配的 12 条。</p>
+  <div class="ydia">
+    <div class="ycol"><div class="lab">第一层 · 解析（按模态三选一）</div>
+      <div class="ybox yP"><b>PV</b><span>视频 · parsing_video.yaml</span></div>
+      <div class="ybox yP"><b>PI</b><span>图片 · parsing_image.yaml</span></div>
+      <div class="ybox yP"><b>PW</b><span>网页 · parsing_web.yaml</span></div></div>
+    <div class="yarr"><svg viewBox="0 0 80 190"><path d="M0 32 C40 32 40 95 80 95M0 95 H80M0 158 C40 158 40 95 80 95" fill="none" stroke="#c9bff2" stroke-width="2"/></svg></div>
+    <div class="ycol"><div class="lab">第二层 · 总规则（恒激活）</div>
+      <div class="ybox yG" style="padding:26px 16px"><b>GN</b><span>general_rules.yaml · scope = all</span></div></div>
+    <div class="yarr"><svg viewBox="0 0 80 190"><path d="M0 95 C40 95 40 55 80 55M0 95 C40 95 40 135 80 135" fill="none" stroke="#f2c3b8" stroke-width="2"/></svg></div>
+    <div class="ycol"><div class="lab">第三层 · 生成（按领域二选一）</div>
+      <div class="ybox yO"><b>GU</b><span>UI/UX · generation_uiux.yaml</span></div>
+      <div class="ybox yO"><b>GG</b><span>平面 · generation_graphic.yaml</span></div></div>
+  </div>
+  <div class="callout"><b>零特例原则：</b>规则文件不出现任何案例名、时长、坐标、倍率等单项目值，项目差异只来自骨架、模板和语义图。例如 GU-03 不点名"邻近放大"，而是对图中每条 <code>MODULATES_NEIGHBOR</code> 边执行同一探针 <code>focus_scale &gt; neighbor_scale &gt; 1.0</code>。</div>
+  <div class="rules" id="ruleGrid"></div>
+  <p>每条规则在 YAML 中都具备统一字段：<code>bound_eu_levels</code>、<code>check_code</code>、<code>thresholds</code>、<code>invariants</code>、<code>failure_boundary</code> 与唯一对应的 <code>counterfactual_preset</code>。求值顺序固定为解析 → 总规则 → 生成，层内按 ID 升序。</p>
+</section>
+
+<!-- TREE -->
+<section id="s-tree">
+  <div class="eyebrow">05 · Adaptive EU</div>
+  <h2>原型模板 + 自适应语义树</h2>
+  <p class="lead">固定颗粒度的拆解要么在交互密集区太粗，要么在重复列表处太细。开物以原型模板为锚，按实际复杂度自动伸缩。</p>
+  <div class="split">
+    <div>
+      <h3 style="margin-top:6px">两套原型模板</h3>
+      <table class="tbl">
+        <tr><th>模板</th><th>4 大 L1 领地</th></tr>
+        <tr><td><code>tpl_uiux_workspace_v1</code></td><td>开场外壳 · 导航坞 · 主舞台 · 辅助浮层</td></tr>
+        <tr><td><code>tpl_graphic_poster_v1</code></td><td>品牌页眉 · 主视觉 · 规格网格 · 版权页脚</td></tr>
+      </table>
+      <h3>五种自适应操作</h3>
+      <table class="tbl">
+        <tr><th>操作</th><th>触发</th><th>效果</th></tr>
+        <tr><td>TEMPLATE_ANCHOR</td><td>模板必填槽位</td><td>L1 骨架稳定</td></tr>
+        <tr><td>SPLIT_HIGH_INTERACTION</td><td>交互边 ≥ 3</td><td>拆出细组件与特征</td></tr>
+        <tr><td>FOLD_ARRAY</td><td>同构兄弟 ≥ 3</td><td>折叠为 ×N 阵列</td></tr>
+        <tr><td>ATOMIC_MOUNT</td><td>每个 L5</td><td>挂接注册表原子</td></tr>
+        <tr><td>PRUNE_OPTIONAL_SLOT</td><td>源中缺失的可选区</td><td>裁剪无关分支</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-top:6px">Code XR 树片段</h3>
+      <div class="tree">
+        <div class="lv" style="padding-left:0"><i>L0</i>Code XR · Glass Workspace 全域工作台</div>
+        <div class="lv" style="padding-left:18px"><i>L1</i>折光侧栏与导航坞领地<span class="bd t">模板锚定</span></div>
+        <div class="lv" style="padding-left:36px"><i>L2</i>收起态窄栏高密微交互区</div>
+        <div class="lv" style="padding-left:54px"><i>L3</i>收起侧栏 · 鼠标邻近放大交互坞<span class="bd s">⚡ 分裂</span></div>
+        <div class="lv" style="padding-left:72px"><i>L4</i>feature.proximity_magnify · 距离场</div>
+        <div class="lv" style="padding-left:90px"><i>L5</i>邻近放大距离场与帧证据原子<span class="bd a">L5 原子</span></div>
+        <div class="lv" style="padding-left:18px"><i>L1</i>独立滚动折光主舞台领地<span class="bd t">模板锚定</span></div>
+        <div class="lv" style="padding-left:36px"><i>L2</i>Dashboard 首屏英雄区</div>
+        <div class="lv" style="padding-left:54px"><i>L3</i>经营四指标卡片阵列<span class="bd f">📦 折叠 ×4</span></div>
+        <div class="lv" style="padding-left:54px"><i>L3</i>环绕进度环成员头像阵列<span class="bd f">📦 折叠 ×6</span></div>
+        <div class="lv" style="padding-left:54px"><i>L3</i>主舞台快捷动作<span class="bd f">📦 折叠 ×6</span></div>
+      </div>
+    </div>
+  </div>
+  <h3>树图分离：结构走纵向树，交互走横向边</h3>
+  <p>纵向树节点只允许 <code>product / territory / region / component / feature / atom</code>，禁止 <code>interaction. / event. / state.</code> 等前缀。交互只能用以下 6 类白名单横向边表达，每类都有生成侧探针：</p>
+  <div class="edges" id="edgeGrid"></div>
+</section>
+
+<!-- HONEST -->
+<section id="s-honest">
+  <div class="eyebrow">06 · Honest Admission</div>
+  <h2>诚实放行：证据、假设与三态准入</h2>
+  <div class="split">
+    <div>
+      <p class="lead"><b>No-Evidence-No-Verified</b>：任何标为已验证的节点都必须挂接 evidence 原子；实体 L3 子树的 L5 原子覆盖率必须 100%。拿不到证据的内容，只能登记为<b>假设</b>。</p>
+      <p>以 Code XR 为例，初始未签认的假设包括：片尾 Analytics 仍在滚动的数字、原片未展示的 3/6/12 月 CSV 明细口径、替代用的室内背景图等。每条假设都绑定到具体 EU 与规则。</p>
+      <div class="callout warn">"网页跑起来了"≠"可以交付"。只要还有一条未确认的推断，系统就诚实地停在 <b>PROVISIONAL</b>。</div>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 420 300" width="100%" style="font-family:var(--mono);font-size:12px">
+        <defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8a8273"/></marker></defs>
+        <rect x="160" y="14" width="100" height="36" rx="18" fill="#efe9dd" stroke="#d3c8b4"/><text x="210" y="37" text-anchor="middle" fill="#1d1a16">规则求值</text>
+        <rect x="14" y="130" width="120" height="40" rx="10" fill="#fbe6e3" stroke="#e8b4ad"/><text x="74" y="155" text-anchor="middle" fill="#c0392b" font-weight="700">BLOCKED</text>
+        <rect x="150" y="130" width="120" height="40" rx="10" fill="#fbf1dc" stroke="#ecd29c"/><text x="210" y="155" text-anchor="middle" fill="#b7791f" font-weight="700">PROVISIONAL</text>
+        <rect x="286" y="130" width="122" height="40" rx="10" fill="#e5f4ec" stroke="#b6dcc6"/><text x="347" y="155" text-anchor="middle" fill="#1f8a5b" font-weight="700">RELEASE_READY</text>
+        <path d="M180 50 L90 128" stroke="#8a8273" fill="none" marker-end="url(#m)"/><text x="88" y="90" fill="#8a8273">任一失败</text>
+        <path d="M210 50 L210 128" stroke="#8a8273" fill="none" marker-end="url(#m)"/><text x="216" y="96" fill="#8a8273">通过+假设&gt;0</text>
+        <path d="M240 50 L330 128" stroke="#8a8273" fill="none" marker-end="url(#m)"/><text x="300" y="80" fill="#8a8273">通过+假设=0</text>
+        <path d="M250 172 C270 220 310 220 330 172" stroke="#1f8a5b" fill="none" marker-end="url(#m)"/><text x="244" y="234" fill="#1f8a5b">签认 → 归零</text>
+        <path d="M330 130 C310 100 270 100 252 128" stroke="#b7791f" fill="none" marker-end="url(#m)" stroke-dasharray="4 3"/><text x="278" y="122" fill="#b7791f" font-size="11">重置</text>
+        <path d="M74 172 C74 270 200 280 205 56" stroke="#c0392b" fill="none" marker-end="url(#m)" stroke-dasharray="4 3"/><text x="40" y="276" fill="#c0392b">修复 / 复位后重新求值</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTERFACTUAL -->
+<section id="s-cf">
+  <div class="eyebrow">07 · Counterfactual Sandbox</div>
+  <h2>反事实沙盒：证明规则真的会拦截</h2>
+  <p class="lead">24 条规则各对应 1 个反事实预设。每次测试都深拷贝当前快照，按预设<b>真实改写</b> IR / 骨架 / 回检数据，再交给<b>同一个</b>规则引擎求值；正式快照不受影响。</p>
+  <figure><div class="shot"><img src="intro_assets/wb_blocked.jpg" alt="注入 PV-01 后被阻断"></div>
+  <figcaption><b>FIG.06</b>注入 <code>violate_PV01_partial_video_coverage</code>（删去中段时间）：解析层立即 BLOCKED，覆盖率跌至 11.1%，未闭合区间被精确列出，顶栏一键复位。</figcaption></figure>
+  <div class="grid3">
+    <div class="card"><h4>命名一一对应</h4><p><code>violate_&lt;规则ID&gt;_&lt;语义&gt;</code>，如 <code>violate_GN01_interaction_in_tree</code>，与规则 YAML 中的 <code>counterfactual_preset</code> 字段严格对应。</p></div>
+    <div class="card"><h4>首障归因</h4><p><code>violated_rule_id</code> 必须是预设的目标规则，且它在本次求值中真实失败，否则视为引擎缺陷；连带失败列入 <code>co_failed_rule_ids</code>。</p></div>
+    <div class="card"><h4>一键复位</h4><p>使用 <code>reset</code> 恢复正式快照求值，准入状态随之回到注入前。</p></div>
+  </div>
+</section>
+
+<!-- READBACK -->
+<section id="s-readback">
+  <div class="eyebrow">08 · Readback</div>
+  <h2>生成侧独立回检</h2>
+  <div class="split">
+    <div>
+      <p class="lead"><code>generator_readback.py</code> 不信任生成过程的自述，而是直接扫描 <code>cases/*/app/</code> 产物源码，生成层 8 条规则全部基于这份快照求值。</p>
+      <table class="tbl">
+        <tr><th>回检项</th><th>对应规则</th></tr>
+        <tr><td>DOM <code>data-eu-id</code> 覆盖率与唯一性</td><td>GU-04 / GG-04</td></tr>
+        <tr><td>可编辑文本节点数、真实控件数、UI 位图面积</td><td>GU-02</td></tr>
+        <tr><td>Token 消费率、<code>prefers-reduced-motion</code></td><td>GU-01</td></tr>
+        <tr><td>交互横向边逐条探针</td><td>GU-03</td></tr>
+        <tr><td>390px 窄屏零横向裁切</td><td>GU-02</td></tr>
+        <tr><td>平面活文字 / 矢量可编辑</td><td>GG-03</td></tr>
+        <tr><td>防御性小字命中数 = 0</td><td>GU-04 / GG-04</td></tr>
+      </table>
+    </div>
+    <figure style="margin-top:0"><div class="shot" style="max-width:300px;margin:0 auto"><img src="intro_assets/app_code_xr_390.jpg" alt="390px"></div><figcaption style="justify-content:center"><b>FIG.07</b>同一产物在 390px 视口：真 DOM 弹性容器重排，零横向裁切。</figcaption></figure>
+  </div>
+</section>
+
+<!-- BASELINE -->
+<section id="s-baseline">
+  <div class="eyebrow">09 · Baseline</div>
+  <h2>主基线：Code XR · Glass Workspace</h2>
+  <p class="lead">一段 1920×2560 竖版、5.689 秒的录屏（下半部是代码窗，属于噪声区）。v3.3 只补查了 1.60–2.23 s 一段；v3.4 把整片连续切成 6 段，覆盖率 100%，逐段绑定 EU。</p>
+  <div class="bar" id="segBar"></div>
+  <div class="tl" id="timeline"></div>
+  <div class="featured">
+    <figure style="margin:0"><div class="shot"><img src="intro_assets/app_code_xr_uiux.jpg" alt="Code XR 产物"></div><figcaption><b>FIG.08</b>生成产物：折光玻璃工作台，文字全部为可选 DOM，侧栏收起后具备指针邻近放大。</figcaption></figure>
+    <figure style="margin:0"><div class="shot" style="background:#1d1a16"><img src="intro_assets/skeleton_code_xr.svg" alt="骨架叠图" style="background:#2a2520"></div><figcaption><b>FIG.09</b>骨架叠图：每个框都带 <code>data-eu-id</code> 与 <code>data-segment-id</code>，可与产物、EU 树三向联动。</figcaption></figure>
+  </div>
+  <h3>同源跨领域对照：同一品牌 → A3 平面展板</h3>
+  <figure><div class="shot"><img src="intro_assets/wb_poster.jpg" alt="平面展板"></div><figcaption><b>FIG.10</b>静图 → 平面设计路由：激活 PI + GN + GG，12 栏瑞士网格、3mm 出血、纯矢量活文字，交互边整体裁剪。</figcaption></figure>
+</section>
+
+<!-- CASES -->
+<section id="s-cases">
+  <div class="eyebrow">10 · Cases</div>
+  <h2>案例库：21 个跨流派复刻</h2>
+  <p class="lead">覆盖 4 个录屏、2 张静图、15 个网页，跨越 6 大品类与多种迥异视觉流派——液态玻璃、新粗野主义、极暗 HUD、复古拟物、电子纸、瑞士网格……全部 12/12 规则通过，处于诚实的 PROVISIONAL。<b>鼠标悬停卡片可切换"生成产物 / 参考源"。</b></p>
+  <div class="filters" id="filters"></div>
+  <div class="cases" id="caseGrid"></div>
+</section>
+
+<!-- PARSE -->
+<section id="s-parse">
+  <div class="eyebrow">11 · Categories & Parsers</div>
+  <h2>产品品类与本地三模态解析</h2>
+  <p class="lead">在三层规则之上，6 大产品品类负责识别"这是什么类型的产品"，并追加品类专属检查（如 <code>CAT-DASH-01..03</code>）。</p>
+  <div class="cats" id="catGrid"></div>
+  <h3>本地解析器：零外部 API</h3>
+  <div class="grid3">
+    <div class="card"><h4>🌐 网页 URL</h4><p>无头 Chromium（Playwright）在 1440 / 768 / 390 三视口实测 DOM 几何，聚类计算样式为 Token，识别交互控件、资产槽位与品类，输出归一化骨架与 EU 树。</p></div>
+    <div class="card"><h4>🖼️ 静图</h4><p>仅 Pillow + NumPy：主色 K-means 聚类、双层区域分割、对比度采样，生成 Set-of-Mark 标号图，供 Agent 按编号归组 EU、区分 <code>ui_dom</code> 与 <code>asset_slot</code>。</p></div>
+    <div class="card"><h4>🎞️ 录屏</h4><p>无需 ffmpeg / OpenCV：无头浏览器离线均匀抽帧，计算稳态关键帧与 12×8 网格帧差热点，推断横 / 纵交互边候选。</p></div>
+  </div>
+  <p style="margin-top:14px">解析结果落地为 <code>cases/&lt;id&gt;/parsed_case.json</code>，工作台自动发现并纳入案例列表。</p>
+</section>
+
+<!-- API -->
+<section id="s-api">
+  <div class="eyebrow">12 · API & AI Tools</div>
+  <h2>接口与 AI-First 工具</h2>
+  <div class="split">
+    <table class="tbl" style="margin-top:0">
+      <tr><th>方法</th><th>路径</th><th>作用</th></tr>
+      <tr><td>GET</td><td><code>/api/health</code></td><td>服务与加载状态</td></tr>
+      <tr><td>GET</td><td><code>/api/cases</code></td><td>案例列表与品类</td></tr>
+      <tr><td>GET</td><td><code>/api/categories</code></td><td>6 大品类</td></tr>
+      <tr><td>GET</td><td><code>/api/rules</code></td><td>规则目录、模板、工具 schema</td></tr>
+      <tr><td>GET</td><td><code>/api/case/{id}/bundle</code></td><td>完整检验包</td></tr>
+      <tr><td>GET</td><td><code>/api/case/{id}/explain/{eu}</code></td><td>单个 EU 解释链</td></tr>
+      <tr><td>POST</td><td><code>/api/case/{id}/test_rule_gate</code></td><td>反事实注入 / 复位</td></tr>
+      <tr><td>POST</td><td><code>/api/case/{id}/confirm_assumption</code></td><td>假设签认 / 重置</td></tr>
+      <tr><td>GET</td><td><code>/api/error_ledger</code></td><td>残差台账</td></tr>
+      <tr><td>POST</td><td><code>/api/parse/url|image|video</code></td><td>本地三模态解析导入</td></tr>
+    </table>
+    <div>
+      <p>AI 工具与 REST API 共用同一引擎，可供 Agent 直接调用，也可命令行运行：</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px" id="toolList"></div>
+      <div class="callout" style="margin-top:20px">所有 JSON 响应顶层含 <code>status: "OK"</code>（出错为 <code>"ERROR"</code> 并带 <code>message</code>），UTF-8 编码。静态挂载 <code>/</code> → frontend、<code>/cases/</code> → cases。</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEDGER -->
+<section id="s-ledger">
+  <div class="eyebrow">13 · Residual Ledger</div>
+  <h2>残差台账：从真实错误中长出来的规则</h2>
+  <p class="lead">8 条真实残差，每条绑定唯一主规则与反事实预设，状态均为 <code>closed_by_rule</code>——<b>同类错误今后在对应层被 BLOCKED，而不是靠人记得。</b></p>
+  <div class="res" id="resGrid"></div>
+</section>
+
+<!-- QA -->
+<section id="s-qa">
+  <div class="eyebrow">14 · Verification</div>
+  <h2>质量验收</h2>
+  <p class="lead"><code>tests/verify_v34_kaiwu.py</code> 独立验收矩阵，最近一次报告（2026-11-23）<b>59 / 59 全部通过</b>。</p>
+  <div class="chk">
+    <div class="card"><b>17/17</b><span>规则与模板结构</span></div>
+    <div class="card"><b>5/5</b><span>自适应 EU 与准入生命周期</span></div>
+    <div class="card"><b>25/25</b><span>反事实门禁</span></div>
+    <div class="card"><b>6/6</b><span>API 与回检</span></div>
+    <div class="card"><b>6/6</b><span>真实浏览器端到端</span></div>
+  </div>
+  <table class="tbl">
+    <tr><th>#</th><th>验收口径</th></tr>
+    <tr><td>1</td><td>24 条规则结构完整、规则文件零单项目数字；三个路由各激活 12 条</td></tr>
+    <tr><td>2</td><td>L0~L5 无跳层、单父无环、度 ≤ 7、横向边零越界、纵向树零交互节点；存在真实锚定 / 分裂 / 折叠</td></tr>
+    <tr><td>3</td><td>实体 L3 的 L5 覆盖率 100%；Code XR 0.00–5.689 s 覆盖率 100%</td></tr>
+    <tr><td>4</td><td>PROVISIONAL → 全部签认 RELEASE_READY → 重置回 PROVISIONAL</td></tr>
+    <tr><td>5</td><td>反事实预设逐一在目标层 BLOCKED 且首障归因为目标规则</td></tr>
+    <tr><td>6</td><td>真实浏览器 1440×900：零 console error、零防御性小字、三屏联动与邻近放大实测生效</td></tr>
+  </table>
+</section>
+
+<!-- START -->
+<section id="s-start">
+  <div class="eyebrow">15 · Get Started</div>
+  <h2>快速开始</h2>
+  <div class="split">
+<pre><span class="c"># 启动服务</span>
+python backend/server.py --port 4340
+<span class="c"># 浏览器打开 http://127.0.0.1:4340/</span>
+
+<span class="c"># 运行独立验收</span>
+python tests/verify_v34_kaiwu.py
+python tests/verify_parsers_and_categories.py</pre>
+    <table class="tbl" style="margin-top:0">
+      <tr><th>模块</th><th>依赖</th></tr>
+      <tr><td>核心引擎 / 门禁 / 工作台</td><td>仅 Python 标准库（有 PyYAML 时优先）</td></tr>
+      <tr><td>静图 / 录屏解析</td><td>Pillow + NumPy</td></tr>
+      <tr><td>网页解析 / MP4 抽帧</td><td>Playwright（无头 Chromium）</td></tr>
+    </table>
+  </div>
+  <h3>目录结构</h3>
+<pre>开物/
+├─ rules/            6 个规则 YAML（24 条）       ├─ backend/
+├─ templates/        2 个原型模板                 │  ├─ server.py              HTTP 服务与 REST API
+├─ categories/       6 个产品品类                 │  ├─ adaptive_eu_engine.py  自适应 EU 引擎与规则求值
+├─ cases/            21 个案例                    │  ├─ generator_readback.py  生成侧独立回检
+├─ frontend/         三窗格检验台                 │  ├─ category_registry.py   品类识别与审计
+├─ tests/            验收脚本与报告               │  ├─ ai_tools_mcp.py        AI-First 工具
+├─ docs/             架构文档与本介绍             │  └─ parsers/               网页 / 静图 / 录屏解析器
+└─ UI与交互EU错误排查台账.md</pre>
+  <h3>版本演进</h3>
+  <table class="tbl">
+    <tr><th>版本</th><th>要点</th></tr>
+    <tr><td>v3.3</td><td>Code XR 复刻初版；只补查了局部片段，整片未结案，暴露出 RES-KW-01..08</td></tr>
+    <tr><td><b>v3.4</b></td><td>净室重建：Y 型三层规则、模板与自适应伸缩、树图分离、单源双索引原子、三态准入、24 个反事实预设；Code XR 整片 100% 结案</td></tr>
+    <tr><td>v3.4 扩展</td><td>本地三模态解析器、6 大产品品类、案例库扩展至 21 个、导入器与自举审计（模块按 v4.0 口径）</td></tr>
+  </table>
+  <footer>开物 · Kaiwu Adaptive-EU Design Workbench · v3.4.0 · 文档生成于 2026-11-23 · 图片均为工作台与案例产物实拍截图</footer>
+</section>
+</main>
+</div>
+<div id="lb"><img alt=""><p></p></div>
+
+<script>
+const A='intro_assets/';
+const pains=[
+ ['局部冒充整体','只核对录屏中一小段就宣布整片通过','全时段连续切分，覆盖率 100%','PV-01'],
+ ['未定值当真值','片尾还在滚动的数字被写成最终数据','稳态 / 瞬态分离，瞬态只能进假设','PV-03'],
+ ['结构交互混建','把"邻近放大"建成多层父子包含','纵向树只放结构，交互走横向边','GN-01'],
+ ['截图贴皮','整张截图铺底，文字不可选、按钮不可点','真 DOM 文本 + 弹性容器，位图面积 0','GU-02'],
+ ['交互漏做','收起侧栏时漏掉指针邻近放大','每条交互边都必须有可探测实现','GU-03'],
+ ['界面写满解释小字','"不会丢""仍可用"之类保证句上界面','回读可见文本，禁用短语命中 0','GU-04'],
+ ['没证据也算通过','EU 没读到原视频，却被报为已验收','No-Evidence-No-Verified','GN-03'],
+ ['规则从未被验证','规则写了，但从没真正触发过','24 个反事实预设真实注入','沙盒'],
+];
+document.getElementById('painGrid').innerHTML=pains.map(p=>`<div class="card"><div class="x">✕ ${p[0]}</div><p>${p[1]}</p><div class="fix">✓ ${p[2]} <code>${p[3]}</code></div></div>`).join('');
+
+const rules=[
+ ['p','解析 · 视频','PV',[['PV-01','全时段关键帧覆盖与场景切分闭合'],['PV-02','视频外版式噪声剥离与有效视口裁切'],['PV-03','瞬态滚动与稳态真值分离及假设隔离'],['PV-04','帧间不变量与连续交互取证']]],
+ ['p','解析 · 图片','PI',[['PI-01','版面栅格与比例尺寸链闭合'],['PI-02','视觉去噪与前景图文 / 背景材质分离'],['PI-03','色彩对比度、字阶与间距原子采样合法性'],['PI-04','原图 evidence_bbox 强绑定']]],
+ ['p','解析 · 网页','PW',[['PW-01','多断点 DOM 几何闭合'],['PW-02','计算样式向设计 Token 归一'],['PW-03','交互状态与无障碍角色提取'],['PW-04','静态装饰与业务数据边界分离']]],
+ ['g','总规则 · 恒激活','GN',[['GN-01','树图分离与度约束'],['GN-02','模板锚定与复杂度自适应伸缩合规'],['GN-03','L5 原子 100% 挂载与 No-Evidence-No-Verified'],['GN-04','包络自底向上守恒与三态准入状态机']]],
+ ['o','生成 · UI/UX','GU',[['GU-01','L5 设计与动效 Token 100% 强制消费'],['GU-02','根治实心退化：真可编辑 DOM 与弹性容器'],['GU-03','微交互与状态闭环保真'],['GU-04','溯源 ID 回检及零防御性小字']]],
+ ['o','生成 · 平面','GG',[['GG-01','画幅尺寸出血与网格对齐守恒'],['GG-02','视觉主次字阶层级与对比度合规'],['GG-03','矢量 / 文字图层独立可编辑'],['GG-04','导出重开版式零漂移与溯源回检']]],
+];
+document.getElementById('ruleGrid').innerHTML=rules.map(r=>`<div class="rmod ${r[0]}"><h5>${r[1]}<code>${r[2]}</code></h5><ul>${r[3].map(x=>`<li><i>${x[0]}</i>${x[1]}</li>`).join('')}</ul></div>`).join('');
+
+const edges=[
+ ['TRIGGERS_STATE','控件触发状态 / 路由变化','探针：目标状态前后不同'],
+ ['RESTORES_FOCUS','浮层关闭后焦点归还','探针：关闭后焦点回到触发器'],
+ ['FILTERS_VIEW','过滤器切换数据视图与导出','探针：数据集变化且导出口径一致'],
+ ['MODULATES_NEIGHBOR','指针距离调制邻项尺寸','探针：主项 > 邻项 > 1.0，远项 = 1.0，离开复位'],
+ ['SCROLLS_INDEPENDENTLY','宿主独立滚动、兄弟区静止','探针：宿主位移 > 0 且兄弟位移 = 0'],
+ ['SHARES_TOKEN','两节点共享同一设计 Token','由 GU-01 / GG-02 覆盖'],
+];
+document.getElementById('edgeGrid').innerHTML=edges.map(e=>`<div class="edge"><code>${e[0]}</code><p>${e[1]}</p><small>${e[2]}</small></div>`).join('');
+
+const segs=[['0.00–0.75','品牌揭幕','seg_01_opening_0.10s',0.75,'#3b2f6b'],['0.75–1.60','亮区展开与数值稳定','seg_02_aperture_1.44s',0.85,'#4636a8'],['1.60–2.23','窄侧栏邻近放大','seg_03_proximity_1.83s',0.63,'#e9644e'],['2.23–3.80','展开侧栏与 Dashboard','seg_04_dashboard_2.78s',1.57,'#b7791f'],['3.80–4.85','主区独立下滚','seg_05_scroll_4.36s',1.05,'#1f8a5b'],['4.85–5.689','Analytics 切页','seg_06_analytics_5.62s',0.839,'#2f53b8']];
+document.getElementById('segBar').innerHTML=segs.map(s=>`<span style="flex:${s[3]};background:${s[4]}"></span>`).join('');
+document.getElementById('timeline').innerHTML=segs.map((s,i)=>`<div class="seg" data-full="${A}ref_code_xr_uiux__${s[2]}.jpg" data-cap="Code XR 原片 · 第 ${i+1} 段 ${s[0]} s · ${s[1]}"><img loading="lazy" src="${A}ref_code_xr_uiux__${s[2]}.jpg" alt=""><div><b>${s[0]} s</b><span>${s[1]}</span></div></div>`).join('');
+
+const catName={app_dashboard:'数据看板',collab_planner:'排班协作',data_hud:'数据 HUD',brand_landing:'品牌官网',editorial_grid:'粗野网格',print_graphic:'平面海报'};
+const cats=[
+ ['app_dashboard','数据看板 / SaaS 工作台','core','带主导航、KPI、图表、表格与筛选导出的后台产品'],
+ ['collab_planner','排班 / 日历协作工具','core','资源排班、周计划日历、工时汇总与协作状态'],
+ ['data_hud','高密度数据 HUD / 查询台','core','开发者观测平台、查询控制台、极暗工程监控'],
+ ['brand_landing','品牌官网 / 硬件发布页','extended','产品发布与硬件展示，允许 3D / 摄影 / Shader 资产槽'],
+ ['editorial_grid','粗野网格 / 作品集画廊','extended','新粗野主义工作室、Bento 作品集、实验刊物'],
+ ['print_graphic','瑞士网格平面 / 海报','extended','ISO A3 展板、瑞士国际风格海报、矢量印刷规范'],
+];
+const cases=[
+ ['code_xr_uiux','Code XR · Glass Workspace','video','app_dashboard','5.689 s · 6 时段 100%（主基线）','ref_code_xr_uiux__seg_04_dashboard_2.78s.jpg'],
+ ['code_xr_poster','Code XR · 品牌视觉展板','image','print_graphic','ISO A3 · 12 栏瑞士网格（同源对照）','ref_code_xr_poster.svg'],
+ ['rauno_craft_video','Rauno · Craft Motion Lab','video','data_hud','4.8 s · 慢动作微交互实验','ref_rauno_craft_video__seg_02.jpg'],
+ ['fps60_motion_video','60fps · Physics Motion Gallery','video','brand_landing','4.4 s · 弹簧分裂与共享变形','ref_fps60_motion_video__seg_02.jpg'],
+ ['screen_studio_video','Screen Studio · Auto-Zoom Timeline','video','app_dashboard','5.2 s · 自动运镜与多轨编辑','ref_screen_studio_video__seg_02.jpg'],
+ ['monolog_swiss_poster','MONOLOG · 瑞士杂志网格展板','image','print_graphic','ISO A3 · 瑞士杂志网格','ref_monolog_swiss_poster__ref_monolog_poster.jpg'],
+ ['refract_crm_web','Refract · Liquid-Glass CRM','web','app_dashboard','液态玻璃折射','ref_refract_crm_web__ref_refract_desktop.jpg'],
+ ['haven_admin_web','Haven · Glass Admin Workspace','web','app_dashboard','空间表盘与波形','ref_haven_admin_web__ref_haven_desktop.jpg'],
+ ['linear_workspace_web','Linear · Isometric Issue Workspace','web','app_dashboard','等轴测与 Diff 台','ref_linear_workspace_web__ref_ln_desktop.jpg'],
+ ['poolsuite_os_web','Poolsuite · 90s Retro Mac OS','web','app_dashboard','复古拟物多窗桌面','ref_poolsuite_os_web__ref_ps_desktop.jpg'],
+ ['family_fluid_web','Family · Fluid Morphing Tray','web','app_dashboard','纯白云朵变形抽屉','ref_family_fluid_web__ref_fm_desktop.jpg'],
+ ['axiom_hud_web','Axiom · Dark Data HUD','web','data_hud','极暗精工终端','ref_axiom_hud_web__ref_axiom_desktop.jpg'],
+ ['resend_dev_web','Resend · Email Developer Console','web','data_hud','光束与流式 API','ref_resend_dev_web__ref_rs_desktop.jpg'],
+ ['raycast_cmd_web','Raycast · Command Palette & Keyboard','web','data_hud','命令面板与键阵','ref_raycast_cmd_web__ref_ry_desktop.jpg'],
+ ['nothing_dot_web','Nothing · Dot-Matrix OS HUD','web','data_hud','工业纯黑红点阵','ref_nothing_dot_web__ref_nd_desktop.jpg'],
+ ['weeksync_paper_web','WeekSync · Paper Planner','web','collab_planner','奶油纸感排班','ref_weeksync_paper_web__ref_weeksync_desktop.jpg'],
+ ['amie_collab_web','Amie · Joyful AI Notes & Planner','web','collab_planner','AI 纪要与胶囊','ref_amie_collab_web__ref_am_desktop.jpg'],
+ ['daylight_eink_web','Daylight · Amber E-Ink Paper','web','collab_planner','反射琥珀电子纸','ref_daylight_eink_web__ref_dl_desktop.jpg'],
+ ['knob_hardware_web','KNOB · Industrial Hardware','web','brand_landing','工业实体旋钮','ref_knob_hardware_web__ref_knob_desktop.jpg'],
+ ['defined_aurora_web','Defined · Aurora Ferrofluid','web','brand_landing','极光磁流体','ref_defined_aurora_web__ref_defined_desktop.jpg'],
+ ['nogood_brutal_web','NoGood · Neo-Brutalist Studio','web','editorial_grid','酸性绿新粗野','ref_nogood_brutal_web__ref_nogood_desktop.jpg'],
+];
+const modName={video:'视频',image:'图片',web:'网页'};
+const route=c=>`${modName[c[2]]} → ${c[3]==='print_graphic'?'平面':'UI/UX'}`;
+const rulesOf=c=>({video:'PV',image:'PI',web:'PW'}[c[2]])+' · GN · '+(c[3]==='print_graphic'?'GG':'GU');
+function renderCases(f){
+  const list=cases.filter(c=>f==='all'||c[2]===f||c[3]===f);
+  document.getElementById('caseGrid').innerHTML=list.map(c=>`<div class="case"><div class="imgs" data-full="${A}app_${c[0]}.jpg" data-cap="${c[1]} · 生成产物"><img loading="lazy" src="${A}app_${c[0]}.jpg" alt=""><img loading="lazy" class="ref" src="${A}${c[5]}" alt=""><span class="hint">${c[0]}</span></div><div class="body"><h4>${c[1]}</h4><div class="meta"><span class="m-${c[2]}">${route(c)}</span><span>${catName[c[3]]}</span><span>${rulesOf(c)} 12/12</span></div><p>${c[4]}</p></div></div>`).join('');
+}
+const fl=[['all','全部 21'],['video','录屏 4'],['image','静图 2'],['web','网页 15'],...cats.map(c=>[c[0],catName[c[0]]+' '+cases.filter(x=>x[3]===c[0]).length])];
+const fe=document.getElementById('filters');
+fe.innerHTML=fl.map((x,i)=>`<button data-f="${x[0]}" class="${i?'':'on'}">${x[1]}</button>`).join('');
+fe.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;fe.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));renderCases(b.dataset.f)});
+renderCases('all');
+document.getElementById('catGrid').innerHTML=cats.map(c=>`<div class="cat"><div class="hd"><b>${c[1]}</b><span>${c[2]}</span></div><p>${c[3]}</p><span class="n">${c[0]} · ${cases.filter(x=>x[3]===c[0]).length} 个案例</span></div>`).join('');
+
+document.getElementById('toolList').innerHTML=['extract_skeleton','build_adaptive_eu','audit_three_layer_gates','simulate_counterfactual','manage_assumptions','verify_and_publish_bundle','list_categories','parse_url_live','inspect_image_som','inspect_video_diff'].map(t=>`<code style="background:var(--accent-soft);border-color:#d8d2f7;color:var(--accent);font-size:12.5px;padding:4px 10px">${t}</code>`).join('');
+
+const res=[['RES-KW-01','局部录屏冒充整片验收','PV-01'],['RES-KW-02','片尾滚动数字当定值','PV-03'],['RES-KW-03','视频版式代码窗混入界面','PV-02'],['RES-KW-04','交互塞入纵向组件树','GN-01'],['RES-KW-05','位图贴皮实心退化','GU-02'],['RES-KW-06','收起侧栏漏掉邻近放大','GU-03'],['RES-KW-07','界面放解释性、防御性小字','GU-04'],['RES-KW-08','EU 缺席却报整体验收','GN-03']];
+document.getElementById('resGrid').innerHTML=res.map(r=>`<div class="card"><i>${r[0]}</i><h4>${r[1]}</h4><code>${r[2]}</code> <span class="pill g" style="font-size:10.5px;padding:2px 8px">closed_by_rule</span></div>`).join('');
+
+/* lightbox */
+const lb=document.getElementById('lb');
+document.addEventListener('click',e=>{
+  if(e.target.closest('#lb')){lb.classList.remove('on');return}
+  const t=e.target.closest('[data-full],.shot');if(!t)return;
+  let src,cap;
+  if(t.dataset.full){src=t.dataset.full;cap=t.dataset.cap||''}
+  else{const im=t.querySelector('img');src=im.src;const fc=t.parentElement.querySelector('figcaption');cap=fc?fc.textContent:''}
+  lb.querySelector('img').src=src;lb.querySelector('p').textContent=cap;lb.classList.add('on');
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+/* toc spy */
+const links=[...document.querySelectorAll('nav.toc a')];
+const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id))}})},{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('header[id],section[id]').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
