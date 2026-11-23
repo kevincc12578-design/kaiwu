@@ -5,11 +5,14 @@
 ## 快速开始
 
 ```powershell
-python backend/server.py --port 4340
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install PyYAML Pillow NumPy Playwright
+.\.venv\Scripts\python.exe -m playwright install chromium
+.\.venv\Scripts\python.exe backend/server.py --port 4340
 # 浏览器打开 http://127.0.0.1:4340/
 ```
 
-仅依赖 Python 标准库（若已安装 PyYAML 则优先使用）。前端为零构建原生 HTML/CSS/JS，离线可用。
+验证环境使用 Python 3.12 和上面安装的依赖。前端使用原生 HTML、CSS 和 JavaScript，可直接加载。
 
 ## 核心
 
@@ -40,7 +43,7 @@ templates/   2 个原型模板
 backend/     解析、自适应 EU 引擎、回检、AI 工具、HTTP 服务
 cases/       code_xr_uiux / code_xr_poster
 frontend/    折光三窗格检验台
-tests/       verify_v34_kaiwu.py
+tests/       主验证、解析器和分类专项验证
 ```
 
 ## 文档
@@ -52,7 +55,8 @@ tests/       verify_v34_kaiwu.py
 ## 验收
 
 ```powershell
-python tests/verify_v34_kaiwu.py
+.\.venv\Scripts\python.exe -X utf8 tests/verify_v34_kaiwu.py
+.\.venv\Scripts\python.exe -X utf8 tests/verify_parsers_and_categories.py
 ```
 
-报告输出到 `tests/v34_verification_report.json`。
+每次验证使用临时项目副本和独立的本地服务。报告、服务日志和截图保存在运行时打印的目录，可通过 `--artifacts-dir` 指定输出目录的上一级。

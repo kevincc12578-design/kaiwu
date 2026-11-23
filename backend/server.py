@@ -339,13 +339,13 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
 
 def run_server(host: str = "127.0.0.1", port: int = 4340) -> None:
     global SERVER_PORT
-    SERVER_PORT = port
     # 启动时预构建并刷新各落地案例的持久化 inspection_bundle.json 与骨架文件
     for cid in ALL_PUBLISHED_CASES:
         engine.build_case_bundle(cid, persist=True)
 
     httpd = ThreadingHTTPServer((host, port), KaiwuHTTPRequestHandler)
-    print(f"[Kaiwu-v3.4] Server listening at http://{host}:{port}/ (version {engine.WORKBENCH_VERSION})")
+    SERVER_PORT = httpd.server_port
+    print(f"[Kaiwu-v3.4] Server listening at http://{host}:{SERVER_PORT}/ (version {engine.WORKBENCH_VERSION})")
     sys.stdout.flush()
     try:
         httpd.serve_forever()
