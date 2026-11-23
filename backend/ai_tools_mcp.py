@@ -72,10 +72,10 @@ def simulate_counterfactual(case_id: str = "code_xr_uiux", preset: str = "violat
 
 
 def manage_assumptions(case_id: str = "code_xr_uiux", action: str = "list", assumption_id: str = "ALL") -> dict[str, Any]:
-    with parsers_mod.CASE_FILES_LOCK:
-        if action != "list":
-            engine.update_case_assumptions(case_id, assumption_id, action)
-        bundle = engine.build_case_bundle(case_id, persist=(action != "list" and case_id != "web_fixture"))
+    if action == "list":
+        bundle = engine.build_case_bundle(case_id)
+    else:
+        bundle = engine.publish_assumption_change(case_id, assumption_id, action)
     return {
         "status": "OK",
         "tool": "manage_assumptions",

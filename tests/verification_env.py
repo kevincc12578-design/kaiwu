@@ -11,6 +11,7 @@ import time
 import urllib.request
 from contextlib import contextmanager
 from dataclasses import dataclass
+from functools import partial
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -38,11 +39,11 @@ class VerificationRun:
             return json.load(response)
 
 
-def _ignore_copied_entries(directory: str, names: list[str]) -> list[str]:
+def _ignore_copied_entries(directory: str, names: list[str], *, output: Path) -> list[str]:
     ignored = []
     for name in names:
         path = Path(directory) / name
-        if name == "__pycache__" or path.is_symlink() or getattr(path, "is_junction", lambda: False)():
+        if path == output or name == "__pycache__" or path.is_symlink() or getattr(path, "is_junction", lambda: False)():
             ignored.append(name)
     return ignored
 
@@ -61,6 +62,7 @@ def _wait_for_port(process: subprocess.Popen, log_path: Path) -> int:
 @contextmanager
 def isolated_workbench(repo_root: Path, artifacts_dir: Path | None = None) -> Iterator[VerificationRun]:
     """Keep the server process and all mutable project inputs in a fresh copy."""
+    repo_root = repo_root.resolve()
     if artifacts_dir is not None:
         artifacts_dir.mkdir(parents=True, exist_ok=True)
         artifacts_dir = artifacts_dir.resolve()
@@ -73,7 +75,7 @@ def isolated_workbench(repo_root: Path, artifacts_dir: Path | None = None) -> It
             source = repo_root / folder
             if source.is_symlink() or getattr(source, "is_junction", lambda: False)():
                 raise ValueError(f"Verification requires a local project directory: {source}")
-            shutil.copytree(source, root / folder, ignore=_ignore_copied_entries)
+            shutil.copytree(source, root / folder, ignore=partial(_ignore_copied_entries, output=output))
         for filename in ("VERSION", "README.md", "CHANGELOG.md", "UI与交互EU错误排查台账.md"):
             shutil.copy2(repo_root / filename, root / filename)
 

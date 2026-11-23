@@ -13,6 +13,7 @@ import re
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote, urlsplit
 
 BACKEND_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = BACKEND_DIR.parent
@@ -40,6 +41,10 @@ class _DOMReadbackParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self._skip_depth = 0
+        self._inline_script = False
+        self.scripts: list[str] = []
+        self.inline_scripts: list[str] = []
+        self.stylesheets: list[str] = []
         self.trace_ids: list[str] = []
         self.text_chunks: list[str] = []
         self.interactive_tags: int = 0
@@ -51,6 +56,18 @@ class _DOMReadbackParser(HTMLParser):
         if t in ("script", "style", "noscript"):
             self._skip_depth += 1
         attr_map = {k.lower(): (v or "") for k, v in attrs}
+        if t == "script" and self._skip_depth == 1:
+            script_type = attr_map.get("type", "").strip().lower()
+            if script_type in {"", "module", "text/javascript", "application/javascript"}:
+                src = attr_map.get("src")
+                if src:
+                    self.scripts.append(src)
+                else:
+                    self._inline_script = True
+        if t == "link" and self._skip_depth == 0 and "stylesheet" in attr_map.get("rel", "").lower().split():
+            href = attr_map.get("href")
+            if href:
+                self.stylesheets.append(href)
         if "data-eu-id" in attr_map and attr_map["data-eu-id"]:
             self.trace_ids.append(attr_map["data-eu-id"])
         if t in ("button", "a", "input", "select", "textarea", "dialog"):
@@ -61,14 +78,40 @@ class _DOMReadbackParser(HTMLParser):
             self.img_srcs.append(attr_map["src"])
 
     def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "script":
+            self._inline_script = False
         if tag.lower() in ("script", "style", "noscript") and self._skip_depth > 0:
             self._skip_depth -= 1
 
     def handle_data(self, data: str) -> None:
-        if self._skip_depth == 0:
+        if self._inline_script:
+            self.inline_scripts.append(data)
+        elif self._skip_depth == 0:
             cleaned = data.strip()
             if cleaned:
                 self.text_chunks.append(cleaned)
+
+
+def _read_linked_assets(app_dir: Path, case_id: str, refs: list[str]) -> list[str]:
+    root = app_dir.resolve()
+    local_prefix = f"/cases/{case_id}/app/"
+    assets = []
+    for ref in dict.fromkeys(refs):
+        try:
+            url = urlsplit(ref)
+        except ValueError:
+            continue
+        if url.scheme or url.netloc:
+            continue
+        path = unquote(url.path)
+        if path.startswith("/"):
+            if not path.startswith(local_prefix):
+                continue
+            path = path[len(local_prefix):]
+        file_path = (root / path).resolve()
+        if file_path.is_relative_to(root) and file_path.is_file():
+            assets.append(file_path.read_text(encoding="utf-8"))
+    return assets
 
 
 def _extract_js_trace_ids_and_metrics(js_source: str) -> dict[str, Any]:
@@ -237,28 +280,10 @@ def run_generator_readback(
     parser = _DOMReadbackParser()
     parser.feed(html_text)
 
-    css_text = ""
     style_blocks = re.findall(r"<style[^>]*>(.*?)</style>", html_text, flags=re.S | re.I)
-    if style_blocks:
-        css_text += "\n".join(style_blocks)
-    css_file = app_dir / "styles.css"
-    if css_file.exists():
-        css_text += "\n" + css_file.read_text(encoding="utf-8")
-
-    js_file = app_dir / "app.js"
-    js_info: dict[str, Any] = {
-        "trace_ids": [],
-        "interactive_count": 0,
-        "text_count": 0,
-        "string_literals": [],
-        "has_proximity": False,
-        "has_independent_scroll": False,
-        "has_csv_filter": False,
-        "has_focus_restore": False,
-        "has_route_trigger": False,
-    }
-    if js_file.exists():
-        js_info = _extract_js_trace_ids_and_metrics(js_file.read_text(encoding="utf-8"))
+    css_text = "\n".join(style_blocks + _read_linked_assets(app_dir, case_id, parser.stylesheets))
+    js_text = "\n".join(parser.inline_scripts + _read_linked_assets(app_dir, case_id, parser.scripts))
+    js_info = _extract_js_trace_ids_and_metrics(js_text)
 
     # 汇总产物 DOM 溯源 ID（同一节点在 dashboard 与 analytics 共享时按声明去重统计，同视图内不重复）
     found_trace_list = parser.trace_ids + js_info["trace_ids"]

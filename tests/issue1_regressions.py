@@ -2,13 +2,16 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from http.server import ThreadingHTTPServer
 from pathlib import Path
-from threading import Barrier
+from threading import Barrier, Event, Thread
 from unittest.mock import patch
 from urllib.error import HTTPError
+from urllib.request import ProxyHandler, build_opener
 
 from PIL import Image
 import yaml
@@ -84,6 +87,12 @@ def _round_trip_import_update(run: VerificationRun) -> None:
     imported = run.post_json("/api/parse/url", {"case_id": case_id, "url": original_url})
     assert imported["category_info"]["category_id"] == "collab_planner"
     case_dir = run.root / "cases" / case_id
+    note = case_dir / "audit_notes.txt"
+    note.write_text("local case notes", encoding="utf-8")
+    signed = run.post_json(f"/api/case/{case_id}/confirm_assumption", {"action": "confirm_all"})
+    assert signed["admission_status"] == "RELEASE_READY"
+    retried = run.post_json("/api/parse/url", {"case_id": case_id, "url": original_url})
+    assert retried["bundle"]["admission_status"] == "RELEASE_READY"
     original = (case_dir / "parsed_case.json").read_bytes()
     original_app = (case_dir / "app/index.html").read_bytes()
     build_files = web_url_parser._build_imported_app_files
@@ -115,7 +124,47 @@ def _round_trip_import_update(run: VerificationRun) -> None:
     assert replacement["category_info"]["category_id"] == "data_hud"
     saved = run.get_json(f"/api/case/{case_id}/bundle")
     assert saved["case_info"]["category_id"] == "data_hud"
+    assert saved["admission_status"] == "PROVISIONAL"
     assert (case_dir / "app/index.html").read_bytes() != original_app
+    assert note.read_text(encoding="utf-8") == "local case notes"
+
+
+def _static_assets_wait_for_case_publication(run: VerificationRun) -> None:
+    import server
+    from parsers import CASE_FILES_LOCK
+
+    path = run.root / "cases" / "audit_publication.txt"
+    path.write_text("under construction", encoding="utf-8")
+    started = Event()
+
+    class ObservedHandler(server.KaiwuHTTPRequestHandler):
+        def _send_static(self, base_dir, rel_path):
+            started.set()
+            super()._send_static(base_dir, rel_path)
+
+    with ThreadingHTTPServer(("127.0.0.1", 0), ObservedHandler) as httpd:
+        thread = Thread(target=httpd.serve_forever, daemon=True)
+        thread.start()
+        opener = build_opener(ProxyHandler({}))
+
+        def fetch():
+            with opener.open(f"http://127.0.0.1:{httpd.server_port}/cases/audit_publication.txt", timeout=5) as response:
+                return response.read()
+
+        try:
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                with CASE_FILES_LOCK:
+                    pending = pool.submit(fetch)
+                    assert started.wait(timeout=5), "the static request did not reach the handler"
+                    try:
+                        pending.result(timeout=0.35)
+                    except TimeoutError:
+                        pass
+                    path.write_text("published", encoding="utf-8")
+                assert pending.result(timeout=5) == b"published"
+        finally:
+            httpd.shutdown()
+            thread.join(timeout=5)
 
 
 def _keep_frame_timeline_when_sampling(run: VerificationRun) -> None:
@@ -186,6 +235,23 @@ def _block_rules_without_handlers(run: VerificationRun) -> None:
     assert "check_pv01_timeline_coverage" in bundle["gates"]["attribution"]
 
 
+def _ignore_unlinked_stage_scripts(run: VerificationRun) -> None:
+    import adaptive_eu_engine as engine
+
+    stage = run.root / "cases" / "code_xr_uiux" / "app" / "index.html"
+    original = stage.read_bytes()
+    markup, removed = re.subn(rb'<script\b[^>]*\bsrc=["\'](?:\./)?app\.js["\'][^>]*>\s*</script>', b"", original)
+    assert removed == 1, "the original stage should load app.js"
+    try:
+        stage.write_bytes(markup)
+        result = engine.build_case_bundle("code_xr_uiux")
+        assert result["admission_status"] == "BLOCKED", result["admission_status"]
+        assert "eu_L3_sprint_hero" in result["readback"]["missing_trace_ids"]
+        assert not any(item["passed"] for item in result["readback"]["interactions"])
+    finally:
+        stage.write_bytes(original)
+
+
 def _keep_committed_state_after_write_failure(run: VerificationRun) -> None:
     import adaptive_eu_engine as engine
 
@@ -238,6 +304,33 @@ def _persist_concurrent_confirmations(run: VerificationRun) -> None:
     engine.update_case_assumptions(case, "ALL", "reset")
 
 
+def _rollback_assumptions_if_bundle_write_fails(run: VerificationRun) -> None:
+    import adaptive_eu_engine as engine
+    import ai_tools_mcp
+
+    case_id = "code_xr_uiux"
+    before = ai_tools_mcp.manage_assumptions(case_id, "reset", "ALL")
+    case_dir = run.root / "cases" / case_id
+    paths = [case_dir / "assumptions_state.json", case_dir / "inspection_bundle.json"]
+    saved = [path.read_bytes() for path in paths]
+    write_json = engine._write_json_atomically
+
+    def fail_bundle_write(path, data):
+        if path.name == "inspection_bundle.json":
+            raise OSError("simulated bundle write error")
+        write_json(path, data)
+
+    with patch.object(engine, "_write_json_atomically", side_effect=fail_bundle_write):
+        try:
+            ai_tools_mcp.manage_assumptions(case_id, "confirm_all", "ALL")
+        except OSError as error:
+            assert "simulated bundle write error" in str(error), error
+        else:
+            raise AssertionError("A failed bundle write was reported as successful")
+    assert [path.read_bytes() for path in paths] == saved
+    assert engine.get_case_assumptions(case_id) == before["assumptions"]
+
+
 def _case_summaries_track_state_and_category_changes(run: VerificationRun) -> None:
     case_id = "code_xr_poster"
 
@@ -268,10 +361,12 @@ def verify_regressions(run: VerificationRun) -> int:
     sys.path.insert(0, str(run.root / "backend"))
     checks = (
         _reject_non_object_json, _reject_invalid_case_mutation, _report_image_input_errors,
-        _reject_unavailable_page, _round_trip_import_update, _keep_frame_timeline_when_sampling,
+        _reject_unavailable_page, _round_trip_import_update, _static_assets_wait_for_case_publication,
+        _keep_frame_timeline_when_sampling,
         _reject_invalid_video_inputs, _decode_direct_video,
-        _block_rules_without_handlers, _keep_committed_state_after_write_failure,
-        _persist_concurrent_confirmations, _case_summaries_track_state_and_category_changes,
+        _block_rules_without_handlers, _ignore_unlinked_stage_scripts,
+        _keep_committed_state_after_write_failure, _persist_concurrent_confirmations,
+        _rollback_assumptions_if_bundle_write_fails, _case_summaries_track_state_and_category_changes,
     )
     failures = []
     for check in checks:

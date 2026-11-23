@@ -682,6 +682,25 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
             page.unroute(endpoint, order_response)
             ctx.record_pass(cat, "same_case_request_order", "乱序返回后保留最新反事实预设")
 
+            write_endpoint = "**/api/case/code_xr_uiux/confirm_assumption"
+            delayed_writes = []
+            page.route(write_endpoint, lambda route: delayed_writes.append(route))
+            with page.expect_request(lambda req: req.url.endswith("/confirm_assumption")):
+                page.evaluate('() => { window.pendingSignoff = confirmAssumption("confirm_all", "ALL"); }')
+            page.evaluate(
+                """() => {
+                    window.afterSignoff = clearSandbox();
+                    return Promise.race([window.afterSignoff, new Promise(resolve => setTimeout(resolve, 600))]);
+                }"""
+            )
+            assert len(delayed_writes) == 1
+            delayed_writes[0].continue_()
+            page.evaluate("Promise.all([window.pendingSignoff, window.afterSignoff])")
+            expect(page.locator("#statusPill")).to_have_text("RELEASE_READY", timeout=5000)
+            page.unroute(write_endpoint)
+            page.evaluate('() => confirmAssumption("reset", "ALL")')
+            ctx.record_pass(cat, "pending_signoff_reconciled", "复位沙盒读到已完成签认的正式案例")
+
             bundle_endpoint = "**/api/case/code_xr_poster/bundle"
             page.route(bundle_endpoint, lambda route: route.fulfill(json={"status": "ERROR", "message": "验证用加载失败"}))
             page.locator("#caseSelect").select_option("code_xr_poster")
@@ -726,6 +745,14 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
             page.screenshot(path=str(shot4), full_page=False)
             ctx.screenshots.append({"path": str(shot4), "caption": "平面设计案例路由与全假设签认放行"})
             ctx.record_pass(cat, "poster_routing_and_release_ready", "平面设计案例 PI→GN→GG 路由、12列网格开关与全部签认跃迁 RELEASE_READY 全通过")
+
+            page.set_viewport_size({"width": 390, "height": 844})
+            expect(page.locator("#mobilePaneNav")).to_be_visible()
+            page.locator('#mobilePaneNav [data-mpane="mid"]').click()
+            expect(page.locator("#paneMid")).to_be_visible()
+            page.locator('#mobilePaneNav [data-mpane="right"]').click()
+            expect(stage_frame.locator(".poster-canvas")).to_be_visible()
+            ctx.record_pass(cat, "narrow_workbench", "390×844 下可切换语义树与舞台")
 
             browser.close()
 

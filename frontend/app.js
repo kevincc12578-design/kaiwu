@@ -32,6 +32,7 @@ const S = {
   readback: null,
   sandbox: null,
   reviewSeq: 0,
+  assumptionWrites: new Map(),
   selected: null,
   explainSeq: 0,
   open: new Set(),
@@ -66,6 +67,7 @@ async function api(path, opts) {
   return data;
 }
 const post = (path, body) => api(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+const pendingAssumptions = (caseId) => S.assumptionWrites.get(caseId)?.catch(() => {});
 
 let toastTimer = 0;
 function toast(msg, err = false) {
@@ -215,7 +217,9 @@ async function loadCase(id, suppliedBundle) {
   const mySeq = ++S.caseSeq;
   let b;
   try {
-    b = suppliedBundle ?? await api(`/api/case/${encodeURIComponent(id)}/bundle`);
+    const pending = pendingAssumptions(id);
+    if (pending) await pending;
+    b = (pending ? null : suppliedBundle) ?? await api(`/api/case/${encodeURIComponent(id)}/bundle`);
     if (b.case_id !== id) throw new Error("案例响应与选择不一致");
   } catch (error) {
     if (mySeq !== S.caseSeq) return;
@@ -400,6 +404,8 @@ async function injectPreset(preset) {
   const reqCase = S.caseId, reqSeq = S.caseSeq;
   const reviewSeq = ++S.reviewSeq;
   try {
+    await pendingAssumptions(reqCase);
+    if (S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     const r = await post(`/api/case/${encodeURIComponent(reqCase)}/test_rule_gate`, { preset });
     if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     $("#presetSelect").value = preset;
@@ -423,6 +429,8 @@ async function clearSandbox() {
   const reqCase = S.caseId, reqSeq = S.caseSeq;
   const reviewSeq = ++S.reviewSeq;
   try {
+    await pendingAssumptions(reqCase);
+    if (S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     const b = await api(`/api/case/${encodeURIComponent(reqCase)}/bundle`);
     if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     S.sandbox = null;
@@ -893,9 +901,13 @@ async function renderLedger() {
 async function confirmAssumption(action, assumption_id) {
   const reqCase = S.caseId, reqSeq = S.caseSeq;
   const reviewSeq = ++S.reviewSeq;
+  const body = { action, assumption_id: assumption_id || "all" };
+  const write = Promise.resolve(pendingAssumptions(reqCase)).then(() =>
+    post(`/api/case/${encodeURIComponent(reqCase)}/confirm_assumption`, body)
+  );
+  S.assumptionWrites.set(reqCase, write);
   try {
-    const body = { action, assumption_id: assumption_id || "all" };
-    const r = await post(`/api/case/${encodeURIComponent(reqCase)}/confirm_assumption`, body);
+    const r = await write;
     if (S.caseId !== reqCase || S.caseSeq !== reqSeq || S.reviewSeq !== reviewSeq) return;
     S.sandbox = null;
     $("#presetSelect").value = "";
@@ -908,6 +920,8 @@ async function confirmAssumption(action, assumption_id) {
     toast(notice);
   } catch (e) {
     if (S.caseSeq === reqSeq && S.reviewSeq === reviewSeq) toast(e.message, true);
+  } finally {
+    if (S.assumptionWrites.get(reqCase) === write) S.assumptionWrites.delete(reqCase);
   }
 }
 
@@ -1132,8 +1146,10 @@ async function openSelfXray() {
 /* ---------------- 事件 ---------------- */
 function bindStatic() {
   $("#caseSelect").addEventListener("change", (e) => {
+    const id = e.target.value;
+    if (S.caseId) e.target.value = S.caseId;
     syncSelectLabel(e.target);
-    loadCase(e.target.value).catch((x) => toast(x.message, true));
+    loadCase(id).catch((x) => toast(x.message, true));
   });
   $("#impCatSelect")?.addEventListener("change", (e) => syncSelectLabel(e.target));
 
@@ -1163,13 +1179,25 @@ function bindStatic() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: urlVal, case_id: cidVal || null, category: catVal }),
         });
-        const listData = await api("/api/cases");
-        S.cases = listData.cases || [];
-        S.categories = listData.categories || S.categories;
-        renderCaseSelector(res.case_id);
+        const imported = res.bundle?.case_info;
+        if (imported) {
+          const known = S.cases.some((item) => item.case_id === imported.case_id);
+          S.cases = known
+            ? S.cases.map((item) => item.case_id === imported.case_id ? imported : item)
+            : [...S.cases, imported];
+          renderCaseSelector(S.caseId);
+        }
         impDlg.close();
         await loadCase(res.case_id, res.bundle);
         toast(`解析完成：${res.category_info?.category_name || res.case_id}`);
+        try {
+          const listData = await api("/api/cases");
+          S.cases = listData.cases || [];
+          S.categories = listData.categories || S.categories;
+          renderCaseSelector(S.caseId);
+        } catch {
+          toast("已导入，案例列表暂未刷新");
+        }
       } catch (err) {
         $("#impStatus").textContent = err.message || "解析失败";
         toast(err.message || "解析失败", true);

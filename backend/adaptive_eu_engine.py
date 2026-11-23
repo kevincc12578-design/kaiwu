@@ -1979,19 +1979,23 @@ DEFAULT_ASSUMPTIONS: dict[str, list[dict[str, Any]]] = {
 _ASSUMPTION_MEMORY_STATE: dict[str, dict[str, dict[str, Any]]] = {}
 
 
-def _write_json_atomically(path: Path, value: Any) -> None:
+def _write_bytes_atomically(path: Path, value: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     stream = tempfile.NamedTemporaryFile(
-        mode="w", encoding="utf-8", dir=path.parent, prefix=f".{path.stem}-",
+        mode="wb", dir=path.parent, prefix=f".{path.stem}-",
         suffix=".tmp", delete=False,
     )
     temporary = Path(stream.name)
     try:
         with stream:
-            json.dump(value, stream, ensure_ascii=False, indent=2)
+            stream.write(value)
         temporary.replace(path)
     finally:
         temporary.unlink(missing_ok=True)
+
+
+def _write_json_atomically(path: Path, value: Any) -> None:
+    _write_bytes_atomically(path, json.dumps(value, ensure_ascii=False, indent=2).encode("utf-8"))
 
 
 def _state_file_for_case(case_id: str) -> Path:
@@ -2050,6 +2054,30 @@ def update_case_assumptions(case_id: str, assumption_id: str, action: str) -> li
         else:
             _write_json_atomically(_state_file_for_case(case_id), state_map)
         return current
+
+
+def publish_assumption_change(case_id: str, assumption_id: str, action: str) -> dict[str, Any]:
+    """Publish the new state and its bundle together under the case file lock."""
+    with parsers_mod.CASE_FILES_LOCK:
+        _get_case_meta(case_id)
+        memory_only = case_id == "web_fixture"
+        old_memory = _ASSUMPTION_MEMORY_STATE.get(case_id)
+        state_path = _state_file_for_case(case_id)
+        old_state = state_path.read_bytes() if not memory_only and state_path.is_file() else None
+        update_case_assumptions(case_id, assumption_id, action)
+        try:
+            return build_case_bundle(case_id, persist=not memory_only)
+        except BaseException:
+            if memory_only:
+                if old_memory is None:
+                    _ASSUMPTION_MEMORY_STATE.pop(case_id, None)
+                else:
+                    _ASSUMPTION_MEMORY_STATE[case_id] = old_memory
+            elif old_state is None:
+                state_path.unlink(missing_ok=True)
+            else:
+                _write_bytes_atomically(state_path, old_state)
+            raise
 
 
 # ==============================================================================
@@ -2604,8 +2632,7 @@ def check_gn02_template_adaptive_compliance(ctx: dict[str, Any], thresholds: dic
 
     # 1. 必选 L1 领地锚定检查（按品类插件裁剪后必选槽位动态决定，兼容原模板基线）
     tpl_req_slots = [s["slot_id"] for s in tpl.get("l1_territories", []) if s.get("required")]
-    cid_cat = ctx.get("category_id")
-    cat_def = cat_reg.load_categories().get(str(cid_cat)) if cid_cat else None
+    cat_def = ctx.get("category_definition")
     req_slots = list(cat_def["required_slots"]) if (cat_def and cat_def.get("required_slots")) else tpl_req_slots
     l1_by_slot = {n.get("template_slot"): n for n in nodes if n["level"] == "L1"}
     for sid in req_slots:
@@ -3106,6 +3133,7 @@ def evaluate_three_layer_gates(
     *,
     rule_modules: list[dict[str, Any]] | None = None,
     templates: dict[str, dict[str, Any]] | None = None,
+    categories: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], str]:
     """按 modality + scope=all + domain 动态激活 12 条规则并执行真实求值。"""
     all_modules = load_all_rule_modules() if rule_modules is None else rule_modules
@@ -3124,10 +3152,15 @@ def evaluate_three_layer_gates(
             active_modules.append(mod)
     active_modules.sort(key=lambda m: int(m.get("layer_order", 9)))
 
+    category_definition = None
+    if category_id:
+        catalog = cat_reg.load_categories() if categories is None else categories
+        category_definition = catalog.get(category_id)
     ctx = {
         "modality": modality,
         "domain": domain,
         "category_id": category_id,
+        "category_definition": category_definition,
         "skeleton": skeleton,
         "eu_tree": eu_tree,
         "assumptions": assumptions,
@@ -3602,6 +3635,7 @@ def _evaluate_case(case_id: str, library: _CaseLibrary, persist_skeleton: bool =
         category_id=cat_info["category_id"],
         rule_modules=library.rule_modules,
         templates=library.templates,
+        categories=library.categories,
     )
     open_cnt = sum(1 for a in assumptions if a.get("status") == "open")
     rule_summary = " → ".join(f"{l['prefix']} {l['passed']}/{l['total']}" for l in gates["layers"])
@@ -3683,16 +3717,18 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
             "readback": b["readback"],
         }
 
-    _get_case_meta(case_id)
-    all_presets = {p["preset"]: p for p in get_counterfactual_presets(None)}
-    pinfo = all_presets.get(preset)
-    if not pinfo:
-        raise ValueError(f"Unknown counterfactual preset: {preset}")
+    library = _load_case_library()
+    with parsers_mod.CASE_FILES_LOCK:
+        _get_case_meta(case_id)
+        presets = get_counterfactual_presets(rule_modules=library.rule_modules)
+        pinfo = next((info for info in presets if info["preset"] == preset), None)
+        if not pinfo or not pinfo["applicable_cases"]:
+            raise ValueError(f"No case is available for counterfactual preset: {preset}")
 
-    # 若当前案例未激活该预设所属模态/领域，自动路由至适用的宿主案例内存快照
-    eval_case_id = case_id if case_id in pinfo["applicable_cases"] else pinfo["applicable_cases"][0]
-    meta = _get_case_meta(eval_case_id)
-    skeleton, eu_tree, assumptions, readback = _build_raw_case_components(eval_case_id, persist_skeleton=False)
+        # 若当前案例未激活该预设所属模态/领域，自动路由至适用的宿主案例内存快照
+        eval_case_id = case_id if case_id in pinfo["applicable_cases"] else pinfo["applicable_cases"][0]
+        meta = _get_case_meta(eval_case_id)
+        skeleton, eu_tree, assumptions, readback = _build_raw_case_components(eval_case_id, persist_skeleton=False)
 
     skeleton_sb = copy.deepcopy(skeleton)
     eu_tree_sb = copy.deepcopy(eu_tree)
@@ -3700,7 +3736,7 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
     readback_sb = copy.deepcopy(readback)
 
     forced_adm = _apply_counterfactual_mutation(preset, skeleton_sb, eu_tree_sb, assumptions_sb, readback_sb)
-    eval_cat_id = cat_reg.get_case_category(eval_case_id, meta)["category_id"]
+    eval_cat_id = cat_reg.get_case_category(eval_case_id, meta, categories=library.categories)["category_id"]
     gates, admission = evaluate_three_layer_gates(
         modality=meta["modality"],
         domain=meta["domain"],
@@ -3711,6 +3747,9 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
         target_rule_hint=pinfo["target_rule_id"],
         forced_admission_override=forced_adm,
         category_id=eval_cat_id,
+        rule_modules=library.rule_modules,
+        templates=library.templates,
+        categories=library.categories,
     )
 
     return {

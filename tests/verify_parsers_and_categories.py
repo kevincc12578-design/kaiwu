@@ -101,6 +101,14 @@ def verify(run: VerificationRun) -> None:
     assert res_img["status"] == "OK" and res_img["box_count"] >= 6
     assert pathlib.Path(res_img["som_image_path"]).exists()
     assert len(res_img["palette"]) >= 4 and "#7" in res_img["agent_handoff"]["asset_slot_marks"]
+    manual = run.post_json("/api/parse/image", {
+        "image_path": str(cases_dir / "monolog_swiss_poster" / "frames" / "ref_monolog_poster.png"),
+        "out_dir": str(parse_output / "som_manual_category"),
+        "category": "data_hud",
+    })["classification"]
+    hud = next(category for category in cats if category["category_id"] == "data_hud")
+    assert manual["category_id"] == hud["category_id"] and manual["category_name"] == hud["name"]
+    assert (manual["tier"], manual["default_domain"]) == (hud["tier"], hud["default_domain"])
     print(f"[PASS] 6. Image SoM parser generated {res_img['box_count']} boxes + som_annotated.png + asset_slot_marks={res_img['agent_handoff']['asset_slot_marks']}")
 
     # 4. Local Video / Frame-Series Diff API (zero ffmpeg/cv2/API)

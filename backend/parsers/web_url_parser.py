@@ -10,6 +10,7 @@ import json
 import math
 import pathlib
 import re
+import shutil
 import sys
 import tempfile
 import warnings
@@ -845,6 +846,8 @@ def parse_web_url(
     target_url = url.strip()
     if case_id is not None and not isinstance(case_id, str):
         raise ValueError("case_id must be a string")
+    if category_override is not None and not isinstance(category_override, str):
+        raise ValueError("category must be a string")
     cid = _slugify_case_id(target_url, case_id)
     if not persist:
         return _inspect_web_url(target_url, cid, category_override)
@@ -864,7 +867,7 @@ def parse_web_url(
 
 
 def _check_import_destination(target: pathlib.Path) -> None:
-    if target.is_symlink() or target.resolve().parent != CASES_DIR.resolve():
+    if target.is_reserved() or target.is_symlink() or target.resolve().parent != CASES_DIR.resolve():
         raise ValueError("Invalid case output directory")
     if target.name == "web_fixture" or (target.exists() and not (target / "parsed_case.json").is_file()):
         raise CaseConflictError(f"Case ID is already reserved: {target.name}")
@@ -876,6 +879,7 @@ def _publish_import(
 ) -> None:
     backup = target.parent / f".previous-import-{uuid4().hex}"
     if target.exists():
+        _keep_existing_case_data(target, staged)
         target.rename(backup)
     published = False
     try:
@@ -894,6 +898,33 @@ def _publish_import(
             backup.rename(staged.parent / "previous")
         except OSError:
             warnings.warn(f"Previous import retained in {backup.name}", RuntimeWarning)
+
+
+def _keep_existing_case_data(target: pathlib.Path, staged: pathlib.Path) -> None:
+    generated = {"parsed_case.json", "assumptions_state.json", "skeleton_ir.json",
+                 "skeleton_overlay.svg", "inspection_bundle.json"}
+    for path in target.rglob("*"):
+        relative = path.relative_to(target)
+        if relative.parts[0] in generated or path.is_symlink() or not path.is_file():
+            continue
+        if not path.resolve().is_relative_to(target):
+            continue
+        destination = staged / relative
+        if not destination.exists():
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, destination)
+
+    state = target / "assumptions_state.json"
+    if not state.is_file() or state.is_symlink():
+        return
+    try:
+        previous = json.loads((target / "parsed_case.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return
+    evidence_keys = ("source_url", "assumptions", "skeleton", "raw_eu_spec")
+    current = json.loads((staged / "parsed_case.json").read_text(encoding="utf-8"))
+    if isinstance(previous, dict) and all(previous.get(key) == current.get(key) for key in evidence_keys):
+        shutil.copy2(state, staged / state.name)
 
 
 def _inspect_web_url(

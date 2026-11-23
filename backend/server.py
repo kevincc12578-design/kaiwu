@@ -20,6 +20,7 @@ import json
 import mimetypes
 import sys
 import traceback
+from contextlib import nullcontext
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -158,15 +159,23 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(raw)
 
     def _send_static(self, base_dir: Path, rel_path: str) -> None:
-        clean_rel = rel_path.lstrip("/\\")
-        base_resolved = base_dir.resolve()
-        target = (base_resolved / clean_rel).resolve()
-        if target.is_dir():
-            target = (target / "index.html").resolve()
-        if not target.is_relative_to(base_resolved):
+        case_scope = parsers_mod.CASE_FILES_LOCK if base_dir == CASES_DIR else nullcontext()
+        try:
+            with case_scope:
+                clean_rel = rel_path.lstrip("/\\")
+                base_resolved = base_dir.resolve()
+                target = (base_resolved / clean_rel).resolve()
+                if target.is_relative_to(base_resolved) and target.is_dir():
+                    target = (target / "index.html").resolve()
+                if not target.is_relative_to(base_resolved):
+                    raise PermissionError
+                if not target.is_file():
+                    raise FileNotFoundError
+                data = target.read_bytes()
+        except PermissionError:
             self._send_json({"status": "ERROR", "message": "Forbidden path"}, 403)
             return
-        if not target.is_file():
+        except FileNotFoundError:
             self._send_json({"status": "ERROR", "message": f"Not found: {rel_path}"}, 404)
             return
 
@@ -176,7 +185,6 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
         if ctype.startswith("text/") or ctype in ("application/javascript", "application/json", "image/svg+xml"):
             ctype = f"{ctype}; charset=utf-8"
 
-        data = target.read_bytes()
         self.send_response(200)
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(data)))

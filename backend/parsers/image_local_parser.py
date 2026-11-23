@@ -154,6 +154,8 @@ def parse_local_image(
     对静图执行纯本地 Pillow + NumPy 视觉测绘，输出精确原子框列表、主色色板、
     Set-of-Mark 标号图 (som_annotated.png)、自动品类判定与 Agent 移交清单。
     """
+    if category_override is not None and not isinstance(category_override, str):
+        raise ValueError("category must be a string")
     src_path = pathlib.Path(image_path)
     if not src_path.is_file():
         raise FileNotFoundError(f"Image file not found: {image_path}")
@@ -320,7 +322,16 @@ def parse_local_image(
     }
     classification = cat_reg.classify_skeleton(classify_input, domain_hint=domain_hint)
     if category_override and category_override not in ("auto", "ALL", ""):
-        classification["category_id"] = category_override
+        category = cat_reg.load_categories().get(category_override)
+        if category:
+            classification.update(
+                category_id=category_override,
+                category_name=category.get("name", category_override),
+                tier=category.get("tier", "core"),
+                default_domain=category.get("default_domain", "uiux"),
+                confidence=1.0,
+                reasons=["手动指定分类", *classification["reasons"]],
+            )
 
     result = {
         "status": "OK",
