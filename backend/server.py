@@ -158,14 +158,14 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def _send_static(self, base_dir: Path, rel_path: str) -> None:
         clean_rel = rel_path.lstrip("/\\")
-        target = (base_dir / clean_rel).resolve()
         base_resolved = base_dir.resolve()
-        if not str(target).startswith(str(base_resolved)):
+        target = (base_resolved / clean_rel).resolve()
+        if target.is_dir():
+            target = (target / "index.html").resolve()
+        if not target.is_relative_to(base_resolved):
             self._send_json({"status": "ERROR", "message": "Forbidden path"}, 403)
             return
-        if target.is_dir():
-            target = target / "index.html"
-        if not target.exists() or not target.is_file():
+        if not target.is_file():
             self._send_json({"status": "ERROR", "message": f"Not found: {rel_path}"}, 404)
             return
 
@@ -186,13 +186,17 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def _read_json_body(self) -> dict[str, Any]:
         length = int(self.headers.get("Content-Length") or 0)
-        if length <= 0:
+        if length < 0:
+            raise ValueError("Content-Length must be nonnegative")
+        if length == 0:
             return {}
-        raw = self.rfile.read(length).decode("utf-8", errors="replace")
+        raw = self.rfile.read(length).decode("utf-8")
         if not raw.strip():
             return {}
         data = json.loads(raw)
-        return data if isinstance(data, dict) else {}
+        if not isinstance(data, dict):
+            raise ValueError("The JSON request body must be an object")
+        return data
 
     def do_OPTIONS(self) -> None:
         self.send_response(204)
@@ -251,7 +255,7 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
             rel_front = "index.html" if path in ("", "/") else path
             self._send_static(FRONTEND_DIR, rel_front)
 
-        except KeyError as ke:
+        except (engine.UnknownCaseError, KeyError) as ke:
             self._send_json({"status": "ERROR", "message": str(ke)}, 404)
         except ValueError as ve:
             self._send_json({"status": "ERROR", "message": str(ve)}, 400)
@@ -269,8 +273,7 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
                 url = str(body.get("url") or "").strip()
                 cid = body.get("case_id")
                 cat_ov = body.get("category")
-                parsed = parsers_mod.parse_web_url(url=url, case_id=cid, category_override=cat_ov, persist=True)
-                bundle = engine.build_case_bundle(parsed["case_id"], persist=True)
+                parsed, bundle = ai_tools.import_web_case(url, cid, cat_ov)
                 self._send_json(
                     {
                         "status": "OK",
@@ -294,7 +297,13 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
             if path == "/api/parse/video":
                 src_path = str(body.get("source_path") or "").strip()
                 cid = body.get("case_id")
-                max_samples = int(body.get("max_samples") or 12)
+                requested_samples = body.get("max_samples")
+                max_samples = 12 if requested_samples is None else requested_samples
+                if isinstance(max_samples, str):
+                    try:
+                        max_samples = int(max_samples)
+                    except ValueError as error:
+                        raise ValueError("max_samples must be a positive integer") from error
                 out_dir = body.get("out_dir")
                 res = parsers_mod.parse_local_video(source_path=src_path, case_id=cid, max_samples=max_samples, output_dir=out_dir)
                 self._send_json(res)
@@ -330,6 +339,10 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
                     return
 
             self._send_json({"status": "ERROR", "message": f"Unknown POST endpoint: {path}"}, 404)
+        except parsers_mod.CaseConflictError as error:
+            self._send_json({"status": "ERROR", "message": str(error)}, 409)
+        except (engine.UnknownCaseError, FileNotFoundError) as error:
+            self._send_json({"status": "ERROR", "message": str(error)}, 404)
         except ValueError as ve:
             self._send_json({"status": "ERROR", "message": str(ve)}, 400)
         except Exception as exc:

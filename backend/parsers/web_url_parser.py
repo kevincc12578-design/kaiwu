@@ -11,15 +11,24 @@ import math
 import pathlib
 import re
 import sys
+import tempfile
+import warnings
 from collections import Counter
-from typing import Any
+from threading import RLock
+from typing import Any, Callable
 from urllib.parse import urlparse
+from uuid import uuid4
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Error as BrowserError, TimeoutError as BrowserTimeout, sync_playwright
 
 BACKEND_DIR = pathlib.Path(__file__).resolve().parent.parent
 PROJECT_ROOT = BACKEND_DIR.parent
 CASES_DIR = PROJECT_ROOT / "cases"
+CASE_FILES_LOCK = RLock()
+
+
+class CaseConflictError(ValueError):
+    """An import ID belongs to an existing non-imported case."""
 
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
@@ -37,9 +46,8 @@ def _slugify_case_id(url: str, raw_case_id: str | None = None) -> str:
     host = re.sub(r"[^a-zA-Z0-9]+", "_", (parsed.netloc or "site").lower()).strip("_")
     tail = [seg for seg in (parsed.path or "").split("/") if seg and not seg.endswith(".html")]
     leaf = re.sub(r"[^a-zA-Z0-9]+", "_", (tail[-1] if tail else "page").lower()).strip("_")
-    stamp = dt.datetime.now(dt.timezone.utc).strftime("%H%M%S")
-    base = f"imp_{host}_{leaf}_{stamp}"
-    return re.sub(r"_+", "_", base)[:48].strip("_")
+    base = re.sub(r"_+", "_", f"imp_{host}_{leaf}")[:39].rstrip("_")
+    return f"{base}_{uuid4().hex[:8]}"
 
 
 def _rgb_to_hex(rgb_str: str) -> str | None:
@@ -824,6 +832,8 @@ def parse_web_url(
     case_id: str | None = None,
     category_override: str | None = None,
     persist: bool = True,
+    *,
+    finalize: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     """
     使用无头 Chromium 在 1440 / 768 / 390 三断点真机测绘任意网页 URL，
@@ -833,10 +843,65 @@ def parse_web_url(
         raise ValueError(f"Invalid URL (must start with http:// or https://): {url}")
 
     target_url = url.strip()
+    if case_id is not None and not isinstance(case_id, str):
+        raise ValueError("case_id must be a string")
     cid = _slugify_case_id(target_url, case_id)
+    if not persist:
+        return _inspect_web_url(target_url, cid, category_override)
+
+    base = CASES_DIR.resolve()
+    base.mkdir(parents=True, exist_ok=True)
+    target = base / cid
+    with CASE_FILES_LOCK:
+        _check_import_destination(target)
+    with tempfile.TemporaryDirectory(prefix=".import-", dir=base) as staging:
+        staged_case = pathlib.Path(staging) / cid
+        payload = _inspect_web_url(target_url, cid, category_override, staged_case)
+        with CASE_FILES_LOCK:
+            _check_import_destination(target)
+            _publish_import(target, staged_case, payload, finalize)
+    return payload
+
+
+def _check_import_destination(target: pathlib.Path) -> None:
+    if target.is_symlink() or target.resolve().parent != CASES_DIR.resolve():
+        raise ValueError("Invalid case output directory")
+    if target.name == "web_fixture" or (target.exists() and not (target / "parsed_case.json").is_file()):
+        raise CaseConflictError(f"Case ID is already reserved: {target.name}")
+
+
+def _publish_import(
+    target: pathlib.Path, staged: pathlib.Path, payload: dict[str, Any],
+    finalize: Callable[[dict[str, Any]], None] | None,
+) -> None:
+    backup = target.parent / f".previous-import-{uuid4().hex}"
+    if target.exists():
+        target.rename(backup)
+    published = False
+    try:
+        staged.rename(target)
+        published = True
+        if finalize is not None:
+            finalize(payload)
+    except BaseException:
+        if published:
+            target.rename(staged)
+        if backup.exists():
+            backup.rename(target)
+        raise
+    if backup.exists():
+        try:
+            backup.rename(staged.parent / "previous")
+        except OSError:
+            warnings.warn(f"Previous import retained in {backup.name}", RuntimeWarning)
+
+
+def _inspect_web_url(
+    target_url: str, cid: str, category_override: str | None,
+    case_dir: pathlib.Path | None = None,
+) -> dict[str, Any]:
     prefix = "imp"
-    case_dir = CASES_DIR / cid
-    frames_dir = case_dir / "frames"
+    frames_dir = case_dir / "frames" if case_dir is not None else None
 
     bp_measures: dict[int, dict[str, Any]] = {}
     desktop_probe: dict[str, Any] = {}
@@ -847,9 +912,15 @@ def parse_web_url(
         page = context.new_page()
 
         try:
-            page.goto(target_url, wait_until="networkidle", timeout=20000)
-        except Exception:
-            page.goto(target_url, wait_until="domcontentloaded", timeout=20000)
+            try:
+                response = page.goto(target_url, wait_until="networkidle", timeout=20000)
+            except BrowserTimeout:
+                response = page.goto(target_url, wait_until="domcontentloaded", timeout=20000)
+        except BrowserError as error:
+            raise ValueError(f"Could not load webpage: {target_url}") from error
+        if response is None or not response.ok:
+            status = response.status if response else "no response"
+            raise ValueError(f"Webpage returned {status}: {target_url}")
         page.wait_for_timeout(450)
 
         desktop_probe = page.evaluate(_PROBE_JS)
@@ -857,7 +928,7 @@ def parse_web_url(
             "scroll_width": desktop_probe["scroll_width"],
             "overflow_px": desktop_probe["overflow_px"],
         }
-        if persist:
+        if frames_dir is not None:
             frames_dir.mkdir(parents=True, exist_ok=True)
             page.screenshot(path=str(frames_dir / "captured_1440.png"), full_page=False)
 
@@ -869,7 +940,7 @@ def parse_web_url(
                 "scroll_width": int(m["sw"]),
                 "overflow_px": max(0, int(m["sw"]) - int(m["vw"])),
             }
-            if persist and shot_name:
+            if frames_dir is not None and shot_name:
                 page.screenshot(path=str(frames_dir / shot_name), full_page=False)
 
         browser.close()
@@ -910,7 +981,7 @@ def parse_web_url(
     rail_w = 72 if has_nav_rail else 68
 
     # Construct normalized skeleton for classifier + EU engine
-    frame_url = f"/cases/{cid}/frames/captured_1440.png" if persist else ""
+    frame_url = f"/cases/{cid}/frames/captured_1440.png" if frames_dir is not None else ""
     bboxes = [
         {"bbox_id": f"bb_{prefix}_nav", "eu_id": f"eu_L3_{prefix}_rail_dock", "label": "导航/侧轨区", "x": 16, "y": 16, "w": rail_w, "h": 868, "role": "nav"},
         {"bbox_id": f"bb_{prefix}_top", "eu_id": f"eu_L3_{prefix}_topbar", "label": "顶栏与视图入口", "x": 104, "y": 16, "w": 1316, "h": 68, "role": "nav"},
@@ -1185,7 +1256,7 @@ def parse_web_url(
         "assumptions": assumptions,
     }
 
-    if persist:
+    if case_dir is not None:
         case_dir.mkdir(parents=True, exist_ok=True)
         _build_imported_app_files(
             case_dir=case_dir,

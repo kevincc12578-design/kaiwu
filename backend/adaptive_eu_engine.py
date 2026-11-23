@@ -14,6 +14,7 @@ import copy
 import datetime as dt
 import json
 import re
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -1977,58 +1978,77 @@ DEFAULT_ASSUMPTIONS: dict[str, list[dict[str, Any]]] = {
 _ASSUMPTION_MEMORY_STATE: dict[str, dict[str, dict[str, Any]]] = {}
 
 
+def _write_json_atomically(path: Path, value: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    stream = tempfile.NamedTemporaryFile(
+        mode="w", encoding="utf-8", dir=path.parent, prefix=f".{path.stem}-",
+        suffix=".tmp", delete=False,
+    )
+    temporary = Path(stream.name)
+    try:
+        with stream:
+            json.dump(value, stream, ensure_ascii=False, indent=2)
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
 def _state_file_for_case(case_id: str) -> Path:
     return CASES_DIR / case_id / "assumptions_state.json"
 
 
 def get_case_assumptions(case_id: str) -> list[dict[str, Any]]:
-    default_list = DEFAULT_ASSUMPTIONS.get(case_id)
-    if default_list is None:
-        imported = parsers_mod.load_imported_case(case_id)
-        default_list = (imported or {}).get("assumptions", [])
+    with parsers_mod.CASE_FILES_LOCK:
+        default_list = DEFAULT_ASSUMPTIONS.get(case_id)
+        if default_list is None:
+            imported = parsers_mod.load_imported_case(case_id)
+            default_list = (imported or {}).get("assumptions", [])
+        if case_id == "web_fixture":
+            state_map = _ASSUMPTION_MEMORY_STATE.get(case_id, {})
+        else:
+            try:
+                state_map = json.loads(_state_file_for_case(case_id).read_text(encoding="utf-8"))
+            except (FileNotFoundError, UnicodeError, json.JSONDecodeError):
+                state_map = {}
     base = copy.deepcopy(default_list)
-    state_map = _ASSUMPTION_MEMORY_STATE.get(case_id)
-    state_file = _state_file_for_case(case_id)
-    if state_map is None and state_file.exists():
-        try:
-            state_map = json.loads(state_file.read_text(encoding="utf-8"))
-            _ASSUMPTION_MEMORY_STATE[case_id] = state_map
-        except Exception:
-            state_map = {}
-    state_map = state_map or {}
+    if not isinstance(state_map, dict):
+        state_map = {}
     for item in base:
         saved = state_map.get(item["assumption_id"])
-        if saved:
+        if isinstance(saved, dict):
             item["status"] = saved.get("status", item["status"])
             item["confirmed_at"] = saved.get("confirmed_at")
     return base
 
 
 def update_case_assumptions(case_id: str, assumption_id: str, action: str) -> list[dict[str, Any]]:
-    current = get_case_assumptions(case_id)
-    now_iso = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     act = (action or "confirm").lower()
+    if act not in {"confirm", "confirm_all", "reset"}:
+        raise ValueError(f"Unknown assumption action: {action}")
+    apply_to_all = (
+        act == "confirm_all" or assumption_id in ("ALL", "all")
+        or (act == "reset" and not assumption_id)
+    )
 
-    state_map: dict[str, dict[str, Any]] = {}
-    for item in current:
-        aid = item["assumption_id"]
-        if act == "reset" and (assumption_id in ("ALL", "all", "", None) or aid == assumption_id):
-            item["status"] = "open"
-            item["confirmed_at"] = None
-        elif act in ("confirm_all",) or (act == "confirm" and assumption_id in ("ALL", "all")):
-            item["status"] = "confirmed"
-            item["confirmed_at"] = now_iso
-        elif act == "confirm" and aid == assumption_id:
-            item["status"] = "confirmed"
-            item["confirmed_at"] = now_iso
-        state_map[aid] = {"status": item["status"], "confirmed_at": item["confirmed_at"]}
-
-    _ASSUMPTION_MEMORY_STATE[case_id] = state_map
-    if case_id != "web_fixture":
-        sf = _state_file_for_case(case_id)
-        sf.parent.mkdir(parents=True, exist_ok=True)
-        sf.write_text(json.dumps(state_map, ensure_ascii=False, indent=2), encoding="utf-8")
-    return current
+    with parsers_mod.CASE_FILES_LOCK:
+        _get_case_meta(case_id)
+        current = get_case_assumptions(case_id)
+        if not apply_to_all and not any(item["assumption_id"] == assumption_id for item in current):
+            raise ValueError(f"Unknown assumption: {assumption_id}")
+        confirmed_at = None if act == "reset" else dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        status = "open" if act == "reset" else "confirmed"
+        state_map: dict[str, dict[str, Any]] = {}
+        for item in current:
+            aid = item["assumption_id"]
+            if apply_to_all or aid == assumption_id:
+                item["status"] = status
+                item["confirmed_at"] = confirmed_at
+            state_map[aid] = {"status": item["status"], "confirmed_at": item["confirmed_at"]}
+        if case_id == "web_fixture":
+            _ASSUMPTION_MEMORY_STATE[case_id] = state_map
+        else:
+            _write_json_atomically(_state_file_for_case(case_id), state_map)
+        return current
 
 
 # ==============================================================================
@@ -3127,8 +3147,17 @@ def evaluate_three_layer_gates(
 
         for rdef in mod.get("rules", []):
             rid = str(rdef["id"])
-            fn = CHECK_DISPATCH.get(str(rdef.get("check_code", "")))
-            res = fn(ctx, rdef.get("thresholds") or {}) if fn else {"passed": True, "metric": "OK", "detail": "", "violated_node_ids": []}
+            check_code = str(rdef.get("check_code", ""))
+            fn = CHECK_DISPATCH.get(check_code)
+            if fn is None:
+                res = {
+                    "passed": False,
+                    "metric": "CHECK_HANDLER_MISSING",
+                    "detail": f"No rule handler for {check_code or '(empty check_code)'}",
+                    "violated_node_ids": [],
+                }
+            else:
+                res = fn(ctx, rdef.get("thresholds") or {})
             ok = bool(res["passed"])
             if ok:
                 passed_in_layer += 1
@@ -3215,13 +3244,17 @@ def _get_all_case_meta() -> dict[str, dict[str, Any]]:
     return merged
 
 
+class UnknownCaseError(ValueError):
+    """A requested case does not exist."""
+
+
 def _get_case_meta(case_id: str) -> dict[str, Any]:
     if case_id in CASE_META:
         return CASE_META[case_id]
     imported = parsers_mod.load_imported_case(case_id)
     if imported and isinstance(imported.get("case_meta"), dict):
         return imported["case_meta"]
-    raise ValueError(f"Unknown case_id: {case_id}")
+    raise UnknownCaseError(f"Unknown case_id: {case_id}")
 
 
 def get_counterfactual_presets(case_id: str | None = None) -> list[dict[str, Any]]:
@@ -3533,6 +3566,13 @@ def _build_raw_case_components(case_id: str, persist_skeleton: bool = False) -> 
 
 def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
     """构建并返回指定案例的完整 inspection_bundle.json 结构。"""
+    if case_id not in CASE_META:
+        with parsers_mod.CASE_FILES_LOCK:
+            return _build_case_bundle(case_id, persist)
+    return _build_case_bundle(case_id, persist)
+
+
+def _build_case_bundle(case_id: str, persist: bool) -> dict[str, Any]:
     meta = _get_case_meta(case_id)
     cat_info = cat_reg.get_case_category(case_id, meta)
     skeleton, eu_tree, assumptions, readback = _build_raw_case_components(case_id, persist_skeleton=persist)
@@ -3581,8 +3621,7 @@ def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
 
     if persist and case_id != "web_fixture":
         out_path = CASES_DIR / case_id / "inspection_bundle.json"
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
+        _write_json_atomically(out_path, bundle)
     return bundle
 
 
@@ -3607,6 +3646,7 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
             "readback": b["readback"],
         }
 
+    _get_case_meta(case_id)
     all_presets = {p["preset"]: p for p in get_counterfactual_presets(None)}
     pinfo = all_presets.get(preset)
     if not pinfo:

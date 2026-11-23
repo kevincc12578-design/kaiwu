@@ -14,6 +14,7 @@ from uuid import uuid4
 
 from playwright.sync_api import sync_playwright
 
+from issue1_regressions import verify_regressions
 from verification_env import VerificationRun, isolated_workbench
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -178,6 +179,7 @@ def main() -> None:
         report = {"overall_verdict": "FAIL"}
         try:
             verify(run)
+            report["regression_checks"] = verify_regressions(run)
             report["overall_verdict"] = "PASS"
         except Exception as error:
             report["error"] = str(error)

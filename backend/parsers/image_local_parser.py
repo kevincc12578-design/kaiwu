@@ -155,10 +155,14 @@ def parse_local_image(
     Set-of-Mark 标号图 (som_annotated.png)、自动品类判定与 Agent 移交清单。
     """
     src_path = pathlib.Path(image_path)
-    if not src_path.exists():
+    if not src_path.is_file():
         raise FileNotFoundError(f"Image file not found: {image_path}")
 
-    img = Image.open(src_path).convert("RGB")
+    try:
+        with Image.open(src_path) as source:
+            img = source.convert("RGB")
+    except (OSError, Image.DecompressionBombError) as error:
+        raise ValueError(f"Could not decode image: {src_path.name}") from error
     orig_w, orig_h = img.size
 
     # Palette extraction
