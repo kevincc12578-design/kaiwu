@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>60fps — Physics Motion Gallery</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="fp-body">
+  <div id="viewport" class="fp-page" data-page="all" data-eu-id="eu_L0_fp_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_fp_skip_entry">Skip to Physics Stage</a>
+
+    <main id="mainStage" class="fp-main" data-eu-id="eu_L1_fp_stage">
+      <div class="fp-container">
+        <header class="fp-topbar" data-eu-id="eu_L3_fp_topbar">
+          <div class="fp-brand">
+            <span class="fp-pill-60">60fps</span>
+            <div>
+              <strong>60fps.design</strong>
+              <span>2,150+ UI Physics Shots</span>
+            </div>
+          </div>
+
+          <nav class="fp-tags" data-eu-id="eu_L4_fp_tag_switcher" aria-label="Motion Categories">
+            <button type="button" class="fp-tag-btn is-active" data-route="all" role="tab">All</button>
+            <button type="button" class="fp-tag-btn" data-route="split" role="tab">Spring Physics</button>
+            <button type="button" class="fp-tag-btn" data-route="swipe" role="tab">Card Stack</button>
+            <button type="button" class="fp-tag-btn" data-route="morph" role="tab">Shared Element</button>
+          </nav>
+
+          <div class="fp-top-right">
+            <span id="fpsBadge" class="fp-fps-badge">60.0 FPS · 16.6ms</span>
+            <button type="button" id="openTuningBtn" class="fp-btn-primary">Spring Config</button>
+          </div>
+        </header>
+
+        <section class="fp-hero-banner">
+          <div class="fp-hero-copy">
+            <span class="fp-kicker">REACTIVE MOTION ARCHITECTURE</span>
+            <h1>Physics-driven transitions engineered for touch and pointer velocity.</h1>
+          </div>
+          <div class="fp-osc-box">
+            <div class="osc-head">
+              <span>RK4 SPRING CURVE</span>
+              <code id="oscSummary">k=280 · c=24</code>
+            </div>
+            <svg id="springSvg" viewBox="0 0 280 76" class="fp-osc-svg" aria-label="Spring oscillation curve">
+              <line x1="0" y1="38" x2="280" y2="38" stroke="#242834" stroke-dasharray="4 4"/>
+              <path id="oscPath" d="M0,70 C30,10 60,44 280,38" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+            </svg>
+          </div>
+        </section>
+
+        <section class="fp-stage-grid" data-eu-id="eu_L3_fp_physics_stage">
+          <!-- Lab 1: Card Split -->
+          <article class="fp-lab-card" data-kind="split">
+            <div class="lab-hd">
+              <div>
+                <span class="lab-idx">SHOT 01 · AIRBNB SPLIT</span>
+                <h2>Card Split Reveal</h2>
+              </div>
+              <button type="button" id="splitToggleBtn" class="fp-btn-ghost">Split</button>
+            </div>
+            <div id="splitStage" class="split-stage">
+              <div class="split-half split-left">
+                <span>INVITATION</span>
+                <strong>Gift Pass</strong>
+              </div>
+              <div class="split-core">
+                <code>VIP ACCESS · 2026</code>
+                <p>Dual spring wings separate smoothly to uncover verified card tier metadata.</p>
+              </div>
+              <div class="split-half split-right">
+                <span>REDEEM</span>
+                <strong>$250 Credit</strong>
+              </div>
+            </div>
+          </article>
+
+          <!-- Lab 2: Swipe Card Stack -->
+          <article class="fp-lab-card" data-kind="swipe">
+            <div class="lab-hd">
+              <div>
+                <span class="lab-idx">SHOT 02 · PLASMA STACK</span>
+                <h2>Swipe Card Stack</h2>
+              </div>
+              <button type="button" id="swipeNextBtn" class="fp-btn-ghost">Flick Card</button>
+            </div>
+            <div id="swipeDeck" class="swipe-deck" aria-label="Draggable swipe card stack"></div>
+          </article>
+
+          <!-- Lab 3: Scale Morph & Physics Sliders -->
+          <article class="fp-lab-card fp-morph-card" data-kind="morph" data-eu-id="eu_L4_fp_spring_solver">
+            <div class="lab-hd">
+              <div>
+                <span class="lab-idx">SHOT 03 · PEAKS MORPH</span>
+                <h2>Scale Morph &amp; Solver</h2>
+              </div>
+              <button type="button" id="morphToggleBtn" class="fp-btn-accent">Expand Morph</button>
+            </div>
+            <div id="morphStage" class="morph-stage">
+              <div id="morphTile" class="morph-tile">
+                <div class="morph-head">
+                  <span class="morph-dot"></span>
+                  <strong>Portfolio Peak +18.4%</strong>
+                  <span class="morph-chip" id="morphStateChip">Compact</span>
+                </div>
+                <div class="morph-detail">
+                  <p>Shared-layout spring morph preserves border-radius continuity from tile to sheet.</p>
+                  <div class="morph-bars" aria-hidden="true">
+                    <span style="height:44%"></span><span style="height:68%"></span><span style="height:52%"></span>
+                    <span style="height:86%"></span><span style="height:74%"></span><span style="height:95%"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="solver-sliders">
+              <label>Stiffness <strong id="kVal">280</strong>
+                <input id="kSlider" type="range" min="120" max="420" step="10" value="280">
+              </label>
+              <label>Damping <strong id="cVal">24</strong>
+                <input id="cSlider" type="range" min="10" max="42" step="1" value="24">
+              </label>
+            </div>
+          </article>
+        </section>
+
+        <section class="fp-array-wrap" data-eu-id="eu_L3_fp_cards_array">
+          <div class="fp-array-hd" data-eu-id="eu_L4_fp_array_feat">
+            <h2>Verified Physics Shot Benchmarks</h2>
+            <span class="fp-sub-note">Curated Motion Patterns · Zero Dropped Frames</span>
+          </div>
+          <div class="fp-bench-grid">
+            <div class="fp-bench-item"><span>01</span><strong>Airbnb Gift Split</strong><code>380ms Spring</code></div>
+            <div class="fp-bench-item"><span>02</span><strong>Plasma Onboarding</strong><code>Velocity Threshold</code></div>
+            <div class="fp-bench-item"><span>03</span><strong>Peaks Scale Morph</strong><code>420ms Shared Layout</code></div>
+            <div class="fp-bench-item"><span>04</span><strong>Liquid Glass Sheet</strong><code>16.6ms Frame Budget</code></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="tuningDialog" class="fp-dialog" data-eu-id="eu_L3_fp_tuning_dialog" aria-labelledby="fpDlgTitle">
+      <div class="fp-dlg-hd">
+        <h3 id="fpDlgTitle">Spring Physics Preset</h3>
+        <button type="button" id="closeTuningBtn" class="fp-btn-ghost">Close</button>
+      </div>
+      <p class="fp-dlg-desc">Choose a calibrated tactile preset to tune all three motion stages simultaneously:</p>
+      <div class="fp-preset-row">
+        <button type="button" class="fp-preset-btn" data-k="360" data-c="28">Snappy (k=360, c=28)</button>
+        <button type="button" class="fp-preset-btn" data-k="280" data-c="24">Balanced (k=280, c=24)</button>
+        <button type="button" class="fp-preset-btn" data-k="180" data-c="14">Bouncy (k=180, c=14)</button>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

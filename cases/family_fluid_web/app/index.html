@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family — Fluid Morphing Tray Wallet</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="fm-body">
+  <div id="viewport" class="fm-shell" data-page="1M" data-eu-id="eu_L0_fm_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_fm_skip_entry">Skip to Portfolio</a>
+
+    <aside id="railDock" class="fm-rail" data-eu-id="eu_L1_fm_nav">
+      <div class="fm-orb-logo" title="Family">F</div>
+      <nav class="rail-dock" data-eu-id="eu_L3_fm_rail_dock" aria-label="Wallet Dock">
+        <div class="rail-prox-zone" data-eu-id="eu_L4_fm_rail_proximity">
+          <button type="button" class="rail-btn is-active" data-tray="send">Send</button>
+          <button type="button" class="rail-btn" data-tray="swap">Swap</button>
+          <button type="button" class="rail-btn" data-tray="speed">Fast</button>
+          <button type="button" class="rail-btn" data-tray="yield">Earn</button>
+        </div>
+      </nav>
+      <div class="fm-net-pill">L2 · BASE</div>
+    </aside>
+
+    <main id="mainStage" class="main-glass fm-stage" data-eu-id="eu_L1_fm_stage">
+      <div class="fm-wrap">
+        <header class="fm-topbar" data-eu-id="eu_L3_fm_topbar">
+          <div class="fm-acct-pill">
+            <span class="fm-avatar-dot"></span>
+            <div>
+              <strong>benji.eth</strong>
+              <span class="fm-mono">0x71C...9A2B · Self-Custody</span>
+            </div>
+          </div>
+
+          <div class="fm-range-pills" data-eu-id="eu_L4_fm_range_switch" role="tablist" aria-label="Timeframe">
+            <button type="button" class="fm-tab" data-route="1D" role="tab">1D</button>
+            <button type="button" class="fm-tab" data-route="1W" role="tab">1W</button>
+            <button type="button" class="fm-tab is-active" data-route="1M" role="tab">1M</button>
+            <button type="button" class="fm-tab" data-route="1Y" role="tab">1Y</button>
+          </div>
+
+          <div class="fm-top-actions">
+            <button type="button" id="openVaultBtn" class="fm-btn fm-btn-soft">Recovery Vault</button>
+          </div>
+        </header>
+
+        <section class="fm-hero-grid" data-eu-id="eu_L3_fm_portfolio_stage">
+          <!-- 左宽栏：总资产平滑面积图 + 持仓环 + Gas 费折线 -->
+          <div class="fm-left-col">
+            <article class="fm-card">
+              <div class="fm-bal-head">
+                <div>
+                  <span class="fm-mono">TOTAL PORTFOLIO VALUE</span>
+                  <h1 id="fmBalValue">$148,920.40</h1>
+                </div>
+                <span id="fmBalDelta" class="fm-green-pill">+6.84% (1M)</span>
+              </div>
+              <div id="fmAreaSvg" class="fm-svg-host"></div>
+            </article>
+
+            <div class="fm-chart-pair">
+              <article class="fm-card">
+                <div class="fm-card-hd">
+                  <strong>Asset Allocation</strong>
+                  <span class="fm-mono">3 Tokens</span>
+                </div>
+                <div class="fm-alloc-row">
+                  <div id="fmDonutSvg" class="fm-donut-host"></div>
+                  <div class="fm-legend">
+                    <div><i style="background:#0ea5e9"></i><span>ETH</span><strong>52%</strong></div>
+                    <div><i style="background:#10b981"></i><span>USDC</span><strong>28%</strong></div>
+                    <div><i style="background:#8b5cf6"></i><span>SOL</span><strong>20%</strong></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="fm-card">
+                <div class="fm-card-hd">
+                  <strong>Live Base Gas (Gwei)</strong>
+                  <span class="fm-sky-pill">0.08 Gwei</span>
+                </div>
+                <div id="fmGasSvg" class="fm-svg-host"></div>
+                <div style="margin-top:auto;display:flex;justify-content:space-between;font-size:12px;color:#6b7280;">
+                  <span>Savings vs L1</span>
+                  <strong style="color:#059669;">99.4% Lower Fee</strong>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- 右栏：Family Contextual Morphing Tray 上下文变形抽屉 -->
+          <aside class="fm-card fm-tray-host" data-eu-id="eu_L4_fm_morph_tray">
+            <div class="fm-card-hd">
+              <strong>Contextual Morphing Tray</strong>
+              <span id="fmTrayBadge" class="fm-sky-pill">SEND</span>
+            </div>
+
+            <div class="fm-tray-tabs">
+              <button type="button" class="fm-tray-pill is-active" data-tray="send">Send</button>
+              <button type="button" class="fm-tray-pill" data-tray="swap">Swap</button>
+              <button type="button" class="fm-tray-pill" data-tray="speed">Speed Up</button>
+              <button type="button" class="fm-tray-pill" data-tray="yield">Yield</button>
+            </div>
+
+            <div id="fmMorphSheet" class="fm-morph-sheet" data-mode="send">
+              <div id="fmTrayDynamic" class="fm-tray-dynamic"></div>
+            </div>
+
+            <div class="fm-token-mini-list">
+              <div class="fm-token-row"><span><strong>Ethereum</strong> · 24.8 ETH</span><strong>$77,438</strong></div>
+              <div class="fm-token-row"><span><strong>USD Coin</strong> · Base Vault</span><strong>$41,698</strong></div>
+              <div class="fm-token-row"><span><strong>Solana</strong> · Liquid Stake</span><strong>$29,784</strong></div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="fm-card" data-eu-id="eu_L3_fm_tx_array">
+          <div class="fm-arr-hd" data-eu-id="eu_L4_fm_filter_export">
+            <div class="fm-filters">
+              <strong>Activity & On-Chain Receipts</strong>
+              <button type="button" class="fm-flt is-active" data-flt="all">All</button>
+              <button type="button" class="fm-flt" data-flt="Send">Send</button>
+              <button type="button" class="fm-flt" data-flt="Swap">Swap</button>
+              <button type="button" class="fm-flt" data-flt="Yield">Yield</button>
+            </div>
+            <button type="button" id="exportCsvBtn" class="fm-btn fm-btn-soft">Export Receipts .CSV</button>
+          </div>
+          <div id="fmTxGrid" class="fm-tx-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="fmDialog" class="fm-dialog" data-eu-id="eu_L3_fm_vault_dialog" aria-labelledby="fmDlgTitle">
+      <div class="fm-dlg-hd">
+        <strong id="fmDlgTitle">Family Recovery Vault</strong>
+        <button type="button" id="closeVaultBtn" class="fm-btn fm-btn-soft">Done</button>
+      </div>
+      <div class="fm-dlg-body">
+        <p style="color:#4b5563;">2-of-3 Social Guardian protection active. Encrypted Passkey backup synced 12 minutes ago.</p>
+        <div class="fm-token-row"><span>Guardian 01 · iCloud Keychain</span><strong style="color:#10b981;">Verified</strong></div>
+        <div class="fm-token-row"><span>Guardian 02 · Hardware YubiKey</span><strong style="color:#10b981;">Verified</strong></div>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

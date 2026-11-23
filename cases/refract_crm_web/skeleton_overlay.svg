@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%" data-modality="web">
+  <defs>
+    <style>
+      .sk-box { cursor: pointer; transition: stroke-width 0.16s, fill-opacity 0.16s; }
+      .sk-box:hover, .sk-box[data-active="true"] { stroke-width: 4px !important; fill-opacity: 0.28 !important; }
+      .sk-tag { font-family: Manrope, "Segoe UI", sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="1440" height="900" rx="14" fill="#181210"/>
+  <image id="skeleton-bg-frame" href="/cases/refract_crm_web/frames/ref_refract_desktop.png" x="0" y="0" width="1440" height="900" preserveAspectRatio="xMidYMid slice" opacity="0.90"/>
+  <g data-layer="skeleton" opacity="0.58">
+    <rect x="20" y="14" width="1400" height="872" rx="24" fill="none" stroke="#fff6ef" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <line x1="330" y1="14" x2="330" y2="886" stroke="#0ea5e9" stroke-width="1.6" stroke-dasharray="5 5"/>
+  </g>
+  <g data-layer="bbox">
+    <g class="sk-segment-group" data-segment-id="seg_web_desktop" opacity="1">
+      <g class="sk-node" data-eu-id="eu_L3_rf_sidebar_dock" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_nav"><rect class="sk-box" data-eu-id="eu_L3_rf_sidebar_dock" data-segment-id="seg_web_desktop" x="20" y="14" width="290" height="740" rx="12" fill="rgba(14,165,233,0.14)" stroke="#0ea5e9" stroke-width="2.4"/><rect x="24" y="18" width="258" height="22" rx="6" fill="#0ea5e9" fill-opacity="0.92"/><text class="sk-tag" x="31" y="33" fill="#ffffff">液态折射侧栏 · Refract CRM</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_rf_quota_profile" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_quota"><rect class="sk-box" data-eu-id="eu_L3_rf_quota_profile" data-segment-id="seg_web_desktop" x="20" y="758" width="290" height="128" rx="12" fill="rgba(14,165,233,0.14)" stroke="#0ea5e9" stroke-width="2.4"/><rect x="24" y="762" width="222" height="22" rx="6" fill="#0ea5e9" fill-opacity="0.92"/><text class="sk-tag" x="31" y="777" fill="#ffffff">Q4 配额进度 92% · 个人卡</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_rf_header_search" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_header"><rect class="sk-box" data-eu-id="eu_L3_rf_header_search" data-segment-id="seg_web_desktop" x="330" y="14" width="1090" height="84" rx="12" fill="rgba(249,115,22,0.13)" stroke="#f97316" stroke-width="2.4"/><rect x="334" y="18" width="366" height="22" rx="6" fill="#f97316" fill-opacity="0.92"/><text class="sk-tag" x="341" y="33" fill="#ffffff">Leah 问候 · ⌘K 命令检索 · +New deal</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_rf_kpi_array" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_kpi"><rect class="sk-box" data-eu-id="eu_L3_rf_kpi_array" data-segment-id="seg_web_desktop" x="330" y="108" width="1090" height="200" rx="12" fill="rgba(16,185,129,0.14)" stroke="#10b981" stroke-width="2.4"/><rect x="334" y="112" width="390" height="22" rx="6" fill="#10b981" fill-opacity="0.92"/><text class="sk-tag" x="341" y="127" fill="#ffffff">CRM 四维 KPI + 36% Win rate 阵列 ×4</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_rf_revenue_chart" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_rev"><rect class="sk-box" data-eu-id="eu_L3_rf_revenue_chart" data-segment-id="seg_web_desktop" x="330" y="322" width="686" height="444" rx="12" fill="rgba(139,92,246,0.16)" stroke="#8b5cf6" stroke-width="2.4"/><rect x="334" y="326" width="402" height="22" rx="6" fill="#8b5cf6" fill-opacity="0.92"/><text class="sk-tag" x="341" y="341" fill="#ffffff">Revenue $3.62M 面积对比 (7D/30D/12M)</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_rf_call_desk" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_dialer"><rect class="sk-box" data-eu-id="eu_L3_rf_call_desk" data-segment-id="seg_web_desktop" x="1032" y="322" width="388" height="444" rx="12" fill="rgba(139,92,246,0.16)" stroke="#8b5cf6" stroke-width="2.4"/><rect x="1036" y="326" width="306" height="22" rx="6" fill="#8b5cf6" fill-opacity="0.92"/><text class="sk-tag" x="1043" y="341" fill="#ffffff">Sofia Brandt 联系卡 &amp; 交互拨号台</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_rf_hot_deals" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_deals"><rect class="sk-box" data-eu-id="eu_L3_rf_hot_deals" data-segment-id="seg_web_desktop" x="330" y="778" width="594" height="108" rx="12" fill="rgba(249,115,22,0.13)" stroke="#f97316" stroke-width="2.4"/><rect x="334" y="782" width="294" height="22" rx="6" fill="#f97316" fill-opacity="0.92"/><text class="sk-tag" x="341" y="797" fill="#ffffff">Hot deals · Pipeline 跳转</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_rf_today_tasks" data-segment-id="seg_web_desktop" data-bbox-id="bb_rf_today"><rect class="sk-box" data-eu-id="eu_L3_rf_today_tasks" data-segment-id="seg_web_desktop" x="940" y="778" width="480" height="108" rx="12" fill="rgba(16,185,129,0.14)" stroke="#10b981" stroke-width="2.4"/><rect x="944" y="782" width="306" height="22" rx="6" fill="#10b981" fill-opacity="0.92"/><text class="sk-tag" x="951" y="797" fill="#ffffff">Today 环形待办 (1 of 6 done)</text></g>
+    </g>
+  </g>
+</svg>

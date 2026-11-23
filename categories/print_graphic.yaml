@@ -1,0 +1,28 @@
+schema_version: "4.0.0"
+category_id: "print_graphic"
+name: "瑞士网格平面 / 海报"
+name_en: "Swiss Grid Poster & Print Layout"
+tier: "extended"
+default_domain: "graphic"
+base_template_id: "tpl_graphic_poster_v1"
+description: "适用于 ISO A3 展板、瑞士国际风格排版海报与高保真纯矢量印刷设计规范页。"
+required_slots: ["header_brand", "hero_key_visual", "spec_grid", "footer_colophon"]
+optional_slots: ["region.palette", "region.type_specimen", "region.grid_overlay"]
+allowed_asset_slots: ["vector_key_graphic"]
+expected_signals:
+  preferred_aspect: "portrait"
+  min_interactive_controls: 0
+  keywords: ["poster", "swiss", "bleed", "grid", "monolog", "iso a3", "297", "420", "colophon", "specimen"]
+category_rules:
+  - id: "CAT-PRINT-01"
+    name: "100% 纯矢量活文字无位图文字"
+    metric_key: "vector_live_type"
+    desc: "海报全画幅文字保持可选中活文本，主视觉由纯矢量 SVG 图形构建。"
+  - id: "CAT-PRINT-02"
+    name: "栅格尺寸链与 3mm 出血契约"
+    metric_key: "swiss_grid_and_bleed"
+    desc: "12 栏宽槽计算与 ISO 画幅比例严格闭合，并支持网格与出血线开关核验。"
+  - id: "CAT-PRINT-03"
+    name: "零跨模态交互边污染"
+    metric_key: "static_token_edges_only"
+    desc: "平面静态出版物仅保留 SHARES_TOKEN 约束，不误挂网页路由/滚动动态边。"

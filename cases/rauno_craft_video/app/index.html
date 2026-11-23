@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rauno — Craft Motion Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="rn-body">
+  <div id="viewport" class="rn-page" data-page="radial" data-slow="1" data-eu-id="eu_L0_rn_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_rn_skip_entry">Skip to Lab Stage</a>
+
+    <main id="mainStage" class="rn-main" data-eu-id="eu_L1_rn_stage">
+      <div class="rn-container">
+        <header class="rn-topbar" data-eu-id="eu_L3_rn_topbar">
+          <div class="rn-brand">
+            <span class="rn-dot" aria-hidden="true"></span>
+            <div class="rn-brand-copy">
+              <strong>CRAFT</strong>
+              <span>rauno.me/craft · Motion Experiments</span>
+            </div>
+          </div>
+
+          <nav class="rn-nav" aria-label="Experiment Mode">
+            <button type="button" class="rn-nav-btn is-active" data-route="radial" role="tab" aria-selected="true">Radial Menu</button>
+            <button type="button" class="rn-nav-btn" data-route="precision" role="tab" aria-selected="false">Adaptive Precision</button>
+            <button type="button" class="rn-nav-btn" data-route="flashlight" role="tab" aria-selected="false">Flashlight</button>
+          </nav>
+
+          <div class="rn-slowmo-wrap" data-eu-id="eu_L4_rn_slowmo_ctrl">
+            <button type="button" id="slowMoBtn" class="rn-slow-btn" aria-pressed="false">
+              <span class="rn-slow-led" aria-hidden="true"></span>
+              <span>Toggle Slow Motion</span>
+              <code id="slowRateTag" class="rn-rate-tag">1.0x</code>
+            </button>
+            <button type="button" id="openInspectorBtn" class="rn-btn-ghost">Curves</button>
+          </div>
+        </header>
+
+        <section class="rn-hero-head">
+          <div class="rn-hero-title">
+            <span class="rn-eyebrow">VERCEL DESIGN ENGINEERING · INTERACTION PROTOTYPES</span>
+            <h1>Tactile interfaces built with spring physics and zero latency.</h1>
+          </div>
+          <div class="rn-hero-telemetry">
+            <div class="rn-metric">
+              <span>TIMESCALE</span>
+              <strong id="timescaleReadout">1.00x (280ms)</strong>
+            </div>
+            <div class="rn-metric">
+              <span>PRECISION TIER</span>
+              <strong id="precisionTierReadout">5 min / step</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="rn-stage-grid" data-eu-id="eu_L3_rn_motion_stage">
+          <article class="rn-card rn-radial-card">
+            <div class="rn-card-hd">
+              <div>
+                <span class="rn-card-tag">PROTOTYPE 01</span>
+                <h2>Polar Radial Menu</h2>
+              </div>
+              <div class="rn-card-actions">
+                <span id="radialReadout" class="rn-mono-pill">Sector: Play / 0deg</span>
+                <button type="button" id="toggleRadialBtn" class="rn-btn-accent">Open Dial</button>
+              </div>
+            </div>
+
+            <div id="radialArena" class="rn-radial-arena" tabindex="0" role="application" aria-label="Polar Radial Menu Arena">
+              <div class="rn-radial-rings" aria-hidden="true">
+                <div class="ring ring-outer"></div>
+                <div class="ring ring-inner"></div>
+              </div>
+              <div id="radialBeam" class="rn-radial-beam" aria-hidden="true"></div>
+              <div id="radialSectors" class="rn-radial-sectors"></div>
+              <button type="button" id="radialCoreBtn" class="rn-radial-core" aria-expanded="true">
+                <span class="core-kbd">HOLD / CLICK</span>
+                <strong id="radialCoreLabel">Command</strong>
+              </button>
+            </div>
+            <p class="rn-card-foot">Move pointer or click center hub to sweep across 8 polar actions with spring overshoot damping.</p>
+          </article>
+
+          <article class="rn-card rn-precision-card" data-eu-id="eu_L4_rn_precision_ruler">
+            <div class="rn-card-hd">
+              <div>
+                <span class="rn-card-tag">PROTOTYPE 02</span>
+                <h2>Adaptive Precision Scrubber</h2>
+              </div>
+              <div class="rn-card-actions">
+                <span id="scrubberTime" class="rn-mono-pill">14:25 · 5m snap</span>
+              </div>
+            </div>
+
+            <div id="precisionTrack" class="rn-precision-track" aria-label="Adaptive Precision Time Scrubber">
+              <div class="rn-ruler-header">
+                <span>DRAG HORIZONTALLY · PULL DOWN FOR 1M PRECISION</span>
+                <span id="precisionDepthLbl" class="rn-depth-lbl">Normal (5m)</span>
+              </div>
+              <div class="rn-ruler-scale" id="rulerTicks"></div>
+              <div id="rulerThumb" class="rn-ruler-thumb">
+                <div class="thumb-stem"></div>
+                <div class="thumb-pill" id="thumbPill">14:25</div>
+              </div>
+              <div class="rn-precision-presets">
+                <button type="button" class="prec-btn" data-tier="coarse">15m Coarse</button>
+                <button type="button" class="prec-btn is-active" data-tier="medium">5m Medium</button>
+                <button type="button" class="prec-btn" data-tier="fine">1m Fine</button>
+              </div>
+            </div>
+
+            <div class="rn-scrub-input-row">
+              <label for="scrubSlider" class="rn-label">Timeline Scrubbing Position</label>
+              <input id="scrubSlider" type="range" min="780" max="1020" value="865" step="1">
+            </div>
+          </article>
+        </section>
+
+        <section class="rn-array-section" data-eu-id="eu_L3_rn_flashlight_array">
+          <div class="rn-array-head" data-eu-id="eu_L4_rn_array_feat">
+            <div>
+              <span class="rn-card-tag">PROTOTYPE 03 · FLASHLIGHT TABS</span>
+              <h2>Proximity Spotlight Array</h2>
+            </div>
+            <div class="rn-tab-pills" id="flashTabs">
+              <button type="button" class="fl-tab is-active" data-fl="all">All Cards</button>
+              <button type="button" class="fl-tab" data-fl="gestures">Gestures</button>
+              <button type="button" class="fl-tab" data-fl="controls">Controls</button>
+            </div>
+          </div>
+
+          <div class="rn-flash-grid" id="flashGrid">
+            <article class="rn-flash-card" data-group="controls">
+              <div class="fc-top"><span>01</span><code>Combobox</code></div>
+              <h3>Fluid Keyboard Filtering</h3>
+              <p>Type-ahead spring list transitions with height morphing and instant focus restoration.</p>
+            </article>
+            <article class="rn-flash-card" data-group="gestures">
+              <div class="fc-top"><span>02</span><code>Wheel Input</code></div>
+              <h3>Inertia Detent Physics</h3>
+              <p>Scroll-velocity quantized ticks with subtle tactile overshoot at boundary stops.</p>
+            </article>
+            <article class="rn-flash-card" data-group="controls">
+              <div class="fc-top"><span>03</span><code>Graph Slider</code></div>
+              <h3>Bezier Curve Scrubber</h3>
+              <p>Continuous path evaluation synced directly with live numeric readout telemetry.</p>
+            </article>
+            <article class="rn-flash-card" data-group="gestures">
+              <div class="fc-top"><span>04</span><code>Fractional Slider</code></div>
+              <h3>Sub-pixel Damped Rail</h3>
+              <p>Magnetic snap-points that yield smoothly when dragged past threshold velocity.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="inspectorDialog" class="rn-dialog" data-eu-id="eu_L3_rn_inspector_dialog" aria-labelledby="dlgTitle">
+      <div class="rn-dlg-hd">
+        <h3 id="dlgTitle">Spring Physics Parameters</h3>
+        <button type="button" id="closeDlgBtn" class="rn-btn-ghost">Close</button>
+      </div>
+      <div class="rn-dlg-body">
+        <p class="rn-dlg-desc">Measured motion tokens isolated from transient overshoot frames in Rauno Craft prototypes:</p>
+        <div class="rn-dlg-grid">
+          <div class="dlg-stat"><span>Base Curve</span><code>cubic-bezier(0.22, 1, 0.36, 1)</code></div>
+          <div class="dlg-stat"><span>Slow-Mo Multiplier</span><code id="dlgSlowVal">1.00x (280ms)</code></div>
+          <div class="dlg-stat"><span>Radial Sectors</span><code>8 × 45deg Polar</code></div>
+          <div class="dlg-stat"><span>Precision Tiers</span><code>15m / 5m / 1m Vertical Map</code></div>
+        </div>
+      </div>
+      <div class="rn-dlg-ft">
+        <button type="button" id="toggleSlowFromDlg" class="rn-btn-accent">Flip Slow Motion & Apply</button>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

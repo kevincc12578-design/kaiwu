@@ -1,0 +1,484 @@
+{
+  "case_id": "family_fluid_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_fm_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_fm_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_fm_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_fm_stage": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_fm_topbar": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_fm_hero_zone": {
+          "x": 12,
+          "y": 218,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_fm_array_zone": {
+          "x": 12,
+          "y": 1012,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_fm_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_fm_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L1_fm_nav": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        },
+        "eu_L2_fm_nav_rail": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_fm_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_fm_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_fm_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_fm_stage": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 1120
+        },
+        "eu_L2_fm_topbar": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 92
+        },
+        "eu_L2_fm_hero_zone": {
+          "x": 114,
+          "y": 150,
+          "w": 636,
+          "h": 600
+        },
+        "eu_L2_fm_array_zone": {
+          "x": 114,
+          "y": 762,
+          "w": 636,
+          "h": 390
+        },
+        "eu_L1_fm_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_fm_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L1_fm_nav": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        },
+        "eu_L2_fm_nav_rail": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_fm_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_fm_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_fm_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_fm_stage": {
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 868
+        },
+        "eu_L2_fm_topbar": {
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 96
+        },
+        "eu_L2_fm_hero_zone": {
+          "x": 108,
+          "y": 116,
+          "w": 1312,
+          "h": 496
+        },
+        "eu_L2_fm_array_zone": {
+          "x": 108,
+          "y": 626,
+          "w": 1312,
+          "h": 258
+        },
+        "eu_L1_fm_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_fm_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L1_fm_nav": {
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868
+        },
+        "eu_L2_fm_nav_rail": {
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "fm_cs_surf",
+      "eu_id": "eu_L3_fm_topbar",
+      "property": "color",
+      "value": "#f2f4f7",
+      "token_ref": "fm_surf_bg",
+      "delta_e": 0.0
+    },
+    {
+      "id": "fm_cs_typo",
+      "eu_id": "eu_L3_fm_portfolio_stage",
+      "property": "font-size",
+      "value": "clamp(26px, 3vw, 38px)",
+      "token_ref": "fm_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "fm_cs_lay",
+      "eu_id": "eu_L3_fm_tx_array",
+      "property": "gap",
+      "value": "76px",
+      "token_ref": "fm_lay_rail",
+      "delta_e": 0.0
+    },
+    {
+      "id": "fm_cs_mot",
+      "eu_id": "eu_L3_fm_rail_dock",
+      "property": "transition-duration",
+      "value": "340ms",
+      "token_ref": "fm_mot_tray",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "fm_el_skip",
+      "eu_id": "eu_L3_fm_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "fm_el_rail",
+      "eu_id": "eu_L3_fm_rail_dock",
+      "role": "link",
+      "accessible_name": "Family 轻量左侧导轨 (邻近放大)",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "fm_el_top",
+      "eu_id": "eu_L3_fm_topbar",
+      "role": "tab",
+      "accessible_name": "Family 账户顶栏与 1D/1W/1M/1Y 视图切换",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "fm_el_hero",
+      "eu_id": "eu_L3_fm_portfolio_stage",
+      "role": "button",
+      "accessible_name": "净值面积图/持仓环/Gas折线 + 上下文变形抽屉 (Send/Swap/SpeedUp/Yield)",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "fm_el_arr",
+      "eu_id": "eu_L3_fm_tx_array",
+      "role": "button",
+      "accessible_name": "Send / Swap / Yield 交易流水与 CSV 导出阵列 ×4",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "fm_el_dlg",
+      "eu_id": "eu_L3_fm_vault_dialog",
+      "role": "dialog",
+      "accessible_name": "Recovery Vault 保险库安全配置弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "fm_cn_bg",
+      "eu_id": "eu_L0_fm_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "fm_cn_hero",
+      "eu_id": "eu_L3_fm_portfolio_stage",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "family.wallet.tray",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "fm_cn_arr",
+      "eu_id": "eu_L3_fm_tx_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "family.wallet.tray.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Family · 软触感纯白云朵与变形抽屉台骨架",
+      "frame_url": "/cases/family_fluid_web/frames/ref_fm_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_fm_rail_dock",
+        "eu_L3_fm_topbar",
+        "eu_L3_fm_portfolio_stage",
+        "eu_L3_fm_tx_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_fm_nav",
+          "eu_id": "eu_L3_fm_rail_dock",
+          "label": "Family 导轨 (邻近放大)",
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_fm_top",
+          "eu_id": "eu_L3_fm_topbar",
+          "label": "Family 顶栏与时间周期切换",
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 82,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_fm_hero",
+          "eu_id": "eu_L3_fm_portfolio_stage",
+          "label": "资产面积图/持仓环 + Contextual Morphing Tray",
+          "x": 108,
+          "y": 114,
+          "w": 1312,
+          "h": 496,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_fm_arr",
+          "eu_id": "eu_L3_fm_tx_array",
+          "label": "交易流水筛选阵列 ×4 + CSV 导出",
+          "x": 108,
+          "y": 626,
+          "w": 1312,
+          "h": 258,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_fm_nav",
+      "eu_id": "eu_L3_fm_rail_dock",
+      "label": "Family 导轨 (邻近放大)",
+      "x": 16,
+      "y": 16,
+      "w": 76,
+      "h": 868,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_fm_top",
+      "eu_id": "eu_L3_fm_topbar",
+      "label": "Family 顶栏与时间周期切换",
+      "x": 108,
+      "y": 16,
+      "w": 1312,
+      "h": 82,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_fm_hero",
+      "eu_id": "eu_L3_fm_portfolio_stage",
+      "label": "资产面积图/持仓环 + Contextual Morphing Tray",
+      "x": 108,
+      "y": 114,
+      "w": 1312,
+      "h": 496,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_fm_arr",
+      "eu_id": "eu_L3_fm_tx_array",
+      "label": "交易流水筛选阵列 ×4 + CSV 导出",
+      "x": 108,
+      "y": 626,
+      "w": 1312,
+      "h": 258,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

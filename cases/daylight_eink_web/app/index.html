@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daylight DC-1 — Amber E-Ink Paper Workspace</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dl-body">
+  <div id="viewport" class="dl-shell" data-page="read" data-eu-id="eu_L0_dl_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_dl_skip_entry">Skip to Paper Stage</a>
+
+    <aside id="railDock" class="dl-rail" data-eu-id="eu_L1_dl_nav">
+      <div class="dl-brand-mark" title="Daylight Sol:OS">DC1</div>
+      <nav class="rail-dock" data-eu-id="eu_L3_dl_rail_dock" aria-label="Sol:OS Dock">
+        <div class="rail-prox-zone" data-eu-id="eu_L4_dl_rail_proximity">
+          <button type="button" class="rail-btn is-active" data-route="read">Read</button>
+          <button type="button" class="rail-btn" data-route="notes">Note</button>
+          <button type="button" class="rail-btn" data-route="focus">Focus</button>
+          <button type="button" class="rail-btn" data-route="stats">Log</button>
+        </div>
+      </nav>
+      <div class="dl-battery">60 FPS<br>E-INK</div>
+    </aside>
+
+    <main id="mainStage" class="main-glass dl-stage" data-eu-id="eu_L1_dl_stage">
+      <div class="dl-wrap">
+        <header class="dl-topbar" data-eu-id="eu_L3_dl_topbar">
+          <div class="dl-title-group">
+            <strong>Daylight Sol:OS</strong>
+            <span>LivePaper · Zero Blue-Light Reflection</span>
+          </div>
+
+          <div class="dl-amber-ctrl" data-eu-id="eu_L4_dl_amber_slider">
+            <label for="amberRange">Amber Backlight <strong id="amberPctLabel">32%</strong></label>
+            <input id="amberRange" type="range" min="0" max="100" value="32" aria-label="Amber Backlight Intensity">
+            <button type="button" id="refreshInkBtn" class="dl-btn">E-Ink Refresh</button>
+          </div>
+
+          <div class="dl-top-actions">
+            <div class="dl-mode-pills">
+              <button type="button" class="dl-tab is-active" data-route="read">Reader</button>
+              <button type="button" class="dl-tab" data-route="notes">Annotations</button>
+            </div>
+            <button type="button" id="openNoteBtn" class="dl-btn dl-btn-ink">+ Annotate</button>
+          </div>
+        </header>
+
+        <section class="dl-hero-grid" data-eu-id="eu_L3_dl_reader_stage">
+          <!-- 左栏：沉浸纸质批注阅读器 + 番茄时钟 -->
+          <article class="dl-paper-card">
+            <div class="dl-card-hd">
+              <span>CALM COMPUTING · CH. 04</span>
+              <span id="dlPageNum" class="dl-mono">P. 42 / 186</span>
+            </div>
+            <h1 class="dl-serif-h1">Designing Calm Interfaces Without Glare</h1>
+            <p class="dl-lead">True paper legibility pairs high contrast ink with unhurried spacing. Tap any excerpt below to clip it into your study ledger.</p>
+            <div id="dlExcerpts" class="dl-excerpts">
+              <button type="button" class="dl-excerpt is-picked" data-title="Ambient Backlight Discipline" data-cat="Reading" data-min="38">
+                <strong>01 · Reflectance First</strong>
+                <span>Surfaces reflect room luminance rather than blasting pixels.</span>
+              </button>
+              <button type="button" class="dl-excerpt" data-title="Chunked Focus Intervals" data-cat="Notes" data-min="25">
+                <strong>02 · Unhurried Cadence</strong>
+                <span>Single-column rhythm preserves working memory under deep reading.</span>
+              </button>
+              <button type="button" class="dl-excerpt" data-title="Tactile Ink Transitions" data-cat="Tasks" data-min="45">
+                <strong>03 · Clean State Clears</strong>
+                <span>Intentional paper refreshes eliminate phantom animation noise.</span>
+              </button>
+            </div>
+            <div class="dl-timer-bar">
+              <div>
+                <span class="dl-mono">FOCUS TIMER</span>
+                <strong id="dlTimerDisplay" style="margin-left:10px;font-size:18px;">25:00</strong>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button type="button" id="dlTimerBtn" class="dl-btn dl-btn-ink">Start Sprint</button>
+                <button type="button" id="dlPageNextBtn" class="dl-btn">Next Page &rarr;</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 右栏：纯墨线高密度图表组 -->
+          <div class="dl-charts-col" data-eu-id="eu_L4_dl_eink_focus">
+            <article class="dl-paper-card">
+              <div class="dl-card-hd">
+                <span>WEEKLY READING LOG (MIN/DAY)</span>
+                <strong>410 MIN</strong>
+              </div>
+              <div id="dlBarChartSvg" class="dl-svg-host"></div>
+            </article>
+
+            <div class="dl-sub-split">
+              <article class="dl-paper-card">
+                <div class="dl-card-hd">
+                  <span>DEEP FOCUS RATIO</span>
+                  <strong>88%</strong>
+                </div>
+                <div id="dlRingSvg" class="dl-svg-host" style="max-width:146px;margin:6px auto;"></div>
+                <div class="dl-stat-foot"><span>TARGET &gt;= 80%</span><strong>PEAK 94%</strong></div>
+              </article>
+
+              <article class="dl-paper-card">
+                <div class="dl-card-hd">
+                  <span>28D STREAK MATRIX</span>
+                  <strong>24/28 D</strong>
+                </div>
+                <div id="dlHeatGrid" class="dl-heat-grid"></div>
+                <div class="dl-stat-foot"><span>AVG 58 MIN / DAY</span><strong>0 EYE STRAIN</strong></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="dl-array-card" data-eu-id="eu_L3_dl_notes_array">
+          <div class="dl-arr-hd" data-eu-id="eu_L4_dl_filter_export">
+            <div class="dl-filters">
+              <strong>Paper Study Ledger</strong>
+              <button type="button" class="dl-flt is-active" data-flt="all">All</button>
+              <button type="button" class="dl-flt" data-flt="Reading">Reading</button>
+              <button type="button" class="dl-flt" data-flt="Notes">Notes</button>
+              <button type="button" class="dl-flt" data-flt="Tasks">Tasks</button>
+            </div>
+            <button type="button" id="exportCsvBtn" class="dl-btn">Export Notes .CSV</button>
+          </div>
+          <div id="dlNotesGrid" class="dl-notes-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="dlDialog" class="dl-dialog" data-eu-id="eu_L3_dl_note_dialog" aria-labelledby="dlDlgTitle">
+      <div class="dl-dlg-hd">
+        <strong id="dlDlgTitle">Clip Paper Annotation</strong>
+        <button type="button" id="closeNoteBtn" class="dl-btn">Close</button>
+      </div>
+      <form id="dlNoteForm" class="dl-dlg-body">
+        <label>
+          <span class="dl-mono">Note Headline</span>
+          <input id="dlNoteTitleInp" type="text" value="Zero-Glare Contrast Study" required>
+        </label>
+        <label>
+          <span class="dl-mono">Category</span>
+          <select id="dlNoteCatSel">
+            <option value="Reading">Reading</option>
+            <option value="Notes">Notes</option>
+            <option value="Tasks">Tasks</option>
+          </select>
+        </label>
+        <button type="submit" class="dl-btn dl-btn-ink">Save to Paper Ledger</button>
+      </form>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

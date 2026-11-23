@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeekSync · Paper-Tactile Weekly Capacity &amp; Schedule</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="ws-shell" id="viewport" data-page="weeks" data-eu-id="eu_L0_ws_workspace">
+    <a class="skip-link" href="#main-stage" data-eu-id="eu_L3_ws_skip_entry">Skip to weekly planner</a>
+
+    <nav class="ws-rail" aria-label="Planner views" data-eu-id="eu_L1_ws_nav">
+      <div class="rail-dock" id="railDock" data-eu-id="eu_L3_ws_rail_dock">
+        <div class="rail-stamp" title="WeekSync Studio">WS</div>
+
+        <button class="rail-btn is-active" type="button" data-route="weeks">
+          <span class="rail-tag">WK</span>
+          <span class="rail-name">Weeks</span>
+        </button>
+        <button class="rail-btn" type="button" data-route="days">
+          <span class="rail-tag">DY</span>
+          <span class="rail-name">Days</span>
+        </button>
+        <button class="rail-btn" type="button" data-route="team">
+          <span class="rail-tag">TM</span>
+          <span class="rail-name">Team</span>
+        </button>
+        <button class="rail-btn" type="button" data-route="notes">
+          <span class="rail-tag">NT</span>
+          <span class="rail-name">Notes</span>
+        </button>
+
+        <div class="rail-capacity" data-eu-id="eu_L4_ws_rail_proximity">
+          <span class="cap-dot"></span>
+          <span id="railTotalHours">92h</span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-glass" id="main-stage" tabindex="-1" data-eu-id="eu_L1_ws_stage">
+      <section class="paper-hero">
+        <div class="hero-left">
+          <div class="paper-eyebrow">CALM RESOURCE PLANNING · 23–29 NOV</div>
+          <h1 class="paper-title">A paper-calm workspace for weekly team clarity.</h1>
+          <p class="paper-sub">Drag-free clarity for distributed studios. Click <b>+</b> to schedule blocks or <b>×</b> to clear, while capacity totals balance in real time.</p>
+        </div>
+        <div class="cursor-swarm" aria-label="Active collaborators">
+          <span class="cursor-pill cur-sage"><i></i> Mia · editing Tue</span>
+          <span class="cursor-pill cur-ochre"><i></i> Leo · reviewing Core</span>
+          <span class="cursor-pill cur-slate"><i></i> Sofia · synced</span>
+        </div>
+      </section>
+
+      <section class="paper-board">
+        <header class="week-header" data-eu-id="eu_L3_ws_week_header">
+          <div class="week-title-row">
+            <span class="try-badge">Try It</span>
+            <h2 class="week-range">Week 48 · 23–29 Nov</h2>
+            <span class="week-hint">Interactive paper sandbox</span>
+          </div>
+
+          <div class="week-controls" data-eu-id="eu_L4_ws_days_weeks">
+            <div class="segmented" role="group" aria-label="Granularity toggle">
+              <button class="seg-btn" type="button" data-route="days">Days</button>
+              <button class="seg-btn is-active" type="button" data-route="weeks">Weeks</button>
+            </div>
+            <button class="btn-ink" id="openNewTaskBtn" type="button">+ Schedule task</button>
+          </div>
+        </header>
+
+        <div class="planner-grid" id="plannerGrid" data-eu-id="eu_L3_ws_planner_grid">
+          <div class="grid-head">
+            <div class="gh-member">Studio Member</div>
+            <div class="gh-day" data-day="0">Mon 23</div>
+            <div class="gh-day" data-day="1">Tue 24</div>
+            <div class="gh-day" data-day="2">Wed 25</div>
+            <div class="gh-day" data-day="3">Thu 26</div>
+            <div class="gh-day" data-day="4">Fri 27</div>
+            <div class="gh-total" data-eu-id="eu_L4_ws_hours_calc">Weekly Load</div>
+          </div>
+          <div class="grid-body" id="scheduleRows"></div>
+        </div>
+
+        <footer class="summary-section" data-eu-id="eu_L3_ws_summary_cards">
+          <div class="summary-toolbar" data-eu-id="eu_L4_ws_filter_export">
+            <div class="filter-pills" role="group" aria-label="Project filter">
+              <button class="pf-btn is-active" type="button" data-filter="all">All Projects</button>
+              <button class="pf-btn" type="button" data-filter="Brand">Brand</button>
+              <button class="pf-btn" type="button" data-filter="Core">Core</button>
+              <button class="pf-btn" type="button" data-filter="Design">Design</button>
+            </div>
+            <button class="btn-paper" id="exportCsvBtn" type="button">Export Schedule CSV</button>
+          </div>
+
+          <div class="summary-cards" id="summaryCards">
+            <div class="sum-card">
+              <span class="sum-label">COMMITTED HOURS</span>
+              <strong class="sum-value" id="sumCommittedVal">92h / 120h</strong>
+              <span class="sum-sub">76.7% studio utilization</span>
+            </div>
+            <div class="sum-card">
+              <span class="sum-label">OPEN BUFFER</span>
+              <strong class="sum-value" id="sumBufferVal">28h available</strong>
+              <span class="sum-sub">Across 3 studio members</span>
+            </div>
+            <div class="sum-card">
+              <span class="sum-label">ACTIVE BLOCKS</span>
+              <strong class="sum-value" id="sumBlocksVal">11 scheduled</strong>
+              <span class="sum-sub">Click + on any cell to add 4h</span>
+            </div>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <dialog class="ws-dialog" id="taskDialog" aria-labelledby="wsDialogTitle" data-eu-id="eu_L3_ws_task_dialog">
+      <form method="dialog" class="dialog-sheet">
+        <div class="dialog-head">
+          <h2 id="wsDialogTitle">Add Paper Time Block</h2>
+          <button class="btn-paper btn-sm" type="submit" value="cancel">Close</button>
+        </div>
+        <div class="form-grid">
+          <label>
+            <span>Member</span>
+            <select id="dlgMember">
+              <option value="mia">Mia Chen</option>
+              <option value="leo">Leo Novak</option>
+              <option value="sofia">Sofia Reyes</option>
+            </select>
+          </label>
+          <label>
+            <span>Day</span>
+            <select id="dlgDay">
+              <option value="0">Mon 23</option>
+              <option value="1">Tue 24</option>
+              <option value="2">Wed 25</option>
+              <option value="3">Thu 26</option>
+              <option value="4">Fri 27</option>
+            </select>
+          </label>
+          <label>
+            <span>Project Tag</span>
+            <select id="dlgProject">
+              <option value="Brand">Brand</option>
+              <option value="Core">Core</option>
+              <option value="Design">Design</option>
+            </select>
+          </label>
+          <label>
+            <span>Task Label</span>
+            <input id="dlgLabel" type="text" value="Editorial review" maxlength="28">
+          </label>
+          <label>
+            <span>Duration (hours)</span>
+            <input id="dlgHours" type="number" min="1" max="12" value="4">
+          </label>
+        </div>
+        <div class="dialog-foot">
+          <button class="btn-paper" type="submit" value="cancel">Cancel</button>
+          <button class="btn-ink" id="confirmAddTaskBtn" type="button">Pin to Schedule</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

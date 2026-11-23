@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amie — Joyful AI Notes &amp; Planner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="am-body">
+  <div id="viewport" class="am-shell" data-page="notes" data-eu-id="eu_L0_am_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_am_skip_entry">Skip to Planner</a>
+
+    <aside id="railDock" class="am-rail" data-eu-id="eu_L1_am_nav">
+      <div class="am-brand-pill" title="Amie">A</div>
+      <nav class="rail-dock" data-eu-id="eu_L3_am_rail_dock" aria-label="Amie Navigation">
+        <div class="rail-prox-zone" data-eu-id="eu_L4_am_rail_proximity">
+          <button type="button" class="rail-btn is-active" data-route="notes" title="AI Notes">Note</button>
+          <button type="button" class="rail-btn" data-route="week" title="Week Grid">Week</button>
+          <button type="button" class="rail-btn" data-route="onboard" title="7-Day Flow">7d</button>
+          <button type="button" class="rail-btn" data-route="faq" title="FAQ">FAQ</button>
+        </div>
+      </nav>
+      <div class="am-rail-hours" id="railHoursLabel">26h</div>
+    </aside>
+
+    <main id="mainStage" class="main-glass am-stage" data-eu-id="eu_L1_am_stage">
+      <div class="am-stage-inner">
+        <header class="am-topbar" data-eu-id="eu_L3_am_topbar">
+          <div class="am-brand-copy">
+            <strong>Amie</strong>
+            <span>Joyful AI Notes · Calendar &amp; Todos</span>
+          </div>
+
+          <div class="am-route-pills" data-eu-id="eu_L4_am_route_pills" role="tablist">
+            <button type="button" class="am-tab is-active" data-route="notes" role="tab">AI Meeting Notes</button>
+            <button type="button" class="am-tab" data-route="week" role="tab">Week Planner</button>
+            <button type="button" class="am-tab" data-route="onboard" role="tab">7-Day Onboarding</button>
+          </div>
+
+          <div class="am-top-actions">
+            <button type="button" id="askTriggerTopBtn" class="am-btn-ghost">Ask Amie</button>
+            <button type="button" id="openEventBtn" class="am-btn-coral">+ New Block</button>
+          </div>
+        </header>
+
+        <!-- Hero: 47s Meeting Transcript Highlight + Floating Ask Capsule -->
+        <section class="am-notes-stage" data-eu-id="eu_L3_am_notes_stage">
+          <div class="am-hero-head">
+            <span class="am-time-chip">WITHIN 47 SECONDS</span>
+            <h1>Turn every voice sync into joyful, scheduled momentum.</h1>
+          </div>
+
+          <div class="am-notes-grid">
+            <article class="am-transcript-card">
+              <div class="card-hd">
+                <strong>Weekly Design Sync — AI Transcript</strong>
+                <button type="button" id="cycleLineBtn" class="am-btn-ghost">Advance Highlight</button>
+              </div>
+              <div id="transcriptLines" class="transcript-lines">
+                <button type="button" class="tr-line is-highlighted" data-task="Ship tactile spring tabs" data-cat="Deep Work" data-hrs="4">
+                  <span class="tr-ts">00:14</span>
+                  <span class="tr-txt">Let us refine the tactile spring curve tabs before Thursday review.</span>
+                  <span class="tr-add">+ Add Block</span>
+                </button>
+                <button type="button" class="tr-line" data-task="Sync CRM weekly capacity" data-cat="Sync" data-hrs="2">
+                  <span class="tr-ts">00:31</span>
+                  <span class="tr-txt">Sofia needs updated design engineering hours across Week 47.</span>
+                  <span class="tr-add">+ Add Block</span>
+                </button>
+                <button type="button" class="tr-line" data-task="Polish Ask capsule prompt" data-cat="Focus" data-hrs="3">
+                  <span class="tr-ts">00:47</span>
+                  <span class="tr-txt">Trigger instant calendar block creation right from Ask Amie bar.</span>
+                  <span class="tr-add">+ Add Block</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Floating Ask Amie Expandable Capsule -->
+            <aside class="am-ask-card" data-eu-id="eu_L4_am_ask_capsule">
+              <div class="ask-top">
+                <span class="ask-dot"></span>
+                <strong>Ask Amie Capsule</strong>
+                <button type="button" id="toggleAskBtn" class="am-btn-ghost">Expand</button>
+              </div>
+              <div id="askCapsule" class="ask-capsule">
+                <p id="askReplyText">Ready to organize your 47-second call notes into Week 47 schedule blocks.</p>
+                <div id="askDrawer" class="ask-drawer">
+                  <div class="ask-quick-row">
+                    <button type="button" class="ask-prompt-btn" data-prompt="Summarize today's Focus blocks">Summarize Focus</button>
+                    <button type="button" class="ask-prompt-btn" data-prompt="Schedule 2h Deep Work on Friday">Book Friday 2h</button>
+                  </div>
+                </div>
+              </div>
+              <div class="am-marquee" aria-hidden="true">
+                <span>LINEAR · VERCEL · RAYCAST · STRIPE · FIGMA · LOOM ·</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- Week Schedule Array + 7-Day Card + Export CSV -->
+        <section class="am-schedule-wrap" data-eu-id="eu_L3_am_schedule_array">
+          <div class="sched-hd" data-eu-id="eu_L4_am_filter_export">
+            <div class="sched-filters">
+              <strong>Week 47 Schedule Matrix</strong>
+              <button type="button" class="am-flt is-active" data-flt="all">All</button>
+              <button type="button" class="am-flt" data-flt="Focus">Focus</button>
+              <button type="button" class="am-flt" data-flt="Sync">Sync</button>
+              <button type="button" class="am-flt" data-flt="Deep Work">Deep Work</button>
+            </div>
+            <button type="button" id="exportCsvBtn" class="am-btn-ghost">Export Schedule CSV</button>
+          </div>
+
+          <div id="scheduleGrid" class="am-sched-grid"></div>
+
+          <div class="am-faq-row">
+            <details class="am-faq-item" open>
+              <summary>Day 1–7 Onboarding Rhythm · How Ask Amie adapts to calendar velocity</summary>
+              <p>Notes highlight action owners automatically at 47s while keeping manual drag/click block overrides snappy.</p>
+            </details>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="eventDialog" class="am-dialog" data-eu-id="eu_L3_am_event_dialog" aria-labelledby="amDlgTitle">
+      <div class="am-dlg-hd">
+        <h3 id="amDlgTitle">Schedule New Block</h3>
+        <button type="button" id="closeEventBtn" class="am-btn-ghost">Close</button>
+      </div>
+      <div class="am-dlg-body">
+        <label>Block Title
+          <input id="newBlockTitle" type="text" value="Motion critique &amp; prototype pass" class="am-input">
+        </label>
+        <label>Day
+          <select id="newBlockDay" class="am-input">
+            <option value="Mon">Mon 24</option>
+            <option value="Tue">Tue 25</option>
+            <option value="Wed">Wed 26</option>
+            <option value="Thu">Thu 27</option>
+            <option value="Fri">Fri 28</option>
+          </select>
+        </label>
+      </div>
+      <div class="am-dlg-ft">
+        <button type="button" id="confirmAddBlock" class="am-btn-coral">Add to Week</button>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

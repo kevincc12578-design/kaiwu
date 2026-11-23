@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linear — Isometric Issue Workspace</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="ln-body">
+  <div id="viewport" class="ln-shell" data-page="issues" data-eu-id="eu_L0_ln_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_ln_skip_entry">Skip to Workspace</a>
+
+    <aside id="railDock" class="ln-rail" data-eu-id="eu_L1_ln_nav">
+      <div class="ln-logo-mark" title="Linear">L</div>
+      <nav class="rail-dock" data-eu-id="eu_L3_ln_rail_dock" aria-label="Workspace Navigation">
+        <div class="rail-prox-zone" data-eu-id="eu_L4_ln_rail_proximity">
+          <button type="button" class="rail-btn is-active" data-route="issues" title="Issues">ISS</button>
+          <button type="button" class="rail-btn" data-route="isometric" title="Isometric Graph">ISO</button>
+          <button type="button" class="rail-btn" data-route="diff" title="Code Diff">DIFF</button>
+          <button type="button" class="rail-btn" data-route="cycles" title="Cycle 42">CYC</button>
+        </div>
+      </nav>
+      <div class="ln-rail-status">42</div>
+    </aside>
+
+    <main id="mainStage" class="main-glass ln-stage" data-eu-id="eu_L1_ln_stage">
+      <div class="ln-stage-inner">
+        <header class="ln-topbar" data-eu-id="eu_L3_ln_topbar">
+          <div class="ln-heading">
+            <strong>KAI / Cycle 42</strong>
+            <span>Built for speed · Linear Agent &amp; Triage</span>
+          </div>
+
+          <div class="ln-route-tabs" data-eu-id="eu_L4_ln_route_switch" role="tablist">
+            <button type="button" class="ln-tab is-active" data-route="issues" role="tab">Active Issues</button>
+            <button type="button" class="ln-tab" data-route="isometric" role="tab">Isometric Pulse</button>
+            <button type="button" class="ln-tab" data-route="diff" role="tab">Code Diff</button>
+          </div>
+
+          <div class="ln-actions">
+            <button type="button" id="agentBtn" class="ln-btn-ghost">Linear Agent: On</button>
+            <button type="button" id="openIssueBtn" class="ln-btn-primary">New Issue</button>
+          </div>
+        </header>
+
+        <section class="ln-hero-grid" data-eu-id="eu_L3_ln_issue_stage">
+          <!-- Isometric Vector Pulse Illustration -->
+          <article class="ln-card ln-iso-card" data-eu-id="eu_L4_ln_isometric_svg">
+            <div class="card-hd">
+              <div>
+                <span class="fig-lbl">FIG 0.1 — ISOMETRIC SYSTEM GRAPH</span>
+                <h2>Engine Architecture &amp; Data Flow</h2>
+              </div>
+              <button type="button" id="pulseSpeedBtn" class="ln-btn-ghost">Pulse 1x</button>
+            </div>
+            <div class="iso-canvas-wrap">
+              <svg viewBox="0 0 560 220" class="iso-svg" aria-label="Isometric architecture topology">
+                <defs>
+                  <linearGradient id="lnGlow" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#5e6ad2"/>
+                    <stop offset="100%" stop-color="#a5b4fc"/>
+                  </linearGradient>
+                </defs>
+                <!-- Isometric diamond planes -->
+                <polygon points="150,45 270,95 150,145 30,95" fill="rgba(94,106,210,0.10)" stroke="#2c3144" stroke-width="1.5"/>
+                <polygon points="280,65 400,115 280,165 160,115" fill="rgba(255,255,255,0.03)" stroke="#2c3144" stroke-width="1.5"/>
+                <polygon points="410,45 530,95 410,145 290,95" fill="rgba(94,106,210,0.12)" stroke="#5e6ad2" stroke-width="1.5"/>
+                <!-- Animated dash paths -->
+                <path class="iso-pulse" d="M150,95 L280,115 L410,95" fill="none" stroke="url(#lnGlow)" stroke-width="2.5"/>
+                <path class="iso-pulse delay" d="M150,145 L280,165 L410,145" fill="none" stroke="#5e6ad2" stroke-width="1.6"/>
+                <circle cx="150" cy="95" r="5" fill="#f7f8f8"/>
+                <circle cx="280" cy="115" r="6" fill="#5e6ad2"/>
+                <circle cx="410" cy="95" r="5" fill="#10b981"/>
+              </svg>
+            </div>
+          </article>
+
+          <!-- Interactive Issue Board -->
+          <article class="ln-card ln-issues-card">
+            <div class="card-hd">
+              <div>
+                <span class="fig-lbl">TRIAGE QUEUE · CLICK ROW TO ADVANCE STATUS</span>
+                <h2>Sprint Execution</h2>
+              </div>
+              <span id="issueCountBadge" class="ln-count-pill">4 Open</span>
+            </div>
+            <div id="issueList" class="issue-list"></div>
+          </article>
+        </section>
+
+        <section class="ln-diff-section" data-eu-id="eu_L3_ln_diff_array">
+          <div class="card-hd" data-eu-id="eu_L4_ln_filter_export">
+            <div class="diff-filters">
+              <strong>Interactive Code Diff</strong>
+              <button type="button" class="ln-flt is-active" data-flt="all">All</button>
+              <button type="button" class="ln-flt" data-flt="progress">In Progress</button>
+              <button type="button" class="ln-flt" data-flt="done">Done</button>
+            </div>
+            <div class="diff-controls">
+              <label class="theme-lbl">Theme:
+                <select id="diffThemeSelect" class="ln-select" aria-label="Diff Theme">
+                  <option value="obsidian">Obsidian Dark</option>
+                  <option value="nord">Nord Slate</option>
+                  <option value="mono">High Contrast Mono</option>
+                </select>
+              </label>
+              <button type="button" id="diffModeBtn" class="ln-btn-ghost">Split View</button>
+              <button type="button" id="exportCsvBtn" class="ln-btn-ghost">Export Sprint CSV</button>
+            </div>
+          </div>
+
+          <div id="diffPanel" class="diff-panel theme-obsidian">
+            <div class="diff-col">
+              <div class="diff-line rm">- const transition = "linear 400ms";</div>
+              <div class="diff-line ctx">  const spring = { stiffness: 320, damping: 28 };</div>
+              <div class="diff-line rm">- dock.style.opacity = 0.5;</div>
+            </div>
+            <div class="diff-col">
+              <div class="diff-line add">+ const transition = "cubic-bezier(0.22, 1, 0.36, 1) 160ms";</div>
+              <div class="diff-line ctx">  const spring = { stiffness: 320, damping: 28 };</div>
+              <div class="diff-line add">+ dock.style.transform = `scale(${scale})`;</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="issueDialog" class="ln-dialog" data-eu-id="eu_L3_ln_issue_dialog" aria-labelledby="lnDlgTitle">
+      <div class="ln-dlg-hd">
+        <h3 id="lnDlgTitle">Create New Issue</h3>
+        <button type="button" id="closeIssueBtn" class="ln-btn-ghost">Close</button>
+      </div>
+      <div class="ln-dlg-body">
+        <label>Title
+          <input id="newIssueInput" type="text" value="KAI-418: Wire isometric topology telemetry" class="ln-input">
+        </label>
+      </div>
+      <div class="ln-dlg-ft">
+        <button type="button" id="createIssueConfirm" class="ln-btn-primary">Create Issue</button>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

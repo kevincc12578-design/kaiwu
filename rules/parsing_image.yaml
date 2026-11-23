@@ -1,0 +1,126 @@
+# ==============================================================================
+# 开物 v3.4 · Kaiwu Adaptive-EU Design Workbench
+# 第一层 · 解析层规则 · 图片模态（PI-01 ~ PI-04）
+# 路由：modality = "image" 的项目激活本文件 4 条（与 video / web 互斥）。
+# 正交分工：PI-01 管格（栅格与尺寸链） | PI-02 管层（前景/背景分离）
+#           PI-03 管样（原子采样合法性） | PI-04 管证（原图证据包络强绑定）
+# 零特例：画幅、栏数、边距等均从项目 skeleton 与模板读取，本文件只写通用阈值。
+# ==============================================================================
+
+schema_version: "3.4.0"
+product: "开物 · Kaiwu Adaptive-EU Design Workbench"
+version: "3.4.0"
+layer: "parsing"
+layer_order: 1
+layer_name: "解析层 · 图片"
+route_key: "modality"
+modality: "image"
+rule_prefix: "PI"
+philosophy: "静图只有一帧，因此几何链、图层归属、采样值与证据位置必须各自闭合，任何一项靠目测补齐都要进假设。"
+
+rules:
+  - id: "PI-01"
+    name: "版面栅格与比例尺寸链闭合"
+    name_en: "Layout Grid & Proportional Size-Chain Closure"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L0", "L1", "L2"]
+    check_code: "check_pi01_grid_size_chain"
+    desc: "解析出的版面栅格必须闭合：左右边距 + 栏宽 × 栏数 + 槽宽 × (栏数 - 1) 等于画幅宽；画幅宽高比与声明比例一致；每个 L1/L2 区块左右边缘吸附到栏线。"
+    thresholds:
+      allowed_grid_columns: [4, 6, 8, 12]
+      size_chain_tolerance: 1.0
+      aspect_ratio_tolerance: 0.005
+      snap_tolerance: 1.0
+      grid_fields: ["columns", "column_width", "gutter", "margin_left", "margin_right"]
+    invariants:
+      - "skeleton.grid.columns in allowed_grid_columns"
+      - "abs(margin_left + margin_right + columns * column_width + (columns - 1) * gutter - canvas.w) <= size_chain_tolerance"
+      - "abs(canvas.w / canvas.h - canvas.declared_ratio) <= aspect_ratio_tolerance"
+      - "forall node where node.level in ['L1', 'L2']: snapped_to_column_edges(node.envelope_bbox, grid, snap_tolerance)"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "栅格尺寸链不闭合或区块未吸附栏线"
+      attribution_fields: ["violated_node_ids", "chain_residual"]
+    counterfactual_preset: "violate_PI01_grid_chain_break"
+    counterfactual_desc: "把栏槽宽改成与画幅宽不闭合的值。"
+    related_residuals: ["RES-KW-05"]
+
+  - id: "PI-02"
+    name: "视觉去噪与前景图文/背景材质分离"
+    name_en: "Visual Denoise & Foreground/Background Material Separation"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L1", "L2", "L3"]
+    check_code: "check_pi02_layer_separation"
+    desc: "每个解析图层必须且只能有一个 layer_role：背景材质、前景文字、前景图形；文字不得与背景材质合并为同一图层，压缩噪点、扫描脏点等噪声区不得生成 EU。"
+    thresholds:
+      layer_roles: ["background_material", "foreground_text", "foreground_graphic"]
+      max_roles_per_layer: 1
+      max_text_merged_into_background: 0
+      max_noise_eu_nodes: 0
+    invariants:
+      - "forall layer in skeleton.layers: layer.layer_role in layer_roles"
+      - "forall layer: count(layer.layer_role) == max_roles_per_layer"
+      - "count(layer where layer.layer_role == 'background_material' and layer.contains_text) <= max_text_merged_into_background"
+      - "count(node where node.source_region in skeleton.noise_regions) <= max_noise_eu_nodes"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "前景文字/图形与背景材质未分离"
+      attribution_fields: ["violated_layer_ids", "violated_node_ids"]
+    counterfactual_preset: "violate_PI02_foreground_background_merge"
+    counterfactual_desc: "把一个前景文字图层合并进背景材质图层。"
+    related_residuals: ["RES-KW-05"]
+
+  - id: "PI-03"
+    name: "色彩对比度、字阶与间距原子采样合法性"
+    name_en: "Color Contrast, Type Scale & Spacing Atom Sampling Validity"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L4", "L5"]
+    check_code: "check_pi03_atom_sampling"
+    desc: "采样得到的颜色原子必须为合法十六进制色值，正文前景/背景对比度不低于 4.5，大字不低于 3.0；字阶相邻级比值落在合理区间；间距原子为基准单位的整数倍。"
+    thresholds:
+      color_pattern: "^#[0-9a-fA-F]{6}$"
+      min_contrast_body: 4.5
+      min_contrast_large: 3.0
+      large_text_min_px: 24
+      type_scale_ratio_min: 1.125
+      type_scale_ratio_max: 4.0
+      spacing_base_unit: 4
+    invariants:
+      - "forall atom in surface_atoms where atom.kind == 'color': regex(color_pattern, atom.value)"
+      - "forall text_pair: contrast(fg, bg) >= (min_contrast_large if size >= large_text_min_px else min_contrast_body)"
+      - "forall adjacent typography levels sorted desc: type_scale_ratio_min <= size[i] / size[i+1] <= type_scale_ratio_max"
+      - "forall atom in layout_atoms where atom.kind == 'spacing': atom.value % spacing_base_unit == 0"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "采样原子数值非法"
+      attribution_fields: ["violated_atom_ids"]
+    counterfactual_preset: "violate_PI03_illegal_atom_sample"
+    counterfactual_desc: "把一个正文颜色原子改成与背景对比度不足的色值。"
+    related_residuals: ["RES-KW-07"]
+
+  - id: "PI-04"
+    name: "原图 evidence_bbox 强绑定"
+    name_en: "Source-Image evidence_bbox Hard Binding"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L2", "L3", "L5"]
+    check_code: "check_pi04_evidence_bbox"
+    desc: "每个由原图解析出的 L2/L3 节点与 evidence 原子都必须携带落在原图范围内的 evidence_bbox；无原图位置的节点不能是 verified。"
+    thresholds:
+      min_evidence_bind_ratio: 1.0
+      evidence_field: "evidence_bbox"
+      bbox_fields: ["x", "y", "w", "h"]
+    invariants:
+      - "forall node where node.level in ['L2', 'L3'] and node.source == 'parsed': node.evidence_bbox is not None"
+      - "forall bbox: bbox inside rect(0, 0, source_image.w, source_image.h) and bbox.w > 0 and bbox.h > 0"
+      - "ratio(parsed nodes with evidence_bbox) >= min_evidence_bind_ratio"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "解析节点缺失原图证据包络"
+      attribution_fields: ["violated_node_ids"]
+    counterfactual_preset: "violate_PI04_missing_evidence_bbox"
+    counterfactual_desc: "删除一个 L3 解析节点的 evidence_bbox。"
+    related_residuals: ["RES-KW-08"]

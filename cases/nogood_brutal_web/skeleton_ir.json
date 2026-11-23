@@ -1,0 +1,401 @@
+{
+  "case_id": "nogood_brutal_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_ng_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_ng_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_ng_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_ng_stage": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_ng_topbar": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_ng_hero_zone": {
+          "x": 12,
+          "y": 150,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_ng_array_zone": {
+          "x": 12,
+          "y": 950,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_ng_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_ng_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_ng_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_ng_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_ng_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_ng_stage": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 1120
+        },
+        "eu_L2_ng_topbar": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 92
+        },
+        "eu_L2_ng_hero_zone": {
+          "x": 18,
+          "y": 150,
+          "w": 732,
+          "h": 620
+        },
+        "eu_L2_ng_array_zone": {
+          "x": 18,
+          "y": 782,
+          "w": 732,
+          "h": 370
+        },
+        "eu_L1_ng_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_ng_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_ng_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_ng_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_ng_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_ng_stage": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 868
+        },
+        "eu_L2_ng_topbar": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 100
+        },
+        "eu_L2_ng_hero_zone": {
+          "x": 16,
+          "y": 126,
+          "w": 1408,
+          "h": 510
+        },
+        "eu_L2_ng_array_zone": {
+          "x": 16,
+          "y": 646,
+          "w": 1408,
+          "h": 238
+        },
+        "eu_L1_ng_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_ng_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "ng_cs_surf",
+      "eu_id": "eu_L3_ng_marquee_nav",
+      "property": "color",
+      "value": "#c7f544",
+      "token_ref": "ng_surf_acid",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ng_cs_typo",
+      "eu_id": "eu_L3_ng_artwork_hero",
+      "property": "font-size",
+      "value": "clamp(30px, 3.3vw, 46px)",
+      "token_ref": "ng_typo_display",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ng_cs_lay",
+      "eu_id": "eu_L3_ng_system_log",
+      "property": "gap",
+      "value": "58px",
+      "token_ref": "ng_lay_navh",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ng_cs_mot",
+      "eu_id": "eu_L3_ng_marquee_nav",
+      "property": "transition-duration",
+      "value": "18s",
+      "token_ref": "ng_mot_marquee",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "ng_el_skip",
+      "eu_id": "eu_L3_ng_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ng_el_top",
+      "eu_id": "eu_L3_ng_marquee_nav",
+      "role": "tab",
+      "accessible_name": "跑马灯公告带与五格硬边顶栏",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ng_el_hero",
+      "eu_id": "eu_L3_ng_artwork_hero",
+      "role": "button",
+      "accessible_name": "赛博头盔插画与创作声明双栏区",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ng_el_dlg",
+      "eu_id": "eu_L3_ng_cart_dialog",
+      "role": "dialog",
+      "accessible_name": "购物车与画册下单硬边弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "ng_cn_bg",
+      "eu_id": "eu_L0_ng_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "ng_cn_hero",
+      "eu_id": "eu_L3_ng_artwork_hero",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "nogood.studio.feed",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "ng_cn_arr",
+      "eu_id": "eu_L3_ng_system_log",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "nogood.studio.feed.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · NoGood 新粗野主义全屏网格站骨架",
+      "frame_url": "/cases/nogood_brutal_web/frames/ref_nogood_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_ng_marquee_nav",
+        "eu_L3_ng_artwork_hero",
+        "eu_L3_ng_system_log"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ng_top",
+          "eu_id": "eu_L3_ng_marquee_nav",
+          "label": "滚动跑马灯 & 5格硬边顶栏",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 92,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_ng_hero",
+          "eu_id": "eu_L3_ng_artwork_hero",
+          "label": "赛博头盔矢量插画 & 反叛创作宣言",
+          "x": 16,
+          "y": 116,
+          "w": 968,
+          "h": 768,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_ng_log",
+          "eu_id": "eu_L3_ng_system_log",
+          "label": "NOW / NOGOOD VOL.1 / SYSTEM LOG ×3",
+          "x": 992,
+          "y": 116,
+          "w": 432,
+          "h": 768,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_ng_top",
+      "eu_id": "eu_L3_ng_marquee_nav",
+      "label": "滚动跑马灯 & 5格硬边顶栏",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 92,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_ng_hero",
+      "eu_id": "eu_L3_ng_artwork_hero",
+      "label": "赛博头盔矢量插画 & 反叛创作宣言",
+      "x": 16,
+      "y": 116,
+      "w": 968,
+      "h": 768,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ng_log",
+      "eu_id": "eu_L3_ng_system_log",
+      "label": "NOW / NOGOOD VOL.1 / SYSTEM LOG ×3",
+      "x": 992,
+      "y": 116,
+      "w": 432,
+      "h": 768,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

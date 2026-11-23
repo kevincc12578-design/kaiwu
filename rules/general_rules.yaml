@@ -1,0 +1,144 @@
+# ==============================================================================
+# 开物 v3.4 · Kaiwu Adaptive-EU Design Workbench
+# 第二层 · 总规则（跨模态语义中枢宪法 · GN-01 ~ GN-04）
+# 路由：scope = "all"，任何项目无论输入模态与输出领域都必检本文件 4 条。
+# 正交分工：GN-01 管构（树图分离与度） | GN-02 管伸缩（模板锚定与自适应）
+#           GN-03 管源（L5 原子单源双索引与证据） | GN-04 管界与放行（包络守恒与三态准入）
+# 零特例：本文件只写通用阈值，严禁出现任何单项目的时长、尺寸、节点 ID 等数字或名字。
+# YAML 子集约定：仅使用块状映射、"- " 列表、行内 [a, b] 列表与双引号字符串；不使用锚点/多行块。
+# ==============================================================================
+
+schema_version: "3.4.0"
+product: "开物 · Kaiwu Adaptive-EU Design Workbench"
+version: "3.4.0"
+layer: "general"
+layer_order: 2
+layer_name: "总规则 · 跨模态语义中枢"
+route_key: "scope"
+scope: "all"
+rule_prefix: "GN"
+philosophy: "解析层把任意模态归一为同一棵 L0~L5 语义树与横向边图，生成层只消费这棵树；总规则只守树、伸缩、原子与放行四件事，与模态和领域无关。"
+
+rules:
+  - id: "GN-01"
+    name: "树图分离与度约束"
+    name_en: "Tree-Graph Separation & Fan-Out Limit"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L0", "L1", "L2", "L3", "L4", "L5"]
+    check_code: "check_gn01_tree_graph_separation"
+    desc: "纵向结构必须是严格单父、无环、ID 唯一的 L0~L5 六级树，父子层级差恰为 1，任一节点直接子节点数不超过上限；交互事件、状态联动一律不得作为纵向树节点，只能以白名单内 6 类横向边（Edge-as-EU）表达，且边两端都必须是树内节点。"
+    thresholds:
+      levels: ["L0", "L1", "L2", "L3", "L4", "L5"]
+      root_count: 1
+      max_direct_children: 7
+      parent_child_level_step: 1
+      forbidden_tree_kind_prefixes: ["interaction.", "event.", "state.", "edge.", "transition."]
+      allowed_edge_types: ["TRIGGERS_STATE", "RESTORES_FOCUS", "FILTERS_VIEW", "MODULATES_NEIGHBOR", "SCROLLS_INDEPENDENTLY", "SHARES_TOKEN"]
+    invariants:
+      - "count(node where node.level == 'L0') == 1 and all node.eu_id unique"
+      - "forall node != root: exactly_one_parent(node) and level_index(node) == level_index(parent(node)) + 1"
+      - "graph(parent -> child) is acyclic"
+      - "forall node: len(node.children_ids) <= max_direct_children"
+      - "forall node: not node.node_kind.startswith(forbidden_tree_kind_prefixes)"
+      - "forall edge: edge.edge_type in allowed_edge_types and edge.source_eu_id in tree_ids and edge.target_eu_id in tree_ids and edge.source_eu_id != edge.target_eu_id"
+    failure_boundary:
+      blocked_layer: "general"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "纵向树拓扑或横向边白名单"
+      attribution_fields: ["violated_node_ids", "violated_edge_ids"]
+    counterfactual_preset: "violate_GN01_interaction_in_tree"
+    counterfactual_desc: "把一条横向交互（如邻近调制或状态触发）改写成某个 L3 节点下的 interaction.* 纵向子节点。"
+    related_residuals: ["RES-KW-04"]
+
+  - id: "GN-02"
+    name: "模板锚定与复杂度自适应伸缩合规"
+    name_en: "Archetype Template Anchoring & Adaptive Split/Fold Compliance"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L0", "L1", "L2", "L3", "L4"]
+    check_code: "check_gn02_template_adaptive_compliance"
+    desc: "L0 必须绑定 templates/ 中真实存在的 archetype_template，全部必选 L1 领地槽位被锚定（TEMPLATE_ANCHOR）；交互密度达到模板阈值的节点必须执行 SPLIT_HIGH_INTERACTION 加密为子组件与 L4 特征；同构兄弟数达到阈值必须执行 FOLD_ARRAY 折叠为阵列宿主，伸缩后度仍受上限约束；不允许零子节点的非叶空壳，不允许跳层挂接。"
+    thresholds:
+      allowed_adaptation_modes: ["TEMPLATE_ANCHOR", "SPLIT_HIGH_INTERACTION", "FOLD_ARRAY", "ATOMIC_MOUNT", "PRUNE_OPTIONAL_SLOT"]
+      template_source: "templates/*.yaml"
+      split_trigger_source: "template.adaptive_policies.SPLIT_HIGH_INTERACTION.trigger"
+      fold_trigger_source: "template.adaptive_policies.FOLD_ARRAY.trigger"
+      post_adapt_max_direct_children: 7
+      max_empty_shell_nodes: 0
+      max_level_skips: 0
+      required_slot_prune_allowed: false
+    invariants:
+      - "eu_tree.template_id in loaded_template_ids"
+      - "forall slot in template.l1_territories where slot.required: exists L1 node with node.template_slot == slot.slot_id and node.adaptation_mode == 'TEMPLATE_ANCHOR'"
+      - "forall node: node.template_slot is None or node.template_slot in template.slot_ids and node.level == template.slot_level(node.template_slot)"
+      - "forall node: interaction_density(node) >= split_trigger.min_interaction_edges implies exists d in subtree(node) where d.adaptation_mode == 'SPLIT_HIGH_INTERACTION' and has_l4_feature(d)"
+      - "forall parent: max_isomorphic_sibling_group(parent) >= fold_trigger.min_isomorphic_siblings implies group folded under host where host.adaptation_mode == 'FOLD_ARRAY' and host.array_count == group_size"
+      - "forall node: len(node.children_ids) <= post_adapt_max_direct_children"
+      - "forall node where node.level in ['L0','L1','L2','L3']: len(node.children_ids) > 0"
+      - "forall node: node.adaptation_mode in allowed_adaptation_modes and (node.level == 'L5') == (node.adaptation_mode == 'ATOMIC_MOUNT')"
+    failure_boundary:
+      blocked_layer: "general"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "模板槽位锚定、分裂/折叠触发与伸缩结果"
+      attribution_fields: ["violated_node_ids", "template_slot", "adaptation_mode"]
+    counterfactual_preset: "violate_GN02_degree_overflow"
+    counterfactual_desc: "撤销一个 FOLD_ARRAY 阵列宿主，把同构成员平铺回上级父节点，使同构兄弟未折叠且父节点度超过上限。"
+    related_residuals: ["RES-KW-04"]
+
+  - id: "GN-03"
+    name: "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified"
+    name_en: "Single-Source Dual-Index L5 Atom Coverage & No-Evidence-No-Verified"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L3", "L4", "L5"]
+    check_code: "check_gn03_atomic_registry_coverage"
+    desc: "顶层 atomic_registry 是 L5 原子的唯一来源（单源），分 5 个区段；树内 L5 节点只通过 atom_ref 引用注册表（双索引：注册表 -> 使用者，节点 -> 注册表），引用必须可解析；每个实体型 L3 子树下 L5 覆盖率为 100%，至少挂载 surface / typography / layout / evidence 四类且具动效的实体另挂 motion；任何状态为 verified 的节点或原子必须有原件证据，缺证据的推断项必须登记为 AssumptionRecord。"
+    thresholds:
+      registry_sections: ["surface_atoms", "typography_atoms", "layout_atoms", "motion_atoms", "evidence_atoms"]
+      required_atom_sections_per_entity_l3: ["surface_atoms", "typography_atoms", "layout_atoms", "evidence_atoms"]
+      motion_required_when: "subtree has L4 feature with feature.motion == true"
+      min_entity_l3_l5_coverage_ratio: 1.0
+      max_unresolved_atom_refs: 0
+      max_orphan_registry_atoms: 0
+      verified_requires_evidence: true
+      unevidenced_inference_target: "AssumptionRecord"
+    invariants:
+      - "set(atomic_registry.keys()) == set(registry_sections)"
+      - "forall l5 in tree where l5.level == 'L5': resolve(each ref in l5.atom_refs) in atomic_registry"
+      - "forall atom in atomic_registry: len(atom.used_by) >= 1 and forall u in atom.used_by: u in tree_ids"
+      - "forall l3 where l3.entity == true: covered_sections(l3.subtree_l5) >= required_atom_sections_per_entity_l3"
+      - "ratio(entity_l3 fully covered) >= min_entity_l3_l5_coverage_ratio"
+      - "forall x where x.verified == true: len(x.evidence_refs) >= 1 and all(resolve(e) in atomic_registry.evidence_atoms)"
+      - "forall x where x.status == 'inferred' and len(x.evidence_refs) == 0: exists assumption where x.eu_id == assumption.eu_id"
+    failure_boundary:
+      blocked_layer: "general"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "L5 原子覆盖、atom_ref 解析与证据挂载"
+      attribution_fields: ["violated_node_ids", "missing_sections", "unresolved_refs"]
+    counterfactual_preset: "violate_GN03_missing_l5_atom"
+    counterfactual_desc: "从一个实体型 L3 子树中摘除其 typography 或 evidence 类 L5 原子引用。"
+    related_residuals: ["RES-KW-08"]
+
+  - id: "GN-04"
+    name: "包络自底向上守恒与三态准入状态机"
+    name_en: "Bottom-Up Envelope Conservation & Tri-State Admission"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L0", "L1", "L2", "L3", "L4"]
+    check_code: "check_gn04_envelope_and_admission"
+    desc: "L0~L4 每个可视节点声明合法包络 envelope（x, y, w, h，单位随模态：像素或毫米），子包络不得越出父包络（容差内），父包络必须覆盖全部子包络并集；准入严格按状态机：任一激活规则 FAIL 则 BLOCKED，全 PASS 且存在 open 假设则 PROVISIONAL，全 PASS 且 open 假设为 0 则 RELEASE_READY。"
+    thresholds:
+      envelope_fields: ["x", "y", "w", "h"]
+      envelope_overflow_tolerance: 1.0
+      min_envelope_extent: 0.0
+      admission_states: ["BLOCKED", "PROVISIONAL", "RELEASE_READY"]
+      assumption_states: ["open", "confirmed"]
+    invariants:
+      - "forall node where node.envelope_bbox: node.envelope_bbox.w > min_envelope_extent and node.envelope_bbox.h > min_envelope_extent"
+      - "forall child with parent where both have envelope: contains(parent.envelope_bbox, child.envelope_bbox, envelope_overflow_tolerance)"
+      - "admission == ('BLOCKED' if any(active_rule.status == 'FAIL') else ('PROVISIONAL' if count(assumption.state == 'open') > 0 else 'RELEASE_READY'))"
+    failure_boundary:
+      blocked_layer: "general"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "包络越界或准入状态与规则/假设不一致"
+      attribution_fields: ["violated_node_ids", "overflow"]
+    counterfactual_preset: "violate_GN04_envelope_overflow"
+    counterfactual_desc: "把某个 L3 子节点的包络平移到其父节点包络之外。"
+    related_residuals: ["RES-KW-08"]

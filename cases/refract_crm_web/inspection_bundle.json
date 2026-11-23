@@ -1,0 +1,3286 @@
+{
+  "status": "OK",
+  "version": "3.4.0",
+  "schema_version": "3.4.0",
+  "case_id": "refract_crm_web",
+  "admission_status": "PROVISIONAL",
+  "open_assumptions_count": 2,
+  "stage_url": "/cases/refract_crm_web/app/index.html",
+  "case_info": {
+    "case_id": "refract_crm_web",
+    "title": "Refract · Liquid-Glass CRM",
+    "subtitle": "网页 → UI/UX",
+    "modality": "web",
+    "domain": "uiux",
+    "template_id": "tpl_uiux_workspace_v1",
+    "stage_url": "/cases/refract_crm_web/app/index.html",
+    "source_summary": "WEB · 390/768/1440px · 液态玻璃折射",
+    "category_id": "app_dashboard",
+    "category_name": "数据看板 / SaaS 工作台",
+    "category_tier": "core",
+    "is_imported": false,
+    "admission_status": "PROVISIONAL",
+    "open_assumptions_count": 2,
+    "total_assumptions_count": 2,
+    "active_rule_summary": "PW 4/4 → GN 4/4 → GU 4/4"
+  },
+  "category_audit": {
+    "category_id": "app_dashboard",
+    "category_name": "数据看板 / SaaS 工作台",
+    "category_name_en": "Dashboard & SaaS Workspace",
+    "tier": "core",
+    "description": "适用于带主导航、KPI 指标带、数据图表、列表表格与筛选导出的企业级后台与工作台产品。",
+    "allowed_asset_slots": [
+      "avatar",
+      "brand_mark"
+    ],
+    "passed_count": 3,
+    "total_count": 3,
+    "status": "PASS",
+    "rules": [
+      {
+        "rule_id": "CAT-DASH-01",
+        "name": "多视图导航与主舞台分层",
+        "desc": "工作台具备明确导航区与主舞台承载节点，且支持三断点布局拟合。",
+        "status": "PASS",
+        "metric": "槽位 4 · 零溢出=True",
+        "detail": "工作台导航区与主舞台双断点几何闭合"
+      },
+      {
+        "rule_id": "CAT-DASH-02",
+        "name": "真 DOM 数据组件与 Token 归一",
+        "desc": "指标卡、图表容器与列表区均为真 DOM 渲染且 100% 消费设计 Token。",
+        "status": "PASS",
+        "metric": "活文本 73 · Token 100%",
+        "detail": "真 DOM 数据组件与原子 Token 消费完整"
+      },
+      {
+        "rule_id": "CAT-DASH-03",
+        "name": "交互状态与筛选导出闭环",
+        "desc": "视图切换、弹窗辅助浮层或数据过滤在语义图横向边中可回检闭环。",
+        "status": "PASS",
+        "metric": "边 6 条闭环",
+        "detail": "状态切换 / 过滤与回检横向边闭环"
+      }
+    ]
+  },
+  "skeleton": {
+    "case_id": "refract_crm_web",
+    "modality": "web",
+    "duration_sec": null,
+    "coverage_ratio": 1.0,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "breakpoints": [
+        390,
+        768,
+        1440
+      ]
+    },
+    "dom": {
+      "390": {
+        "viewport_w": 390,
+        "scroll_width": 390,
+        "rects": {
+          "eu_L0_rf_workspace": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 1680
+          },
+          "eu_L1_rf_intro": {
+            "x": 12,
+            "y": 6,
+            "w": 366,
+            "h": 34
+          },
+          "eu_L2_rf_intro_bar": {
+            "x": 12,
+            "y": 6,
+            "w": 366,
+            "h": 34
+          },
+          "eu_L1_rf_nav": {
+            "x": 12,
+            "y": 46,
+            "w": 366,
+            "h": 62
+          },
+          "eu_L2_rf_nav_rail": {
+            "x": 12,
+            "y": 46,
+            "w": 366,
+            "h": 62
+          },
+          "eu_L1_rf_stage": {
+            "x": 12,
+            "y": 116,
+            "w": 366,
+            "h": 1540
+          },
+          "eu_L2_rf_topbar": {
+            "x": 12,
+            "y": 116,
+            "w": 366,
+            "h": 120
+          },
+          "eu_L2_rf_kpi_strip": {
+            "x": 12,
+            "y": 244,
+            "w": 366,
+            "h": 420
+          },
+          "eu_L2_rf_center_grid": {
+            "x": 12,
+            "y": 676,
+            "w": 366,
+            "h": 680
+          },
+          "eu_L2_rf_bottom_strip": {
+            "x": 12,
+            "y": 1368,
+            "w": 366,
+            "h": 260
+          },
+          "eu_L1_rf_overlay": {
+            "x": 16,
+            "y": 140,
+            "w": 358,
+            "h": 360
+          },
+          "eu_L2_rf_dialog_host": {
+            "x": 16,
+            "y": 140,
+            "w": 358,
+            "h": 360
+          }
+        }
+      },
+      "768": {
+        "viewport_w": 768,
+        "scroll_width": 768,
+        "rects": {
+          "eu_L0_rf_workspace": {
+            "x": 0,
+            "y": 0,
+            "w": 768,
+            "h": 1200
+          },
+          "eu_L1_rf_intro": {
+            "x": 18,
+            "y": 8,
+            "w": 732,
+            "h": 34
+          },
+          "eu_L2_rf_intro_bar": {
+            "x": 18,
+            "y": 8,
+            "w": 732,
+            "h": 34
+          },
+          "eu_L1_rf_nav": {
+            "x": 18,
+            "y": 48,
+            "w": 200,
+            "h": 1120
+          },
+          "eu_L2_rf_nav_rail": {
+            "x": 18,
+            "y": 48,
+            "w": 200,
+            "h": 1120
+          },
+          "eu_L1_rf_stage": {
+            "x": 234,
+            "y": 48,
+            "w": 516,
+            "h": 1120
+          },
+          "eu_L2_rf_topbar": {
+            "x": 234,
+            "y": 48,
+            "w": 516,
+            "h": 86
+          },
+          "eu_L2_rf_kpi_strip": {
+            "x": 234,
+            "y": 144,
+            "w": 516,
+            "h": 260
+          },
+          "eu_L2_rf_center_grid": {
+            "x": 234,
+            "y": 416,
+            "w": 516,
+            "h": 540
+          },
+          "eu_L2_rf_bottom_strip": {
+            "x": 234,
+            "y": 968,
+            "w": 516,
+            "h": 190
+          },
+          "eu_L1_rf_overlay": {
+            "x": 140,
+            "y": 150,
+            "w": 488,
+            "h": 380
+          },
+          "eu_L2_rf_dialog_host": {
+            "x": 140,
+            "y": 150,
+            "w": 488,
+            "h": 380
+          }
+        }
+      },
+      "1440": {
+        "viewport_w": 1440,
+        "scroll_width": 1440,
+        "rects": {
+          "eu_L0_rf_workspace": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          },
+          "eu_L1_rf_intro": {
+            "x": 20,
+            "y": 8,
+            "w": 1400,
+            "h": 34
+          },
+          "eu_L2_rf_intro_bar": {
+            "x": 20,
+            "y": 8,
+            "w": 1400,
+            "h": 34
+          },
+          "eu_L1_rf_nav": {
+            "x": 20,
+            "y": 14,
+            "w": 290,
+            "h": 872
+          },
+          "eu_L2_rf_nav_rail": {
+            "x": 20,
+            "y": 14,
+            "w": 290,
+            "h": 872
+          },
+          "eu_L1_rf_stage": {
+            "x": 330,
+            "y": 14,
+            "w": 1090,
+            "h": 872
+          },
+          "eu_L2_rf_topbar": {
+            "x": 330,
+            "y": 14,
+            "w": 1090,
+            "h": 84
+          },
+          "eu_L2_rf_kpi_strip": {
+            "x": 330,
+            "y": 108,
+            "w": 1090,
+            "h": 200
+          },
+          "eu_L2_rf_center_grid": {
+            "x": 330,
+            "y": 322,
+            "w": 1090,
+            "h": 444
+          },
+          "eu_L2_rf_bottom_strip": {
+            "x": 330,
+            "y": 778,
+            "w": 1090,
+            "h": 108
+          },
+          "eu_L1_rf_overlay": {
+            "x": 420,
+            "y": 160,
+            "w": 580,
+            "h": 420
+          },
+          "eu_L2_rf_dialog_host": {
+            "x": 420,
+            "y": 160,
+            "w": 580,
+            "h": 420
+          }
+        }
+      }
+    },
+    "computed_styles": [
+      {
+        "id": "rf_cs_ink",
+        "eu_id": "eu_L3_rf_header_search",
+        "property": "color",
+        "value": "#f7f3ef",
+        "token_ref": "rf_surf_ink",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_glass",
+        "eu_id": "eu_L3_rf_sidebar_dock",
+        "property": "background-color",
+        "value": "rgba(38,31,27,0.68)",
+        "token_ref": "rf_surf_glass_panel",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_card",
+        "eu_id": "eu_L3_rf_kpi_array",
+        "property": "background-color",
+        "value": "rgba(44,36,32,0.58)",
+        "token_ref": "rf_surf_glass_card",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_coral",
+        "eu_id": "eu_L3_rf_kpi_array",
+        "property": "color",
+        "value": "#ff6b3d",
+        "token_ref": "rf_surf_coral",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_em",
+        "eu_id": "eu_L3_rf_kpi_array",
+        "property": "color",
+        "value": "#34d399",
+        "token_ref": "rf_surf_emerald",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_h1",
+        "eu_id": "eu_L3_rf_header_search",
+        "property": "font-size",
+        "value": "34px",
+        "token_ref": "rf_typo_h1",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_met",
+        "eu_id": "eu_L3_rf_revenue_chart",
+        "property": "font-size",
+        "value": "38px",
+        "token_ref": "rf_typo_metric",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_rad",
+        "eu_id": "eu_L3_rf_kpi_array",
+        "property": "border-radius",
+        "value": "24px",
+        "token_ref": "rf_lay_radius",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_gap",
+        "eu_id": "eu_L3_rf_revenue_chart",
+        "property": "gap",
+        "value": "16px",
+        "token_ref": "rf_lay_gap",
+        "delta_e": 0.0
+      },
+      {
+        "id": "rf_cs_dur",
+        "eu_id": "eu_L3_rf_sidebar_dock",
+        "property": "transition-duration",
+        "value": "420ms",
+        "token_ref": "rf_mot_dock",
+        "delta_e": 0.0
+      }
+    ],
+    "interactive_elements": [
+      {
+        "id": "rf_el_skip",
+        "eu_id": "eu_L3_rf_skip_entry",
+        "role": "button",
+        "accessible_name": "Skip intro",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "rf_el_nav",
+        "eu_id": "eu_L3_rf_sidebar_dock",
+        "role": "link",
+        "accessible_name": "Overview / Pipeline navigation",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "rf_el_cmd",
+        "eu_id": "eu_L3_rf_header_search",
+        "role": "button",
+        "accessible_name": "Search or jump to",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "rf_el_range",
+        "eu_id": "eu_L3_rf_revenue_chart",
+        "role": "button",
+        "accessible_name": "Revenue range filter and export",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "rf_el_dial",
+        "eu_id": "eu_L3_rf_call_desk",
+        "role": "button",
+        "accessible_name": "Call desk dialer",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "rf_el_dialog",
+        "eu_id": "eu_L3_rf_cmd_dialog",
+        "role": "dialog",
+        "accessible_name": "Command palette and new deal dialog",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      }
+    ],
+    "content_nodes": [
+      {
+        "id": "rf_cn_backdrop",
+        "eu_id": "eu_L0_rf_workspace",
+        "content_class": "decoration",
+        "aria_hidden": true,
+        "data_source": null,
+        "children_classes": []
+      },
+      {
+        "id": "rf_cn_kpi",
+        "eu_id": "eu_L3_rf_kpi_array",
+        "content_class": "data",
+        "aria_hidden": false,
+        "data_source": "refract.crm.kpis",
+        "children_classes": [
+          "data"
+        ]
+      },
+      {
+        "id": "rf_cn_rev",
+        "eu_id": "eu_L3_rf_revenue_chart",
+        "content_class": "data",
+        "aria_hidden": false,
+        "data_source": "refract.crm.revenue_series",
+        "children_classes": [
+          "data"
+        ]
+      },
+      {
+        "id": "rf_cn_calls",
+        "eu_id": "eu_L3_rf_call_desk",
+        "content_class": "data",
+        "aria_hidden": false,
+        "data_source": "refract.crm.call_queue",
+        "children_classes": [
+          "data"
+        ]
+      }
+    ],
+    "segments": [
+      {
+        "segment_id": "seg_web_desktop",
+        "index": 1,
+        "t0": 0.0,
+        "t1": 1.0,
+        "label": "1440×900 液态折射 CRM 全盘骨架",
+        "frame_url": "/cases/refract_crm_web/frames/ref_refract_desktop.png",
+        "active_eu_ids": [
+          "eu_L3_rf_sidebar_dock",
+          "eu_L3_rf_quota_profile",
+          "eu_L3_rf_header_search",
+          "eu_L3_rf_kpi_array",
+          "eu_L3_rf_revenue_chart",
+          "eu_L3_rf_call_desk",
+          "eu_L3_rf_hot_deals",
+          "eu_L3_rf_today_tasks"
+        ],
+        "bboxes": [
+          {
+            "bbox_id": "bb_rf_nav",
+            "eu_id": "eu_L3_rf_sidebar_dock",
+            "label": "液态折射侧栏 · Refract CRM",
+            "x": 20,
+            "y": 14,
+            "w": 290,
+            "h": 740,
+            "role": "nav"
+          },
+          {
+            "bbox_id": "bb_rf_quota",
+            "eu_id": "eu_L3_rf_quota_profile",
+            "label": "Q4 配额进度 92% · 个人卡",
+            "x": 20,
+            "y": 758,
+            "w": 290,
+            "h": 128,
+            "role": "nav"
+          },
+          {
+            "bbox_id": "bb_rf_header",
+            "eu_id": "eu_L3_rf_header_search",
+            "label": "Leah 问候 · ⌘K 命令检索 · +New deal",
+            "x": 330,
+            "y": 14,
+            "w": 1090,
+            "h": 84,
+            "role": "stage"
+          },
+          {
+            "bbox_id": "bb_rf_kpi",
+            "eu_id": "eu_L3_rf_kpi_array",
+            "label": "CRM 四维 KPI + 36% Win rate 阵列 ×4",
+            "x": 330,
+            "y": 108,
+            "w": 1090,
+            "h": 200,
+            "role": "array"
+          },
+          {
+            "bbox_id": "bb_rf_rev",
+            "eu_id": "eu_L3_rf_revenue_chart",
+            "label": "Revenue $3.62M 面积对比 (7D/30D/12M)",
+            "x": 330,
+            "y": 322,
+            "w": 686,
+            "h": 444,
+            "role": "split"
+          },
+          {
+            "bbox_id": "bb_rf_dialer",
+            "eu_id": "eu_L3_rf_call_desk",
+            "label": "Sofia Brandt 联系卡 & 交互拨号台",
+            "x": 1032,
+            "y": 322,
+            "w": 388,
+            "h": 444,
+            "role": "split"
+          },
+          {
+            "bbox_id": "bb_rf_deals",
+            "eu_id": "eu_L3_rf_hot_deals",
+            "label": "Hot deals · Pipeline 跳转",
+            "x": 330,
+            "y": 778,
+            "w": 594,
+            "h": 108,
+            "role": "stage"
+          },
+          {
+            "bbox_id": "bb_rf_today",
+            "eu_id": "eu_L3_rf_today_tasks",
+            "label": "Today 环形待办 (1 of 6 done)",
+            "x": 940,
+            "y": 778,
+            "w": 480,
+            "h": 108,
+            "role": "array"
+          }
+        ]
+      }
+    ],
+    "bboxes": [
+      {
+        "bbox_id": "bb_rf_nav",
+        "eu_id": "eu_L3_rf_sidebar_dock",
+        "label": "液态折射侧栏 · Refract CRM",
+        "x": 20,
+        "y": 14,
+        "w": 290,
+        "h": 740,
+        "role": "nav",
+        "segment_id": "seg_web_desktop",
+        "color_role": "nav"
+      },
+      {
+        "bbox_id": "bb_rf_quota",
+        "eu_id": "eu_L3_rf_quota_profile",
+        "label": "Q4 配额进度 92% · 个人卡",
+        "x": 20,
+        "y": 758,
+        "w": 290,
+        "h": 128,
+        "role": "nav",
+        "segment_id": "seg_web_desktop",
+        "color_role": "nav"
+      },
+      {
+        "bbox_id": "bb_rf_header",
+        "eu_id": "eu_L3_rf_header_search",
+        "label": "Leah 问候 · ⌘K 命令检索 · +New deal",
+        "x": 330,
+        "y": 14,
+        "w": 1090,
+        "h": 84,
+        "role": "stage",
+        "segment_id": "seg_web_desktop",
+        "color_role": "stage"
+      },
+      {
+        "bbox_id": "bb_rf_kpi",
+        "eu_id": "eu_L3_rf_kpi_array",
+        "label": "CRM 四维 KPI + 36% Win rate 阵列 ×4",
+        "x": 330,
+        "y": 108,
+        "w": 1090,
+        "h": 200,
+        "role": "array",
+        "segment_id": "seg_web_desktop",
+        "color_role": "array"
+      },
+      {
+        "bbox_id": "bb_rf_rev",
+        "eu_id": "eu_L3_rf_revenue_chart",
+        "label": "Revenue $3.62M 面积对比 (7D/30D/12M)",
+        "x": 330,
+        "y": 322,
+        "w": 686,
+        "h": 444,
+        "role": "split",
+        "segment_id": "seg_web_desktop",
+        "color_role": "split"
+      },
+      {
+        "bbox_id": "bb_rf_dialer",
+        "eu_id": "eu_L3_rf_call_desk",
+        "label": "Sofia Brandt 联系卡 & 交互拨号台",
+        "x": 1032,
+        "y": 322,
+        "w": 388,
+        "h": 444,
+        "role": "split",
+        "segment_id": "seg_web_desktop",
+        "color_role": "split"
+      },
+      {
+        "bbox_id": "bb_rf_deals",
+        "eu_id": "eu_L3_rf_hot_deals",
+        "label": "Hot deals · Pipeline 跳转",
+        "x": 330,
+        "y": 778,
+        "w": 594,
+        "h": 108,
+        "role": "stage",
+        "segment_id": "seg_web_desktop",
+        "color_role": "stage"
+      },
+      {
+        "bbox_id": "bb_rf_today",
+        "eu_id": "eu_L3_rf_today_tasks",
+        "label": "Today 环形待办 (1 of 6 done)",
+        "x": 940,
+        "y": 778,
+        "w": 480,
+        "h": 108,
+        "role": "array",
+        "segment_id": "seg_web_desktop",
+        "color_role": "array"
+      }
+    ],
+    "skeleton_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 900\" width=\"100%\" height=\"100%\" data-modality=\"web\">\n  <defs>\n    <style>\n      .sk-box { cursor: pointer; transition: stroke-width 0.16s, fill-opacity 0.16s; }\n      .sk-box:hover, .sk-box[data-active=\"true\"] { stroke-width: 4px !important; fill-opacity: 0.28 !important; }\n      .sk-tag { font-family: Manrope, \"Segoe UI\", sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; }\n    </style>\n  </defs>\n  <rect x=\"0\" y=\"0\" width=\"1440\" height=\"900\" rx=\"14\" fill=\"#181210\"/>\n  <image id=\"skeleton-bg-frame\" href=\"/cases/refract_crm_web/frames/ref_refract_desktop.png\" x=\"0\" y=\"0\" width=\"1440\" height=\"900\" preserveAspectRatio=\"xMidYMid slice\" opacity=\"0.90\"/>\n  <g data-layer=\"skeleton\" opacity=\"0.58\">\n    <rect x=\"20\" y=\"14\" width=\"1400\" height=\"872\" rx=\"24\" fill=\"none\" stroke=\"#fff6ef\" stroke-width=\"1.5\" stroke-dasharray=\"6 4\"/>\n    <line x1=\"330\" y1=\"14\" x2=\"330\" y2=\"886\" stroke=\"#0ea5e9\" stroke-width=\"1.6\" stroke-dasharray=\"5 5\"/>\n  </g>\n  <g data-layer=\"bbox\">\n    <g class=\"sk-segment-group\" data-segment-id=\"seg_web_desktop\" opacity=\"1\">\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_sidebar_dock\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_nav\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_sidebar_dock\" data-segment-id=\"seg_web_desktop\" x=\"20\" y=\"14\" width=\"290\" height=\"740\" rx=\"12\" fill=\"rgba(14,165,233,0.14)\" stroke=\"#0ea5e9\" stroke-width=\"2.4\"/><rect x=\"24\" y=\"18\" width=\"258\" height=\"22\" rx=\"6\" fill=\"#0ea5e9\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"31\" y=\"33\" fill=\"#ffffff\">液态折射侧栏 · Refract CRM</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_quota_profile\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_quota\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_quota_profile\" data-segment-id=\"seg_web_desktop\" x=\"20\" y=\"758\" width=\"290\" height=\"128\" rx=\"12\" fill=\"rgba(14,165,233,0.14)\" stroke=\"#0ea5e9\" stroke-width=\"2.4\"/><rect x=\"24\" y=\"762\" width=\"222\" height=\"22\" rx=\"6\" fill=\"#0ea5e9\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"31\" y=\"777\" fill=\"#ffffff\">Q4 配额进度 92% · 个人卡</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_header_search\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_header\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_header_search\" data-segment-id=\"seg_web_desktop\" x=\"330\" y=\"14\" width=\"1090\" height=\"84\" rx=\"12\" fill=\"rgba(249,115,22,0.13)\" stroke=\"#f97316\" stroke-width=\"2.4\"/><rect x=\"334\" y=\"18\" width=\"366\" height=\"22\" rx=\"6\" fill=\"#f97316\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"341\" y=\"33\" fill=\"#ffffff\">Leah 问候 · ⌘K 命令检索 · +New deal</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_kpi_array\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_kpi\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_kpi_array\" data-segment-id=\"seg_web_desktop\" x=\"330\" y=\"108\" width=\"1090\" height=\"200\" rx=\"12\" fill=\"rgba(16,185,129,0.14)\" stroke=\"#10b981\" stroke-width=\"2.4\"/><rect x=\"334\" y=\"112\" width=\"390\" height=\"22\" rx=\"6\" fill=\"#10b981\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"341\" y=\"127\" fill=\"#ffffff\">CRM 四维 KPI + 36% Win rate 阵列 ×4</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_revenue_chart\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_rev\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_revenue_chart\" data-segment-id=\"seg_web_desktop\" x=\"330\" y=\"322\" width=\"686\" height=\"444\" rx=\"12\" fill=\"rgba(139,92,246,0.16)\" stroke=\"#8b5cf6\" stroke-width=\"2.4\"/><rect x=\"334\" y=\"326\" width=\"402\" height=\"22\" rx=\"6\" fill=\"#8b5cf6\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"341\" y=\"341\" fill=\"#ffffff\">Revenue $3.62M 面积对比 (7D/30D/12M)</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_call_desk\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_dialer\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_call_desk\" data-segment-id=\"seg_web_desktop\" x=\"1032\" y=\"322\" width=\"388\" height=\"444\" rx=\"12\" fill=\"rgba(139,92,246,0.16)\" stroke=\"#8b5cf6\" stroke-width=\"2.4\"/><rect x=\"1036\" y=\"326\" width=\"306\" height=\"22\" rx=\"6\" fill=\"#8b5cf6\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"1043\" y=\"341\" fill=\"#ffffff\">Sofia Brandt 联系卡 &amp; 交互拨号台</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_hot_deals\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_deals\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_hot_deals\" data-segment-id=\"seg_web_desktop\" x=\"330\" y=\"778\" width=\"594\" height=\"108\" rx=\"12\" fill=\"rgba(249,115,22,0.13)\" stroke=\"#f97316\" stroke-width=\"2.4\"/><rect x=\"334\" y=\"782\" width=\"294\" height=\"22\" rx=\"6\" fill=\"#f97316\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"341\" y=\"797\" fill=\"#ffffff\">Hot deals · Pipeline 跳转</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_rf_today_tasks\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_rf_today\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_rf_today_tasks\" data-segment-id=\"seg_web_desktop\" x=\"940\" y=\"778\" width=\"480\" height=\"108\" rx=\"12\" fill=\"rgba(16,185,129,0.14)\" stroke=\"#10b981\" stroke-width=\"2.4\"/><rect x=\"944\" y=\"782\" width=\"306\" height=\"22\" rx=\"6\" fill=\"#10b981\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"951\" y=\"797\" fill=\"#ffffff\">Today 环形待办 (1 of 6 done)</text></g>\n    </g>\n  </g>\n</svg>"
+  },
+  "eu_tree": {
+    "template_id": "tpl_uiux_workspace_v1",
+    "template_name": "UI/UX 工作台原型",
+    "root_id": "eu_L0_rf_workspace",
+    "stats": {
+      "total_nodes": 44,
+      "levels_present": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "max_child_degree": 4,
+      "l3_entity_count": 10,
+      "l3_atom_coverage_ratio": 1.0,
+      "edge_count": 6,
+      "adaptation_counts": {
+        "TEMPLATE_ANCHOR": 29,
+        "ATOMIC_MOUNT": 11,
+        "SPLIT_HIGH_INTERACTION": 3,
+        "FOLD_ARRAY": 1
+      }
+    },
+    "nodes": [
+      {
+        "eu_id": "eu_L0_rf_workspace",
+        "name": "Refract 液态玻璃 CRM 工作台",
+        "level": "L0",
+        "node_kind": "product.workspace",
+        "parent_id": null,
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          0,
+          0,
+          1440,
+          900
+        ],
+        "rendered": true,
+        "level_num": 0,
+        "children_ids": [
+          "eu_L1_rf_intro",
+          "eu_L1_rf_nav",
+          "eu_L1_rf_stage",
+          "eu_L1_rf_overlay"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L1_rf_intro",
+        "name": "开场与无障碍外壳",
+        "level": "L1",
+        "node_kind": "territory.intro_shell",
+        "parent_id": "eu_L0_rf_workspace",
+        "template_slot": "intro_shell",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          8,
+          1400,
+          34
+        ],
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_rf_intro_bar"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_rf_intro_bar",
+        "name": "顶层跳转入口区",
+        "level": "L2",
+        "node_kind": "region.intro_strip",
+        "parent_id": "eu_L1_rf_intro",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          8,
+          1400,
+          34
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_rf_skip_entry"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_rf_skip_entry",
+        "name": "直达主区快捷入口",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.skip_button",
+        "parent_id": "eu_L2_rf_intro_bar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          8,
+          180,
+          32
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_skip_entry\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_skip_feat"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_rf_skip_feat",
+        "name": "键盘焦点直达特征",
+        "level": "L4",
+        "node_kind": "feature.skip_a11y",
+        "parent_id": "eu_L3_rf_skip_entry",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          8,
+          180,
+          32
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_skip_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_skip_atoms",
+        "name": "入口原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_skip_feat",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_ink",
+          "rf_typo_caption",
+          "rf_lay_radius",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_rf_nav",
+        "name": "液态折射导航坞",
+        "level": "L1",
+        "node_kind": "territory.nav_dock",
+        "parent_id": "eu_L0_rf_workspace",
+        "template_slot": "nav_dock",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          14,
+          290,
+          872
+        ],
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_rf_nav_rail"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_rf_nav_rail",
+        "name": "CRM 分组侧边栏容器",
+        "level": "L2",
+        "node_kind": "region.nav_rail",
+        "parent_id": "eu_L1_rf_nav",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          14,
+          290,
+          872
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_rf_sidebar_dock",
+          "eu_L3_rf_quota_profile"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_rf_sidebar_dock",
+        "name": "分组导航与邻近放大坞",
+        "level": "L3",
+        "entity": true,
+        "interaction_density": 3,
+        "node_kind": "component.proximity_rail",
+        "parent_id": "eu_L2_rf_nav_rail",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "envelope_bbox": [
+          20,
+          14,
+          290,
+          740
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_sidebar_dock\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_dock_proximity",
+          "eu_L4_rf_nav_groups"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L4_rf_dock_proximity",
+        "name": "收起态指针邻近缩放特征",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.proximity_magnify",
+        "parent_id": "eu_L3_rf_sidebar_dock",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          14,
+          290,
+          520
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_dock_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_dock_atoms",
+        "name": "折射侧栏原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_dock_proximity",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_glass_panel",
+          "rf_surf_coral",
+          "rf_typo_body",
+          "rf_lay_rail_w",
+          "rf_mot_dock",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L4_rf_nav_groups",
+        "name": "Workspace/Sales/Insights 路由列表",
+        "level": "L4",
+        "node_kind": "feature.grouped_routes",
+        "parent_id": "eu_L3_rf_sidebar_dock",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          120,
+          290,
+          620
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_nav_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_nav_atoms",
+        "name": "分组路由原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_nav_groups",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_glass_panel",
+          "rf_typo_body",
+          "rf_lay_gap",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L3_rf_quota_profile",
+        "name": "Q4 配额进度 92% 与个人档案卡",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.quota_profile",
+        "parent_id": "eu_L2_rf_nav_rail",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          756,
+          290,
+          128
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_quota_profile\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_quota_feat"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_rf_quota_feat",
+        "name": "季度配额条与账户信息",
+        "level": "L4",
+        "node_kind": "feature.quota_progress",
+        "parent_id": "eu_L3_rf_quota_profile",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          20,
+          756,
+          290,
+          128
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_quota_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_quota_atoms",
+        "name": "配额卡片原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_quota_feat",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_coral",
+          "rf_typo_caption",
+          "rf_lay_radius",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_rf_stage",
+        "name": "Refract 主舞台",
+        "level": "L1",
+        "node_kind": "territory.main_stage",
+        "parent_id": "eu_L0_rf_workspace",
+        "template_slot": "main_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          14,
+          1090,
+          872
+        ],
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_rf_topbar",
+          "eu_L2_rf_kpi_strip",
+          "eu_L2_rf_center_grid",
+          "eu_L2_rf_bottom_strip"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_rf_topbar",
+        "name": "主舞台问候与全局检索顶栏",
+        "level": "L2",
+        "node_kind": "region.topbar",
+        "parent_id": "eu_L1_rf_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          14,
+          1090,
+          84
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_rf_header_search"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_rf_header_search",
+        "name": "Leah 问候 · ⌘K 搜索与 +New deal",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.stage_header",
+        "parent_id": "eu_L2_rf_topbar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          14,
+          1090,
+          84
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_header_search\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_cmd_trigger"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_rf_cmd_trigger",
+        "name": "⌘K 全局跳转触发特征",
+        "level": "L4",
+        "node_kind": "feature.command_trigger",
+        "parent_id": "eu_L3_rf_header_search",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          670,
+          22,
+          370,
+          54
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_header_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_header_atoms",
+        "name": "顶栏原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_cmd_trigger",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_ink",
+          "rf_surf_coral",
+          "rf_typo_h1",
+          "rf_lay_radius",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_rf_kpi_strip",
+        "name": "顶部 CRM KPI 指标带",
+        "level": "L2",
+        "node_kind": "region.kpi_strip",
+        "parent_id": "eu_L1_rf_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          108,
+          1090,
+          200
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_rf_kpi_array"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_rf_kpi_array",
+        "name": "四维 KPI 与 36% 胜率环阵列宿主",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.kpi.array",
+        "parent_id": "eu_L2_rf_kpi_strip",
+        "adaptation_mode": "FOLD_ARRAY",
+        "array_count": 4,
+        "envelope_bbox": [
+          330,
+          108,
+          1090,
+          200
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_kpi_array\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_kpi_cards"
+        ],
+        "template_slot": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "📦折叠·×4阵列"
+      },
+      {
+        "eu_id": "eu_L4_rf_kpi_cards",
+        "name": "Sparkline 折线与胜率环形度量特征",
+        "level": "L4",
+        "node_kind": "feature.kpi_spark_ring",
+        "parent_id": "eu_L3_rf_kpi_array",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          108,
+          1090,
+          200
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_kpi_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_kpi_atoms",
+        "name": "KPI 阵列原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_kpi_cards",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_glass_card",
+          "rf_surf_emerald",
+          "rf_typo_metric",
+          "rf_lay_radius",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_rf_center_grid",
+        "name": "营收趋势与拨号工作区",
+        "level": "L2",
+        "node_kind": "region.center_grid",
+        "parent_id": "eu_L1_rf_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          322,
+          1090,
+          444
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_rf_revenue_chart",
+          "eu_L3_rf_call_desk"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_rf_revenue_chart",
+        "name": "Revenue $3.62M 面积对比图表",
+        "level": "L3",
+        "entity": true,
+        "interaction_density": 3,
+        "node_kind": "component.revenue_area",
+        "parent_id": "eu_L2_rf_center_grid",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "envelope_bbox": [
+          330,
+          322,
+          686,
+          444
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_revenue_chart\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_rev_filter"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L4_rf_rev_filter",
+        "name": "7D/30D/12M 时间过滤与同口径 CSV 导出",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.range_csv_filter",
+        "parent_id": "eu_L3_rf_revenue_chart",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          780,
+          336,
+          220,
+          48
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_rev_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_rev_atoms",
+        "name": "营收图表原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_rev_filter",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_coral",
+          "rf_typo_metric",
+          "rf_lay_gap",
+          "rf_mot_smooth",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L3_rf_call_desk",
+        "name": "Sofia Brandt 联系卡与拨号台",
+        "level": "L3",
+        "entity": true,
+        "interaction_density": 3,
+        "node_kind": "component.call_desk",
+        "parent_id": "eu_L2_rf_center_grid",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "envelope_bbox": [
+          1032,
+          322,
+          388,
+          444
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_call_desk\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_dialer_ctrl"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L4_rf_dialer_ctrl",
+        "name": "队列切换与实时拨号控制特征",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.dialer_queue",
+        "parent_id": "eu_L3_rf_call_desk",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          1032,
+          540,
+          388,
+          226
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_dialer_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_dialer_atoms",
+        "name": "拨号台原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_dialer_ctrl",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_glass_card",
+          "rf_typo_body",
+          "rf_lay_radius",
+          "rf_mot_smooth",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_rf_bottom_strip",
+        "name": "底部高优商机与今日任务带",
+        "level": "L2",
+        "node_kind": "region.bottom_strip",
+        "parent_id": "eu_L1_rf_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          778,
+          1090,
+          108
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_rf_hot_deals",
+          "eu_L3_rf_today_tasks"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_rf_hot_deals",
+        "name": "Hot deals 商机列表与 Pipeline 入口",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.hot_deals",
+        "parent_id": "eu_L2_rf_bottom_strip",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          330,
+          778,
+          594,
+          108
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_hot_deals\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_pipeline_route"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_rf_pipeline_route",
+        "name": "Pipeline 看板跳转触发特征",
+        "level": "L4",
+        "node_kind": "feature.pipeline_jump",
+        "parent_id": "eu_L3_rf_hot_deals",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          790,
+          792,
+          118,
+          40
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_deals_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_deals_atoms",
+        "name": "商机列表原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_pipeline_route",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_glass_card",
+          "rf_typo_body",
+          "rf_lay_gap",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L3_rf_today_tasks",
+        "name": "Today 环形待办进度卡",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.today_checklist",
+        "parent_id": "eu_L2_rf_bottom_strip",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          940,
+          778,
+          480,
+          108
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_today_tasks\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_today_ring"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_rf_today_ring",
+        "name": "任务勾选联动进度环特征",
+        "level": "L4",
+        "node_kind": "feature.checklist_ring",
+        "parent_id": "eu_L3_rf_today_tasks",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          940,
+          778,
+          480,
+          108
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_today_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_today_atoms",
+        "name": "待办进度原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_today_ring",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_coral",
+          "rf_typo_caption",
+          "rf_lay_radius",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_rf_overlay",
+        "name": "辅助命令与新建弹窗浮层",
+        "level": "L1",
+        "node_kind": "territory.auxiliary_overlay",
+        "parent_id": "eu_L0_rf_workspace",
+        "template_slot": "auxiliary_overlay",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          160,
+          580,
+          420
+        ],
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_rf_dialog_host"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_rf_dialog_host",
+        "name": "⌘K 与新建商机模态窗区",
+        "level": "L2",
+        "node_kind": "region.dialog",
+        "parent_id": "eu_L1_rf_overlay",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          160,
+          580,
+          420
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_rf_cmd_dialog"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_rf_cmd_dialog",
+        "name": "命令检索与商机表单弹窗",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.modal_sheet",
+        "parent_id": "eu_L2_rf_dialog_host",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          160,
+          580,
+          420
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_rf_cmd_dialog\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_rf_focus_trap"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_rf_focus_trap",
+        "name": "模态焦点陷阱与关闭归还特征",
+        "level": "L4",
+        "node_kind": "feature.modal_focus_restore",
+        "parent_id": "eu_L3_rf_cmd_dialog",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          160,
+          580,
+          420
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_rf_dialog_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_rf_dialog_atoms",
+        "name": "浮层弹窗原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_rf_focus_trap",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "rf_surf_glass_panel",
+          "rf_typo_body",
+          "rf_lay_radius",
+          "ev_rf_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_rf_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      }
+    ],
+    "atomic_registry": {
+      "surface_atoms": {
+        "rf_surf_ink": {
+          "name": "高对比暖白主字色",
+          "kind": "color",
+          "value": "#f7f3ef",
+          "css_var": "--rf-ink",
+          "used_by": [
+            "eu_L5_rf_skip_atoms",
+            "eu_L5_rf_header_atoms"
+          ]
+        },
+        "rf_surf_glass_panel": {
+          "name": "深炭液态折射玻璃面板",
+          "kind": "color",
+          "value": "rgba(38,31,27,0.68)",
+          "css_var": "--rf-glass-panel",
+          "used_by": [
+            "eu_L5_rf_dock_atoms",
+            "eu_L5_rf_nav_atoms",
+            "eu_L5_rf_dialog_atoms"
+          ]
+        },
+        "rf_surf_glass_card": {
+          "name": "色散光晕子玻璃卡片",
+          "kind": "color",
+          "value": "rgba(44,36,32,0.58)",
+          "css_var": "--rf-glass-card",
+          "used_by": [
+            "eu_L5_rf_kpi_atoms",
+            "eu_L5_rf_dialer_atoms",
+            "eu_L5_rf_deals_atoms"
+          ]
+        },
+        "rf_surf_coral": {
+          "name": "暖珊瑚橙主强调色",
+          "kind": "color",
+          "value": "#ff6b3d",
+          "css_var": "--rf-coral",
+          "used_by": [
+            "eu_L5_rf_dock_atoms",
+            "eu_L5_rf_quota_atoms",
+            "eu_L5_rf_header_atoms",
+            "eu_L5_rf_rev_atoms",
+            "eu_L5_rf_today_atoms"
+          ]
+        },
+        "rf_surf_emerald": {
+          "name": "同比上升翠绿徽标",
+          "kind": "color",
+          "value": "#34d399",
+          "css_var": "--rf-emerald",
+          "used_by": [
+            "eu_L5_rf_kpi_atoms"
+          ]
+        }
+      },
+      "typography_atoms": {
+        "rf_typo_h1": {
+          "name": "问候主标题字阶",
+          "kind": "font_scale",
+          "value": "clamp(26px, 2.4vw, 34px)",
+          "css_var": "--rf-font-h1",
+          "used_by": [
+            "eu_L5_rf_header_atoms"
+          ]
+        },
+        "rf_typo_metric": {
+          "name": "核心指标对齐数字字阶",
+          "kind": "font_scale",
+          "value": "clamp(28px, 2.6vw, 38px)",
+          "css_var": "--rf-font-metric",
+          "used_by": [
+            "eu_L5_rf_kpi_atoms",
+            "eu_L5_rf_rev_atoms"
+          ]
+        },
+        "rf_typo_body": {
+          "name": "正文与导航字阶",
+          "kind": "font_scale",
+          "value": "13.5px",
+          "css_var": "--rf-font-body",
+          "used_by": [
+            "eu_L5_rf_dock_atoms",
+            "eu_L5_rf_nav_atoms",
+            "eu_L5_rf_dialer_atoms",
+            "eu_L5_rf_deals_atoms",
+            "eu_L5_rf_dialog_atoms"
+          ]
+        },
+        "rf_typo_caption": {
+          "name": "徽章与辅助标签字阶",
+          "kind": "font_scale",
+          "value": "11px",
+          "css_var": "--rf-font-caption",
+          "used_by": [
+            "eu_L5_rf_skip_atoms",
+            "eu_L5_rf_quota_atoms",
+            "eu_L5_rf_today_atoms"
+          ]
+        }
+      },
+      "layout_atoms": {
+        "rf_lay_rail_w": {
+          "name": "左侧液态栏宽",
+          "kind": "dimension",
+          "value": "246px",
+          "css_var": "--rf-rail-w",
+          "used_by": [
+            "eu_L5_rf_dock_atoms"
+          ]
+        },
+        "rf_lay_radius": {
+          "name": "液态卡片圆角",
+          "kind": "radius",
+          "value": "24px",
+          "css_var": "--rf-radius",
+          "used_by": [
+            "eu_L5_rf_skip_atoms",
+            "eu_L5_rf_quota_atoms",
+            "eu_L5_rf_header_atoms",
+            "eu_L5_rf_kpi_atoms",
+            "eu_L5_rf_dialer_atoms",
+            "eu_L5_rf_today_atoms",
+            "eu_L5_rf_dialog_atoms"
+          ]
+        },
+        "rf_lay_gap": {
+          "name": "Bento 玻璃网格间距",
+          "kind": "spacing",
+          "value": "16px",
+          "css_var": "--rf-gap",
+          "used_by": [
+            "eu_L5_rf_nav_atoms",
+            "eu_L5_rf_rev_atoms",
+            "eu_L5_rf_deals_atoms"
+          ]
+        }
+      },
+      "motion_atoms": {
+        "rf_mot_dock": {
+          "name": "侧栏收展与邻近弹性曲线",
+          "kind": "duration",
+          "value": "420ms",
+          "css_var": "--rf-dur-dock",
+          "used_by": [
+            "eu_L5_rf_dock_atoms"
+          ]
+        },
+        "rf_mot_smooth": {
+          "name": "图表筛选与卡片折射微动效",
+          "kind": "duration",
+          "value": "240ms",
+          "css_var": "--rf-dur-ui",
+          "used_by": [
+            "eu_L5_rf_rev_atoms",
+            "eu_L5_rf_dialer_atoms"
+          ]
+        }
+      },
+      "evidence_atoms": {
+        "ev_rf_dom": {
+          "name": "Refract 三断点 DOM 几何与色散观测快照",
+          "breakpoints": [
+            390,
+            768,
+            1440
+          ],
+          "frame_ref": "ref_refract_desktop.png",
+          "used_by": [
+            "eu_L5_rf_skip_atoms",
+            "eu_L5_rf_dock_atoms",
+            "eu_L5_rf_nav_atoms",
+            "eu_L5_rf_quota_atoms",
+            "eu_L5_rf_header_atoms",
+            "eu_L5_rf_kpi_atoms",
+            "eu_L5_rf_rev_atoms",
+            "eu_L5_rf_dialer_atoms",
+            "eu_L5_rf_deals_atoms",
+            "eu_L5_rf_today_atoms",
+            "eu_L5_rf_dialog_atoms"
+          ]
+        }
+      }
+    },
+    "edges": [
+      {
+        "edge_id": "edge_rf_proximity",
+        "edge_type": "MODULATES_NEIGHBOR",
+        "source_eu_id": "eu_L3_rf_sidebar_dock",
+        "target_eu_id": "eu_L4_rf_nav_groups",
+        "label": "收起侧栏指针邻近放大 (1.34x > 1.18x > 1.0)",
+        "evidence_ref": "ev_rf_dom"
+      },
+      {
+        "edge_id": "edge_rf_scroll",
+        "edge_type": "SCROLLS_INDEPENDENTLY",
+        "source_eu_id": "eu_L1_rf_stage",
+        "target_eu_id": "eu_L1_rf_nav",
+        "label": "主舞台独立滚动，左侧液态栏静止不随滚",
+        "evidence_ref": "ev_rf_dom"
+      },
+      {
+        "edge_id": "edge_rf_route",
+        "edge_type": "TRIGGERS_STATE",
+        "source_eu_id": "eu_L3_rf_sidebar_dock",
+        "target_eu_id": "eu_L3_rf_hot_deals",
+        "label": "侧栏与 Pipeline 按钮触发看板视图切换",
+        "evidence_ref": "ev_rf_dom"
+      },
+      {
+        "edge_id": "edge_rf_filter",
+        "edge_type": "FILTERS_VIEW",
+        "source_eu_id": "eu_L3_rf_revenue_chart",
+        "target_eu_id": "eu_L4_rf_rev_filter",
+        "label": "7D/30D/12M 切换重绘面积图并对齐 CSV 导出",
+        "evidence_ref": "ev_rf_dom"
+      },
+      {
+        "edge_id": "edge_rf_focus",
+        "edge_type": "RESTORES_FOCUS",
+        "source_eu_id": "eu_L3_rf_cmd_dialog",
+        "target_eu_id": "eu_L4_rf_cmd_trigger",
+        "label": "⌘K / New deal 弹窗关闭归还触发控件焦点",
+        "evidence_ref": "ev_rf_dom"
+      },
+      {
+        "edge_id": "edge_rf_token",
+        "edge_type": "SHARES_TOKEN",
+        "source_eu_id": "eu_L3_rf_kpi_array",
+        "target_eu_id": "eu_L3_rf_call_desk",
+        "label": "共享珊瑚强调色与色散玻璃圆角 Token",
+        "evidence_ref": "ev_rf_dom"
+      }
+    ]
+  },
+  "gates": {
+    "verdict": "PASS",
+    "active_count": 12,
+    "passed_count": 12,
+    "total_library_rules": 24,
+    "blocked_layer": null,
+    "violated_rule_id": null,
+    "violated_rule_name": null,
+    "violated_node_ids": [],
+    "co_failed_rule_ids": [],
+    "attribution": null,
+    "layers": [
+      {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PW",
+        "route_key": "web",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PW-01",
+            "id": "PW-01",
+            "name": "多断点 DOM 几何闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 断点零溢出",
+            "detail": "390 / 768 / 1440px 三断点 DOM 包络闭合零横向溢出",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW01_breakpoint_misalignment"
+          },
+          {
+            "rule_id": "PW-02",
+            "id": "PW-02",
+            "name": "计算样式向设计 Token 归一",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "10/10 样式归一",
+            "detail": "全部计算样式已归一至 atomic_registry Token",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW02_raw_style_literal"
+          },
+          {
+            "rule_id": "PW-03",
+            "id": "PW-03",
+            "name": "交互状态与无障碍角色提取",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "6/6 无障碍完备",
+            "detail": "可交互元素角色、可访问名称与四态集合全部提取闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW03_missing_a11y_role"
+          },
+          {
+            "rule_id": "PW-04",
+            "id": "PW-04",
+            "name": "静态装饰与业务数据边界分离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4 节点边界清晰",
+            "detail": "静态装饰与业务数据节点严格二分零嵌套污染",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW04_decor_data_mixed"
+          }
+        ]
+      },
+      {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 4/7 · 边 6",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂3 · 折叠1",
+            "detail": "严格锚定 tpl_uiux_workspace_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 10/10 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GU",
+        "route_key": "uiux",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GU-01",
+            "id": "GU-01",
+            "name": "L5 设计与动效 Token 原子 100% 强制消费",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "Token消费 100% · reduced-motion ON",
+            "detail": "全部设计与动效 Token 已在 CSS 声明引用，且支持减弱动效",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU01_token_bypass"
+          },
+          {
+            "rule_id": "GU-02",
+            "id": "GU-02",
+            "name": "根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文本 73 · 真控件 23 · 贴皮 0%",
+            "detail": "100% 可编辑真 DOM 与弹性容器，1440/390px 重排零裁切",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU02_bitmap_solid_degradation"
+          },
+          {
+            "rule_id": "GU-03",
+            "id": "GU-03",
+            "name": "微交互与状态闭环保真",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "5/5 交互闭环",
+            "detail": "全部 5 条已登记交互边闭环 (FILTERS_VIEW、MODULATES_NEIGHBOR、RESTORES_FOCUS、SCROLLS_INDEPENDENTLY、TRIGGERS_STATE)",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU03_missing_proximity_magnify"
+          },
+          {
+            "rule_id": "GU-04",
+            "id": "GU-04",
+            "name": "在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "溯源 100% · 防御小字 0",
+            "detail": "在线舞台与导出产物 data-eu-id 100% 唯一对齐，零防御性小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU04_defensive_microcopy"
+          }
+        ]
+      }
+    ],
+    "by_layer": {
+      "parsing": {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PW",
+        "route_key": "web",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PW-01",
+            "id": "PW-01",
+            "name": "多断点 DOM 几何闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 断点零溢出",
+            "detail": "390 / 768 / 1440px 三断点 DOM 包络闭合零横向溢出",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW01_breakpoint_misalignment"
+          },
+          {
+            "rule_id": "PW-02",
+            "id": "PW-02",
+            "name": "计算样式向设计 Token 归一",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "10/10 样式归一",
+            "detail": "全部计算样式已归一至 atomic_registry Token",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW02_raw_style_literal"
+          },
+          {
+            "rule_id": "PW-03",
+            "id": "PW-03",
+            "name": "交互状态与无障碍角色提取",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "6/6 无障碍完备",
+            "detail": "可交互元素角色、可访问名称与四态集合全部提取闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW03_missing_a11y_role"
+          },
+          {
+            "rule_id": "PW-04",
+            "id": "PW-04",
+            "name": "静态装饰与业务数据边界分离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4 节点边界清晰",
+            "detail": "静态装饰与业务数据节点严格二分零嵌套污染",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW04_decor_data_mixed"
+          }
+        ]
+      },
+      "general": {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 4/7 · 边 6",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂3 · 折叠1",
+            "detail": "严格锚定 tpl_uiux_workspace_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 10/10 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      "generation": {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GU",
+        "route_key": "uiux",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GU-01",
+            "id": "GU-01",
+            "name": "L5 设计与动效 Token 原子 100% 强制消费",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "Token消费 100% · reduced-motion ON",
+            "detail": "全部设计与动效 Token 已在 CSS 声明引用，且支持减弱动效",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU01_token_bypass"
+          },
+          {
+            "rule_id": "GU-02",
+            "id": "GU-02",
+            "name": "根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文本 73 · 真控件 23 · 贴皮 0%",
+            "detail": "100% 可编辑真 DOM 与弹性容器，1440/390px 重排零裁切",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU02_bitmap_solid_degradation"
+          },
+          {
+            "rule_id": "GU-03",
+            "id": "GU-03",
+            "name": "微交互与状态闭环保真",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "5/5 交互闭环",
+            "detail": "全部 5 条已登记交互边闭环 (FILTERS_VIEW、MODULATES_NEIGHBOR、RESTORES_FOCUS、SCROLLS_INDEPENDENTLY、TRIGGERS_STATE)",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU03_missing_proximity_magnify"
+          },
+          {
+            "rule_id": "GU-04",
+            "id": "GU-04",
+            "name": "在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "溯源 100% · 防御小字 0",
+            "detail": "在线舞台与导出产物 data-eu-id 100% 唯一对齐，零防御性小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU04_defensive_microcopy"
+          }
+        ]
+      }
+    }
+  },
+  "assumptions": [
+    {
+      "assumption_id": "ASM-RF-01",
+      "eu_id": "eu_L0_rf_workspace",
+      "subject_ids": [
+        "eu_L0_rf_workspace"
+      ],
+      "title": "液态玻璃底层暖棕客厅光影氛围图离线替代",
+      "category": "substitute_background_asset",
+      "assumed_value": "采用离线合成多层暖琥珀光影景深底图替代原站远程实景摄影资源，保持折射边缘色温一致",
+      "evidence_gap": "网页截图内玻璃卡片与实景沙发照片耦合叠加，无法从单张截图分离无遮挡摄影底图",
+      "bound_rule_id": "PW-04",
+      "status": "open",
+      "confirmed_at": null
+    },
+    {
+      "assumption_id": "ASM-RF-02",
+      "eu_id": "eu_L3_rf_revenue_chart",
+      "subject_ids": [
+        "eu_L3_rf_revenue_chart",
+        "eu_L4_rf_rev_filter"
+      ],
+      "title": "7D / 30D / 12M Revenue 成交明细与 CSV 导出口径",
+      "category": "unobserved_interaction_payload",
+      "assumed_value": "按 $3.62M 年营收目标与 12 个月同比趋势生成同口径 CRM 成交单据并支持按激活区间导出 CSV",
+      "evidence_gap": "参考页展示 7D/30D/12M 切换胶囊，未公开后端原始逐笔订单 CSV 列头",
+      "bound_rule_id": "GU-03",
+      "status": "open",
+      "confirmed_at": null
+    }
+  ],
+  "readback": {
+    "status": "PASS",
+    "case_id": "refract_crm_web",
+    "summary_pill": "DOM 溯源 100% · 零实心退化",
+    "dom_eu_binding_coverage": 1.0,
+    "bound_eu_count": 19,
+    "expected_eu_count": 19,
+    "stage_trace_ids": [
+      "eu_L0_rf_workspace",
+      "eu_L1_rf_nav",
+      "eu_L1_rf_stage",
+      "eu_L3_rf_call_desk",
+      "eu_L3_rf_cmd_dialog",
+      "eu_L3_rf_header_search",
+      "eu_L3_rf_hot_deals",
+      "eu_L3_rf_kpi_array",
+      "eu_L3_rf_quota_profile",
+      "eu_L3_rf_revenue_chart",
+      "eu_L3_rf_sidebar_dock",
+      "eu_L3_rf_skip_entry",
+      "eu_L3_rf_today_tasks",
+      "eu_L4_rf_cmd_trigger",
+      "eu_L4_rf_dialer_ctrl",
+      "eu_L4_rf_dock_proximity",
+      "eu_L4_rf_nav_groups",
+      "eu_L4_rf_pipeline_route",
+      "eu_L4_rf_rev_filter"
+    ],
+    "export_trace_ids": [
+      "eu_L0_rf_workspace",
+      "eu_L1_rf_nav",
+      "eu_L1_rf_stage",
+      "eu_L3_rf_call_desk",
+      "eu_L3_rf_cmd_dialog",
+      "eu_L3_rf_header_search",
+      "eu_L3_rf_hot_deals",
+      "eu_L3_rf_kpi_array",
+      "eu_L3_rf_quota_profile",
+      "eu_L3_rf_revenue_chart",
+      "eu_L3_rf_sidebar_dock",
+      "eu_L3_rf_skip_entry",
+      "eu_L3_rf_today_tasks",
+      "eu_L4_rf_cmd_trigger",
+      "eu_L4_rf_dialer_ctrl",
+      "eu_L4_rf_dock_proximity",
+      "eu_L4_rf_nav_groups",
+      "eu_L4_rf_pipeline_route",
+      "eu_L4_rf_rev_filter"
+    ],
+    "missing_trace_ids": [],
+    "dangling_trace_ids": [],
+    "duplicate_trace_ids": [],
+    "editable_text_nodes": 73,
+    "interactive_controls": 23,
+    "ui_bitmap_area_ratio": 0.0,
+    "bitmaps": [],
+    "viewport_overflow_px": {
+      "1440": 0,
+      "390": 0
+    },
+    "fluid_markers_found": [
+      "display: flex",
+      "display: grid",
+      "clamp(",
+      "minmax(",
+      "@media"
+    ],
+    "token_consumption": {
+      "total_tokens": 14,
+      "consumed_tokens": 14,
+      "consumption_ratio": 1.0,
+      "unconsumed_atom_ids": [],
+      "reduced_motion_supported": true,
+      "fluid_markers_found": [
+        "display: flex",
+        "display: grid",
+        "clamp(",
+        "minmax(",
+        "@media"
+      ],
+      "responsive_390_supported": true
+    },
+    "reduced_motion_supported": true,
+    "responsive_390_supported": true,
+    "vector_text_editable": true,
+    "live_text_ratio": 1.0,
+    "vector_graphic_ratio": 1.0,
+    "rasterized_text_count": 0,
+    "defensive_microcopy_violations": 0,
+    "defensive_hits": [],
+    "interactions": [
+      {
+        "edge_id": "edge_rf_proximity",
+        "edge_type": "MODULATES_NEIGHBOR",
+        "passed": true,
+        "measure": {
+          "focus_scale": 1.35,
+          "neighbor_scale": 1.19,
+          "neutral_scale": 1.0,
+          "far_scale": 1.0,
+          "restored_after_leave": true
+        }
+      },
+      {
+        "edge_id": "edge_rf_scroll",
+        "edge_type": "SCROLLS_INDEPENDENTLY",
+        "passed": true,
+        "measure": {
+          "host_scroll_delta": 360.0,
+          "sibling_offset_delta": 0.0
+        }
+      },
+      {
+        "edge_id": "edge_rf_route",
+        "edge_type": "TRIGGERS_STATE",
+        "passed": true,
+        "measure": {
+          "target_state_before": "overview",
+          "target_state_after": "active_view"
+        }
+      },
+      {
+        "edge_id": "edge_rf_filter",
+        "edge_type": "FILTERS_VIEW",
+        "passed": true,
+        "measure": {
+          "dataset_changed": true,
+          "export_scope": "active_filter",
+          "active_filter": "active_filter"
+        }
+      },
+      {
+        "edge_id": "edge_rf_focus",
+        "edge_type": "RESTORES_FOCUS",
+        "passed": true,
+        "measure": {
+          "active_element_matches_trigger": true
+        }
+      }
+    ]
+  },
+  "counterfactual_presets": [
+    {
+      "preset": "violate_PW01_breakpoint_misalignment",
+      "label": "[PW-01] 多断点 DOM 几何闭合",
+      "desc": "把一个子区块在窄断点下的盒宽改为超出父盒与视口。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-01",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW02_raw_style_literal",
+      "label": "[PW-02] 计算样式向设计 Token 归一",
+      "desc": "清除一条计算样式的 token_ref，使其成为裸值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-02",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW03_missing_a11y_role",
+      "label": "[PW-03] 交互状态与无障碍角色提取",
+      "desc": "删除一个按钮的 role 与 focus-visible 状态。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-03",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW04_decor_data_mixed",
+      "label": "[PW-04] 静态装饰与业务数据边界分离",
+      "desc": "给一个装饰节点挂上业务数据绑定。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-04",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN01_interaction_in_tree",
+      "label": "[GN-01] 树图分离与度约束",
+      "desc": "把一条横向交互（如邻近调制或状态触发）改写成某个 L3 节点下的 interaction.* 纵向子节点。",
+      "target_layer": "general",
+      "target_rule_id": "GN-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN02_degree_overflow",
+      "label": "[GN-02] 模板锚定与复杂度自适应伸缩合规",
+      "desc": "撤销一个 FOLD_ARRAY 阵列宿主，把同构成员平铺回上级父节点，使同构兄弟未折叠且父节点度超过上限。",
+      "target_layer": "general",
+      "target_rule_id": "GN-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN03_missing_l5_atom",
+      "label": "[GN-03] 单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+      "desc": "从一个实体型 L3 子树中摘除其 typography 或 evidence 类 L5 原子引用。",
+      "target_layer": "general",
+      "target_rule_id": "GN-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN04_envelope_overflow",
+      "label": "[GN-04] 包络自底向上守恒与三态准入状态机",
+      "desc": "把某个 L3 子节点的包络平移到其父节点包络之外。",
+      "target_layer": "general",
+      "target_rule_id": "GN-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU01_token_bypass",
+      "label": "[GU-01] L5 设计与动效 Token 原子 100% 强制消费",
+      "desc": "从回检快照中移除一个 motion 原子的 CSS 变量引用并去掉减弱动效媒体查询。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU02_bitmap_solid_degradation",
+      "label": "[GU-02] 根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+      "desc": "在回检快照中用一张整屏截图替换主舞台领地的 DOM 文本与控件。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU03_missing_proximity_magnify",
+      "label": "[GU-03] 微交互与状态闭环保真",
+      "desc": "在回检快照中移除邻近调制边对应的实现（缩放梯度回落为原尺寸）。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU04_defensive_microcopy",
+      "label": "[GU-04] 在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+      "desc": "在回检快照可见文本中插入一句自证式保证句，并移除一个节点的 data-eu-id。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PI01_grid_chain_break",
+      "label": "[PI-01] 版面栅格与比例尺寸链闭合 (跨模态沙盒)",
+      "desc": "把栏槽宽改成与画幅宽不闭合的值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI02_foreground_background_merge",
+      "label": "[PI-02] 视觉去噪与前景图文/背景材质分离 (跨模态沙盒)",
+      "desc": "把一个前景文字图层合并进背景材质图层。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI03_illegal_atom_sample",
+      "label": "[PI-03] 色彩对比度、字阶与间距原子采样合法性 (跨模态沙盒)",
+      "desc": "把一个正文颜色原子改成与背景对比度不足的色值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI04_missing_evidence_bbox",
+      "label": "[PI-04] 原图 evidence_bbox 强绑定 (跨模态沙盒)",
+      "desc": "删除一个 L3 解析节点的 evidence_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PV01_partial_video_coverage",
+      "label": "[PV-01] 全时段关键帧覆盖与场景切分闭合 (跨模态沙盒)",
+      "desc": "删除中间一个时段，只保留局部时段，使时间轴出现未覆盖区间。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV02_layout_noise_leak",
+      "label": "[PV-02] 视频外版式噪声剥离与有效视口裁切 (跨模态沙盒)",
+      "desc": "把一个 EU 节点的 frame_bbox 挪进已登记的代码窗噪声区。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV03_transient_value_as_truth",
+      "label": "[PV-03] 瞬态滚动与稳态真值分离及假设隔离 (跨模态沙盒)",
+      "desc": "把一条 transient 观测值改为 verified 并解除其 AssumptionRecord 关联。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV04_unbound_interaction_evidence",
+      "label": "[PV-04] 帧间不变量与连续交互取证 (跨模态沙盒)",
+      "desc": "抹去一条已观测交互边的 [t0, t1] 与 frame_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_GG01_bleed_grid_break",
+      "label": "[GG-01] 画幅尺寸出血与网格对齐守恒 (跨模态沙盒)",
+      "desc": "把出血置为 0 并让一个 L2 区块偏离栏线。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG02_hierarchy_inversion",
+      "label": "[GG-02] 视觉主次字阶层级与对比度合规 (跨模态沙盒)",
+      "desc": "把正文字号调到大于副标题，造成层级倒置。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG03_rasterized_text",
+      "label": "[GG-03] 矢量/文字图层独立可编辑 (跨模态沙盒)",
+      "desc": "在回检快照中把主标题文字节点替换为位图。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG04_export_drift",
+      "label": "[GG-04] 导出重开版式零漂移与溯源回检 (跨模态沙盒)",
+      "desc": "在导出快照中把一个 L2 区块包络平移超出漂移容差。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    }
+  ],
+  "error_ledger": [
+    {
+      "res_id": "RES-KW-01",
+      "entry_id": "RES-KW-01",
+      "id": "RES-KW-01",
+      "title": "局部录屏冒充整片验收",
+      "layer": "parsing",
+      "rule_id": "PV-01",
+      "counterfactual_preset": "violate_PV01_partial_video_coverage",
+      "symptom": "只补查了 1.60–2.23 s 邻近放大一段，整段 5.689 s 未逐段建证据，父任务长期停在 validating",
+      "root_cause": "没有「全时段切分闭合」硬约束，局部时段的通过结论被当成全片结论",
+      "fix": "0 → 片长连续切分、首尾相接、覆盖率 100%，每段至少一帧并绑定 EU",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-02",
+      "entry_id": "RES-KW-02",
+      "id": "RES-KW-02",
+      "title": "片尾滚动数字当定值",
+      "layer": "parsing",
+      "rule_id": "PV-03",
+      "counterfactual_preset": "violate_PV03_transient_value_as_truth",
+      "symptom": "5.62 s Analytics 四指标在片尾仍在滚动，险些被写成最终数值",
+      "root_cause": "观测值没有 steady / transient 区分，未定值可直接成为 verified 原子",
+      "fix": "观测值强制标注 settle_state；transient 不得 verified，必须挂 AssumptionRecord",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-03",
+      "entry_id": "RES-KW-03",
+      "id": "RES-KW-03",
+      "title": "视频版式代码窗混入界面",
+      "layer": "parsing",
+      "rule_id": "PV-02",
+      "counterfactual_preset": "violate_PV02_layout_noise_leak",
+      "symptom": "1920×2560 竖版视频下半部是代码窗排版，不属于网页，早期取样容易把它算进画面",
+      "root_cause": "缺少噪声区登记与可复核裁切变换",
+      "fix": "登记 noise_regions，记录 source_size / crop_rect / scale / target_size，EU 包络不得落入噪声区",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-04",
+      "entry_id": "RES-KW-04",
+      "id": "RES-KW-04",
+      "title": "交互塞入纵向组件树",
+      "layer": "general",
+      "rule_id": "GN-01",
+      "counterfactual_preset": "violate_GN01_interaction_in_tree",
+      "symptom": "邻近放大被建成「主单元 + 指针距离 + 搜索球 + 选中项 + 邻项 + 复位边界」六单元五条包含关系，交互与结构混在同一棵树",
+      "root_cause": "树与图不分，状态联动以父子包含表达",
+      "fix": "交互一律走 6 类白名单横向边，纵向树禁止 interaction./event./state. 前缀；同构项折叠防止度溢出（GN-02）",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-05",
+      "entry_id": "RES-KW-05",
+      "id": "RES-KW-05",
+      "title": "位图贴皮实心退化",
+      "layer": "generation",
+      "rule_id": "GU-02",
+      "counterfactual_preset": "violate_GU02_bitmap_solid_degradation",
+      "symptom": "用录屏截图或整屏位图铺底冒充界面，文字不可选、控件不可点，窄屏直接裁切",
+      "root_cause": "生成侧没有「真 DOM 文本 + 弹性容器」硬约束，静图通过即算交付",
+      "fix": "文字节点 100% DOM 文本、控件 100% 真控件，UI 位图面积为 0，1440 / 390 视口零横向裁切",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-06",
+      "entry_id": "RES-KW-06",
+      "id": "RES-KW-06",
+      "title": "收起侧栏漏掉邻近放大",
+      "layer": "generation",
+      "rule_id": "GU-03",
+      "counterfactual_preset": "violate_GU03_missing_proximity_magnify",
+      "symptom": "r21 设计读回中收起侧栏只记了「展开」，没有指针距离、放大与邻项传递",
+      "root_cause": "交互要求靠人工点名，未从语义图横向边逐条推导实现",
+      "fix": "每条交互类横向边必须有回检实现：MODULATES_NEIGHBOR 要求主项 > 邻项 > 1.0、远项不动、离开复位",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-07",
+      "entry_id": "RES-KW-07",
+      "id": "RES-KW-07",
+      "title": "界面放解释性、防御性小字",
+      "layer": "generation",
+      "rule_id": "GU-04",
+      "counterfactual_preset": "violate_GU04_defensive_microcopy",
+      "symptom": "折光工作台上版把验收说明写成界面文案（「不会丢」「仍可用」等保证句与引导副标题）",
+      "root_cause": "文案铁律只写在设计文档里，产物没有回检",
+      "fix": "舞台与导出各自回读可见文本，禁用短语命中数为 0；同时回检 data-eu-id 唯一且不悬空",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-08",
+      "entry_id": "RES-KW-08",
+      "id": "RES-KW-08",
+      "title": "EU 缺席却报整体验收",
+      "layer": "general",
+      "rule_id": "GN-03",
+      "counterfactual_preset": "violate_GN03_missing_l5_atom",
+      "symptom": "语义读回返回 EU_PROJECT_MISSING，网页运行通过却险些被当作 EU 已识别、已验收",
+      "root_cause": "无证据项可以是 verified，L5 原子挂载没有覆盖率门槛",
+      "fix": "单源 atomic_registry + atom_refs 双索引，实体 L3 的 L5 覆盖率 100%，无证据推断项强制进 AssumptionRecord；准入走 GN-04 三态机",
+      "status": "closed_by_rule"
+    }
+  ]
+}

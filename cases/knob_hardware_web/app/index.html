@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KNOB · k.no.b.1 Low-Profile Mechanical Keyboard</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="kb-page" id="viewport" data-page="keyboard" data-eu-id="eu_L0_kb_workspace">
+    <a class="skip-link" href="#main-stage" data-eu-id="eu_L3_kb_skip_entry">Skip to hardware showcase</a>
+
+    <main class="kb-main" id="main-stage" tabindex="-1" data-eu-id="eu_L1_kb_stage">
+      <header class="kb-topbar" data-eu-id="eu_L3_kb_topbar">
+        <div class="kb-brand">
+          <span class="kb-wordmark">KNOB</span>
+          <small class="kb-subbrand">by work louder</small>
+        </div>
+
+        <nav class="kb-nav" aria-label="Hardware line" data-eu-id="eu_L4_kb_mode_tabs">
+          <button type="button" class="kb-nav-btn is-active" data-route="keyboard">Keyboard</button>
+          <button type="button" class="kb-nav-btn" data-route="numpad">Numpad</button>
+          <button type="button" class="kb-nav-btn" data-route="keysets">Keysets<span class="kb-new">NEW</span></button>
+          <button type="button" class="kb-nav-btn" data-route="lightswitch">Lightswitch</button>
+        </nav>
+
+        <form class="kb-sub-form" id="kbUpdatesForm">
+          <input class="kb-email-input" id="kbEmailInput" type="email" placeholder="your email address" aria-label="Email address">
+          <button type="submit" class="kb-updates-btn" id="kbUpdatesBtn">Get Updates</button>
+        </form>
+      </header>
+
+      <section class="kb-hero" data-eu-id="eu_L3_kb_hardware_rig">
+        <div class="kb-hero-copy">
+          <h1 class="kb-h1" id="kbHeroTitle">The low-profile mechanical keyboard of your dreams.</h1>
+          <p class="kb-lead" id="kbHeroLead">The k.no.b.1 is a low-profile mechanical keyboard with uniquely designed keycaps, two programmable knobs, and a feature-filled full-color screen.</p>
+          <div class="kb-cta-row">
+            <button type="button" class="btn-volt" id="kbOrderBtn">Order Today for $439 USD</button>
+            <span class="kb-stock-note">In stock, ships in 1–3 business days</span>
+          </div>
+        </div>
+
+        <div class="kb-rig-stage" data-eu-id="eu_L4_kb_rotary_encoders">
+          <div class="kb-chassis-tilt">
+            <div class="kb-key-matrix" id="kbKeyMatrix"></div>
+            <div class="kb-deck-bar">
+              <div class="kb-lcd" id="kbLcd" aria-live="polite">
+                <div class="lcd-row"><span>MODE: KEYBOARD</span><span>KEY: READY</span></div>
+                <div class="lcd-row"><span id="lcdLux">LUX 78%</span><span id="lcdBpm">124 BPM</span></div>
+              </div>
+              <div class="kb-knobs-pair">
+                <div class="knob-unit">
+                  <button type="button" class="rotary-knob" id="kbDial1" aria-label="Brightness rotary encoder"><span class="knob-marker"></span></button>
+                  <span>LUX</span>
+                </div>
+                <div class="knob-unit">
+                  <button type="button" class="rotary-knob" id="kbDial2" aria-label="Tempo rotary encoder"><span class="knob-marker"></span></button>
+                  <span>BPM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="kb-rig-hint">Interactive unit · Click keys or rotate dual encoders</div>
+        </div>
+      </section>
+
+      <section class="kb-specs-band" data-eu-id="eu_L3_kb_specs_array">
+        <div class="specs-head" data-eu-id="eu_L4_kb_filter_export">
+          <h2 class="specs-title">Engineered Modules &amp; Tactile Details</h2>
+          <div class="spec-tabs" role="group" aria-label="Hardware modules filter">
+            <button type="button" class="spec-tab is-active" data-filter="All">All</button>
+            <button type="button" class="spec-tab" data-filter="Switches">Switches</button>
+            <button type="button" class="spec-tab" data-filter="Controls">Controls</button>
+            <button type="button" class="spec-tab" data-filter="Keycaps">Keycaps</button>
+          </div>
+        </div>
+        <div class="specs-grid" id="kbSpecsGrid"></div>
+      </section>
+    </main>
+
+    <dialog class="kb-dialog" id="kbDialog" aria-labelledby="kbDlgTitle" data-eu-id="eu_L3_kb_order_dialog">
+      <form method="dialog" class="dlg-panel">
+        <div class="dlg-top">
+          <h2 id="kbDlgTitle">Pre-Order k.no.b.1 ($439 USD)</h2>
+          <button type="submit" value="cancel" class="kb-updates-btn">Esc</button>
+        </div>
+        <p class="dlg-desc" id="kbDlgDesc">Ships in 1–3 business days with calibrated anodized chassis, rust modifier caps, and QMK/VIA encoder profiles.</p>
+        <div class="dlg-specs-mini">
+          <span>68% Low-Profile</span>
+          <span>Dual Knurled Dials</span>
+          <span>1.4mm Lightswitch</span>
+        </div>
+        <div class="dlg-actions">
+          <button type="submit" value="close" class="kb-updates-btn">Close</button>
+          <button type="button" class="btn-volt" id="kbConfirmOrderBtn">Confirm Allocation</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="kb-toast" id="kbToast" role="status" aria-live="polite"></div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

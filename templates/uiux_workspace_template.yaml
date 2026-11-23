@@ -1,0 +1,145 @@
+# ==============================================================================
+# 开物 v3.4 · 原型模板 · UI/UX 工作台（tpl_uiux_workspace_v1）
+# 作用：给 domain = "uiux" 的项目提供 L0~L5 槽位契约、4 大标准 L1 领地、
+#       自适应分裂/折叠触发阈值与必检横向边。GN-02 依据本文件校验锚定与伸缩。
+# 零特例：本模板不出现任何具体项目的名字、时长或像素尺寸。
+# ==============================================================================
+
+schema_version: "3.4.0"
+version: "3.4.0"
+template_id: "tpl_uiux_workspace_v1"
+template_name: "UI/UX 工作台原型"
+domain: "uiux"
+compatible_modalities: ["video", "image", "web"]
+desc: "适用于带导航、主舞台与浮层的应用型界面：开场外壳、导航坞、主舞台、辅助浮层四大领地，按交互密度分裂、按同构重复折叠。"
+
+# ---------------- L0 ~ L5 槽位契约 ----------------
+level_contract:
+  - level: "L0"
+    role: "产品根"
+    node_kind_prefix: "product."
+    cardinality: "exactly_one"
+    required_fields: ["eu_id", "name", "node_kind", "envelope_bbox"]
+  - level: "L1"
+    role: "领地（模板锚定槽位）"
+    node_kind_prefix: "territory."
+    cardinality: "one_per_slot"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id", "template_slot", "envelope_bbox"]
+  - level: "L2"
+    role: "区域 / 模块"
+    node_kind_prefix: "region."
+    cardinality: "1..7 per L1"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id", "envelope_bbox"]
+  - level: "L3"
+    role: "组件（实体或阵列宿主）"
+    node_kind_prefix: "component."
+    cardinality: "1..7 per L2"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id", "envelope_bbox", "dom_selector"]
+  - level: "L4"
+    role: "特征（结构 / 交互实现 / 动效）"
+    node_kind_prefix: "feature."
+    cardinality: "0..7 per L3"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id"]
+  - level: "L5"
+    role: "原子引用（只引用 atomic_registry）"
+    node_kind_prefix: "atom."
+    cardinality: "1..7 per L4 or L3"
+    required_fields: ["eu_id", "node_kind", "parent_id", "atom_refs"]
+
+forbidden_tree_kind_prefixes: ["interaction.", "event.", "state.", "edge.", "transition."]
+max_direct_children: 7
+
+# ---------------- 4 大标准 L1 领地 ----------------
+l1_territories:
+  - slot_id: "intro_shell"
+    name: "开场外壳"
+    node_kind: "territory.intro_shell"
+    required: true
+    role: "品牌揭幕、加载、可跳过的开场层"
+    allowed_l2_kinds: ["region.brand_reveal", "region.loader", "region.skip_control"]
+    prunable: false
+  - slot_id: "nav_dock"
+    name: "导航坞"
+    node_kind: "territory.nav_dock"
+    required: true
+    role: "侧栏 / 底栏 / 顶栏导航，含展开与收起两态"
+    allowed_l2_kinds: ["region.nav_rail", "region.nav_header", "region.nav_footer", "region.command_entry"]
+    prunable: false
+  - slot_id: "main_stage"
+    name: "主舞台"
+    node_kind: "territory.main_stage"
+    required: true
+    role: "路由视图、内容区块与数据可视化"
+    allowed_l2_kinds: ["region.view", "region.page_header", "region.hero", "region.metric_strip", "region.chart", "region.quick_actions", "region.list"]
+    prunable: false
+  - slot_id: "auxiliary_overlay"
+    name: "辅助浮层"
+    node_kind: "territory.auxiliary_overlay"
+    required: true
+    role: "弹窗、抽屉、提示、命令面板等临时层"
+    allowed_l2_kinds: ["region.dialog", "region.drawer", "region.tooltip", "region.command_palette", "region.toast"]
+    prunable: false
+
+slot_ids: ["intro_shell", "nav_dock", "main_stage", "auxiliary_overlay"]
+
+# ---------------- 自适应伸缩策略 ----------------
+adaptive_policies:
+  TEMPLATE_ANCHOR:
+    applies_to_levels: ["L1"]
+    rule: "每个 required 槽位恰有一个 L1 节点锚定，template_slot 等于 slot_id。"
+  SPLIT_HIGH_INTERACTION:
+    applies_to_levels: ["L2", "L3"]
+    trigger:
+      metric: "interaction_density"
+      definition: "与该节点子树相连的交互类横向边数 + 子树内可交互控件种类数"
+      min_interaction_edges: 3
+    action: "把该节点拆为若干 L3 子组件（如触发源、受调制项、距离场 / 状态容器），并为每条被实现的交互挂一个 L4 feature.* 实现特征。"
+    split_result_badge: "分裂·高密交互"
+  FOLD_ARRAY:
+    applies_to_levels: ["L2", "L3"]
+    trigger:
+      metric: "isomorphic_siblings"
+      definition: "同一父节点下 node_kind 相同、子结构同构的兄弟数"
+      min_isomorphic_siblings: 3
+    action: "用一个阵列宿主节点（node_kind 以 .array 结尾）承载同构成员，宿主记录 array_count，成员保留为宿主子节点（超过度上限时只保留代表成员并在 array_count 记录总数）。"
+    fold_result_badge: "折叠·阵列"
+  ATOMIC_MOUNT:
+    applies_to_levels: ["L5"]
+    rule: "L5 节点只携带 atom_refs，指向 atomic_registry 的 5 个区段。"
+  PRUNE_OPTIONAL_SLOT:
+    applies_to_levels: ["L2"]
+    rule: "仅可裁剪 allowed_l2_kinds 中未在源中出现的可选区域；required 的 L1 领地不可裁剪。"
+
+# ---------------- 必检横向边 ----------------
+allowed_edge_types: ["TRIGGERS_STATE", "RESTORES_FOCUS", "FILTERS_VIEW", "MODULATES_NEIGHBOR", "SCROLLS_INDEPENDENTLY", "SHARES_TOKEN"]
+required_edges:
+  - edge_type: "SCROLLS_INDEPENDENTLY"
+    source_slot: "main_stage"
+    target_slot: "nav_dock"
+    required_when: "always"
+  - edge_type: "TRIGGERS_STATE"
+    source_slot: "nav_dock"
+    target_slot: "main_stage"
+    required_when: "always"
+  - edge_type: "RESTORES_FOCUS"
+    source_slot: "auxiliary_overlay"
+    target_slot: "any"
+    required_when: "auxiliary_overlay contains region.dialog or region.drawer"
+  - edge_type: "SHARES_TOKEN"
+    source_slot: "any"
+    target_slot: "any"
+    required_when: "always"
+  - edge_type: "MODULATES_NEIGHBOR"
+    source_slot: "nav_dock"
+    target_slot: "nav_dock"
+    required_when: "source evidence shows pointer-distance scaling on nav items"
+  - edge_type: "FILTERS_VIEW"
+    source_slot: "main_stage"
+    target_slot: "main_stage"
+    required_when: "main_stage contains a range or filter control"
+
+# ---------------- 生成侧视口契约 ----------------
+viewport_contract:
+  required_viewports_px: [1440, 390]
+  reduced_motion_query: "prefers-reduced-motion"
+  trace_attribute: "data-eu-id"

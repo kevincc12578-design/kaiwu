@@ -1,0 +1,122 @@
+# ==============================================================================
+# 开物 v3.4 · Kaiwu Adaptive-EU Design Workbench
+# 第一层 · 解析层规则 · 网页模态（PW-01 ~ PW-04）
+# 路由：modality = "web" 的项目激活本文件 4 条（与 video / image 互斥）。
+# 正交分工：PW-01 管几何（多断点闭合） | PW-02 管样式（计算样式 -> Token）
+#           PW-03 管行为（交互状态与无障碍） | PW-04 管边界（装饰与业务数据）
+# 零特例：断点集合取通用基线，项目可在 skeleton.breakpoints 追加但不可删减。
+# ==============================================================================
+
+schema_version: "3.4.0"
+product: "开物 · Kaiwu Adaptive-EU Design Workbench"
+version: "3.4.0"
+layer: "parsing"
+layer_order: 1
+layer_name: "解析层 · 网页"
+route_key: "modality"
+modality: "web"
+rule_prefix: "PW"
+philosophy: "网页源有 DOM 与计算样式，可直接测量，因此几何、样式、状态与数据边界都必须以测量值闭合，而不是截图目测。"
+
+rules:
+  - id: "PW-01"
+    name: "多断点 DOM 几何闭合"
+    name_en: "Multi-Breakpoint DOM Geometry Closure"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L1", "L2", "L3"]
+    check_code: "check_pw01_breakpoint_geometry"
+    desc: "在每个基线断点下采集 DOM 几何：子元素盒不越出父元素盒，文档无横向溢出，L1/L2 区块在每个断点都有几何记录。"
+    thresholds:
+      baseline_breakpoints_px: [390, 768, 1440]
+      max_horizontal_overflow_px: 0
+      child_in_parent_tolerance_px: 1.0
+      min_breakpoint_records_per_node: 3
+    invariants:
+      - "set(baseline_breakpoints_px) <= set(skeleton.breakpoints)"
+      - "forall bp: skeleton.dom[bp].scroll_width - bp <= max_horizontal_overflow_px"
+      - "forall bp, child, parent: contains(parent.rect[bp], child.rect[bp], child_in_parent_tolerance_px)"
+      - "forall node where node.level in ['L1', 'L2']: len(node.rects) >= min_breakpoint_records_per_node"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "某断点下几何溢出或错位"
+      attribution_fields: ["violated_node_ids", "breakpoint_px"]
+    counterfactual_preset: "violate_PW01_breakpoint_misalignment"
+    counterfactual_desc: "把一个子区块在窄断点下的盒宽改为超出父盒与视口。"
+    related_residuals: ["RES-KW-05"]
+
+  - id: "PW-02"
+    name: "计算样式向设计 Token 归一"
+    name_en: "Computed Style to Design Token Normalization"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L4", "L5"]
+    check_code: "check_pw02_token_normalization"
+    desc: "颜色、字号、字重、圆角、间距、阴影、时长等计算样式必须全部归一到 atomic_registry 中的 Token；色差在阈值内视为同一 Token，未归一的裸值数量为 0。"
+    thresholds:
+      normalized_properties: ["color", "background-color", "font-size", "font-weight", "border-radius", "gap", "padding", "box-shadow", "transition-duration"]
+      min_token_normalization_ratio: 1.0
+      max_color_delta_e: 2.0
+      max_raw_literals: 0
+    invariants:
+      - "forall style in skeleton.computed_styles where style.property in normalized_properties: style.token_ref resolves in atomic_registry"
+      - "forall color match: delta_e(style.value, token.value) <= max_color_delta_e"
+      - "count(style where style.token_ref is None) <= max_raw_literals"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "计算样式残留未归一裸值"
+      attribution_fields: ["violated_style_ids", "violated_node_ids"]
+    counterfactual_preset: "violate_PW02_raw_style_literal"
+    counterfactual_desc: "清除一条计算样式的 token_ref，使其成为裸值。"
+    related_residuals: ["RES-KW-07"]
+
+  - id: "PW-03"
+    name: "交互状态与无障碍角色提取"
+    name_en: "Interaction State & Accessibility Role Extraction"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L3", "L4"]
+    check_code: "check_pw03_states_and_a11y"
+    desc: "每个可交互元素必须提取 role、可访问名称与基线状态集合；可交互元素之间的状态联动以横向边登记，不进纵向树。"
+    thresholds:
+      required_states: ["default", "hover", "focus-visible", "active"]
+      require_role: true
+      require_accessible_name: true
+      min_a11y_coverage_ratio: 1.0
+    invariants:
+      - "forall el in skeleton.interactive_elements: el.role and el.accessible_name"
+      - "forall el: set(required_states) <= set(el.states)"
+      - "ratio(interactive elements fully extracted) >= min_a11y_coverage_ratio"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "可交互元素缺角色、名称或状态"
+      attribution_fields: ["violated_node_ids", "missing_states"]
+    counterfactual_preset: "violate_PW03_missing_a11y_role"
+    counterfactual_desc: "删除一个按钮的 role 与 focus-visible 状态。"
+    related_residuals: ["RES-KW-06"]
+
+  - id: "PW-04"
+    name: "静态装饰与业务数据边界分离"
+    name_en: "Static Decoration vs Business Data Boundary"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L2", "L3", "L4"]
+    check_code: "check_pw04_decor_data_boundary"
+    desc: "每个节点只能是 decoration 或 data 之一：装饰节点无数据绑定且对辅助技术隐藏，业务数据节点必须声明 data_source；二者不得互相嵌套冒充。"
+    thresholds:
+      content_classes: ["decoration", "data"]
+      decoration_requires_aria_hidden: true
+      data_requires_source: true
+      max_mixed_nodes: 0
+    invariants:
+      - "forall node in skeleton.content_nodes: node.content_class in content_classes"
+      - "forall node where content_class == 'decoration': node.data_source is None and node.aria_hidden == true"
+      - "forall node where content_class == 'data': node.data_source is not None"
+      - "count(decoration node containing data descendant) <= max_mixed_nodes"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "装饰与业务数据边界混淆"
+      attribution_fields: ["violated_node_ids"]
+    counterfactual_preset: "violate_PW04_decor_data_mixed"
+    counterfactual_desc: "给一个装饰节点挂上业务数据绑定。"
+    related_residuals: ["RES-KW-05"]

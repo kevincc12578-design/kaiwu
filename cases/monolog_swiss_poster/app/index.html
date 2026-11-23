@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MONOLOG — Swiss Editorial Grid ISO A3 Poster</title>
+  <style>
+    :root {
+      --mn-paper: #d9dad6;
+      --mn-ink: #111111;
+      --mn-muted: #383936;
+      --mn-accent: #262825;
+      --mn-font-display: 52px;
+      --mn-font-headline: 26px;
+      --mn-font-body: 14px;
+      --mn-font-caption: 11px;
+      --mn-unit: 16px;
+      --mn-gutter: 12px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: #232421;
+      color: var(--mn-ink);
+      font-family: "Helvetica Neue", "Inter", Arial, sans-serif;
+      font-size: var(--mn-font-body);
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .poster-desk {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 18px 18px;
+      gap: 10px;
+    }
+
+    .desk-toolbar {
+      width: 100%;
+      max-width: 584px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 14px;
+      background: #181917;
+      border: 1px solid #3c3e39;
+      color: var(--mn-paper);
+      font-size: var(--mn-font-caption);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .desk-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .desk-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      background: transparent;
+      color: var(--mn-paper);
+      border: 1px solid #595b55;
+      padding: 5px 10px;
+      font-size: var(--mn-font-caption);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .tool-btn.is-active {
+      background: var(--mn-paper);
+      color: var(--mn-ink);
+      border-color: var(--mn-paper);
+    }
+
+    .sheet-bleed-wrap {
+      position: relative;
+      padding: 26px 22px;
+      background: var(--mn-paper);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      transition: padding 180ms ease;
+    }
+
+    .sheet-bleed-wrap.hide-bleed {
+      padding: 0;
+    }
+
+    .bleed-guide {
+      position: absolute;
+      inset: 18px 14px;
+      border: 1px dashed rgba(17, 17, 17, 0.28);
+      pointer-events: none;
+    }
+
+    .sheet-bleed-wrap.hide-bleed .bleed-guide,
+    .sheet-bleed-wrap.hide-bleed .crop-mark {
+      display: none;
+    }
+
+    .crop-mark {
+      position: absolute;
+      font-family: ui-monospace, monospace;
+      font-size: 9px;
+      color: var(--mn-muted);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+    }
+
+    .crop-tl { top: 4px; left: 22px; }
+    .crop-br { bottom: 4px; right: 22px; }
+
+    .poster-canvas {
+      position: relative;
+      width: min(536px, calc(100vw - 64px));
+      aspect-ratio: 297 / 420;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.14), transparent 55%),
+        repeating-linear-gradient(0deg, rgba(17, 17, 17, 0.015) 0 1px, transparent 1px 3px),
+        var(--mn-paper);
+      color: var(--mn-ink);
+      padding: calc(var(--mn-unit) * 1.75);
+      display: grid;
+      grid-template-rows: auto 1.05fr 1.25fr auto;
+      gap: calc(var(--mn-unit) * 1.15);
+      border: 1px solid rgba(17, 17, 17, 0.16);
+      overflow: hidden;
+    }
+
+    .grid-overlay {
+      display: none;
+      position: absolute;
+      inset: calc(var(--mn-unit) * 1.75);
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--mn-gutter);
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    .poster-canvas.show-grid .grid-overlay {
+      display: grid;
+    }
+
+    .grid-col-band {
+      background: rgba(214, 52, 34, 0.09);
+      border-left: 1px solid rgba(214, 52, 34, 0.28);
+      border-right: 1px solid rgba(214, 52, 34, 0.28);
+    }
+
+    .mn-header {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--mn-gutter);
+      align-items: start;
+      padding-bottom: var(--mn-unit);
+      border-bottom: 1.5px solid var(--mn-ink);
+    }
+
+    .mn-logo-lockup {
+      grid-column: span 8;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mn-wordmark {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .mn-series {
+      font-size: var(--mn-font-caption);
+      color: var(--mn-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mn-cta-pill {
+      grid-column: span 4;
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--mn-ink);
+      color: var(--mn-paper);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: var(--mn-font-caption);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mn-hero {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--mn-gutter);
+      align-content: space-between;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.26);
+      padding-bottom: var(--mn-unit);
+    }
+
+    .mn-intro-copy {
+      grid-column: 1 / span 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: var(--mn-font-caption);
+      color: var(--mn-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .mn-intro-copy p {
+      margin: 0;
+      font-size: var(--mn-font-body);
+      text-transform: none;
+      letter-spacing: -0.01em;
+      color: var(--mn-ink);
+      line-height: 1.38;
+    }
+
+    .mn-headline-wrap {
+      grid-column: 5 / span 8;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .mn-headline {
+      margin: 0;
+      font-size: clamp(28px, 3vw, var(--mn-font-display));
+      font-weight: 700;
+      line-height: 0.96;
+      letter-spacing: -0.045em;
+      color: var(--mn-ink);
+    }
+
+    .mn-subcap {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--mn-font-caption);
+      color: var(--mn-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mn-spec-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--mn-gutter);
+      align-items: stretch;
+    }
+
+    .mn-wins-graphic {
+      grid-column: span 5;
+      border: 1.5px solid var(--mn-ink);
+      background: var(--mn-accent);
+      color: var(--mn-paper);
+      padding: var(--mn-unit);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .wins-label {
+      font-size: var(--mn-font-caption);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mn-paper);
+      opacity: 0.85;
+    }
+
+    .wins-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 10px 0;
+    }
+
+    .mn-right-stack {
+      grid-column: span 7;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: var(--mn-gutter);
+    }
+
+    .mn-palette-fold {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .swatch-cell {
+      border: 1px solid rgba(17, 17, 17, 0.3);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 62px;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+    }
+
+    .sw-paper { background: var(--mn-paper); color: var(--mn-ink); }
+    .sw-ink { background: var(--mn-ink); color: var(--mn-paper); }
+    .sw-muted { background: var(--mn-muted); color: var(--mn-paper); }
+    .sw-accent { background: var(--mn-accent); color: var(--mn-paper); }
+
+    .mn-specimen {
+      border-top: 1px solid var(--mn-ink);
+      border-bottom: 1px solid var(--mn-ink);
+      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .spec-line-lg {
+      font-size: var(--mn-font-headline);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .spec-line-sm {
+      font-size: var(--mn-font-caption);
+      color: var(--mn-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .mn-grid-box {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--mn-gutter);
+      padding: 10px 12px;
+      border: 1px solid var(--mn-ink);
+      font-size: var(--mn-font-caption);
+    }
+
+    .grid-stat b {
+      display: block;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .mn-footer {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--mn-gutter);
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1.5px solid var(--mn-ink);
+      font-size: var(--mn-font-caption);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .mn-credits {
+      grid-column: span 7;
+      color: var(--mn-muted);
+    }
+
+    .mn-imprint {
+      grid-column: span 5;
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .kaiwu-eu-highlight {
+      outline: 2.5px solid #d63422 !important;
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 740px) {
+      .poster-canvas {
+        padding: var(--mn-unit);
+        aspect-ratio: auto;
+      }
+
+      .mn-intro-copy,
+      .mn-headline-wrap,
+      .mn-wins-graphic,
+      .mn-right-stack,
+      .mn-credits,
+      .mn-imprint {
+        grid-column: span 12;
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster-desk">
+    <div class="desk-toolbar">
+      <div class="desk-meta">
+        <span>ISO A3 SWISS PRESS SHEET · 297 × 420 MM</span>
+        <span>UNCOATED PULP #D9DAD6</span>
+      </div>
+      <div class="desk-btns">
+        <button class="tool-btn" id="toggleGridBtn" type="button">12-Col Swiss Grid</button>
+        <button class="tool-btn is-active" id="toggleBleedBtn" type="button">3mm Bleed &amp; Crops</button>
+      </div>
+    </div>
+
+    <div class="sheet-bleed-wrap" id="bleedWrap" data-eu-id="eu_L4_mn_bleed_crop">
+      <div class="bleed-guide"></div>
+      <span class="crop-mark crop-tl">+ 3.0MM BLEED TOP-LEFT · CMYK K100</span>
+      <span class="crop-mark crop-br">SWISS EDITION 2026 · TRIM +</span>
+
+      <article class="poster-canvas" id="posterCanvas" data-eu-id="eu_L0_mn_poster">
+        <div class="grid-overlay" aria-hidden="true">
+          <div class="grid-col-band"></div><div class="grid-col-band"></div><div class="grid-col-band"></div>
+          <div class="grid-col-band"></div><div class="grid-col-band"></div><div class="grid-col-band"></div>
+          <div class="grid-col-band"></div><div class="grid-col-band"></div><div class="grid-col-band"></div>
+          <div class="grid-col-band"></div><div class="grid-col-band"></div><div class="grid-col-band"></div>
+        </div>
+
+        <header class="mn-header" data-eu-id="eu_L1_mn_header">
+          <div class="mn-logo-lockup" data-eu-id="eu_L3_mn_logo_lockup">
+            <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+              <rect x="1" y="1" width="24" height="24" fill="none" stroke="#111111" stroke-width="2"/>
+              <line x1="1" y1="13" x2="25" y2="13" stroke="#111111" stroke-width="1.5"/>
+              <line x1="13" y1="1" x2="13" y2="25" stroke="#111111" stroke-width="1.5"/>
+              <circle cx="13" cy="13" r="3.5" fill="#111111"/>
+            </svg>
+            <div>
+              <div class="mn-wordmark">MONOLOG</div>
+              <div class="mn-series">ISSUE NO. 04 · EDITORIAL SYSTEMS</div>
+            </div>
+          </div>
+          <div class="mn-cta-pill" data-eu-id="eu_L3_mn_cta_pill">
+            <span>Monolog®</span>
+            <span>Studio</span>
+          </div>
+        </header>
+
+        <section class="mn-hero" data-eu-id="eu_L1_mn_hero">
+          <div class="mn-intro-copy" data-eu-id="eu_L3_mn_intro_copy">
+            <span>SWISS EDITORIAL PRACTICE</span>
+            <p>Websites, visual identities, and modular design systems built around disciplined typography and honest negative space.</p>
+            <span>ZÜRICH · LONDON · REMOTE</span>
+          </div>
+          <div class="mn-headline-wrap">
+            <h1 class="mn-headline" data-eu-id="eu_L3_mn_headline">Websites and identities that reflect your ambition</h1>
+            <div class="mn-subcap">
+              <span>TRACKING -0.045EM · LEADING 0.94</span>
+              <span>CLIENT ARCHIVE 2026</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="mn-spec-grid" data-eu-id="eu_L1_mn_spec_grid">
+          <div class="mn-wins-graphic" data-eu-id="eu_L3_mn_wins_graphic">
+            <div class="wins-label">CLIENT WINS • 2026</div>
+            <svg class="wins-svg" viewBox="0 0 220 190" aria-label="Architectural typographic poster seal">
+              <rect x="2" y="2" width="216" height="186" fill="none" stroke="#d9dad6" stroke-width="1.5"/>
+              <line x1="2" y1="54" x2="218" y2="54" stroke="#d9dad6" stroke-width="1"/>
+              <line x1="74" y1="54" x2="74" y2="188" stroke="#d9dad6" stroke-width="1"/>
+              <circle cx="146" cy="121" r="46" fill="none" stroke="#d9dad6" stroke-width="1.5"/>
+              <polygon points="146,85 182,155 110,155" fill="#d9dad6" opacity="0.9"/>
+              <text x="14" y="34" fill="#d9dad6" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.5">04 / INDEX</text>
+              <text x="14" y="82" fill="#d9dad6" font-family="monospace" font-size="10">01 HELVETICA</text>
+              <text x="14" y="102" fill="#d9dad6" font-family="monospace" font-size="10">02 ISO A3</text>
+              <text x="14" y="122" fill="#d9dad6" font-family="monospace" font-size="10">03 12-COL</text>
+              <text x="14" y="142" fill="#d9dad6" font-family="monospace" font-size="10">04 PRINT</text>
+            </svg>
+            <div class="wins-label">PURE VECTOR COMPOSITION · ZERO RASTER</div>
+          </div>
+
+          <div class="mn-right-stack">
+            <div class="mn-palette-fold" data-eu-id="eu_L3_mn_palette_fold">
+              <div class="swatch-cell sw-paper"><span>PAPER</span><b>#D9DAD6</b></div>
+              <div class="swatch-cell sw-ink"><span>INK K100</span><b>#111111</b></div>
+              <div class="swatch-cell sw-muted"><span>SLATE</span><b>#383936</b></div>
+              <div class="swatch-cell sw-accent"><span>CARBON</span><b>#262825</b></div>
+            </div>
+
+            <div class="mn-specimen" data-eu-id="eu_L3_mn_specimen">
+              <div class="spec-line-lg">Aa Bb Cc 0123456789</div>
+              <div class="spec-line-sm">GROTESK DISPLAY SCALE · 52PX / 26PX / 14PX / 11PX</div>
+            </div>
+
+            <div class="mn-grid-box" data-eu-id="eu_L3_mn_grid_box">
+              <div class="grid-stat"><span>COLUMNS</span><b>12-COL</b></div>
+              <div class="grid-stat"><span>BASE UNIT</span><b>16PX</b></div>
+              <div class="grid-stat"><span>BLEED</span><b>3.0MM</b></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="mn-footer" data-eu-id="eu_L1_mn_footer">
+          <div class="mn-credits" data-eu-id="eu_L3_mn_credits">TYPE SETTING: NEUE GROTESK · PAPER STOCK: MUNKEN LYNX 150GSM</div>
+          <div class="mn-imprint" data-eu-id="eu_L3_mn_imprint">MONOLOG.STUDIO · EDITION 04</div>
+        </footer>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const posterCanvas = document.getElementById('posterCanvas');
+      const bleedWrap = document.getElementById('bleedWrap');
+      const toggleGridBtn = document.getElementById('toggleGridBtn');
+      const toggleBleedBtn = document.getElementById('toggleBleedBtn');
+
+      function setGrid(show) {
+        posterCanvas.classList.toggle('show-grid', show);
+        toggleGridBtn.classList.toggle('is-active', show);
+      }
+
+      function setBleed(show) {
+        bleedWrap.classList.toggle('hide-bleed', !show);
+        toggleBleedBtn.classList.toggle('is-active', show);
+      }
+
+      toggleGridBtn.addEventListener('click', () => {
+        setGrid(!posterCanvas.classList.contains('show-grid'));
+      });
+
+      toggleBleedBtn.addEventListener('click', () => {
+        setBleed(bleedWrap.classList.contains('hide-bleed'));
+      });
+
+      document.querySelectorAll('[data-eu-id]').forEach((el) => {
+        el.addEventListener('click', (e) => {
+          const target = e.target.closest('[data-eu-id]');
+          if (!target) return;
+          window.parent.postMessage({ type: 'KAIWU_SELECT_EU', eu_id: target.dataset.euId }, '*');
+        });
+      });
+
+      window.addEventListener('message', (event) => {
+        const msg = event.data || {};
+        if (msg.type === 'KAIWU_HIGHLIGHT_EU') {
+          document.querySelectorAll('.kaiwu-eu-highlight').forEach((n) => n.classList.remove('kaiwu-eu-highlight'));
+          const node = document.querySelector(`[data-eu-id="${msg.eu_id}"]`);
+          if (node) {
+            node.classList.add('kaiwu-eu-highlight');
+            node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else if (msg.type === 'KAIWU_PREVIEW_ACTION') {
+          if (msg.action === 'toggle_grid') {
+            setGrid(!posterCanvas.classList.contains('show-grid'));
+          } else if (msg.action === 'toggle_bleed') {
+            setBleed(bleedWrap.classList.contains('hide-bleed'));
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

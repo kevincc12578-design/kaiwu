@@ -1,0 +1,292 @@
+{
+  "case_id": "rauno_craft_video",
+  "modality": "video",
+  "fps": 60.0,
+  "duration_sec": 4.8,
+  "coverage_ratio": 1.0,
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "raw_video_size": [
+      1920,
+      1600
+    ],
+    "crop_bbox": [
+      0,
+      0,
+      1920,
+      1200
+    ],
+    "scale": 0.75
+  },
+  "viewport_transform": {
+    "source_size": {
+      "w": 1920,
+      "h": 1600
+    },
+    "crop_rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1920,
+      "h": 1200
+    },
+    "scale": 0.75,
+    "target_size": {
+      "w": 1440,
+      "h": 900
+    }
+  },
+  "noise_regions": [
+    {
+      "id": "nr_rn_overlay_bar",
+      "kind": "platform_overlay",
+      "bbox": [
+        0,
+        1280,
+        1920,
+        320
+      ],
+      "desc": "录屏外围平台播放器控件及外框噪声带"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs_rn_slowmo_025",
+      "eu_id": "eu_L3_rn_topbar",
+      "label": "慢动作速度倍率",
+      "value": "0.25x",
+      "settle_state": "steady",
+      "stable_frames": 28,
+      "verified": true
+    },
+    {
+      "id": "obs_rn_radial_8",
+      "eu_id": "eu_L3_rn_motion_stage",
+      "label": "Radial Menu 扇区数",
+      "value": "8 sectors",
+      "settle_state": "steady",
+      "stable_frames": 36,
+      "verified": true
+    },
+    {
+      "id": "obs_rn_overshoot_transient",
+      "eu_id": "eu_L3_rn_motion_stage",
+      "label": "动效插值过冲末帧瞬态值",
+      "value": "spring_overshoot_unsettled",
+      "settle_state": "transient",
+      "stable_frames": 0,
+      "verified": false,
+      "assumption_id": "ASM-RN-01"
+    }
+  ],
+  "frame_invariants": [
+    {
+      "id": "inv_rn_radial_center",
+      "desc": "0.25x 与 1.0x 模式切换下 Radial Menu 极坐标圆心偏移恒为 0",
+      "holds": true,
+      "evidence": {
+        "t0": 1.15,
+        "t1": 2.35,
+        "frame_bbox": [
+          24,
+          24,
+          1872,
+          1140
+        ]
+      }
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_01",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.15,
+      "label": "0.00–1.15s · Slow Motion 速率基准与顶栏进入",
+      "frame_url": "/cases/rauno_craft_video/frames/seg_01.png",
+      "active_eu_ids": [
+        "eu_L3_rn_topbar",
+        "eu_L4_rn_slowmo_ctrl",
+        "eu_L3_rn_motion_stage"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_rn_s1_top",
+          "eu_id": "eu_L3_rn_topbar",
+          "label": "Toggle Slow Motion (0.25x) 顶栏",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 76,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_rn_s1_stage",
+          "eu_id": "eu_L3_rn_motion_stage",
+          "label": "微交互实验主舞台进入",
+          "x": 16,
+          "y": 108,
+          "w": 1408,
+          "h": 510,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_02",
+      "index": 2,
+      "t0": 1.15,
+      "t1": 2.35,
+      "label": "1.15–2.35s · Radial Menu 极坐标扇形弹出",
+      "frame_url": "/cases/rauno_craft_video/frames/seg_02.png",
+      "active_eu_ids": [
+        "eu_L3_rn_motion_stage",
+        "eu_L4_rn_precision_ruler"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_rn_s2_rad",
+          "eu_id": "eu_L3_rn_motion_stage",
+          "label": "8 扇区 Radial Menu 极坐标展开",
+          "x": 16,
+          "y": 108,
+          "w": 692,
+          "h": 510,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_rn_s2_prec",
+          "eu_id": "eu_L4_rn_precision_ruler",
+          "label": "Adaptive Precision 右侧时间轴",
+          "x": 732,
+          "y": 108,
+          "w": 692,
+          "h": 510,
+          "role": "stage"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_03",
+      "index": 3,
+      "t0": 2.35,
+      "t1": 3.6,
+      "label": "2.35–3.60s · Adaptive Precision 垂直距离放大",
+      "frame_url": "/cases/rauno_craft_video/frames/seg_03.png",
+      "active_eu_ids": [
+        "eu_L3_rn_motion_stage",
+        "eu_L4_rn_precision_ruler"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_rn_s3_prec",
+          "eu_id": "eu_L4_rn_precision_ruler",
+          "label": "垂直指针距离动态切换 15m→5m→1m 刻度",
+          "x": 732,
+          "y": 108,
+          "w": 692,
+          "h": 510,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_04",
+      "index": 4,
+      "t0": 3.6,
+      "t1": 4.8,
+      "label": "3.60–4.80s · Flashlight 探照灯四卡阵列与瞬态隔离",
+      "frame_url": "/cases/rauno_craft_video/frames/seg_04.png",
+      "active_eu_ids": [
+        "eu_L3_rn_flashlight_array",
+        "eu_L3_rn_inspector_dialog"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_rn_s4_arr",
+          "eu_id": "eu_L3_rn_flashlight_array",
+          "label": "Flashlight 探照灯微交互卡片阵列 ×4",
+          "x": 16,
+          "y": 636,
+          "w": 1408,
+          "h": 248,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_rn_s1_top",
+      "eu_id": "eu_L3_rn_topbar",
+      "label": "Toggle Slow Motion (0.25x) 顶栏",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 76,
+      "role": "nav",
+      "segment_id": "seg_01",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_rn_s1_stage",
+      "eu_id": "eu_L3_rn_motion_stage",
+      "label": "微交互实验主舞台进入",
+      "x": 16,
+      "y": 108,
+      "w": 1408,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_01",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_rn_s2_rad",
+      "eu_id": "eu_L3_rn_motion_stage",
+      "label": "8 扇区 Radial Menu 极坐标展开",
+      "x": 16,
+      "y": 108,
+      "w": 692,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_02",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_rn_s2_prec",
+      "eu_id": "eu_L4_rn_precision_ruler",
+      "label": "Adaptive Precision 右侧时间轴",
+      "x": 732,
+      "y": 108,
+      "w": 692,
+      "h": 510,
+      "role": "stage",
+      "segment_id": "seg_02",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_rn_s3_prec",
+      "eu_id": "eu_L4_rn_precision_ruler",
+      "label": "垂直指针距离动态切换 15m→5m→1m 刻度",
+      "x": 732,
+      "y": 108,
+      "w": 692,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_03",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_rn_s4_arr",
+      "eu_id": "eu_L3_rn_flashlight_array",
+      "label": "Flashlight 探照灯微交互卡片阵列 ×4",
+      "x": 16,
+      "y": 636,
+      "w": 1408,
+      "h": 248,
+      "role": "array",
+      "segment_id": "seg_04",
+      "color_role": "array"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+schema_version: "4.0.0"
+category_id: "app_dashboard"
+name: "数据看板 / SaaS 工作台"
+name_en: "Dashboard & SaaS Workspace"
+tier: "core"
+default_domain: "uiux"
+base_template_id: "tpl_uiux_workspace_v1"
+description: "适用于带主导航、KPI 指标带、数据图表、列表表格与筛选导出的企业级后台与工作台产品。"
+required_slots: ["intro_shell", "nav_dock", "main_stage", "auxiliary_overlay"]
+optional_slots: ["region.metric_strip", "region.chart", "region.list", "region.drawer"]
+allowed_asset_slots: ["avatar", "brand_mark"]
+expected_signals:
+  preferred_aspect: "landscape"
+  has_nav_rail_or_header: true
+  min_interactive_controls: 6
+  keywords: ["dashboard", "analytics", "crm", "admin", "kpi", "revenue", "pipeline", "telemetry", "overview", "workspace"]
+category_rules:
+  - id: "CAT-DASH-01"
+    name: "多视图导航与主舞台分层"
+    metric_key: "nav_stage_separation"
+    desc: "工作台具备明确导航区与主舞台承载节点，且支持三断点布局拟合。"
+  - id: "CAT-DASH-02"
+    name: "真 DOM 数据组件与 Token 归一"
+    metric_key: "live_dom_and_tokens"
+    desc: "指标卡、图表容器与列表区均为真 DOM 渲染且 100% 消费设计 Token。"
+  - id: "CAT-DASH-03"
+    name: "交互状态与筛选导出闭环"
+    metric_key: "state_filter_loop"
+    desc: "视图切换、弹窗辅助浮层或数据过滤在语义图横向边中可回检闭环。"

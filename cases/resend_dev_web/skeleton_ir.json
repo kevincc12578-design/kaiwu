@@ -1,0 +1,413 @@
+{
+  "case_id": "resend_dev_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_rs_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_rs_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_rs_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_rs_stage": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_rs_topbar": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_rs_hero_zone": {
+          "x": 12,
+          "y": 150,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_rs_array_zone": {
+          "x": 12,
+          "y": 950,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_rs_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_rs_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_rs_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_rs_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_rs_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_rs_stage": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 1120
+        },
+        "eu_L2_rs_topbar": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 92
+        },
+        "eu_L2_rs_hero_zone": {
+          "x": 18,
+          "y": 150,
+          "w": 732,
+          "h": 600
+        },
+        "eu_L2_rs_array_zone": {
+          "x": 18,
+          "y": 762,
+          "w": 732,
+          "h": 390
+        },
+        "eu_L1_rs_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_rs_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_rs_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_rs_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_rs_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_rs_stage": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 868
+        },
+        "eu_L2_rs_topbar": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 96
+        },
+        "eu_L2_rs_hero_zone": {
+          "x": 16,
+          "y": 116,
+          "w": 1408,
+          "h": 496
+        },
+        "eu_L2_rs_array_zone": {
+          "x": 16,
+          "y": 626,
+          "w": 1408,
+          "h": 258
+        },
+        "eu_L1_rs_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_rs_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "rs_cs_surf",
+      "eu_id": "eu_L3_rs_topbar",
+      "property": "color",
+      "value": "#000000",
+      "token_ref": "rs_surf_bg",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rs_cs_typo",
+      "eu_id": "eu_L3_rs_console",
+      "property": "font-size",
+      "value": "clamp(32px, 3.8vw, 52px)",
+      "token_ref": "rs_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rs_cs_lay",
+      "eu_id": "eu_L3_rs_webhooks_array",
+      "property": "gap",
+      "value": "1180px",
+      "token_ref": "rs_lay_maxw",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rs_cs_mot",
+      "eu_id": "eu_L3_rs_topbar",
+      "property": "transition-duration",
+      "value": "240ms",
+      "token_ref": "rs_mot_beam",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "rs_el_skip",
+      "eu_id": "eu_L3_rs_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rs_el_top",
+      "eu_id": "eu_L3_rs_topbar",
+      "role": "tab",
+      "accessible_name": "Resend 极简顶栏与多页面路由切换",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rs_el_hero",
+      "eu_id": "eu_L3_rs_console",
+      "role": "button",
+      "accessible_name": "WebGL 暗银光束 + 多语言 SDK + Send Test 200 流式台",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rs_el_arr",
+      "eu_id": "eu_L3_rs_webhooks_array",
+      "role": "button",
+      "accessible_name": "Webhook 事件流 + React Email 双栏预览阵列 ×4",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rs_el_dlg",
+      "eu_id": "eu_L3_rs_api_dialog",
+      "role": "dialog",
+      "accessible_name": "API Key 沙盒权限生成弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "rs_cn_bg",
+      "eu_id": "eu_L0_rs_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "rs_cn_hero",
+      "eu_id": "eu_L3_rs_console",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "resend.telemetry.emails",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "rs_cn_arr",
+      "eu_id": "eu_L3_rs_webhooks_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "resend.telemetry.emails.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Resend · 开发者邮件平台与实时测试控制台骨架",
+      "frame_url": "/cases/resend_dev_web/frames/ref_rs_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_rs_topbar",
+        "eu_L3_rs_console",
+        "eu_L3_rs_webhooks_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_rs_top",
+          "eu_id": "eu_L3_rs_topbar",
+          "label": "Resend 全宽顶栏与路由入口",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 72,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_rs_hero",
+          "eu_id": "eu_L3_rs_console",
+          "label": "光束 Hero + 多语言 SDK + Send Test 流式台",
+          "x": 16,
+          "y": 100,
+          "w": 1408,
+          "h": 510,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_rs_arr",
+          "eu_id": "eu_L3_rs_webhooks_array",
+          "label": "Webhook 状态过滤 + React Email 双栏 ×4",
+          "x": 16,
+          "y": 626,
+          "w": 1408,
+          "h": 258,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_rs_top",
+      "eu_id": "eu_L3_rs_topbar",
+      "label": "Resend 全宽顶栏与路由入口",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 72,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_rs_hero",
+      "eu_id": "eu_L3_rs_console",
+      "label": "光束 Hero + 多语言 SDK + Send Test 流式台",
+      "x": 16,
+      "y": 100,
+      "w": 1408,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_rs_arr",
+      "eu_id": "eu_L3_rs_webhooks_array",
+      "label": "Webhook 状态过滤 + React Email 双栏 ×4",
+      "x": 16,
+      "y": 626,
+      "w": 1408,
+      "h": 258,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

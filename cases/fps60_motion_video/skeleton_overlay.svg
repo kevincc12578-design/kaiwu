@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 956" width="100%" height="100%" data-modality="video">
+  <defs>
+    <style>
+      .sk-box { cursor: pointer; transition: stroke-width 0.16s, fill-opacity 0.16s; }
+      .sk-box:hover, .sk-box[data-active="true"] { stroke-width: 4px !important; fill-opacity: 0.28 !important; }
+      .sk-tag { font-family: Manrope, "Segoe UI", sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; }
+      .sk-seg { cursor: pointer; }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="1440" height="956" rx="14" fill="#0d0d10"/>
+  <image id="skeleton-bg-frame" href="/cases/fps60_motion_video/frames/seg_01.png" x="0" y="0" width="1440" height="900" preserveAspectRatio="xMidYMid slice" opacity="0.90"/>
+  <g data-layer="skeleton" opacity="0.56">
+    <rect x="16" y="14" width="1408" height="872" rx="16" fill="none" stroke="#f4f4f5" stroke-width="1.5" stroke-dasharray="6 4"/>
+  </g>
+  <g data-layer="bbox">
+    <g class="sk-segment-group" data-segment-id="seg_01" opacity="1">
+      <g class="sk-node" data-eu-id="eu_L3_fp_topbar" data-segment-id="seg_01" data-bbox-id="bb_fp_s1_top"><rect class="sk-box" data-eu-id="eu_L3_fp_topbar" data-segment-id="seg_01" x="16" y="16" width="1408" height="76" rx="12" fill="rgba(14,165,233,0.13)" stroke="#0ea5e9" stroke-width="2.4"/><rect x="20" y="20" width="186" height="22" rx="6" fill="#0ea5e9" fill-opacity="0.92"/><text class="sk-tag" x="27" y="35" fill="#ffffff">60fps 标签筛选胶囊顶栏</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_fp_physics_stage" data-segment-id="seg_01" data-bbox-id="bb_fp_s1_stage"><rect class="sk-box" data-eu-id="eu_L3_fp_physics_stage" data-segment-id="seg_01" x="16" y="108" width="1408" height="510" rx="12" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6" stroke-width="2.4"/><rect x="20" y="112" width="138" height="22" rx="6" fill="#8b5cf6" fill-opacity="0.92"/><text class="sk-tag" x="27" y="127" fill="#ffffff">三大物理交互舞台总览</text></g>
+    </g>
+    <g class="sk-segment-group" data-segment-id="seg_02" opacity="0.22">
+      <g class="sk-node" data-eu-id="eu_L3_fp_physics_stage" data-segment-id="seg_02" data-bbox-id="bb_fp_s2_split"><rect class="sk-box" data-eu-id="eu_L3_fp_physics_stage" data-segment-id="seg_02" x="16" y="108" width="470" height="510" rx="12" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6" stroke-width="2.4"/><rect x="20" y="112" width="246" height="22" rx="6" fill="#8b5cf6" fill-opacity="0.92"/><text class="sk-tag" x="27" y="127" fill="#ffffff">Card Split 双翼弹性分裂展开</text></g>
+    </g>
+    <g class="sk-segment-group" data-segment-id="seg_03" opacity="0.22">
+      <g class="sk-node" data-eu-id="eu_L4_fp_spring_solver" data-segment-id="seg_03" data-bbox-id="bb_fp_s3_morph"><rect class="sk-box" data-eu-id="eu_L4_fp_spring_solver" data-segment-id="seg_03" x="496" y="108" width="928" height="510" rx="12" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6" stroke-width="2.4"/><rect x="500" y="112" width="474" height="22" rx="6" fill="#8b5cf6" fill-opacity="0.92"/><text class="sk-tag" x="507" y="127" fill="#ffffff">Scale Morph 共享布局与 Stiffness/Damping 示波</text></g>
+    </g>
+    <g class="sk-segment-group" data-segment-id="seg_04" opacity="0.22">
+      <g class="sk-node" data-eu-id="eu_L3_fp_cards_array" data-segment-id="seg_04" data-bbox-id="bb_fp_s4_arr"><rect class="sk-box" data-eu-id="eu_L3_fp_cards_array" data-segment-id="seg_04" x="16" y="636" width="1408" height="248" rx="12" fill="rgba(16,185,129,0.13)" stroke="#10b981" stroke-width="2.4"/><rect x="20" y="640" width="174" height="22" rx="6" fill="#10b981" fill-opacity="0.92"/><text class="sk-tag" x="27" y="655" fill="#ffffff">物理标签对比指标阵列 ×4</text></g>
+    </g>
+  </g>
+  <g data-layer="timeline" transform="translate(16, 908)">
+    <g class="sk-seg" data-segment-id="seg_01" data-eu-id="eu_L3_fp_topbar"><rect x="0.0" y="0" width="350.0" height="36" rx="7" fill="#8b5cf6" fill-opacity="0.88" stroke="#f4f4f5" stroke-width="1"/><text class="sk-tag" x="8.0" y="23" fill="#ffffff" style="font-size:12px">S1 0.00-1.10s</text></g>
+    <g class="sk-seg" data-segment-id="seg_02" data-eu-id="eu_L3_fp_physics_stage"><rect x="352.0" y="0" width="334.0" height="36" rx="7" fill="#f97316" fill-opacity="0.88" stroke="#f4f4f5" stroke-width="1"/><text class="sk-tag" x="360.0" y="23" fill="#ffffff" style="font-size:12px">S2 1.10-2.15s</text></g>
+    <g class="sk-seg" data-segment-id="seg_03" data-eu-id="eu_L3_fp_physics_stage"><rect x="688.0" y="0" width="350.0" height="36" rx="7" fill="#0ea5e9" fill-opacity="0.88" stroke="#f4f4f5" stroke-width="1"/><text class="sk-tag" x="696.0" y="23" fill="#ffffff" style="font-size:12px">S3 2.15-3.25s</text></g>
+    <g class="sk-seg" data-segment-id="seg_04" data-eu-id="eu_L3_fp_cards_array"><rect x="1040.0" y="0" width="366.0" height="36" rx="7" fill="#10b981" fill-opacity="0.88" stroke="#f4f4f5" stroke-width="1"/><text class="sk-tag" x="1048.0" y="23" fill="#ffffff" style="font-size:12px">S4 3.25-4.40s</text></g>
+  </g>
+</svg>

@@ -1,0 +1,698 @@
+{
+  "case_id": "haven_admin_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_hv_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_hv_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_hv_intro_shell": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_hv_nav": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 62
+        },
+        "eu_L2_hv_icon_rail": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 62
+        },
+        "eu_L1_hv_stage": {
+          "x": 12,
+          "y": 116,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_hv_topbar": {
+          "x": 12,
+          "y": 116,
+          "w": 366,
+          "h": 80
+        },
+        "eu_L2_hv_left_col": {
+          "x": 12,
+          "y": 206,
+          "w": 366,
+          "h": 520
+        },
+        "eu_L2_hv_center_col": {
+          "x": 12,
+          "y": 738,
+          "w": 366,
+          "h": 480
+        },
+        "eu_L2_hv_right_col": {
+          "x": 12,
+          "y": 1230,
+          "w": 366,
+          "h": 400
+        },
+        "eu_L1_hv_overlay": {
+          "x": 16,
+          "y": 150,
+          "w": 358,
+          "h": 340
+        },
+        "eu_L2_hv_dialog_host": {
+          "x": 16,
+          "y": 150,
+          "w": 358,
+          "h": 340
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_hv_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_hv_intro": {
+          "x": 24,
+          "y": 16,
+          "w": 720,
+          "h": 34
+        },
+        "eu_L2_hv_intro_shell": {
+          "x": 24,
+          "y": 16,
+          "w": 720,
+          "h": 34
+        },
+        "eu_L1_hv_nav": {
+          "x": 24,
+          "y": 58,
+          "w": 92,
+          "h": 1100
+        },
+        "eu_L2_hv_icon_rail": {
+          "x": 24,
+          "y": 58,
+          "w": 92,
+          "h": 1100
+        },
+        "eu_L1_hv_stage": {
+          "x": 128,
+          "y": 58,
+          "w": 616,
+          "h": 1100
+        },
+        "eu_L2_hv_topbar": {
+          "x": 128,
+          "y": 58,
+          "w": 616,
+          "h": 64
+        },
+        "eu_L2_hv_left_col": {
+          "x": 128,
+          "y": 132,
+          "w": 296,
+          "h": 660
+        },
+        "eu_L2_hv_center_col": {
+          "x": 436,
+          "y": 132,
+          "w": 308,
+          "h": 660
+        },
+        "eu_L2_hv_right_col": {
+          "x": 128,
+          "y": 804,
+          "w": 616,
+          "h": 340
+        },
+        "eu_L1_hv_overlay": {
+          "x": 140,
+          "y": 160,
+          "w": 488,
+          "h": 360
+        },
+        "eu_L2_hv_dialog_host": {
+          "x": 140,
+          "y": 160,
+          "w": 488,
+          "h": 360
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_hv_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_hv_intro": {
+          "x": 48,
+          "y": 22,
+          "w": 1344,
+          "h": 34
+        },
+        "eu_L2_hv_intro_shell": {
+          "x": 48,
+          "y": 22,
+          "w": 1344,
+          "h": 34
+        },
+        "eu_L1_hv_nav": {
+          "x": 48,
+          "y": 60,
+          "w": 108,
+          "h": 804
+        },
+        "eu_L2_hv_icon_rail": {
+          "x": 48,
+          "y": 60,
+          "w": 108,
+          "h": 804
+        },
+        "eu_L1_hv_stage": {
+          "x": 170,
+          "y": 60,
+          "w": 1222,
+          "h": 804
+        },
+        "eu_L2_hv_topbar": {
+          "x": 170,
+          "y": 60,
+          "w": 1222,
+          "h": 68
+        },
+        "eu_L2_hv_left_col": {
+          "x": 170,
+          "y": 136,
+          "w": 314,
+          "h": 728
+        },
+        "eu_L2_hv_center_col": {
+          "x": 498,
+          "y": 136,
+          "w": 474,
+          "h": 728
+        },
+        "eu_L2_hv_right_col": {
+          "x": 986,
+          "y": 136,
+          "w": 406,
+          "h": 728
+        },
+        "eu_L1_hv_overlay": {
+          "x": 440,
+          "y": 180,
+          "w": 560,
+          "h": 380
+        },
+        "eu_L2_hv_dialog_host": {
+          "x": 440,
+          "y": 180,
+          "w": 560,
+          "h": 380
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "hv_cs_ink",
+      "eu_id": "eu_L3_hv_nav_tabs",
+      "property": "color",
+      "value": "#f4f6fa",
+      "token_ref": "hv_surf_ink",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_win",
+      "eu_id": "eu_L3_hv_rail_dock",
+      "property": "background-color",
+      "value": "rgba(78,76,74,0.44)",
+      "token_ref": "hv_surf_glass_window",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_card",
+      "eu_id": "eu_L3_hv_team_card",
+      "property": "background-color",
+      "value": "rgba(92,90,88,0.42)",
+      "token_ref": "hv_surf_glass_card",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_blue",
+      "eu_id": "eu_L3_hv_target_dial",
+      "property": "color",
+      "value": "#3b82f6",
+      "token_ref": "hv_surf_blue",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_mint",
+      "eu_id": "eu_L3_hv_live_kpis_fold",
+      "property": "color",
+      "value": "#4ade80",
+      "token_ref": "hv_surf_mint",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_met",
+      "eu_id": "eu_L3_hv_target_dial",
+      "property": "font-size",
+      "value": "36px",
+      "token_ref": "hv_typo_metric",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_tit",
+      "eu_id": "eu_L3_hv_team_card",
+      "property": "font-size",
+      "value": "16px",
+      "token_ref": "hv_typo_title",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_rad",
+      "eu_id": "eu_L3_hv_target_dial",
+      "property": "border-radius",
+      "value": "22px",
+      "token_ref": "hv_lay_radius",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_gap",
+      "eu_id": "eu_L3_hv_sales_bars",
+      "property": "gap",
+      "value": "14px",
+      "token_ref": "hv_lay_gap",
+      "delta_e": 0.0
+    },
+    {
+      "id": "hv_cs_dur",
+      "eu_id": "eu_L3_hv_rail_dock",
+      "property": "transition-duration",
+      "value": "320ms",
+      "token_ref": "hv_mot_rail",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "hv_el_skip",
+      "eu_id": "eu_L3_hv_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip intro",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "hv_el_rail",
+      "eu_id": "eu_L3_hv_rail_dock",
+      "role": "link",
+      "accessible_name": "Vertical icon rail",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "hv_el_tabs",
+      "eu_id": "eu_L3_hv_nav_tabs",
+      "role": "tab",
+      "accessible_name": "Overview Sales Marketing Support tabs",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "hv_el_dial",
+      "eu_id": "eu_L3_hv_target_dial",
+      "role": "button",
+      "accessible_name": "Quarterly target adjuster",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "hv_el_app",
+      "eu_id": "eu_L3_hv_approvals",
+      "role": "button",
+      "accessible_name": "Approve pending discount",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "hv_el_play",
+      "eu_id": "eu_L3_hv_call_player",
+      "role": "button",
+      "accessible_name": "Play discovery call audio",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "hv_cn_backdrop",
+      "eu_id": "eu_L0_hv_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "hv_cn_target",
+      "eu_id": "eu_L3_hv_target_dial",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "haven.okr.quarterly_target",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "hv_cn_kpis",
+      "eu_id": "eu_L3_hv_live_kpis_fold",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "haven.telemetry.live_kpis",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "hv_cn_call",
+      "eu_id": "eu_L3_hv_call_player",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "haven.calls.waveform_track",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 空间透射玻璃工作台骨架",
+      "frame_url": "/cases/haven_admin_web/frames/ref_haven_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_hv_rail_dock",
+        "eu_L3_hv_nav_tabs",
+        "eu_L3_hv_team_card",
+        "eu_L3_hv_target_dial",
+        "eu_L3_hv_revenue_area",
+        "eu_L3_hv_new_leads",
+        "eu_L3_hv_approvals",
+        "eu_L3_hv_sales_bars",
+        "eu_L3_hv_live_kpis_fold",
+        "eu_L3_hv_call_player"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_hv_rail",
+          "eu_id": "eu_L3_hv_rail_dock",
+          "label": "极简垂直图标导轨 (Icon Rail)",
+          "x": 48,
+          "y": 60,
+          "w": 108,
+          "h": 804,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_hv_tabs",
+          "eu_id": "eu_L3_hv_nav_tabs",
+          "label": "Overview / Sales / Marketing / Support 切页",
+          "x": 170,
+          "y": 60,
+          "w": 1222,
+          "h": 68,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_hv_team",
+          "eu_id": "eu_L3_hv_team_card",
+          "label": "Team 在线头像群",
+          "x": 170,
+          "y": 136,
+          "w": 314,
+          "h": 160,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_hv_dial",
+          "eu_id": "eu_L3_hv_target_dial",
+          "label": "Quarterly Target 64% 刻度表盘 (-/+/Forecast)",
+          "x": 170,
+          "y": 310,
+          "w": 314,
+          "h": 554,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_hv_rev",
+          "eu_id": "eu_L3_hv_revenue_area",
+          "label": "Revenue $23.4k / $28k 渐变曲线",
+          "x": 498,
+          "y": 136,
+          "w": 474,
+          "h": 240,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_hv_leads",
+          "eu_id": "eu_L3_hv_new_leads",
+          "label": "New Leads 1,270 柱图",
+          "x": 498,
+          "y": 390,
+          "w": 230,
+          "h": 212,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_hv_app",
+          "eu_id": "eu_L3_hv_approvals",
+          "label": "Approvals $4,800 待审批流",
+          "x": 742,
+          "y": 390,
+          "w": 230,
+          "h": 212,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_hv_sales",
+          "eu_id": "eu_L3_hv_sales_bars",
+          "label": "Sales (k$) 周/月/年柱状图",
+          "x": 498,
+          "y": 616,
+          "w": 474,
+          "h": 248,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_hv_kpis",
+          "eu_id": "eu_L3_hv_live_kpis_fold",
+          "label": "实时开关四维 KPI 卡阵列 ×4",
+          "x": 986,
+          "y": 136,
+          "w": 406,
+          "h": 466,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_hv_call",
+          "eu_id": "eu_L3_hv_call_player",
+          "label": "Discovery Call 音频波形播放器",
+          "x": 986,
+          "y": 616,
+          "w": 406,
+          "h": 248,
+          "role": "split"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_hv_rail",
+      "eu_id": "eu_L3_hv_rail_dock",
+      "label": "极简垂直图标导轨 (Icon Rail)",
+      "x": 48,
+      "y": 60,
+      "w": 108,
+      "h": 804,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_hv_tabs",
+      "eu_id": "eu_L3_hv_nav_tabs",
+      "label": "Overview / Sales / Marketing / Support 切页",
+      "x": 170,
+      "y": 60,
+      "w": 1222,
+      "h": 68,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_hv_team",
+      "eu_id": "eu_L3_hv_team_card",
+      "label": "Team 在线头像群",
+      "x": 170,
+      "y": 136,
+      "w": 314,
+      "h": 160,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_hv_dial",
+      "eu_id": "eu_L3_hv_target_dial",
+      "label": "Quarterly Target 64% 刻度表盘 (-/+/Forecast)",
+      "x": 170,
+      "y": 310,
+      "w": 314,
+      "h": 554,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_hv_rev",
+      "eu_id": "eu_L3_hv_revenue_area",
+      "label": "Revenue $23.4k / $28k 渐变曲线",
+      "x": 498,
+      "y": 136,
+      "w": 474,
+      "h": 240,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_hv_leads",
+      "eu_id": "eu_L3_hv_new_leads",
+      "label": "New Leads 1,270 柱图",
+      "x": 498,
+      "y": 390,
+      "w": 230,
+      "h": 212,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_hv_app",
+      "eu_id": "eu_L3_hv_approvals",
+      "label": "Approvals $4,800 待审批流",
+      "x": 742,
+      "y": 390,
+      "w": 230,
+      "h": 212,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_hv_sales",
+      "eu_id": "eu_L3_hv_sales_bars",
+      "label": "Sales (k$) 周/月/年柱状图",
+      "x": 498,
+      "y": 616,
+      "w": 474,
+      "h": 248,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_hv_kpis",
+      "eu_id": "eu_L3_hv_live_kpis_fold",
+      "label": "实时开关四维 KPI 卡阵列 ×4",
+      "x": 986,
+      "y": 136,
+      "w": 406,
+      "h": 466,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_hv_call",
+      "eu_id": "eu_L3_hv_call_player",
+      "label": "Discovery Call 音频波形播放器",
+      "x": 986,
+      "y": 616,
+      "w": 406,
+      "h": 248,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    }
+  ]
+}

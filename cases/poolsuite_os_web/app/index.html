@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poolsuite OS 9 — Retro Summer Desktop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="ps-body">
+  <div id="viewport" class="ps-shell" data-page="peach" data-eu-id="eu_L0_ps_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_ps_skip_entry">Skip to Desktop</a>
+
+    <main id="mainStage" class="main-glass ps-stage" data-eu-id="eu_L1_ps_stage">
+      <div class="ps-desktop">
+        <header class="ps-menubar" data-eu-id="eu_L3_ps_topbar">
+          <div class="ps-menu-left">
+            <span class="ps-apple-sun" aria-hidden="true">☀</span>
+            <strong>Poolsuite OS 9.2</strong>
+            <span class="ps-menu-item">File</span>
+            <span class="ps-menu-item">Radio</span>
+            <span class="ps-menu-item">Charts</span>
+          </div>
+
+          <div class="ps-theme-tabs" data-eu-id="eu_L4_ps_theme_switch" role="tablist" aria-label="OS Theme">
+            <button type="button" class="ps-tab is-active" data-route="peach" role="tab">Malibu Peach</button>
+            <button type="button" class="ps-tab" data-route="mint" role="tab">Tokyo Mint</button>
+            <button type="button" class="ps-tab" data-route="platinum" role="tab">Platinum 9</button>
+          </div>
+
+          <div class="ps-menu-right">
+            <span class="ps-clock">2:07 PM</span>
+            <button type="button" id="openSysBtn" class="ps-btn">About OS</button>
+          </div>
+        </header>
+
+        <section class="ps-windows-stage" data-eu-id="eu_L3_ps_desktop_stage">
+          <aside id="railDock" class="ps-desk-icons" data-eu-id="eu_L1_ps_nav">
+            <nav class="rail-dock" data-eu-id="eu_L3_ps_rail_dock" aria-label="Desktop Shortcuts">
+              <div class="rail-prox-zone" data-eu-id="eu_L4_ps_rail_proximity">
+                <button type="button" class="ps-desk-ico" data-focus-win="fm"><span>📼</span><strong>FM Deck</strong></button>
+                <button type="button" class="ps-desk-ico" data-focus-win="stats"><span>📈</span><strong>Stats.app</strong></button>
+                <button type="button" class="ps-desk-ico" data-focus-win="sys"><span>💾</span><strong>SysInfo</strong></button>
+              </div>
+            </nav>
+          </aside>
+
+          <div class="ps-win-grid" data-eu-id="eu_L4_ps_window_stack">
+            <!-- Window 1: Poolsuite Cassette FM Player -->
+            <section class="ps-win is-front" data-win="fm">
+              <div class="ps-win-bar">
+                <span class="ps-win-box" aria-hidden="true"></span>
+                <div class="ps-win-stripes"><span>Poolsuite FM — Cassette Deck</span></div>
+              </div>
+              <div class="ps-win-body">
+                <div class="ps-cassette">
+                  <div class="ps-tape-meta">
+                    <strong id="psTrackTitle">Malibu Sunset '94</strong>
+                    <span id="psTrackSub">CH-01 · 112 BPM · 192 KBPS</span>
+                  </div>
+                  <div class="ps-reels">
+                    <span class="ps-reel"></span>
+                    <span class="ps-tape-window">SIDE A · HI-BIAS</span>
+                    <span class="ps-reel"></span>
+                  </div>
+                </div>
+                <div id="psEqSvg" class="ps-svg-box"></div>
+                <div class="ps-player-bar">
+                  <button type="button" id="psPrevBtn" class="ps-btn">&lt;&lt; Prev</button>
+                  <button type="button" id="psPlayBtn" class="ps-btn ps-btn-blue">Pause</button>
+                  <button type="button" id="psNextBtn" class="ps-btn">Next &gt;&gt;</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Window 2: Listener Pixel Charts (Line + Donut) -->
+            <section class="ps-win" data-win="stats">
+              <div class="ps-win-bar">
+                <span class="ps-win-box" aria-hidden="true"></span>
+                <div class="ps-win-stripes"><span>HyperStats — Listener Telemetry</span></div>
+              </div>
+              <div class="ps-win-body">
+                <div class="ps-stat-head">
+                  <strong>14,820 Tuning In</strong>
+                  <span class="ps-pill-peach">+18.4% TODAY</span>
+                </div>
+                <div id="psLineChartSvg" class="ps-svg-box"></div>
+                <div class="ps-donut-row">
+                  <div id="psDonutSvg" class="ps-donut-box"></div>
+                  <div class="ps-legend">
+                    <div><i style="background:#ffb7a5"></i><span>Synthwave</span><strong>46%</strong></div>
+                    <div><i style="background:#3b6ef6"></i><span>Yacht Rock</span><strong>34%</strong></div>
+                    <div><i style="background:#1c1917"></i><span>Lo-Fi Tape</span><strong>20%</strong></div>
+                  </div>
+                </div>
+                <div class="ps-mini-list">
+                  <div class="ps-mini-item"><span>PEAK CONCURRENT</span><strong>16,410 @ 14:00</strong></div>
+                  <div class="ps-mini-item"><span>AVG SESSION DEPTH</span><strong>48m 12s</strong></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Window 3: System 9 Hardware Monitor + Heatmap -->
+            <section class="ps-win" data-win="sys">
+              <div class="ps-win-bar">
+                <span class="ps-win-box" aria-hidden="true"></span>
+                <div class="ps-win-stripes"><span>System 9 — Resource Monitor</span></div>
+              </div>
+              <div class="ps-win-body">
+                <div id="psBarsSvg" class="ps-svg-box"></div>
+                <div class="ps-sub-hd"><span>TAPE CACHE MATRIX (21 DAYS)</span><strong>99.4%</strong></div>
+                <div id="psHeatCells" class="ps-heat-grid"></div>
+                <div class="ps-mini-list">
+                  <div class="ps-mini-item"><span>MODEM LINK · V.90</span><strong>56.0 KBPS OK</strong></div>
+                  <div class="ps-mini-item"><span>DROPPED PACKETS</span><strong>0 / 124,800</strong></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="ps-array-win" data-eu-id="eu_L3_ps_telemetry_array">
+          <div class="ps-arr-bar" data-eu-id="eu_L4_ps_filter_export">
+            <div class="ps-flt-row">
+              <strong>Channel Queue</strong>
+              <button type="button" class="ps-flt is-active" data-flt="all">All</button>
+              <button type="button" class="ps-flt" data-flt="Synthwave">Synthwave</button>
+              <button type="button" class="ps-flt" data-flt="Yacht">Yacht</button>
+              <button type="button" class="ps-flt" data-flt="Lo-Fi">Lo-Fi</button>
+            </div>
+            <button type="button" id="exportCsvBtn" class="ps-btn ps-btn-blue">Export Queue .CSV</button>
+          </div>
+          <div id="psChannelGrid" class="ps-channel-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="psDialog" class="ps-dialog" data-eu-id="eu_L3_ps_system_dialog" aria-labelledby="psDlgTitle">
+      <div class="ps-win-bar">
+        <span class="ps-win-box" aria-hidden="true"></span>
+        <div class="ps-win-stripes"><span id="psDlgTitle">About Poolsuite OS 9.2</span></div>
+      </div>
+      <div class="ps-dlg-body">
+        <p><strong>Poolsuite Desktop Workstation</strong> — Built with tactile 2px borders, retro system striping and real-time SVG telemetry.</p>
+        <p class="ps-mono">Total Memory: 64 MB · Theme Engine: Instant CSS Tokens</p>
+        <div class="ps-dlg-acts">
+          <button type="button" id="psCycleSkinBtn" class="ps-btn">Cycle Wallpaper</button>
+          <button type="button" id="closeSysBtn" class="ps-btn ps-btn-blue">OK</button>
+        </div>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

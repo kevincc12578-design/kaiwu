@@ -1,0 +1,2351 @@
+{
+  "status": "OK",
+  "version": "3.4.0",
+  "schema_version": "3.4.0",
+  "case_id": "fps60_motion_video",
+  "admission_status": "PROVISIONAL",
+  "open_assumptions_count": 2,
+  "stage_url": "/cases/fps60_motion_video/app/index.html",
+  "case_info": {
+    "case_id": "fps60_motion_video",
+    "title": "60fps · Physics Motion Gallery",
+    "subtitle": "视频 → UI/UX",
+    "modality": "video",
+    "domain": "uiux",
+    "template_id": "tpl_uiux_workspace_v1",
+    "stage_url": "/cases/fps60_motion_video/app/index.html",
+    "source_summary": "VIDEO · 4.400s · 弹簧分裂与共享变形",
+    "category_id": "brand_landing",
+    "category_name": "品牌官网 / 硬件发布页",
+    "category_tier": "extended",
+    "is_imported": false,
+    "admission_status": "PROVISIONAL",
+    "open_assumptions_count": 2,
+    "total_assumptions_count": 2,
+    "active_rule_summary": "PV 4/4 → GN 4/4 → GU 4/4"
+  },
+  "category_audit": {
+    "category_id": "brand_landing",
+    "category_name": "品牌官网 / 硬件发布页",
+    "category_name_en": "Brand Landing & Hardware Showcase",
+    "tier": "extended",
+    "description": "适用于产品发布官网、硬件展示站与前沿科技品牌主站。允许以 asset_slot 承载 3D/摄影/Shader，不强制侧边表格面板。",
+    "allowed_asset_slots": [
+      "3d_render_slot",
+      "webgl_shader_slot",
+      "hero_photography",
+      "canvas_fx"
+    ],
+    "passed_count": 3,
+    "total_count": 3,
+    "status": "PASS",
+    "rules": [
+      {
+        "rule_id": "CAT-BRAND-01",
+        "name": "核心品牌叙事与合法资产槽位",
+        "desc": "3D 光追、摄影或 Shader 允许落入声明的视觉资产槽位，核心标题与 CTA 保持真 DOM。",
+        "status": "PASS",
+        "metric": "活文本 60 · 贴皮 0%",
+        "detail": "叙事文本真 DOM 化，非几何视觉合法进资产槽位"
+      },
+      {
+        "rule_id": "CAT-BRAND-02",
+        "name": "品牌色阶与减动效兼容性",
+        "desc": "全量声明并引用品牌表面与动效 Token，并在 prefers-reduced-motion 下安全降级。",
+        "status": "PASS",
+        "metric": "Token 100% · reduced-motion ON",
+        "detail": "品牌色阶全消费且尊重减弱动效偏好"
+      },
+      {
+        "rule_id": "CAT-BRAND-03",
+        "name": "多端断点首屏无裁切",
+        "desc": "大字号 Hero 与导航条在 1440px 与 390px 视口下重排不产生横向溢出。",
+        "status": "PASS",
+        "metric": "1440/390px 零裁切",
+        "detail": "品牌发布页 Hero 与导航条双端闭合无溢出"
+      }
+    ]
+  },
+  "skeleton": {
+    "case_id": "fps60_motion_video",
+    "modality": "video",
+    "fps": 60.0,
+    "duration_sec": 4.4,
+    "coverage_ratio": 1.0,
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "raw_video_size": [
+        1920,
+        1600
+      ],
+      "crop_bbox": [
+        0,
+        0,
+        1920,
+        1200
+      ],
+      "scale": 0.75
+    },
+    "viewport_transform": {
+      "source_size": {
+        "w": 1920,
+        "h": 1600
+      },
+      "crop_rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1920,
+        "h": 1200
+      },
+      "scale": 0.75,
+      "target_size": {
+        "w": 1440,
+        "h": 900
+      }
+    },
+    "noise_regions": [
+      {
+        "id": "nr_fp_overlay_bar",
+        "kind": "platform_overlay",
+        "bbox": [
+          0,
+          1280,
+          1920,
+          320
+        ],
+        "desc": "录屏外围平台播放器控件及外框噪声带"
+      }
+    ],
+    "observations": [
+      {
+        "id": "obs_fp_rate_60",
+        "eu_id": "eu_L3_fp_topbar",
+        "label": "物理求解刷新率",
+        "value": "60fps",
+        "settle_state": "steady",
+        "stable_frames": 30,
+        "verified": true
+      },
+      {
+        "id": "obs_fp_stack_3",
+        "eu_id": "eu_L3_fp_physics_stage",
+        "label": "甩卡堆叠层数",
+        "value": "3 cards",
+        "settle_state": "steady",
+        "stable_frames": 24,
+        "verified": true
+      },
+      {
+        "id": "obs_fp_overshoot_transient",
+        "eu_id": "eu_L3_fp_physics_stage",
+        "label": "动效插值过冲末帧瞬态值",
+        "value": "spring_overshoot_unsettled",
+        "settle_state": "transient",
+        "stable_frames": 0,
+        "verified": false,
+        "assumption_id": "ASM-FP-01"
+      }
+    ],
+    "frame_invariants": [
+      {
+        "id": "inv_fp_spring_energy",
+        "desc": "Card Split 与 Scale Morph 变形前后总盒重心守恒",
+        "holds": true,
+        "evidence": {
+          "t0": 1.1,
+          "t1": 2.15,
+          "frame_bbox": [
+            24,
+            24,
+            1872,
+            1140
+          ]
+        }
+      }
+    ],
+    "segments": [
+      {
+        "segment_id": "seg_01",
+        "index": 1,
+        "t0": 0.0,
+        "t1": 1.1,
+        "label": "0.00–1.10s · 60fps 物理动效顶栏与参数示波",
+        "frame_url": "/cases/fps60_motion_video/frames/seg_01.png",
+        "active_eu_ids": [
+          "eu_L3_fp_topbar",
+          "eu_L3_fp_physics_stage"
+        ],
+        "bboxes": [
+          {
+            "bbox_id": "bb_fp_s1_top",
+            "eu_id": "eu_L3_fp_topbar",
+            "label": "60fps 标签筛选胶囊顶栏",
+            "x": 16,
+            "y": 16,
+            "w": 1408,
+            "h": 76,
+            "role": "nav"
+          },
+          {
+            "bbox_id": "bb_fp_s1_stage",
+            "eu_id": "eu_L3_fp_physics_stage",
+            "label": "三大物理交互舞台总览",
+            "x": 16,
+            "y": 108,
+            "w": 1408,
+            "h": 510,
+            "role": "split"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_02",
+        "index": 2,
+        "t0": 1.1,
+        "t1": 2.15,
+        "label": "1.10–2.15s · Airbnb Card Split 卡片分裂展开",
+        "frame_url": "/cases/fps60_motion_video/frames/seg_02.png",
+        "active_eu_ids": [
+          "eu_L3_fp_physics_stage",
+          "eu_L4_fp_spring_solver"
+        ],
+        "bboxes": [
+          {
+            "bbox_id": "bb_fp_s2_split",
+            "eu_id": "eu_L3_fp_physics_stage",
+            "label": "Card Split 双翼弹性分裂展开",
+            "x": 16,
+            "y": 108,
+            "w": 470,
+            "h": 510,
+            "role": "split"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_03",
+        "index": 3,
+        "t0": 2.15,
+        "t1": 3.25,
+        "label": "2.15–3.25s · Swipe Stack 惯性拖拽与 Scale Morph 变形",
+        "frame_url": "/cases/fps60_motion_video/frames/seg_03.png",
+        "active_eu_ids": [
+          "eu_L3_fp_physics_stage",
+          "eu_L4_fp_spring_solver"
+        ],
+        "bboxes": [
+          {
+            "bbox_id": "bb_fp_s3_morph",
+            "eu_id": "eu_L4_fp_spring_solver",
+            "label": "Scale Morph 共享布局与 Stiffness/Damping 示波",
+            "x": 496,
+            "y": 108,
+            "w": 928,
+            "h": 510,
+            "role": "split"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_04",
+        "index": 4,
+        "t0": 3.25,
+        "t1": 4.4,
+        "label": "3.25–4.40s · Shots 参数阵列与甩卡过冲隔离",
+        "frame_url": "/cases/fps60_motion_video/frames/seg_04.png",
+        "active_eu_ids": [
+          "eu_L3_fp_cards_array",
+          "eu_L3_fp_tuning_dialog"
+        ],
+        "bboxes": [
+          {
+            "bbox_id": "bb_fp_s4_arr",
+            "eu_id": "eu_L3_fp_cards_array",
+            "label": "物理标签对比指标阵列 ×4",
+            "x": 16,
+            "y": 636,
+            "w": 1408,
+            "h": 248,
+            "role": "array"
+          }
+        ]
+      }
+    ],
+    "bboxes": [
+      {
+        "bbox_id": "bb_fp_s1_top",
+        "eu_id": "eu_L3_fp_topbar",
+        "label": "60fps 标签筛选胶囊顶栏",
+        "x": 16,
+        "y": 16,
+        "w": 1408,
+        "h": 76,
+        "role": "nav",
+        "segment_id": "seg_01",
+        "color_role": "nav"
+      },
+      {
+        "bbox_id": "bb_fp_s1_stage",
+        "eu_id": "eu_L3_fp_physics_stage",
+        "label": "三大物理交互舞台总览",
+        "x": 16,
+        "y": 108,
+        "w": 1408,
+        "h": 510,
+        "role": "split",
+        "segment_id": "seg_01",
+        "color_role": "split"
+      },
+      {
+        "bbox_id": "bb_fp_s2_split",
+        "eu_id": "eu_L3_fp_physics_stage",
+        "label": "Card Split 双翼弹性分裂展开",
+        "x": 16,
+        "y": 108,
+        "w": 470,
+        "h": 510,
+        "role": "split",
+        "segment_id": "seg_02",
+        "color_role": "split"
+      },
+      {
+        "bbox_id": "bb_fp_s3_morph",
+        "eu_id": "eu_L4_fp_spring_solver",
+        "label": "Scale Morph 共享布局与 Stiffness/Damping 示波",
+        "x": 496,
+        "y": 108,
+        "w": 928,
+        "h": 510,
+        "role": "split",
+        "segment_id": "seg_03",
+        "color_role": "split"
+      },
+      {
+        "bbox_id": "bb_fp_s4_arr",
+        "eu_id": "eu_L3_fp_cards_array",
+        "label": "物理标签对比指标阵列 ×4",
+        "x": 16,
+        "y": 636,
+        "w": 1408,
+        "h": 248,
+        "role": "array",
+        "segment_id": "seg_04",
+        "color_role": "array"
+      }
+    ],
+    "skeleton_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 956\" width=\"100%\" height=\"100%\" data-modality=\"video\">\n  <defs>\n    <style>\n      .sk-box { cursor: pointer; transition: stroke-width 0.16s, fill-opacity 0.16s; }\n      .sk-box:hover, .sk-box[data-active=\"true\"] { stroke-width: 4px !important; fill-opacity: 0.28 !important; }\n      .sk-tag { font-family: Manrope, \"Segoe UI\", sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; }\n      .sk-seg { cursor: pointer; }\n    </style>\n  </defs>\n  <rect x=\"0\" y=\"0\" width=\"1440\" height=\"956\" rx=\"14\" fill=\"#0d0d10\"/>\n  <image id=\"skeleton-bg-frame\" href=\"/cases/fps60_motion_video/frames/seg_01.png\" x=\"0\" y=\"0\" width=\"1440\" height=\"900\" preserveAspectRatio=\"xMidYMid slice\" opacity=\"0.90\"/>\n  <g data-layer=\"skeleton\" opacity=\"0.56\">\n    <rect x=\"16\" y=\"14\" width=\"1408\" height=\"872\" rx=\"16\" fill=\"none\" stroke=\"#f4f4f5\" stroke-width=\"1.5\" stroke-dasharray=\"6 4\"/>\n  </g>\n  <g data-layer=\"bbox\">\n    <g class=\"sk-segment-group\" data-segment-id=\"seg_01\" opacity=\"1\">\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_fp_topbar\" data-segment-id=\"seg_01\" data-bbox-id=\"bb_fp_s1_top\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_fp_topbar\" data-segment-id=\"seg_01\" x=\"16\" y=\"16\" width=\"1408\" height=\"76\" rx=\"12\" fill=\"rgba(14,165,233,0.13)\" stroke=\"#0ea5e9\" stroke-width=\"2.4\"/><rect x=\"20\" y=\"20\" width=\"186\" height=\"22\" rx=\"6\" fill=\"#0ea5e9\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"27\" y=\"35\" fill=\"#ffffff\">60fps 标签筛选胶囊顶栏</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_fp_physics_stage\" data-segment-id=\"seg_01\" data-bbox-id=\"bb_fp_s1_stage\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_fp_physics_stage\" data-segment-id=\"seg_01\" x=\"16\" y=\"108\" width=\"1408\" height=\"510\" rx=\"12\" fill=\"rgba(139,92,246,0.15)\" stroke=\"#8b5cf6\" stroke-width=\"2.4\"/><rect x=\"20\" y=\"112\" width=\"138\" height=\"22\" rx=\"6\" fill=\"#8b5cf6\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"27\" y=\"127\" fill=\"#ffffff\">三大物理交互舞台总览</text></g>\n    </g>\n    <g class=\"sk-segment-group\" data-segment-id=\"seg_02\" opacity=\"0.22\">\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_fp_physics_stage\" data-segment-id=\"seg_02\" data-bbox-id=\"bb_fp_s2_split\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_fp_physics_stage\" data-segment-id=\"seg_02\" x=\"16\" y=\"108\" width=\"470\" height=\"510\" rx=\"12\" fill=\"rgba(139,92,246,0.15)\" stroke=\"#8b5cf6\" stroke-width=\"2.4\"/><rect x=\"20\" y=\"112\" width=\"246\" height=\"22\" rx=\"6\" fill=\"#8b5cf6\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"27\" y=\"127\" fill=\"#ffffff\">Card Split 双翼弹性分裂展开</text></g>\n    </g>\n    <g class=\"sk-segment-group\" data-segment-id=\"seg_03\" opacity=\"0.22\">\n      <g class=\"sk-node\" data-eu-id=\"eu_L4_fp_spring_solver\" data-segment-id=\"seg_03\" data-bbox-id=\"bb_fp_s3_morph\"><rect class=\"sk-box\" data-eu-id=\"eu_L4_fp_spring_solver\" data-segment-id=\"seg_03\" x=\"496\" y=\"108\" width=\"928\" height=\"510\" rx=\"12\" fill=\"rgba(139,92,246,0.15)\" stroke=\"#8b5cf6\" stroke-width=\"2.4\"/><rect x=\"500\" y=\"112\" width=\"474\" height=\"22\" rx=\"6\" fill=\"#8b5cf6\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"507\" y=\"127\" fill=\"#ffffff\">Scale Morph 共享布局与 Stiffness/Damping 示波</text></g>\n    </g>\n    <g class=\"sk-segment-group\" data-segment-id=\"seg_04\" opacity=\"0.22\">\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_fp_cards_array\" data-segment-id=\"seg_04\" data-bbox-id=\"bb_fp_s4_arr\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_fp_cards_array\" data-segment-id=\"seg_04\" x=\"16\" y=\"636\" width=\"1408\" height=\"248\" rx=\"12\" fill=\"rgba(16,185,129,0.13)\" stroke=\"#10b981\" stroke-width=\"2.4\"/><rect x=\"20\" y=\"640\" width=\"174\" height=\"22\" rx=\"6\" fill=\"#10b981\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"27\" y=\"655\" fill=\"#ffffff\">物理标签对比指标阵列 ×4</text></g>\n    </g>\n  </g>\n  <g data-layer=\"timeline\" transform=\"translate(16, 908)\">\n    <g class=\"sk-seg\" data-segment-id=\"seg_01\" data-eu-id=\"eu_L3_fp_topbar\"><rect x=\"0.0\" y=\"0\" width=\"350.0\" height=\"36\" rx=\"7\" fill=\"#8b5cf6\" fill-opacity=\"0.88\" stroke=\"#f4f4f5\" stroke-width=\"1\"/><text class=\"sk-tag\" x=\"8.0\" y=\"23\" fill=\"#ffffff\" style=\"font-size:12px\">S1 0.00-1.10s</text></g>\n    <g class=\"sk-seg\" data-segment-id=\"seg_02\" data-eu-id=\"eu_L3_fp_physics_stage\"><rect x=\"352.0\" y=\"0\" width=\"334.0\" height=\"36\" rx=\"7\" fill=\"#f97316\" fill-opacity=\"0.88\" stroke=\"#f4f4f5\" stroke-width=\"1\"/><text class=\"sk-tag\" x=\"360.0\" y=\"23\" fill=\"#ffffff\" style=\"font-size:12px\">S2 1.10-2.15s</text></g>\n    <g class=\"sk-seg\" data-segment-id=\"seg_03\" data-eu-id=\"eu_L3_fp_physics_stage\"><rect x=\"688.0\" y=\"0\" width=\"350.0\" height=\"36\" rx=\"7\" fill=\"#0ea5e9\" fill-opacity=\"0.88\" stroke=\"#f4f4f5\" stroke-width=\"1\"/><text class=\"sk-tag\" x=\"696.0\" y=\"23\" fill=\"#ffffff\" style=\"font-size:12px\">S3 2.15-3.25s</text></g>\n    <g class=\"sk-seg\" data-segment-id=\"seg_04\" data-eu-id=\"eu_L3_fp_cards_array\"><rect x=\"1040.0\" y=\"0\" width=\"366.0\" height=\"36\" rx=\"7\" fill=\"#10b981\" fill-opacity=\"0.88\" stroke=\"#f4f4f5\" stroke-width=\"1\"/><text class=\"sk-tag\" x=\"1048.0\" y=\"23\" fill=\"#ffffff\" style=\"font-size:12px\">S4 3.25-4.40s</text></g>\n  </g>\n</svg>"
+  },
+  "eu_tree": {
+    "template_id": "tpl_uiux_workspace_v1",
+    "template_name": "UI/UX 工作台原型",
+    "root_id": "eu_L0_fp_workspace",
+    "stats": {
+      "total_nodes": 24,
+      "levels_present": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "max_child_degree": 3,
+      "l3_entity_count": 5,
+      "l3_atom_coverage_ratio": 1.0,
+      "edge_count": 3,
+      "adaptation_counts": {
+        "TEMPLATE_ANCHOR": 17,
+        "ATOMIC_MOUNT": 5,
+        "SPLIT_HIGH_INTERACTION": 1,
+        "FOLD_ARRAY": 1
+      }
+    },
+    "nodes": [
+      {
+        "eu_id": "eu_L0_fp_workspace",
+        "name": "60fps · 物理动效画廊",
+        "level": "L0",
+        "node_kind": "product.workspace",
+        "parent_id": null,
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          0,
+          0,
+          1440,
+          900
+        ],
+        "frame_bbox": [
+          0,
+          0,
+          1920,
+          1200
+        ],
+        "time_range": [
+          0.0,
+          4.4
+        ],
+        "segment_ids": [
+          "seg_01",
+          "seg_02",
+          "seg_03",
+          "seg_04"
+        ],
+        "rendered": true,
+        "level_num": 0,
+        "children_ids": [
+          "eu_L1_fp_intro",
+          "eu_L1_fp_stage",
+          "eu_L1_fp_overlay"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L1_fp_intro",
+        "name": "无障碍跳转与片头域",
+        "level": "L1",
+        "node_kind": "territory.intro_shell",
+        "parent_id": "eu_L0_fp_workspace",
+        "template_slot": "intro_shell",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          1404,
+          34
+        ],
+        "frame_bbox": [
+          24,
+          12,
+          1872,
+          44
+        ],
+        "time_range": [
+          0.0,
+          1.15
+        ],
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_fp_intro_bar"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_fp_intro_bar",
+        "name": "顶部快捷跳转条",
+        "level": "L2",
+        "node_kind": "region.intro_strip",
+        "parent_id": "eu_L1_fp_intro",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          1404,
+          34
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_fp_skip_entry"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_fp_skip_entry",
+        "name": "跳过导航快捷按钮",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.skip_button",
+        "parent_id": "eu_L2_fp_intro_bar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          180,
+          34
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_fp_skip_entry\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_fp_skip_feat"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_fp_skip_feat",
+        "name": "键盘焦点直达特征",
+        "level": "L4",
+        "node_kind": "feature.skip_a11y",
+        "parent_id": "eu_L3_fp_skip_entry",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          180,
+          34
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_fp_skip_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_fp_skip_atoms",
+        "name": "入口基础原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_fp_skip_feat",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "fp_surf_bg",
+          "fp_typo_display",
+          "fp_lay_radius",
+          "ev_fp_video"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_fp_stage",
+        "name": "全宽主舞台领地",
+        "level": "L1",
+        "node_kind": "territory.main_stage",
+        "parent_id": "eu_L0_fp_workspace",
+        "template_slot": "main_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          16,
+          1408,
+          868
+        ],
+        "frame_bbox": [
+          16,
+          22,
+          1872,
+          1156
+        ],
+        "time_range": [
+          0.0,
+          4.4
+        ],
+        "segment_ids": [
+          "seg_01",
+          "seg_02",
+          "seg_03",
+          "seg_04"
+        ],
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_fp_topbar",
+          "eu_L2_fp_hero_zone",
+          "eu_L2_fp_array_zone"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_fp_topbar",
+        "name": "顶栏模式切换带",
+        "level": "L2",
+        "node_kind": "region.topbar",
+        "parent_id": "eu_L1_fp_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          16,
+          1408,
+          88
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_fp_topbar"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_fp_topbar",
+        "name": "60fps 标签筛选带与 Spring/Morph 模式切换",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.stage_topbar",
+        "parent_id": "eu_L2_fp_topbar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          16,
+          1408,
+          88
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_fp_topbar\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_fp_tag_switcher"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_fp_tag_switcher",
+        "name": "Spring Physics / Shared Element / Morph 胶囊路由",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.route_switch",
+        "parent_id": "eu_L3_fp_topbar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          16,
+          1408,
+          88
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_fp_top_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_fp_top_atoms",
+        "name": "顶栏与动效原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_fp_tag_switcher",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "fp_surf_bg",
+          "fp_surf_card",
+          "fp_surf_border",
+          "fp_surf_ink",
+          "fp_surf_blue",
+          "fp_typo_display",
+          "fp_typo_mono",
+          "fp_typo_body",
+          "fp_lay_radius",
+          "fp_lay_gap",
+          "fp_mot_split",
+          "fp_mot_morph",
+          "ev_fp_video"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_fp_hero_zone",
+        "name": "高密物理动效交互主展区",
+        "level": "L2",
+        "node_kind": "region.hero_stage",
+        "parent_id": "eu_L1_fp_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          108,
+          1408,
+          514
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_fp_physics_stage"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_fp_physics_stage",
+        "name": "Card Split · Swipe Stack · Scale Morph 三合一物理交互舞台",
+        "level": "L3",
+        "entity": true,
+        "interaction_density": 4,
+        "node_kind": "component.primary_interactive",
+        "parent_id": "eu_L2_fp_hero_zone",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "envelope_bbox": [
+          16,
+          108,
+          1408,
+          514
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_fp_physics_stage\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_fp_spring_solver"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L4_fp_spring_solver",
+        "name": "可调 Stiffness/Damping 弹簧示波与共享变形特征",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.primary_control",
+        "parent_id": "eu_L3_fp_physics_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          108,
+          1408,
+          514
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_fp_hero_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_fp_hero_atoms",
+        "name": "物理动效核心原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_fp_spring_solver",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "fp_surf_bg",
+          "fp_surf_card",
+          "fp_surf_border",
+          "fp_surf_ink",
+          "fp_surf_blue",
+          "fp_typo_display",
+          "fp_typo_mono",
+          "fp_typo_body",
+          "fp_lay_radius",
+          "fp_lay_gap",
+          "fp_mot_split",
+          "fp_mot_morph",
+          "ev_fp_video"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_fp_array_zone",
+        "name": "下方结构化实验阵列带",
+        "level": "L2",
+        "node_kind": "region.lower_array",
+        "parent_id": "eu_L1_fp_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          636,
+          1408,
+          248
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_fp_cards_array"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_fp_cards_array",
+        "name": "2,150+ Shots 同构高帧率物理动效参数阵列 ×4",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.spec.array",
+        "parent_id": "eu_L2_fp_array_zone",
+        "adaptation_mode": "FOLD_ARRAY",
+        "array_count": 4,
+        "envelope_bbox": [
+          16,
+          636,
+          1408,
+          248
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_fp_cards_array\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_fp_array_feat"
+        ],
+        "template_slot": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "📦折叠·×4阵列"
+      },
+      {
+        "eu_id": "eu_L4_fp_array_feat",
+        "name": "同构实验卡片矩阵特征",
+        "level": "L4",
+        "node_kind": "feature.array_grid",
+        "parent_id": "eu_L3_fp_cards_array",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          636,
+          1408,
+          248
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_fp_array_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_fp_array_atoms",
+        "name": "阵列基础原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_fp_array_feat",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "fp_surf_bg",
+          "fp_typo_display",
+          "fp_lay_radius",
+          "ev_fp_video"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_fp_overlay",
+        "name": "参数检查浮层领地",
+        "level": "L1",
+        "node_kind": "territory.auxiliary_overlay",
+        "parent_id": "eu_L0_fp_workspace",
+        "template_slot": "auxiliary_overlay",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_fp_dialog_host"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_fp_dialog_host",
+        "name": "对话框宿主区",
+        "level": "L2",
+        "node_kind": "region.dialog",
+        "parent_id": "eu_L1_fp_overlay",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_fp_tuning_dialog"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_fp_tuning_dialog",
+        "name": "弹簧刚度阻尼曲线导出弹窗",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.modal_sheet",
+        "parent_id": "eu_L2_fp_dialog_host",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_fp_tuning_dialog\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_fp_focus_trap"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_fp_focus_trap",
+        "name": "关闭弹窗归还触发焦点特征",
+        "level": "L4",
+        "node_kind": "feature.modal_focus_restore",
+        "parent_id": "eu_L3_fp_tuning_dialog",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_fp_dialog_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_fp_dialog_atoms",
+        "name": "弹窗原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_fp_focus_trap",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "fp_surf_bg",
+          "fp_typo_display",
+          "fp_lay_radius",
+          "ev_fp_video"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_fp_video"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      }
+    ],
+    "atomic_registry": {
+      "surface_atoms": {
+        "fp_surf_bg": {
+          "name": "超净哑光黑画廊底色",
+          "kind": "color",
+          "value": "#090a0d",
+          "css_var": "--fp-bg",
+          "used_by": [
+            "eu_L5_fp_skip_atoms",
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms",
+            "eu_L5_fp_array_atoms",
+            "eu_L5_fp_dialog_atoms"
+          ]
+        },
+        "fp_surf_card": {
+          "name": "玻璃质感动效框底色",
+          "kind": "color",
+          "value": "#13151b",
+          "css_var": "--fp-card",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        },
+        "fp_surf_border": {
+          "name": "柔和冷灰微描边",
+          "kind": "color",
+          "value": "#242834",
+          "css_var": "--fp-border",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        },
+        "fp_surf_ink": {
+          "name": "亮银白主标题字色",
+          "kind": "color",
+          "value": "#f6f7f9",
+          "css_var": "--fp-ink",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        },
+        "fp_surf_blue": {
+          "name": "60fps 电光蓝强调色",
+          "kind": "color",
+          "value": "#3b82f6",
+          "css_var": "--fp-blue",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        }
+      },
+      "typography_atoms": {
+        "fp_typo_display": {
+          "name": "物理画廊主标题字阶",
+          "kind": "font_scale",
+          "value": "clamp(28px, 3vw, 42px)",
+          "css_var": "--fp-font-display",
+          "used_by": [
+            "eu_L5_fp_skip_atoms",
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms",
+            "eu_L5_fp_array_atoms",
+            "eu_L5_fp_dialog_atoms"
+          ]
+        },
+        "fp_typo_mono": {
+          "name": "物理参数示波等宽体",
+          "kind": "font_scale",
+          "value": "12px",
+          "css_var": "--fp-font-mono",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        },
+        "fp_typo_body": {
+          "name": "案例简介字阶",
+          "kind": "font_scale",
+          "value": "13.5px",
+          "css_var": "--fp-font-body",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        }
+      },
+      "layout_atoms": {
+        "fp_lay_radius": {
+          "name": "物理卡片圆角",
+          "kind": "radius",
+          "value": "18px",
+          "css_var": "--fp-radius",
+          "used_by": [
+            "eu_L5_fp_skip_atoms",
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms",
+            "eu_L5_fp_array_atoms",
+            "eu_L5_fp_dialog_atoms"
+          ]
+        },
+        "fp_lay_gap": {
+          "name": "画廊网格间距",
+          "kind": "spacing",
+          "value": "18px",
+          "css_var": "--fp-gap",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        }
+      },
+      "motion_atoms": {
+        "fp_mot_split": {
+          "name": "卡片分裂弹性周期",
+          "kind": "duration",
+          "value": "380ms",
+          "css_var": "--fp-dur-split",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        },
+        "fp_mot_morph": {
+          "name": "共享元素变形周期",
+          "kind": "duration",
+          "value": "420ms",
+          "css_var": "--fp-dur-morph",
+          "used_by": [
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms"
+          ]
+        }
+      },
+      "evidence_atoms": {
+        "ev_fp_video": {
+          "name": "60fps Gallery 4.400s 物理动效四段抽帧证据",
+          "frame_ref": "seg_01.png",
+          "evidence_bbox": [
+            0,
+            0,
+            1920,
+            1200
+          ],
+          "used_by": [
+            "eu_L5_fp_skip_atoms",
+            "eu_L5_fp_top_atoms",
+            "eu_L5_fp_hero_atoms",
+            "eu_L5_fp_array_atoms",
+            "eu_L5_fp_dialog_atoms"
+          ]
+        }
+      }
+    },
+    "edges": [
+      {
+        "edge_id": "edge_fp_state",
+        "edge_type": "TRIGGERS_STATE",
+        "source_eu_id": "eu_L3_fp_topbar",
+        "target_eu_id": "eu_L3_fp_physics_stage",
+        "label": "顶栏速率/模式开关切换主舞台动效演练状态",
+        "source": "observed",
+        "evidence_ref": "ev_fp_video",
+        "evidence": {
+          "t0": 0.0,
+          "t1": 1.15,
+          "frame_bbox": [
+            48,
+            24,
+            1824,
+            1140
+          ]
+        }
+      },
+      {
+        "edge_id": "edge_fp_focus",
+        "edge_type": "RESTORES_FOCUS",
+        "source_eu_id": "eu_L3_fp_tuning_dialog",
+        "target_eu_id": "eu_L3_fp_topbar",
+        "label": "参数检查对话框关闭后精准归还触发控件焦点",
+        "source": "inferred_realized",
+        "evidence_ref": "ev_fp_video",
+        "evidence": {
+          "t0": 3.25,
+          "t1": 4.4,
+          "frame_bbox": [
+            420,
+            170,
+            580,
+            410
+          ]
+        }
+      },
+      {
+        "edge_id": "edge_fp_token",
+        "edge_type": "SHARES_TOKEN",
+        "source_eu_id": "eu_L3_fp_physics_stage",
+        "target_eu_id": "eu_L3_fp_cards_array",
+        "label": "动效主展区与下方矩阵共享暗房表面色及动效时长 Token",
+        "source": "observed",
+        "evidence_ref": "ev_fp_video",
+        "evidence": {
+          "t0": 2.35,
+          "t1": 4.4,
+          "frame_bbox": [
+            48,
+            24,
+            1824,
+            1140
+          ]
+        }
+      }
+    ]
+  },
+  "gates": {
+    "verdict": "PASS",
+    "active_count": 12,
+    "passed_count": 12,
+    "total_library_rules": 24,
+    "blocked_layer": null,
+    "violated_rule_id": null,
+    "violated_rule_name": null,
+    "violated_node_ids": [],
+    "co_failed_rule_ids": [],
+    "attribution": null,
+    "layers": [
+      {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PV",
+        "route_key": "video",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PV-01",
+            "id": "PV-01",
+            "name": "全时段关键帧覆盖与场景切分闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4.400s / 4.400s (4段 · 100.0%)",
+            "detail": "0.00~4.400s 全时段连续闭合覆盖",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV01_partial_video_coverage"
+          },
+          {
+            "rule_id": "PV-02",
+            "id": "PV-02",
+            "name": "视频外版式噪声剥离与有效视口裁切",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "1440×900 (scale 0.75 · 噪声重叠 0%)",
+            "detail": "有效视口裁切可复核且代码窗噪声完全剥离",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV02_layout_noise_leak"
+          },
+          {
+            "rule_id": "PV-03",
+            "id": "PV-03",
+            "name": "瞬态滚动与稳态真值分离及假设隔离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "稳态 2 · 瞬态隔离 1",
+            "detail": "片尾滚动未定值已隔离进 AssumptionRecord",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV03_transient_value_as_truth"
+          },
+          {
+            "rule_id": "PV-04",
+            "id": "PV-04",
+            "name": "帧间不变量与连续交互取证",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "2/2 连续帧证据闭合",
+            "detail": "交互边与帧间不变量均绑定有效 [t0,t1] 与源帧包络",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV04_unbound_interaction_evidence"
+          }
+        ]
+      },
+      {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 3/7 · 边 3",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂1 · 折叠1",
+            "detail": "严格锚定 tpl_uiux_workspace_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 5/5 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GU",
+        "route_key": "uiux",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GU-01",
+            "id": "GU-01",
+            "name": "L5 设计与动效 Token 原子 100% 强制消费",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "Token消费 100% · reduced-motion ON",
+            "detail": "全部设计与动效 Token 已在 CSS 声明引用，且支持减弱动效",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU01_token_bypass"
+          },
+          {
+            "rule_id": "GU-02",
+            "id": "GU-02",
+            "name": "根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文本 60 · 真控件 16 · 贴皮 0%",
+            "detail": "100% 可编辑真 DOM 与弹性容器，1440/390px 重排零裁切",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU02_bitmap_solid_degradation"
+          },
+          {
+            "rule_id": "GU-03",
+            "id": "GU-03",
+            "name": "微交互与状态闭环保真",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "2/2 交互闭环",
+            "detail": "全部 2 条已登记交互边闭环 (RESTORES_FOCUS、TRIGGERS_STATE)",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU03_missing_proximity_magnify"
+          },
+          {
+            "rule_id": "GU-04",
+            "id": "GU-04",
+            "name": "在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "溯源 100% · 防御小字 0",
+            "detail": "在线舞台与导出产物 data-eu-id 100% 唯一对齐，零防御性小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU04_defensive_microcopy"
+          }
+        ]
+      }
+    ],
+    "by_layer": {
+      "parsing": {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PV",
+        "route_key": "video",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PV-01",
+            "id": "PV-01",
+            "name": "全时段关键帧覆盖与场景切分闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4.400s / 4.400s (4段 · 100.0%)",
+            "detail": "0.00~4.400s 全时段连续闭合覆盖",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV01_partial_video_coverage"
+          },
+          {
+            "rule_id": "PV-02",
+            "id": "PV-02",
+            "name": "视频外版式噪声剥离与有效视口裁切",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "1440×900 (scale 0.75 · 噪声重叠 0%)",
+            "detail": "有效视口裁切可复核且代码窗噪声完全剥离",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV02_layout_noise_leak"
+          },
+          {
+            "rule_id": "PV-03",
+            "id": "PV-03",
+            "name": "瞬态滚动与稳态真值分离及假设隔离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "稳态 2 · 瞬态隔离 1",
+            "detail": "片尾滚动未定值已隔离进 AssumptionRecord",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV03_transient_value_as_truth"
+          },
+          {
+            "rule_id": "PV-04",
+            "id": "PV-04",
+            "name": "帧间不变量与连续交互取证",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "2/2 连续帧证据闭合",
+            "detail": "交互边与帧间不变量均绑定有效 [t0,t1] 与源帧包络",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PV04_unbound_interaction_evidence"
+          }
+        ]
+      },
+      "general": {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 3/7 · 边 3",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂1 · 折叠1",
+            "detail": "严格锚定 tpl_uiux_workspace_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 5/5 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      "generation": {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GU",
+        "route_key": "uiux",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GU-01",
+            "id": "GU-01",
+            "name": "L5 设计与动效 Token 原子 100% 强制消费",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "Token消费 100% · reduced-motion ON",
+            "detail": "全部设计与动效 Token 已在 CSS 声明引用，且支持减弱动效",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU01_token_bypass"
+          },
+          {
+            "rule_id": "GU-02",
+            "id": "GU-02",
+            "name": "根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文本 60 · 真控件 16 · 贴皮 0%",
+            "detail": "100% 可编辑真 DOM 与弹性容器，1440/390px 重排零裁切",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU02_bitmap_solid_degradation"
+          },
+          {
+            "rule_id": "GU-03",
+            "id": "GU-03",
+            "name": "微交互与状态闭环保真",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "2/2 交互闭环",
+            "detail": "全部 2 条已登记交互边闭环 (RESTORES_FOCUS、TRIGGERS_STATE)",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU03_missing_proximity_magnify"
+          },
+          {
+            "rule_id": "GU-04",
+            "id": "GU-04",
+            "name": "在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "溯源 100% · 防御小字 0",
+            "detail": "在线舞台与导出产物 data-eu-id 100% 唯一对齐，零防御性小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU04_defensive_microcopy"
+          }
+        ]
+      }
+    }
+  },
+  "assumptions": [
+    {
+      "assumption_id": "ASM-FP-01",
+      "eu_id": "eu_L3_fp_physics_stage",
+      "subject_ids": [
+        "obs_fp_overshoot_transient",
+        "eu_L3_fp_physics_stage"
+      ],
+      "title": "Swipe Card Stack 甩卡惯性速度与阻尼末帧隔离",
+      "category": "transient_motion_value",
+      "assumed_value": "采用可调 Stiffness=280 / Damping=24 稳态弹簧参数基准，不将拖拽释放瞬间角速度作为静帧真值",
+      "evidence_gap": "60fps 视频展示卡片抛飞瞬间仍处减速插值阶段，末帧尚未完全静止落地",
+      "bound_rule_id": "PV-03",
+      "status": "open",
+      "confirmed_at": null
+    },
+    {
+      "assumption_id": "ASM-FP-02",
+      "eu_id": "eu_L3_fp_cards_array",
+      "subject_ids": [
+        "eu_L3_fp_cards_array"
+      ],
+      "title": "Gumlet 原生 MP4 流体动画源的零外部脚本组件化替代",
+      "category": "substitute_motion_asset",
+      "assumed_value": "使用纯原生 ES6 二阶 RK4/Verlet 弹簧求解器与共享布局变形动画替代原站流媒体视频卡片",
+      "evidence_gap": "原站卡片画廊依赖远程视频流播放展示 iOS 物理动效，离线工作台内重构为真实可手操交互组件",
+      "bound_rule_id": "PV-02",
+      "status": "open",
+      "confirmed_at": null
+    }
+  ],
+  "readback": {
+    "status": "PASS",
+    "case_id": "fps60_motion_video",
+    "summary_pill": "DOM 溯源 100% · 零实心退化",
+    "dom_eu_binding_coverage": 1.0,
+    "bound_eu_count": 10,
+    "expected_eu_count": 10,
+    "stage_trace_ids": [
+      "eu_L0_fp_workspace",
+      "eu_L1_fp_stage",
+      "eu_L3_fp_cards_array",
+      "eu_L3_fp_physics_stage",
+      "eu_L3_fp_skip_entry",
+      "eu_L3_fp_topbar",
+      "eu_L3_fp_tuning_dialog",
+      "eu_L4_fp_array_feat",
+      "eu_L4_fp_spring_solver",
+      "eu_L4_fp_tag_switcher"
+    ],
+    "export_trace_ids": [
+      "eu_L0_fp_workspace",
+      "eu_L1_fp_stage",
+      "eu_L3_fp_cards_array",
+      "eu_L3_fp_physics_stage",
+      "eu_L3_fp_skip_entry",
+      "eu_L3_fp_topbar",
+      "eu_L3_fp_tuning_dialog",
+      "eu_L4_fp_array_feat",
+      "eu_L4_fp_spring_solver",
+      "eu_L4_fp_tag_switcher"
+    ],
+    "missing_trace_ids": [],
+    "dangling_trace_ids": [],
+    "duplicate_trace_ids": [],
+    "editable_text_nodes": 60,
+    "interactive_controls": 16,
+    "ui_bitmap_area_ratio": 0.0,
+    "bitmaps": [],
+    "viewport_overflow_px": {
+      "1440": 0,
+      "390": 0
+    },
+    "fluid_markers_found": [
+      "display: flex",
+      "display: grid",
+      "clamp(",
+      "minmax(",
+      "@media"
+    ],
+    "token_consumption": {
+      "total_tokens": 12,
+      "consumed_tokens": 12,
+      "consumption_ratio": 1.0,
+      "unconsumed_atom_ids": [],
+      "reduced_motion_supported": true,
+      "fluid_markers_found": [
+        "display: flex",
+        "display: grid",
+        "clamp(",
+        "minmax(",
+        "@media"
+      ],
+      "responsive_390_supported": true
+    },
+    "reduced_motion_supported": true,
+    "responsive_390_supported": true,
+    "vector_text_editable": true,
+    "live_text_ratio": 1.0,
+    "vector_graphic_ratio": 1.0,
+    "rasterized_text_count": 0,
+    "defensive_microcopy_violations": 0,
+    "defensive_hits": [],
+    "interactions": [
+      {
+        "edge_id": "edge_fp_state",
+        "edge_type": "TRIGGERS_STATE",
+        "passed": true,
+        "measure": {
+          "target_state_before": "overview",
+          "target_state_after": "active_view"
+        }
+      },
+      {
+        "edge_id": "edge_fp_focus",
+        "edge_type": "RESTORES_FOCUS",
+        "passed": true,
+        "measure": {
+          "active_element_matches_trigger": true
+        }
+      }
+    ]
+  },
+  "counterfactual_presets": [
+    {
+      "preset": "violate_PV01_partial_video_coverage",
+      "label": "[PV-01] 全时段关键帧覆盖与场景切分闭合",
+      "desc": "删除中间一个时段，只保留局部时段，使时间轴出现未覆盖区间。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV02_layout_noise_leak",
+      "label": "[PV-02] 视频外版式噪声剥离与有效视口裁切",
+      "desc": "把一个 EU 节点的 frame_bbox 挪进已登记的代码窗噪声区。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV03_transient_value_as_truth",
+      "label": "[PV-03] 瞬态滚动与稳态真值分离及假设隔离",
+      "desc": "把一条 transient 观测值改为 verified 并解除其 AssumptionRecord 关联。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV04_unbound_interaction_evidence",
+      "label": "[PV-04] 帧间不变量与连续交互取证",
+      "desc": "抹去一条已观测交互边的 [t0, t1] 与 frame_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_GN01_interaction_in_tree",
+      "label": "[GN-01] 树图分离与度约束",
+      "desc": "把一条横向交互（如邻近调制或状态触发）改写成某个 L3 节点下的 interaction.* 纵向子节点。",
+      "target_layer": "general",
+      "target_rule_id": "GN-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN02_degree_overflow",
+      "label": "[GN-02] 模板锚定与复杂度自适应伸缩合规",
+      "desc": "撤销一个 FOLD_ARRAY 阵列宿主，把同构成员平铺回上级父节点，使同构兄弟未折叠且父节点度超过上限。",
+      "target_layer": "general",
+      "target_rule_id": "GN-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN03_missing_l5_atom",
+      "label": "[GN-03] 单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+      "desc": "从一个实体型 L3 子树中摘除其 typography 或 evidence 类 L5 原子引用。",
+      "target_layer": "general",
+      "target_rule_id": "GN-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN04_envelope_overflow",
+      "label": "[GN-04] 包络自底向上守恒与三态准入状态机",
+      "desc": "把某个 L3 子节点的包络平移到其父节点包络之外。",
+      "target_layer": "general",
+      "target_rule_id": "GN-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU01_token_bypass",
+      "label": "[GU-01] L5 设计与动效 Token 原子 100% 强制消费",
+      "desc": "从回检快照中移除一个 motion 原子的 CSS 变量引用并去掉减弱动效媒体查询。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU02_bitmap_solid_degradation",
+      "label": "[GU-02] 根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+      "desc": "在回检快照中用一张整屏截图替换主舞台领地的 DOM 文本与控件。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU03_missing_proximity_magnify",
+      "label": "[GU-03] 微交互与状态闭环保真",
+      "desc": "在回检快照中移除邻近调制边对应的实现（缩放梯度回落为原尺寸）。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU04_defensive_microcopy",
+      "label": "[GU-04] 在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+      "desc": "在回检快照可见文本中插入一句自证式保证句，并移除一个节点的 data-eu-id。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PI01_grid_chain_break",
+      "label": "[PI-01] 版面栅格与比例尺寸链闭合 (跨模态沙盒)",
+      "desc": "把栏槽宽改成与画幅宽不闭合的值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI02_foreground_background_merge",
+      "label": "[PI-02] 视觉去噪与前景图文/背景材质分离 (跨模态沙盒)",
+      "desc": "把一个前景文字图层合并进背景材质图层。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI03_illegal_atom_sample",
+      "label": "[PI-03] 色彩对比度、字阶与间距原子采样合法性 (跨模态沙盒)",
+      "desc": "把一个正文颜色原子改成与背景对比度不足的色值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI04_missing_evidence_bbox",
+      "label": "[PI-04] 原图 evidence_bbox 强绑定 (跨模态沙盒)",
+      "desc": "删除一个 L3 解析节点的 evidence_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PW01_breakpoint_misalignment",
+      "label": "[PW-01] 多断点 DOM 几何闭合 (跨模态沙盒)",
+      "desc": "把一个子区块在窄断点下的盒宽改为超出父盒与视口。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-01",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW02_raw_style_literal",
+      "label": "[PW-02] 计算样式向设计 Token 归一 (跨模态沙盒)",
+      "desc": "清除一条计算样式的 token_ref，使其成为裸值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-02",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW03_missing_a11y_role",
+      "label": "[PW-03] 交互状态与无障碍角色提取 (跨模态沙盒)",
+      "desc": "删除一个按钮的 role 与 focus-visible 状态。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-03",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW04_decor_data_mixed",
+      "label": "[PW-04] 静态装饰与业务数据边界分离 (跨模态沙盒)",
+      "desc": "给一个装饰节点挂上业务数据绑定。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-04",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GG01_bleed_grid_break",
+      "label": "[GG-01] 画幅尺寸出血与网格对齐守恒 (跨模态沙盒)",
+      "desc": "把出血置为 0 并让一个 L2 区块偏离栏线。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG02_hierarchy_inversion",
+      "label": "[GG-02] 视觉主次字阶层级与对比度合规 (跨模态沙盒)",
+      "desc": "把正文字号调到大于副标题，造成层级倒置。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG03_rasterized_text",
+      "label": "[GG-03] 矢量/文字图层独立可编辑 (跨模态沙盒)",
+      "desc": "在回检快照中把主标题文字节点替换为位图。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG04_export_drift",
+      "label": "[GG-04] 导出重开版式零漂移与溯源回检 (跨模态沙盒)",
+      "desc": "在导出快照中把一个 L2 区块包络平移超出漂移容差。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    }
+  ],
+  "error_ledger": [
+    {
+      "res_id": "RES-KW-01",
+      "entry_id": "RES-KW-01",
+      "id": "RES-KW-01",
+      "title": "局部录屏冒充整片验收",
+      "layer": "parsing",
+      "rule_id": "PV-01",
+      "counterfactual_preset": "violate_PV01_partial_video_coverage",
+      "symptom": "只补查了 1.60–2.23 s 邻近放大一段，整段 5.689 s 未逐段建证据，父任务长期停在 validating",
+      "root_cause": "没有「全时段切分闭合」硬约束，局部时段的通过结论被当成全片结论",
+      "fix": "0 → 片长连续切分、首尾相接、覆盖率 100%，每段至少一帧并绑定 EU",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-02",
+      "entry_id": "RES-KW-02",
+      "id": "RES-KW-02",
+      "title": "片尾滚动数字当定值",
+      "layer": "parsing",
+      "rule_id": "PV-03",
+      "counterfactual_preset": "violate_PV03_transient_value_as_truth",
+      "symptom": "5.62 s Analytics 四指标在片尾仍在滚动，险些被写成最终数值",
+      "root_cause": "观测值没有 steady / transient 区分，未定值可直接成为 verified 原子",
+      "fix": "观测值强制标注 settle_state；transient 不得 verified，必须挂 AssumptionRecord",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-03",
+      "entry_id": "RES-KW-03",
+      "id": "RES-KW-03",
+      "title": "视频版式代码窗混入界面",
+      "layer": "parsing",
+      "rule_id": "PV-02",
+      "counterfactual_preset": "violate_PV02_layout_noise_leak",
+      "symptom": "1920×2560 竖版视频下半部是代码窗排版，不属于网页，早期取样容易把它算进画面",
+      "root_cause": "缺少噪声区登记与可复核裁切变换",
+      "fix": "登记 noise_regions，记录 source_size / crop_rect / scale / target_size，EU 包络不得落入噪声区",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-04",
+      "entry_id": "RES-KW-04",
+      "id": "RES-KW-04",
+      "title": "交互塞入纵向组件树",
+      "layer": "general",
+      "rule_id": "GN-01",
+      "counterfactual_preset": "violate_GN01_interaction_in_tree",
+      "symptom": "邻近放大被建成「主单元 + 指针距离 + 搜索球 + 选中项 + 邻项 + 复位边界」六单元五条包含关系，交互与结构混在同一棵树",
+      "root_cause": "树与图不分，状态联动以父子包含表达",
+      "fix": "交互一律走 6 类白名单横向边，纵向树禁止 interaction./event./state. 前缀；同构项折叠防止度溢出（GN-02）",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-05",
+      "entry_id": "RES-KW-05",
+      "id": "RES-KW-05",
+      "title": "位图贴皮实心退化",
+      "layer": "generation",
+      "rule_id": "GU-02",
+      "counterfactual_preset": "violate_GU02_bitmap_solid_degradation",
+      "symptom": "用录屏截图或整屏位图铺底冒充界面，文字不可选、控件不可点，窄屏直接裁切",
+      "root_cause": "生成侧没有「真 DOM 文本 + 弹性容器」硬约束，静图通过即算交付",
+      "fix": "文字节点 100% DOM 文本、控件 100% 真控件，UI 位图面积为 0，1440 / 390 视口零横向裁切",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-06",
+      "entry_id": "RES-KW-06",
+      "id": "RES-KW-06",
+      "title": "收起侧栏漏掉邻近放大",
+      "layer": "generation",
+      "rule_id": "GU-03",
+      "counterfactual_preset": "violate_GU03_missing_proximity_magnify",
+      "symptom": "r21 设计读回中收起侧栏只记了「展开」，没有指针距离、放大与邻项传递",
+      "root_cause": "交互要求靠人工点名，未从语义图横向边逐条推导实现",
+      "fix": "每条交互类横向边必须有回检实现：MODULATES_NEIGHBOR 要求主项 > 邻项 > 1.0、远项不动、离开复位",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-07",
+      "entry_id": "RES-KW-07",
+      "id": "RES-KW-07",
+      "title": "界面放解释性、防御性小字",
+      "layer": "generation",
+      "rule_id": "GU-04",
+      "counterfactual_preset": "violate_GU04_defensive_microcopy",
+      "symptom": "折光工作台上版把验收说明写成界面文案（「不会丢」「仍可用」等保证句与引导副标题）",
+      "root_cause": "文案铁律只写在设计文档里，产物没有回检",
+      "fix": "舞台与导出各自回读可见文本，禁用短语命中数为 0；同时回检 data-eu-id 唯一且不悬空",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-08",
+      "entry_id": "RES-KW-08",
+      "id": "RES-KW-08",
+      "title": "EU 缺席却报整体验收",
+      "layer": "general",
+      "rule_id": "GN-03",
+      "counterfactual_preset": "violate_GN03_missing_l5_atom",
+      "symptom": "语义读回返回 EU_PROJECT_MISSING，网页运行通过却险些被当作 EU 已识别、已验收",
+      "root_cause": "无证据项可以是 verified，L5 原子挂载没有覆盖率门槛",
+      "fix": "单源 atomic_registry + atom_refs 双索引，实体 L3 的 L5 覆盖率 100%，无证据推断项强制进 AssumptionRecord；准入走 GN-04 三态机",
+      "status": "closed_by_rule"
+    }
+  ]
+}

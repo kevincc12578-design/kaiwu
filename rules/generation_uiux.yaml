@@ -1,0 +1,134 @@
+# ==============================================================================
+# 开物 v3.4 · Kaiwu Adaptive-EU Design Workbench
+# 第三层 · 生成侧规则 · UI/UX 领域（GU-01 ~ GU-04）
+# 路由：domain = "uiux" 的项目激活本文件 4 条（与 graphic 互斥）。
+# 正交分工：GU-01 管料（Token 原子强制消费） | GU-02 管体（真 DOM 与弹性重排）
+#           GU-03 管动（横向交互边逐条实现闭环） | GU-04 管验（溯源 ID 双端回检与文案铁律）
+# 零特例：交互要求不按项目点名，而是由语义图中的横向边类型逐条推导。
+# ==============================================================================
+
+schema_version: "3.4.0"
+product: "开物 · Kaiwu Adaptive-EU Design Workbench"
+version: "3.4.0"
+layer: "generation"
+layer_order: 3
+layer_name: "生成侧 · UI/UX"
+route_key: "domain"
+domain: "uiux"
+rule_prefix: "GU"
+philosophy: "生成产物只能从语义树和原子注册表长出来：样式取自 Token，结构是可编辑 DOM，交互由横向边逐条兑现，最后用溯源 ID 从产物反读回语义树。"
+
+rules:
+  - id: "GU-01"
+    name: "L5 设计与动效 Token 原子 100% 强制消费"
+    name_en: "Mandatory 100% Consumption of L5 Design & Motion Tokens"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L4", "L5"]
+    check_code: "check_gu01_token_consumption"
+    desc: "atomic_registry 中 surface / typography / layout / motion 原子必须在产物样式中以 CSS 自定义属性被声明并被引用，消费率 100%；产物中的动效必须提供 prefers-reduced-motion 减弱分支，减弱时交互仍可达。"
+    thresholds:
+      consumed_sections: ["surface_atoms", "typography_atoms", "layout_atoms", "motion_atoms"]
+      token_binding_field: "css_var"
+      min_token_consumption_ratio: 1.0
+      require_reduced_motion_query: true
+      reduced_motion_query: "prefers-reduced-motion"
+    invariants:
+      - "forall atom in registry[consumed_sections]: atom.css_var declared in artifact_css and referenced via var(atom.css_var) at least once"
+      - "consumed_count / total_count >= min_token_consumption_ratio"
+      - "count(motion_atoms) > 0 implies reduced_motion_query in artifact_css"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "Token 未被产物消费或缺少减弱动效分支"
+      attribution_fields: ["unconsumed_atom_ids"]
+    counterfactual_preset: "violate_GU01_token_bypass"
+    counterfactual_desc: "从回检快照中移除一个 motion 原子的 CSS 变量引用并去掉减弱动效媒体查询。"
+    related_residuals: ["RES-KW-05"]
+
+  - id: "GU-02"
+    name: "根治 UI 实心退化：真可编辑 DOM 文本与弹性容器"
+    name_en: "Anti Solid-Degradation: Editable DOM Text & Fluid Containers"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L2", "L3", "L4"]
+    check_code: "check_gu02_live_dom_not_bitmap"
+    desc: "语义树中的每个文字承载节点都必须在产物中是可选中、可编辑的 DOM 文本，每个可交互节点都必须是真实控件；严禁以整屏或整区位图铺底冒充界面（仅 background_material 角色的位图允许存在）；在桌面与窄屏两个必检视口下重排零横向裁切。"
+    thresholds:
+      required_viewports_px: [1440, 390]
+      min_text_node_realization_ratio: 1.0
+      min_control_realization_ratio: 1.0
+      max_ui_bitmap_area_ratio: 0.0
+      allowed_bitmap_roles: ["background_material", "avatar", "photo_content"]
+      max_horizontal_clip_px: 0
+      fluid_layout_markers: ["display:flex", "display:grid", "clamp(", "minmax(", "@media"]
+    invariants:
+      - "forall node where node.carries_text: node.rendered_as == 'dom_text'"
+      - "forall node where node.interactive: node.rendered_as in ['button', 'a', 'input', 'select', 'role-control']"
+      - "sum(area(img) for img in artifact_bitmaps if img.role not in allowed_bitmap_roles) / viewport_area <= max_ui_bitmap_area_ratio"
+      - "forall vp in required_viewports_px: artifact.scroll_width(vp) - vp <= max_horizontal_clip_px"
+      - "any(marker in artifact_css for marker in fluid_layout_markers)"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "产物被位图贴皮或文字/控件未实现为 DOM"
+      attribution_fields: ["violated_node_ids", "bitmap_ids", "viewport_px"]
+    counterfactual_preset: "violate_GU02_bitmap_solid_degradation"
+    counterfactual_desc: "在回检快照中用一张整屏截图替换主舞台领地的 DOM 文本与控件。"
+    related_residuals: ["RES-KW-05"]
+
+  - id: "GU-03"
+    name: "微交互与状态闭环保真"
+    name_en: "Micro-Interaction & State Loop Fidelity"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L3", "L4"]
+    check_code: "check_gu03_edge_realization"
+    desc: "语义图中每条交互类横向边都必须在产物中有可回检的实现并闭环：邻近调制要求主项放大大于邻项大于原尺寸、远项不动、离开复位；独立滚动要求宿主滚动时兄弟区位移为 0；视图过滤要求数据集与导出同口径切换；焦点归还要求关闭后焦点回到触发控件；状态触发要求目标状态可观察地改变。"
+    thresholds:
+      interaction_edge_types: ["MODULATES_NEIGHBOR", "SCROLLS_INDEPENDENTLY", "FILTERS_VIEW", "RESTORES_FOCUS", "TRIGGERS_STATE"]
+      min_edge_realization_ratio: 1.0
+      neutral_scale: 1.0
+      probe_by_edge_type:
+        MODULATES_NEIGHBOR: "focus_scale > neighbor_scale > neutral_scale and far_scale == neutral_scale and restored_after_leave"
+        SCROLLS_INDEPENDENTLY: "host_scroll_delta > 0 and sibling_offset_delta == 0"
+        FILTERS_VIEW: "dataset_changed and export_scope == active_filter"
+        RESTORES_FOCUS: "document.activeElement == trigger after close"
+        TRIGGERS_STATE: "target_state_after != target_state_before"
+    invariants:
+      - "forall edge where edge.edge_type in interaction_edge_types: exists realization in readback.interactions where realization.edge_id == edge.id and realization.passed"
+      - "realized_edges / interaction_edges >= min_edge_realization_ratio"
+      - "forall realization: eval(probe_by_edge_type[edge.edge_type], realization.measure) == true"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "交互边在产物中缺失或未闭环"
+      attribution_fields: ["violated_edge_ids", "violated_node_ids"]
+    counterfactual_preset: "violate_GU03_missing_proximity_magnify"
+    counterfactual_desc: "在回检快照中移除邻近调制边对应的实现（缩放梯度回落为原尺寸）。"
+    related_residuals: ["RES-KW-06"]
+
+  - id: "GU-04"
+    name: "在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字"
+    name_en: "Stage & Export DOM data-eu-id Readback & Zero Defensive Microcopy"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L1", "L2", "L3", "L4"]
+    check_code: "check_gu04_readback_and_microcopy"
+    desc: "在线舞台与导出产物须各自独立反读：每个需渲染的 L1~L4 节点在产物 DOM 中存在唯一 data-eu-id，产物中不存在指向树外的 data-eu-id；界面文案不得出现解释性、防御性、自证式小字。"
+    thresholds:
+      trace_attribute: "data-eu-id"
+      readback_targets: ["stage", "export"]
+      min_trace_coverage_ratio: 1.0
+      max_dangling_trace_ids: 0
+      max_duplicate_trace_ids: 0
+      max_defensive_phrases: 0
+      forbidden_defensive_phrases: ["不会丢失", "不会丢", "仍可用", "仍然可用", "仅供演示", "仅供参考", "仅作示意", "请放心", "无需担心", "温馨提示", "本页面仅", "以下内容仅"]
+    invariants:
+      - "forall target in readback_targets: forall node where node.rendered: count(dom[target] with trace_attribute == node.eu_id) == 1"
+      - "forall target: set(dom[target].trace_ids) <= tree_ids"
+      - "forall target: count(phrase occurrences in visible_text[target]) <= max_defensive_phrases"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "溯源 ID 缺失/悬空/重复或出现防御性小字"
+      attribution_fields: ["missing_trace_ids", "dangling_trace_ids", "defensive_hits"]
+    counterfactual_preset: "violate_GU04_defensive_microcopy"
+    counterfactual_desc: "在回检快照可见文本中插入一句自证式保证句，并移除一个节点的 data-eu-id。"
+    related_residuals: ["RES-KW-07"]

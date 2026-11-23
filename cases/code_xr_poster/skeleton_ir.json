@@ -1,0 +1,278 @@
+{
+  "case_id": "code_xr_poster",
+  "modality": "image",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "viewport": {
+    "width": 297.0,
+    "height": 420.0,
+    "unit": "mm",
+    "format": "ISO 216 A3",
+    "bleed_mm": 3.0,
+    "safe_margin_mm": 12.0,
+    "grid_columns": 12
+  },
+  "canvas": {
+    "w": 297.0,
+    "h": 420.0,
+    "declared_ratio": 0.7071,
+    "bleed": 3.0,
+    "safe_margin": 12.0
+  },
+  "grid": {
+    "columns": 12,
+    "column_width": 19.083333333333332,
+    "gutter": 4.0,
+    "margin_left": 12.0,
+    "margin_right": 12.0
+  },
+  "source_image": {
+    "w": 297.0,
+    "h": 420.0,
+    "url": "/cases/code_xr_poster/frames/poster_source_a3.svg"
+  },
+  "layers": [
+    {
+      "layer_id": "lyr_paper_bg",
+      "layer_role": "background_material",
+      "contains_text": false,
+      "desc": "暖象牙纸基与柔和径向氛围渐变"
+    },
+    {
+      "layer_id": "lyr_orbit_vector",
+      "layer_role": "foreground_graphic",
+      "contains_text": false,
+      "desc": "68% 纯 SVG 几何圆环与色卡色块"
+    },
+    {
+      "layer_id": "lyr_swiss_typography",
+      "layer_role": "foreground_text",
+      "contains_text": true,
+      "desc": "四级字阶活 DOM / SVG 排版层"
+    }
+  ],
+  "noise_regions": [],
+  "segments": [
+    {
+      "segment_id": "seg_poster_full",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "ISO A3 全画幅 · 12 栏瑞士网格与 3mm 出血",
+      "frame_url": "/cases/code_xr_poster/frames/poster_source_a3.svg",
+      "active_eu_ids": [
+        "eu_L1_poster_header",
+        "eu_L3_poster_logo_lockup",
+        "eu_L3_poster_issue_meta",
+        "eu_L3_poster_headline",
+        "eu_L3_poster_key_graphic",
+        "eu_L3_poster_palette_fold",
+        "eu_L3_poster_type_specimen",
+        "eu_L3_poster_grid_overlay",
+        "eu_L1_poster_footer"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_poster_header",
+          "eu_id": "eu_L1_poster_header",
+          "label": "品牌页眉 (Col 1–12)",
+          "x": 12.0,
+          "y": 14.0,
+          "w": 273.0,
+          "h": 28.0,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_poster_logo",
+          "eu_id": "eu_L3_poster_logo_lockup",
+          "label": "标志与主名锁排 (Col 1–8)",
+          "x": 12.0,
+          "y": 14.0,
+          "w": 180.67,
+          "h": 28.0,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_poster_issue",
+          "eu_id": "eu_L3_poster_issue_meta",
+          "label": "期号规格胶囊 (Col 9–12)",
+          "x": 196.67,
+          "y": 14.0,
+          "w": 88.33,
+          "h": 28.0,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_poster_headline",
+          "eu_id": "eu_L3_poster_headline",
+          "label": "主标题四级字阶区 (Col 1–7)",
+          "x": 12.0,
+          "y": 48.0,
+          "w": 157.58,
+          "h": 186.0,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_poster_graphic",
+          "eu_id": "eu_L3_poster_key_graphic",
+          "label": "68% 纯矢量几何主图 (Col 8–12)",
+          "x": 173.58,
+          "y": 48.0,
+          "w": 111.42,
+          "h": 186.0,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_poster_palette",
+          "eu_id": "eu_L3_poster_palette_fold",
+          "label": "品牌色卡阵列 ×4 (Col 1–12)",
+          "x": 12.0,
+          "y": 242.0,
+          "w": 273.0,
+          "h": 58.0,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_poster_specimen",
+          "eu_id": "eu_L3_poster_type_specimen",
+          "label": "Manrope 字阶标本 (Col 1–8)",
+          "x": 12.0,
+          "y": 306.0,
+          "w": 180.67,
+          "h": 62.0,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_poster_grid_spec",
+          "eu_id": "eu_L3_poster_grid_overlay",
+          "label": "12 栏网格参数卡 (Col 9–12)",
+          "x": 196.67,
+          "y": 306.0,
+          "w": 88.33,
+          "h": 62.0,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_poster_footer",
+          "eu_id": "eu_L1_poster_footer",
+          "label": "版权与印前页脚 (Col 1–12)",
+          "x": 12.0,
+          "y": 376.0,
+          "w": 273.0,
+          "h": 32.0,
+          "role": "nav"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_poster_header",
+      "eu_id": "eu_L1_poster_header",
+      "label": "品牌页眉 (Col 1–12)",
+      "x": 12.0,
+      "y": 14.0,
+      "w": 273.0,
+      "h": 28.0,
+      "role": "nav",
+      "segment_id": "seg_poster_full",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_poster_logo",
+      "eu_id": "eu_L3_poster_logo_lockup",
+      "label": "标志与主名锁排 (Col 1–8)",
+      "x": 12.0,
+      "y": 14.0,
+      "w": 180.67,
+      "h": 28.0,
+      "role": "nav",
+      "segment_id": "seg_poster_full",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_poster_issue",
+      "eu_id": "eu_L3_poster_issue_meta",
+      "label": "期号规格胶囊 (Col 9–12)",
+      "x": 196.67,
+      "y": 14.0,
+      "w": 88.33,
+      "h": 28.0,
+      "role": "stage",
+      "segment_id": "seg_poster_full",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_poster_headline",
+      "eu_id": "eu_L3_poster_headline",
+      "label": "主标题四级字阶区 (Col 1–7)",
+      "x": 12.0,
+      "y": 48.0,
+      "w": 157.58,
+      "h": 186.0,
+      "role": "stage",
+      "segment_id": "seg_poster_full",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_poster_graphic",
+      "eu_id": "eu_L3_poster_key_graphic",
+      "label": "68% 纯矢量几何主图 (Col 8–12)",
+      "x": 173.58,
+      "y": 48.0,
+      "w": 111.42,
+      "h": 186.0,
+      "role": "split",
+      "segment_id": "seg_poster_full",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_poster_palette",
+      "eu_id": "eu_L3_poster_palette_fold",
+      "label": "品牌色卡阵列 ×4 (Col 1–12)",
+      "x": 12.0,
+      "y": 242.0,
+      "w": 273.0,
+      "h": 58.0,
+      "role": "array",
+      "segment_id": "seg_poster_full",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_poster_specimen",
+      "eu_id": "eu_L3_poster_type_specimen",
+      "label": "Manrope 字阶标本 (Col 1–8)",
+      "x": 12.0,
+      "y": 306.0,
+      "w": 180.67,
+      "h": 62.0,
+      "role": "stage",
+      "segment_id": "seg_poster_full",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_poster_grid_spec",
+      "eu_id": "eu_L3_poster_grid_overlay",
+      "label": "12 栏网格参数卡 (Col 9–12)",
+      "x": 196.67,
+      "y": 306.0,
+      "w": 88.33,
+      "h": 62.0,
+      "role": "array",
+      "segment_id": "seg_poster_full",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_poster_footer",
+      "eu_id": "eu_L1_poster_footer",
+      "label": "版权与印前页脚 (Col 1–12)",
+      "x": 12.0,
+      "y": 376.0,
+      "w": 273.0,
+      "h": 32.0,
+      "role": "nav",
+      "segment_id": "seg_poster_full",
+      "color_role": "nav"
+    }
+  ]
+}

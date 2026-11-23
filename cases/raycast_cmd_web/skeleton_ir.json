@@ -1,0 +1,413 @@
+{
+  "case_id": "raycast_cmd_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_ry_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_ry_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_ry_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_ry_stage": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_ry_topbar": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_ry_hero_zone": {
+          "x": 12,
+          "y": 150,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_ry_array_zone": {
+          "x": 12,
+          "y": 950,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_ry_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_ry_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_ry_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_ry_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_ry_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_ry_stage": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 1120
+        },
+        "eu_L2_ry_topbar": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 92
+        },
+        "eu_L2_ry_hero_zone": {
+          "x": 18,
+          "y": 150,
+          "w": 732,
+          "h": 600
+        },
+        "eu_L2_ry_array_zone": {
+          "x": 18,
+          "y": 762,
+          "w": 732,
+          "h": 390
+        },
+        "eu_L1_ry_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_ry_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_ry_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_ry_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_ry_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_ry_stage": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 868
+        },
+        "eu_L2_ry_topbar": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 96
+        },
+        "eu_L2_ry_hero_zone": {
+          "x": 16,
+          "y": 116,
+          "w": 1408,
+          "h": 496
+        },
+        "eu_L2_ry_array_zone": {
+          "x": 16,
+          "y": 626,
+          "w": 1408,
+          "h": 258
+        },
+        "eu_L1_ry_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_ry_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "ry_cs_surf",
+      "eu_id": "eu_L3_ry_topbar",
+      "property": "color",
+      "value": "#070709",
+      "token_ref": "ry_surf_bg",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ry_cs_typo",
+      "eu_id": "eu_L3_ry_palette_hud",
+      "property": "font-size",
+      "value": "clamp(30px, 3.6vw, 48px)",
+      "token_ref": "ry_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ry_cs_lay",
+      "eu_id": "eu_L3_ry_extensions_array",
+      "property": "gap",
+      "value": "1160px",
+      "token_ref": "ry_lay_hudw",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ry_cs_mot",
+      "eu_id": "eu_L3_ry_topbar",
+      "property": "transition-duration",
+      "value": "140ms",
+      "token_ref": "ry_mot_key",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "ry_el_skip",
+      "eu_id": "eu_L3_ry_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ry_el_top",
+      "eu_id": "eu_L3_ry_topbar",
+      "role": "tab",
+      "accessible_name": "Raycast 全宽顶栏与 Quicklinks/Commands 切换",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ry_el_hero",
+      "eu_id": "eu_L3_ry_palette_hud",
+      "role": "button",
+      "accessible_name": "粒子星空背景 + Clipboard 命令面板 + 发光虚拟键阵",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ry_el_arr",
+      "eu_id": "eu_L3_ry_extensions_array",
+      "role": "button",
+      "accessible_name": "Productivity / Engineering / Design / Writing 扩展与导出 ×4",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ry_el_dlg",
+      "eu_id": "eu_L3_ry_shortcut_dialog",
+      "role": "dialog",
+      "accessible_name": "自定义全局热键绑定弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "ry_cn_bg",
+      "eu_id": "eu_L0_ry_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "ry_cn_hero",
+      "eu_id": "eu_L3_ry_palette_hud",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "raycast.commands.shortcuts",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "ry_cn_arr",
+      "eu_id": "eu_L3_ry_extensions_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "raycast.commands.shortcuts.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Raycast · 命令面板与全键盘快捷键矩阵骨架",
+      "frame_url": "/cases/raycast_cmd_web/frames/ref_ry_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_ry_topbar",
+        "eu_L3_ry_palette_hud",
+        "eu_L3_ry_extensions_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ry_top",
+          "eu_id": "eu_L3_ry_topbar",
+          "label": "Raycast 顶栏与模式入口",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 72,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_ry_hero",
+          "eu_id": "eu_L3_ry_palette_hud",
+          "label": "Clipboard 命令面板 + 发光全键盘矩阵",
+          "x": 16,
+          "y": 100,
+          "w": 1408,
+          "h": 510,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_ry_arr",
+          "eu_id": "eu_L3_ry_extensions_array",
+          "label": "Raycast 扩展分类阵列 ×4 + CSV 导出",
+          "x": 16,
+          "y": 626,
+          "w": 1408,
+          "h": 258,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_ry_top",
+      "eu_id": "eu_L3_ry_topbar",
+      "label": "Raycast 顶栏与模式入口",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 72,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_ry_hero",
+      "eu_id": "eu_L3_ry_palette_hud",
+      "label": "Clipboard 命令面板 + 发光全键盘矩阵",
+      "x": 16,
+      "y": 100,
+      "w": 1408,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ry_arr",
+      "eu_id": "eu_L3_ry_extensions_array",
+      "label": "Raycast 扩展分类阵列 ×4 + CSV 导出",
+      "x": 16,
+      "y": 626,
+      "w": 1408,
+      "h": 258,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

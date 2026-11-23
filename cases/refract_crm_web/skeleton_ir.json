@@ -1,0 +1,652 @@
+{
+  "case_id": "refract_crm_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_rf_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_rf_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_rf_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_rf_nav": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 62
+        },
+        "eu_L2_rf_nav_rail": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 62
+        },
+        "eu_L1_rf_stage": {
+          "x": 12,
+          "y": 116,
+          "w": 366,
+          "h": 1540
+        },
+        "eu_L2_rf_topbar": {
+          "x": 12,
+          "y": 116,
+          "w": 366,
+          "h": 120
+        },
+        "eu_L2_rf_kpi_strip": {
+          "x": 12,
+          "y": 244,
+          "w": 366,
+          "h": 420
+        },
+        "eu_L2_rf_center_grid": {
+          "x": 12,
+          "y": 676,
+          "w": 366,
+          "h": 680
+        },
+        "eu_L2_rf_bottom_strip": {
+          "x": 12,
+          "y": 1368,
+          "w": 366,
+          "h": 260
+        },
+        "eu_L1_rf_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_rf_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_rf_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_rf_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_rf_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_rf_nav": {
+          "x": 18,
+          "y": 48,
+          "w": 200,
+          "h": 1120
+        },
+        "eu_L2_rf_nav_rail": {
+          "x": 18,
+          "y": 48,
+          "w": 200,
+          "h": 1120
+        },
+        "eu_L1_rf_stage": {
+          "x": 234,
+          "y": 48,
+          "w": 516,
+          "h": 1120
+        },
+        "eu_L2_rf_topbar": {
+          "x": 234,
+          "y": 48,
+          "w": 516,
+          "h": 86
+        },
+        "eu_L2_rf_kpi_strip": {
+          "x": 234,
+          "y": 144,
+          "w": 516,
+          "h": 260
+        },
+        "eu_L2_rf_center_grid": {
+          "x": 234,
+          "y": 416,
+          "w": 516,
+          "h": 540
+        },
+        "eu_L2_rf_bottom_strip": {
+          "x": 234,
+          "y": 968,
+          "w": 516,
+          "h": 190
+        },
+        "eu_L1_rf_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_rf_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_rf_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_rf_intro": {
+          "x": 20,
+          "y": 8,
+          "w": 1400,
+          "h": 34
+        },
+        "eu_L2_rf_intro_bar": {
+          "x": 20,
+          "y": 8,
+          "w": 1400,
+          "h": 34
+        },
+        "eu_L1_rf_nav": {
+          "x": 20,
+          "y": 14,
+          "w": 290,
+          "h": 872
+        },
+        "eu_L2_rf_nav_rail": {
+          "x": 20,
+          "y": 14,
+          "w": 290,
+          "h": 872
+        },
+        "eu_L1_rf_stage": {
+          "x": 330,
+          "y": 14,
+          "w": 1090,
+          "h": 872
+        },
+        "eu_L2_rf_topbar": {
+          "x": 330,
+          "y": 14,
+          "w": 1090,
+          "h": 84
+        },
+        "eu_L2_rf_kpi_strip": {
+          "x": 330,
+          "y": 108,
+          "w": 1090,
+          "h": 200
+        },
+        "eu_L2_rf_center_grid": {
+          "x": 330,
+          "y": 322,
+          "w": 1090,
+          "h": 444
+        },
+        "eu_L2_rf_bottom_strip": {
+          "x": 330,
+          "y": 778,
+          "w": 1090,
+          "h": 108
+        },
+        "eu_L1_rf_overlay": {
+          "x": 420,
+          "y": 160,
+          "w": 580,
+          "h": 420
+        },
+        "eu_L2_rf_dialog_host": {
+          "x": 420,
+          "y": 160,
+          "w": 580,
+          "h": 420
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "rf_cs_ink",
+      "eu_id": "eu_L3_rf_header_search",
+      "property": "color",
+      "value": "#f7f3ef",
+      "token_ref": "rf_surf_ink",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_glass",
+      "eu_id": "eu_L3_rf_sidebar_dock",
+      "property": "background-color",
+      "value": "rgba(38,31,27,0.68)",
+      "token_ref": "rf_surf_glass_panel",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_card",
+      "eu_id": "eu_L3_rf_kpi_array",
+      "property": "background-color",
+      "value": "rgba(44,36,32,0.58)",
+      "token_ref": "rf_surf_glass_card",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_coral",
+      "eu_id": "eu_L3_rf_kpi_array",
+      "property": "color",
+      "value": "#ff6b3d",
+      "token_ref": "rf_surf_coral",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_em",
+      "eu_id": "eu_L3_rf_kpi_array",
+      "property": "color",
+      "value": "#34d399",
+      "token_ref": "rf_surf_emerald",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_h1",
+      "eu_id": "eu_L3_rf_header_search",
+      "property": "font-size",
+      "value": "34px",
+      "token_ref": "rf_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_met",
+      "eu_id": "eu_L3_rf_revenue_chart",
+      "property": "font-size",
+      "value": "38px",
+      "token_ref": "rf_typo_metric",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_rad",
+      "eu_id": "eu_L3_rf_kpi_array",
+      "property": "border-radius",
+      "value": "24px",
+      "token_ref": "rf_lay_radius",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_gap",
+      "eu_id": "eu_L3_rf_revenue_chart",
+      "property": "gap",
+      "value": "16px",
+      "token_ref": "rf_lay_gap",
+      "delta_e": 0.0
+    },
+    {
+      "id": "rf_cs_dur",
+      "eu_id": "eu_L3_rf_sidebar_dock",
+      "property": "transition-duration",
+      "value": "420ms",
+      "token_ref": "rf_mot_dock",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "rf_el_skip",
+      "eu_id": "eu_L3_rf_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip intro",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rf_el_nav",
+      "eu_id": "eu_L3_rf_sidebar_dock",
+      "role": "link",
+      "accessible_name": "Overview / Pipeline navigation",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rf_el_cmd",
+      "eu_id": "eu_L3_rf_header_search",
+      "role": "button",
+      "accessible_name": "Search or jump to",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rf_el_range",
+      "eu_id": "eu_L3_rf_revenue_chart",
+      "role": "button",
+      "accessible_name": "Revenue range filter and export",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rf_el_dial",
+      "eu_id": "eu_L3_rf_call_desk",
+      "role": "button",
+      "accessible_name": "Call desk dialer",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "rf_el_dialog",
+      "eu_id": "eu_L3_rf_cmd_dialog",
+      "role": "dialog",
+      "accessible_name": "Command palette and new deal dialog",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "rf_cn_backdrop",
+      "eu_id": "eu_L0_rf_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "rf_cn_kpi",
+      "eu_id": "eu_L3_rf_kpi_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "refract.crm.kpis",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "rf_cn_rev",
+      "eu_id": "eu_L3_rf_revenue_chart",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "refract.crm.revenue_series",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "rf_cn_calls",
+      "eu_id": "eu_L3_rf_call_desk",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "refract.crm.call_queue",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 液态折射 CRM 全盘骨架",
+      "frame_url": "/cases/refract_crm_web/frames/ref_refract_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_rf_sidebar_dock",
+        "eu_L3_rf_quota_profile",
+        "eu_L3_rf_header_search",
+        "eu_L3_rf_kpi_array",
+        "eu_L3_rf_revenue_chart",
+        "eu_L3_rf_call_desk",
+        "eu_L3_rf_hot_deals",
+        "eu_L3_rf_today_tasks"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_rf_nav",
+          "eu_id": "eu_L3_rf_sidebar_dock",
+          "label": "液态折射侧栏 · Refract CRM",
+          "x": 20,
+          "y": 14,
+          "w": 290,
+          "h": 740,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_rf_quota",
+          "eu_id": "eu_L3_rf_quota_profile",
+          "label": "Q4 配额进度 92% · 个人卡",
+          "x": 20,
+          "y": 758,
+          "w": 290,
+          "h": 128,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_rf_header",
+          "eu_id": "eu_L3_rf_header_search",
+          "label": "Leah 问候 · ⌘K 命令检索 · +New deal",
+          "x": 330,
+          "y": 14,
+          "w": 1090,
+          "h": 84,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_rf_kpi",
+          "eu_id": "eu_L3_rf_kpi_array",
+          "label": "CRM 四维 KPI + 36% Win rate 阵列 ×4",
+          "x": 330,
+          "y": 108,
+          "w": 1090,
+          "h": 200,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_rf_rev",
+          "eu_id": "eu_L3_rf_revenue_chart",
+          "label": "Revenue $3.62M 面积对比 (7D/30D/12M)",
+          "x": 330,
+          "y": 322,
+          "w": 686,
+          "h": 444,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_rf_dialer",
+          "eu_id": "eu_L3_rf_call_desk",
+          "label": "Sofia Brandt 联系卡 & 交互拨号台",
+          "x": 1032,
+          "y": 322,
+          "w": 388,
+          "h": 444,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_rf_deals",
+          "eu_id": "eu_L3_rf_hot_deals",
+          "label": "Hot deals · Pipeline 跳转",
+          "x": 330,
+          "y": 778,
+          "w": 594,
+          "h": 108,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_rf_today",
+          "eu_id": "eu_L3_rf_today_tasks",
+          "label": "Today 环形待办 (1 of 6 done)",
+          "x": 940,
+          "y": 778,
+          "w": 480,
+          "h": 108,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_rf_nav",
+      "eu_id": "eu_L3_rf_sidebar_dock",
+      "label": "液态折射侧栏 · Refract CRM",
+      "x": 20,
+      "y": 14,
+      "w": 290,
+      "h": 740,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_rf_quota",
+      "eu_id": "eu_L3_rf_quota_profile",
+      "label": "Q4 配额进度 92% · 个人卡",
+      "x": 20,
+      "y": 758,
+      "w": 290,
+      "h": 128,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_rf_header",
+      "eu_id": "eu_L3_rf_header_search",
+      "label": "Leah 问候 · ⌘K 命令检索 · +New deal",
+      "x": 330,
+      "y": 14,
+      "w": 1090,
+      "h": 84,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_rf_kpi",
+      "eu_id": "eu_L3_rf_kpi_array",
+      "label": "CRM 四维 KPI + 36% Win rate 阵列 ×4",
+      "x": 330,
+      "y": 108,
+      "w": 1090,
+      "h": 200,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_rf_rev",
+      "eu_id": "eu_L3_rf_revenue_chart",
+      "label": "Revenue $3.62M 面积对比 (7D/30D/12M)",
+      "x": 330,
+      "y": 322,
+      "w": 686,
+      "h": 444,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_rf_dialer",
+      "eu_id": "eu_L3_rf_call_desk",
+      "label": "Sofia Brandt 联系卡 & 交互拨号台",
+      "x": 1032,
+      "y": 322,
+      "w": 388,
+      "h": 444,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_rf_deals",
+      "eu_id": "eu_L3_rf_hot_deals",
+      "label": "Hot deals · Pipeline 跳转",
+      "x": 330,
+      "y": 778,
+      "w": 594,
+      "h": 108,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_rf_today",
+      "eu_id": "eu_L3_rf_today_tasks",
+      "label": "Today 环形待办 (1 of 6 done)",
+      "x": 940,
+      "y": 778,
+      "w": 480,
+      "h": 108,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

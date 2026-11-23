@@ -1,0 +1,484 @@
+{
+  "case_id": "amie_collab_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_am_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_am_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_am_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_am_stage": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_am_topbar": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_am_hero_zone": {
+          "x": 12,
+          "y": 218,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_am_array_zone": {
+          "x": 12,
+          "y": 1012,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_am_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_am_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L1_am_nav": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        },
+        "eu_L2_am_nav_rail": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_am_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_am_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_am_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_am_stage": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 1120
+        },
+        "eu_L2_am_topbar": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 92
+        },
+        "eu_L2_am_hero_zone": {
+          "x": 114,
+          "y": 150,
+          "w": 636,
+          "h": 600
+        },
+        "eu_L2_am_array_zone": {
+          "x": 114,
+          "y": 762,
+          "w": 636,
+          "h": 390
+        },
+        "eu_L1_am_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_am_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L1_am_nav": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        },
+        "eu_L2_am_nav_rail": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_am_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_am_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_am_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_am_stage": {
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 868
+        },
+        "eu_L2_am_topbar": {
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 96
+        },
+        "eu_L2_am_hero_zone": {
+          "x": 108,
+          "y": 116,
+          "w": 1312,
+          "h": 496
+        },
+        "eu_L2_am_array_zone": {
+          "x": 108,
+          "y": 626,
+          "w": 1312,
+          "h": 258
+        },
+        "eu_L1_am_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_am_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L1_am_nav": {
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868
+        },
+        "eu_L2_am_nav_rail": {
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "am_cs_surf",
+      "eu_id": "eu_L3_am_topbar",
+      "property": "color",
+      "value": "#fcfcfd",
+      "token_ref": "am_surf_paper",
+      "delta_e": 0.0
+    },
+    {
+      "id": "am_cs_typo",
+      "eu_id": "eu_L3_am_notes_stage",
+      "property": "font-size",
+      "value": "clamp(28px, 3vw, 40px)",
+      "token_ref": "am_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "am_cs_lay",
+      "eu_id": "eu_L3_am_schedule_array",
+      "property": "gap",
+      "value": "76px",
+      "token_ref": "am_lay_rail",
+      "delta_e": 0.0
+    },
+    {
+      "id": "am_cs_mot",
+      "eu_id": "eu_L3_am_rail_dock",
+      "property": "transition-duration",
+      "value": "240ms",
+      "token_ref": "am_mot_pill",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "am_el_skip",
+      "eu_id": "eu_L3_am_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "am_el_rail",
+      "eu_id": "eu_L3_am_rail_dock",
+      "role": "link",
+      "accessible_name": "左侧轻量日程导轨 (邻近放大)",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "am_el_top",
+      "eu_id": "eu_L3_am_topbar",
+      "role": "tab",
+      "accessible_name": "Amie 顶部导航与 Notes/Planner 切页条",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "am_el_hero",
+      "eu_id": "eu_L3_am_notes_stage",
+      "role": "button",
+      "accessible_name": "47s 会议纪要逐句标亮 + 悬浮 Ask Amie 弹性胶囊",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "am_el_arr",
+      "eu_id": "eu_L3_am_schedule_array",
+      "role": "button",
+      "accessible_name": "周日程排班矩阵 + 7 天上手阶段与导出 ×4",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "am_el_dlg",
+      "eu_id": "eu_L3_am_event_dialog",
+      "role": "dialog",
+      "accessible_name": "Ask Amie 会议日程快速新建弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "am_cn_bg",
+      "eu_id": "eu_L0_am_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "am_cn_hero",
+      "eu_id": "eu_L3_am_notes_stage",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "amie.notes.schedule",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "am_cn_arr",
+      "eu_id": "eu_L3_am_schedule_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "amie.notes.schedule.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Amie · 明快 AI 会议纪要与协作日程骨架",
+      "frame_url": "/cases/amie_collab_web/frames/ref_am_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_am_rail_dock",
+        "eu_L3_am_topbar",
+        "eu_L3_am_notes_stage",
+        "eu_L3_am_schedule_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_am_nav",
+          "eu_id": "eu_L3_am_rail_dock",
+          "label": "轻量日程导轨 (邻近放大)",
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_am_top",
+          "eu_id": "eu_L3_am_topbar",
+          "label": "Amie 顶栏与 Week 模式切换",
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 82,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_am_hero",
+          "eu_id": "eu_L3_am_notes_stage",
+          "label": "47s 会议纪要高亮 + Ask Amie 胶囊",
+          "x": 108,
+          "y": 114,
+          "w": 1312,
+          "h": 496,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_am_arr",
+          "eu_id": "eu_L3_am_schedule_array",
+          "label": "周日程矩阵 & 7-Day Card ×4 + CSV",
+          "x": 108,
+          "y": 626,
+          "w": 1312,
+          "h": 258,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_am_nav",
+      "eu_id": "eu_L3_am_rail_dock",
+      "label": "轻量日程导轨 (邻近放大)",
+      "x": 16,
+      "y": 16,
+      "w": 76,
+      "h": 868,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_am_top",
+      "eu_id": "eu_L3_am_topbar",
+      "label": "Amie 顶栏与 Week 模式切换",
+      "x": 108,
+      "y": 16,
+      "w": 1312,
+      "h": 82,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_am_hero",
+      "eu_id": "eu_L3_am_notes_stage",
+      "label": "47s 会议纪要高亮 + Ask Amie 胶囊",
+      "x": 108,
+      "y": 114,
+      "w": 1312,
+      "h": 496,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_am_arr",
+      "eu_id": "eu_L3_am_schedule_array",
+      "label": "周日程矩阵 & 7-Day Card ×4 + CSV",
+      "x": 108,
+      "y": 626,
+      "w": 1312,
+      "h": 258,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

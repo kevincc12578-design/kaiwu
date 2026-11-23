@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code XR · 品牌视觉发布展板（ISO A3）</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <style>
+    @font-face {
+      font-family: Manrope;
+      src: url('assets/manrope-latin.woff2') format('woff2');
+      font-weight: 400 800;
+      font-display: swap;
+    }
+    :root {
+      --poster-paper: #fff6ef;
+      --poster-ink: #221611;
+      --poster-muted: #5b3e32;
+      --poster-coral: #e9644e;
+      --poster-brick: #b94130;
+      --poster-rose: #a46755;
+      --poster-green: #cfe4cd;
+      --poster-font-display: 52px;
+      --poster-font-headline: 26px;
+      --poster-font-body: 14px;
+      --poster-font-caption: 11px;
+      --poster-space-unit: 16px;
+      --poster-grid-gap: 12px;
+      --poster-safe-pad: 32px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background: radial-gradient(ellipse at 20% 10%, #4b3429 0%, #2a1d17 58%, #1c1310 100%);
+      color: var(--poster-ink);
+      font-family: Manrope, "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", "Segoe UI Variable", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 16px 28px;
+      overflow-x: hidden;
+    }
+    .prepress-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 246, 239, 0.12);
+      border: 1px solid rgba(255, 246, 239, 0.22);
+      backdrop-filter: blur(14px);
+      color: #fff6ef;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .prepress-bar .spec-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34, 22, 17, 0.55);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.03em;
+    }
+    .prepress-btn {
+      border: 1px solid rgba(255, 246, 239, 0.28);
+      background: rgba(255, 246, 239, 0.1);
+      color: #fff6ef;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font: inherit;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .prepress-btn[aria-pressed="true"] {
+      background: var(--poster-coral);
+      border-color: #ff9d89;
+      color: #fff9f4;
+    }
+    .sheet-bleed-wrap {
+      position: relative;
+      width: min(100%, 760px);
+      aspect-ratio: 297 / 420;
+      padding: 1.01%;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(233, 100, 78, 0.16) 0 6px,
+        rgba(255, 246, 239, 0.06) 6px 12px
+      );
+      border: 1px dashed rgba(255, 180, 162, 0.45);
+      box-shadow: 0 28px 72px rgba(10, 6, 4, 0.58);
+      transition: border-color 0.2s;
+    }
+    .sheet-bleed-wrap.hide-bleed {
+      padding: 0;
+      border-color: transparent;
+      background: transparent;
+    }
+    .poster-canvas {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 86% 24%, rgba(233, 100, 78, 0.14), transparent 44%),
+        radial-gradient(circle at 12% 76%, rgba(164, 103, 85, 0.13), transparent 48%),
+        var(--poster-paper);
+      color: var(--poster-ink);
+      padding: 4.71% 4.04%;
+      display: grid;
+      grid-template-rows: auto 1fr auto auto;
+      gap: var(--poster-space-unit);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    /* Safe Margin & Crop Marks */
+    .bleed-guides {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 6;
+      transition: opacity 0.2s;
+    }
+    .hide-bleed .bleed-guides { opacity: 0; }
+    .safe-box {
+      position: absolute;
+      inset: 2.86% 4.04%;
+      border: 1px dashed rgba(185, 65, 48, 0.48);
+    }
+    .safe-label {
+      position: absolute;
+      top: 6px;
+      right: 4.2%;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--poster-brick);
+      background: rgba(255, 246, 239, 0.9);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    /* 12-Column Swiss Grid Overlay */
+    .swiss-grid-overlay {
+      position: absolute;
+      inset: 2.86% 4.04%;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1.465%;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .show-grid .swiss-grid-overlay { opacity: 1; }
+    .swiss-grid-overlay > i {
+      display: block;
+      height: 100%;
+      background: rgba(233, 100, 78, 0.09);
+      border-inline: 1px solid rgba(233, 100, 78, 0.24);
+    }
+
+    /* Territory 1: Header Brand */
+    .poster-header {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--poster-grid-gap);
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--poster-ink);
+      position: relative;
+      z-index: 2;
+    }
+    .logo-lockup {
+      grid-column: span 8;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--poster-ink);
+      display: grid;
+      place-items: center;
+      padding: 7px;
+    }
+    .logo-mark img { width: 100%; height: 100%; filter: brightness(1.15); }
+    .logo-titles strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+    .logo-titles span {
+      display: block;
+      font-size: var(--poster-font-caption);
+      color: var(--poster-muted);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .issue-meta {
+      grid-column: span 4;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .issue-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--poster-ink);
+      color: var(--poster-paper);
+      font-size: var(--poster-font-caption);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+    .issue-sub {
+      margin-top: 4px;
+      font-size: var(--poster-font-caption);
+      color: var(--poster-muted);
+      font-weight: 700;
+    }
+
+    /* Territory 2: Hero Key Visual */
+    .poster-hero {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--poster-grid-gap);
+      align-items: stretch;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-headline-col {
+      grid-column: span 7;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-right: 6px;
+    }
+    .kicker {
+      font-size: var(--poster-font-caption);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--poster-brick);
+      margin-bottom: 10px;
+    }
+    .display-title {
+      margin: 0;
+      font-size: min(44px, clamp(28px, 4.3vw, var(--poster-font-display)));
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+      color: var(--poster-ink);
+    }
+    .display-title em {
+      font-family: inherit;
+      font-weight: 800;
+      color: var(--poster-brick);
+      font-style: normal;
+      white-space: nowrap;
+    }
+    .hero-lead {
+      margin: 16px 0 0;
+      font-size: var(--poster-font-body);
+      line-height: 1.58;
+      color: var(--poster-muted);
+      font-weight: 600;
+      max-width: 38ch;
+    }
+    .hero-kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(34, 22, 17, 0.18);
+    }
+    .hero-kpi-strip strong {
+      display: block;
+      font-size: var(--poster-font-headline);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+      color: var(--poster-ink);
+    }
+    .hero-kpi-strip span {
+      font-size: var(--poster-font-caption);
+      color: var(--poster-muted);
+      font-weight: 700;
+    }
+    .hero-graphic-col {
+      grid-column: span 5;
+      border-radius: 22px;
+      background: linear-gradient(152deg, var(--poster-coral) 0%, var(--poster-brick) 100%);
+      padding: 18px;
+      color: #fff9f3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+    .glass-planes {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--poster-font-caption);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 246, 239, 0.18);
+      border: 1px solid rgba(255, 246, 239, 0.36);
+    }
+    .vector-orbit-svg {
+      width: 100%;
+      height: auto;
+      max-height: 230px;
+      margin: auto;
+      display: block;
+    }
+    .graphic-caption {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--poster-font-caption);
+      font-weight: 700;
+      color: #ffece3;
+      border-top: 1px solid rgba(255, 246, 239, 0.26);
+      padding-top: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Territory 3: Spec Grid */
+    .poster-spec-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--poster-grid-gap);
+      padding-top: 14px;
+      border-top: 1.5px solid var(--poster-ink);
+      position: relative;
+      z-index: 2;
+    }
+    .palette-array {
+      grid-column: span 12;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .swatch-card {
+      border: 1px solid rgba(34, 22, 17, 0.16);
+      border-radius: 14px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.56);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .swatch-chip {
+      height: 36px;
+      border-radius: 9px;
+      border: 1px solid rgba(34, 22, 17, 0.12);
+    }
+    .swatch-meta strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .swatch-meta code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: var(--poster-font-caption);
+      color: var(--poster-muted);
+      font-weight: 700;
+    }
+    .type-specimen {
+      grid-column: span 8;
+      border: 1px solid rgba(34, 22, 17, 0.16);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.48);
+    }
+    .specimen-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--poster-font-caption);
+      font-weight: 800;
+      color: var(--poster-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .specimen-scale {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .specimen-scale .s-h2 { font-size: var(--poster-font-headline); font-weight: 800; letter-spacing: -0.03em; }
+    .specimen-scale .s-body { font-size: var(--poster-font-body); font-weight: 600; color: var(--poster-muted); }
+    .specimen-scale .s-cap { font-size: var(--poster-font-caption); font-weight: 700; color: var(--poster-brick); }
+    .grid-spec-box {
+      grid-column: span 4;
+      border: 1px solid rgba(34, 22, 17, 0.16);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: var(--poster-green);
+      color: var(--poster-ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .grid-spec-box strong {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .grid-spec-box p {
+      margin: 4px 0 0;
+      font-size: var(--poster-font-caption);
+      font-weight: 700;
+      line-height: 1.45;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Territory 4: Footer Colophon */
+    .poster-footer {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--poster-grid-gap);
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid rgba(34, 22, 17, 0.24);
+      font-size: var(--poster-font-caption);
+      color: var(--poster-muted);
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-credits { grid-column: span 6; }
+    .footer-imprint { grid-column: span 6; text-align: right; font-variant-numeric: tabular-nums; }
+
+    [data-kaiwu-active="true"] {
+      outline: 2.5px solid #ff5733 !important;
+      outline-offset: 3px !important;
+      box-shadow: 0 0 0 6px rgba(255, 87, 51, 0.2) !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.001s !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="prepress-bar" role="toolbar" aria-label="展板印前检查控制栏">
+    <span class="spec-tag">ISO 216 A3 · 297×420mm</span>
+    <button type="button" class="prepress-btn" id="btn-grid" aria-pressed="true">12 列瑞士网格</button>
+    <button type="button" class="prepress-btn" id="btn-bleed" aria-pressed="true">3mm 出血与安全框</button>
+  </div>
+
+  <div class="sheet-bleed-wrap" id="bleed-wrap">
+    <article class="poster-canvas show-grid" id="poster-root" data-eu-id="eu_L0_codexr_poster" aria-label="Code XR 品牌视觉发布展板">
+      <div class="bleed-guides" data-eu-id="eu_L4_poster_bleed_crop" aria-hidden="true">
+        <div class="safe-box"></div>
+        <span class="safe-label">出血 3MM · 安全边距 12MM</span>
+      </div>
+      <div class="swiss-grid-overlay" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+
+      <!-- L1: header_brand -->
+      <header class="poster-header" data-eu-id="eu_L1_poster_header">
+        <div class="logo-lockup" data-eu-id="eu_L3_poster_logo_lockup">
+          <span class="logo-mark"><img src="assets/mark.svg" alt="Code XR 标志"></span>
+          <div class="logo-titles">
+            <strong>CODE XR · 折光玻璃工作台</strong>
+            <span>品牌视觉架构专刊</span>
+          </div>
+        </div>
+        <div class="issue-meta" data-eu-id="eu_L3_poster_issue_meta">
+          <span class="issue-pill">版本 R21 · V3.4</span>
+          <div class="issue-sub">2026年11月 · 第 01/01 页</div>
+        </div>
+      </header>
+
+      <!-- L1: hero_key_visual -->
+      <section class="poster-hero" data-eu-id="eu_L1_poster_hero">
+        <div class="hero-headline-col" data-eu-id="eu_L3_poster_headline">
+          <div>
+            <div class="kicker">折光工作室视觉体系</div>
+            <h1 class="display-title" data-eu-id="eu_L4_poster_type_hierarchy">在通透光影中，<br>让团队<em>全速推进</em>。</h1>
+            <p class="hero-lead">将胡桃木暖调景深、豆沙折光玻璃与珊瑚橙冲刺遥测，统一于严密的十二栏瑞士排版比例之中。</p>
+          </div>
+          <div class="hero-kpi-strip">
+            <div><strong>68%</strong><span>冲刺已交付</span></div>
+            <div><strong>$236.8K</strong><span>渠道营收峰值</span></div>
+            <div><strong>99.96%</strong><span>系统可用率</span></div>
+          </div>
+        </div>
+
+        <div class="hero-graphic-col" data-eu-id="eu_L3_poster_key_graphic">
+          <div class="glass-planes" data-eu-id="eu_L4_poster_glass_planes">
+            <span>轨道矢量几何</span>
+            <span>半径 79 · 6 节点</span>
+          </div>
+          <svg class="vector-orbit-svg" data-eu-id="eu_L4_poster_orbit_geometry" viewBox="0 0 220 220" role="img" aria-label="68% 冲刺进度矢量几何图">
+            <defs>
+              <linearGradient id="glassPlate" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fff6ef" stop-opacity="0.34"/>
+                <stop offset="100%" stop-color="#fff6ef" stop-opacity="0.08"/>
+              </linearGradient>
+            </defs>
+            <rect x="22" y="22" width="176" height="176" rx="34" fill="url(#glassPlate)" stroke="#fff6ef" stroke-opacity="0.42"/>
+            <circle cx="110" cy="110" r="72" fill="none" stroke="#ffd8c7" stroke-opacity="0.35" stroke-width="12"/>
+            <circle cx="110" cy="110" r="72" fill="none" stroke="#fffaf4" stroke-width="12" stroke-linecap="round" pathLength="100" stroke-dasharray="68 100" transform="rotate(-90 110 110)"/>
+            <circle cx="68" cy="48" r="7" fill="#fff6ef"/>
+            <circle cx="152" cy="48" r="7" fill="#fff6ef"/>
+            <circle cx="182" cy="108" r="7" fill="#fff6ef"/>
+            <circle cx="154" cy="168" r="7" fill="#cfe4cd"/>
+            <circle cx="70" cy="170" r="7" fill="#fff6ef"/>
+            <circle cx="38" cy="112" r="7" fill="#221611" stroke="#fff6ef" stroke-width="2"/>
+            <text x="110" y="114" text-anchor="middle" fill="#fffaf4" font-family="Manrope, sans-serif" font-size="34" font-weight="800">68%</text>
+            <text x="110" y="133" text-anchor="middle" fill="#ffe6da" font-family="Manrope, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="10" font-weight="700" letter-spacing="1.5">第 24 期冲刺</text>
+          </svg>
+          <div class="graphic-caption">
+            <span>纯 SVG 矢量几何</span>
+            <span>比例 1 : 1.414</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- L1: spec_grid -->
+      <section class="poster-spec-grid" data-eu-id="eu_L1_poster_spec_grid">
+        <div class="palette-array" data-eu-id="eu_L3_poster_palette_fold">
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#221611"></div>
+            <div class="swatch-meta"><strong>胡桃墨棕</strong><code>#221611 · 15.8:1</code></div>
+          </div>
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#fff6ef"></div>
+            <div class="swatch-meta"><strong>暖象牙纸</strong><code>#FFF6EF · 纸基</code></div>
+          </div>
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#e9644e"></div>
+            <div class="swatch-meta"><strong>工作室珊瑚</strong><code>#E9644E · 强调</code></div>
+          </div>
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#a46755"></div>
+            <div class="swatch-meta"><strong>豆沙折光玻璃</strong><code>#A46755 · 侧栏</code></div>
+          </div>
+        </div>
+
+        <div class="type-specimen" data-eu-id="eu_L3_poster_type_specimen">
+          <div class="specimen-head">
+            <span>MANROPE + 中文宋体字阶</span>
+            <span>字阶 52 / 26 / 14 / 11 PX</span>
+          </div>
+          <div class="specimen-scale">
+            <span class="s-h2">Aa 楷筑 0123</span>
+            <span class="s-body">等宽对齐数字 · 对比度 &ge; 7.8:1</span>
+            <span class="s-cap">矢量活文字</span>
+          </div>
+        </div>
+
+        <div class="grid-spec-box" data-eu-id="eu_L3_poster_grid_overlay">
+          <strong>12 栏瑞士网格</strong>
+          <p>297&times;420mm &middot; 页边距 12mm<br>栏宽 19.08mm &middot; 栏槽 4mm</p>
+        </div>
+      </section>
+
+      <!-- L1: footer_colophon -->
+      <footer class="poster-footer" data-eu-id="eu_L1_poster_footer">
+        <div class="footer-credits" data-eu-id="eu_L3_poster_credits">
+          CODE XR 创意工作室 &middot; 设计系统发布展板
+        </div>
+        <div class="footer-imprint" data-eu-id="eu_L3_poster_imprint">
+          开物 V3.4 平面领域 &middot; 零栅格化文字
+        </div>
+      </footer>
+    </article>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+      const root = document.getElementById('poster-root');
+      const bleedWrap = document.getElementById('bleed-wrap');
+      const btnGrid = document.getElementById('btn-grid');
+      const btnBleed = document.getElementById('btn-bleed');
+
+      function setGrid(on) {
+        root.classList.toggle('show-grid', on);
+        btnGrid.setAttribute('aria-pressed', String(on));
+      }
+      function setBleed(on) {
+        bleedWrap.classList.toggle('hide-bleed', !on);
+        btnBleed.setAttribute('aria-pressed', String(on));
+      }
+      btnGrid.addEventListener('click', () => setGrid(!root.classList.contains('show-grid')));
+      btnBleed.addEventListener('click', () => setBleed(bleedWrap.classList.contains('hide-bleed')));
+
+      const aliasMap = {
+        eu_L2_poster_logo_region: 'eu_L3_poster_logo_lockup',
+        eu_L2_poster_issue_region: 'eu_L3_poster_issue_meta',
+        eu_L2_poster_headline_region: 'eu_L3_poster_headline',
+        eu_L2_poster_graphic_region: 'eu_L3_poster_key_graphic',
+        eu_L2_poster_palette_region: 'eu_L3_poster_palette_fold',
+        eu_L4_poster_swatch_array: 'eu_L3_poster_palette_fold',
+        eu_L2_poster_specimen_region: 'eu_L3_poster_type_specimen',
+        eu_L2_poster_grid_region: 'eu_L3_poster_grid_overlay',
+        eu_L4_poster_swiss_grid: 'eu_L3_poster_grid_overlay',
+        eu_L2_poster_credits_region: 'eu_L3_poster_credits',
+        eu_L2_poster_imprint_region: 'eu_L3_poster_imprint'
+      };
+
+      function clearActive() {
+        document.querySelectorAll('[data-kaiwu-active]').forEach(el => el.removeAttribute('data-kaiwu-active'));
+      }
+
+      window.addEventListener('message', (ev) => {
+        const msg = ev.data;
+        if (!msg || typeof msg !== 'object') return;
+        if (msg.type === 'KAIWU_HIGHLIGHT_EU') {
+          clearActive();
+          const raw = msg.eu_id;
+          if (!raw) return;
+          if (raw.includes('grid')) setGrid(true);
+          if (raw.includes('bleed')) setBleed(true);
+          const resolved = aliasMap[raw] || msg.fallback_eu_id || raw;
+          const el = document.querySelector(`[data-eu-id="${raw}"]`)
+            || document.querySelector(`[data-eu-id="${resolved}"]`)
+            || root;
+          el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          el.setAttribute('data-kaiwu-active', 'true');
+        } else if (msg.type === 'KAIWU_PREVIEW_ACTION') {
+          clearActive();
+          if (msg.action === 'toggle_grid') setGrid(!root.classList.contains('show-grid'));
+          else if (msg.action === 'toggle_bleed') setBleed(bleedWrap.classList.contains('hide-bleed'));
+          else { setGrid(true); setBleed(true); }
+        }
+      });
+
+      document.addEventListener('click', (ev) => {
+        if (window.parent === window) return;
+        const target = ev.target.closest('[data-eu-id]');
+        if (!target) return;
+        const euId = target.getAttribute('data-eu-id');
+        if (euId) {
+          window.parent.postMessage({ type: 'KAIWU_SELECT_EU', eu_id: euId, case_id: 'code_xr_poster' }, '*');
+        }
+      }, true);
+    })();
+  </script>
+</body>
+</html>

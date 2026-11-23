@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nothing OS — Dot-Matrix Control HUD</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="nd-body">
+  <div id="viewport" class="nd-shell" data-page="glyph" data-eu-id="eu_L0_nd_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_nd_skip_entry">Skip to Matrix HUD</a>
+
+    <main id="mainStage" class="nd-stage" data-eu-id="eu_L1_nd_stage">
+      <div class="nd-wrap">
+        <header class="nd-topbar" data-eu-id="eu_L3_nd_topbar">
+          <div class="nd-brand">
+            <span class="nd-pulse-dot" aria-hidden="true"></span>
+            <div>
+              <strong>NOTHING // OS (3.2)</strong>
+              <span class="nd-mono-sub">[NODE: GLYPH-LAB-01 · 120HZ]</span>
+            </div>
+          </div>
+
+          <nav class="nd-mode-bar" data-eu-id="eu_L4_nd_mode_switch" role="tablist" aria-label="Matrix Mode">
+            <button type="button" class="nd-tab is-active" data-route="glyph" role="tab">GLYPH</button>
+            <button type="button" class="nd-tab" data-route="studio" role="tab">STUDIO</button>
+            <button type="button" class="nd-tab" data-route="quiet" role="tab">QUIET</button>
+          </nav>
+
+          <div class="nd-actions">
+            <button type="button" id="openDiagBtn" class="nd-btn nd-btn-red">[+] DIAGNOSTIC</button>
+          </div>
+        </header>
+
+        <section class="nd-hud-grid" data-eu-id="eu_L3_nd_matrix_hud">
+          <!-- 左列：5x7 点阵数字时钟 + Glyph 12 节段发光灯环 -->
+          <div class="nd-col">
+            <article class="nd-card">
+              <div class="nd-card-hd">
+                <span>[01] DOT CHRONO</span>
+                <span id="ndModeTag" class="nd-badge-red">GLYPH</span>
+              </div>
+              <div id="ndClockMatrix" class="nd-svg-host"></div>
+              <div class="nd-stat-line">
+                <span>SYNC: NTP-LOCAL</span>
+                <strong id="ndFreqLabel">48.0 KHZ</strong>
+              </div>
+            </article>
+
+            <article class="nd-card nd-grow" data-eu-id="eu_L4_nd_glyph_pulse">
+              <div class="nd-card-hd">
+                <span>[02] GLYPH RING BUS</span>
+                <button type="button" id="pulseRingBtn" class="nd-btn">PULSE</button>
+              </div>
+              <div class="nd-ring-split">
+                <div id="ndGlyphRingSvg" class="nd-svg-host"></div>
+                <div class="nd-zone-list">
+                  <button type="button" class="nd-zone-btn is-on" data-zone="0"><span>Z1 · TOP ARC</span><strong>ON</strong></button>
+                  <button type="button" class="nd-zone-btn is-on" data-zone="1"><span>Z2 · CAM HALO</span><strong>ON</strong></button>
+                  <button type="button" class="nd-zone-btn is-on" data-zone="2"><span>Z3 · BATTERY</span><strong>ON</strong></button>
+                  <button type="button" class="nd-zone-btn" data-zone="3"><span>Z4 · USB LINE</span><strong>OFF</strong></button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 中列：CPU/NPU 点阵波动折线 + 48kHz 点阵频谱柱图 -->
+          <div class="nd-col">
+            <article class="nd-card">
+              <div class="nd-card-hd">
+                <span>[03] NPU / CPU DOT WAVEFORM</span>
+                <span id="ndCpuLabel" class="nd-mono-strong">LOAD 38% · 41°C</span>
+              </div>
+              <div id="ndWaveChartSvg" class="nd-svg-host"></div>
+              <div class="nd-stat-line">
+                <span>PEAK SPIKE: #D71921</span>
+                <span>WINDOW: 120 SAMPLES</span>
+              </div>
+            </article>
+
+            <article class="nd-card nd-grow">
+              <div class="nd-card-hd">
+                <span>[04] AUDIO GLYPH SPECTRUM</span>
+                <span id="ndSpecLabel" class="nd-mono-sub">[16 BANDS · LIVE]</span>
+              </div>
+              <div id="ndSpecChartSvg" class="nd-svg-host"></div>
+              <div class="nd-stat-line">
+                <span>THRESHOLD: -6.0 DB</span>
+                <button type="button" id="shiftSpecBtn" class="nd-btn">RESAMPLE</button>
+              </div>
+            </article>
+          </div>
+
+          <!-- 右列：60颗圆点步数环 + 28格包吞吐热力矩 -->
+          <div class="nd-col">
+            <article class="nd-card">
+              <div class="nd-card-hd">
+                <span>[05] STEP DOT RING</span>
+                <span class="nd-mono-sub">[GOAL 10K]</span>
+              </div>
+              <div class="nd-step-wrap">
+                <div id="ndStepRingSvg" class="nd-svg-host"></div>
+                <div class="nd-step-meta">
+                  <strong id="ndStepCount">8,420</strong>
+                  <span>STEPS TODAY</span>
+                  <small>84% CHARGED</small>
+                </div>
+              </div>
+            </article>
+
+            <article class="nd-card nd-grow">
+              <div class="nd-card-hd">
+                <span>[06] PACKET HEAT MATRIX</span>
+                <span class="nd-mono-sub">28 NODES</span>
+              </div>
+              <div id="ndHeatMatrix" class="nd-heat-grid"></div>
+              <div class="nd-stat-line">
+                <span>DROP: 0.00%</span>
+                <span>RED = BURST NODE</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="nd-array-wrap" data-eu-id="eu_L3_nd_widgets_array">
+          <div class="nd-arr-hd" data-eu-id="eu_L4_nd_filter_export">
+            <div class="nd-filters">
+              <span class="nd-mono-sub">[WIDGET BUS]</span>
+              <button type="button" class="nd-flt is-active" data-flt="all">ALL</button>
+              <button type="button" class="nd-flt" data-flt="SYSTEM">SYSTEM</button>
+              <button type="button" class="nd-flt" data-flt="AUDIO">AUDIO</button>
+              <button type="button" class="nd-flt" data-flt="SENSOR">SENSOR</button>
+            </div>
+            <button type="button" id="exportCsvBtn" class="nd-btn">[↓] EXPORT TELEMETRY .CSV</button>
+          </div>
+          <div id="ndWidgetsGrid" class="nd-widgets-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="ndDialog" class="nd-dialog" data-eu-id="eu_L3_nd_diag_dialog" aria-labelledby="ndDlgTitle">
+      <div class="nd-dlg-hd">
+        <strong id="ndDlgTitle">GLYPH HARDWARE DIAGNOSTICS</strong>
+        <button type="button" id="closeDiagBtn" class="nd-btn">[×] CLOSE</button>
+      </div>
+      <div class="nd-dlg-body">
+        <p class="nd-mono-sub">RUN LOCAL PULSE TEST ACROSS ALL 4 HARDWARE GLYPH CHANNELS.</p>
+        <div class="nd-dlg-actions">
+          <button type="button" id="armAllBtn" class="nd-btn nd-btn-red">IGNITE ALL ZONES</button>
+          <button type="button" id="muteAllBtn" class="nd-btn">STEALTH ZERO</button>
+        </div>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

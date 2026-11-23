@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Studio — Auto-Zoom Timeline</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="ss-body">
+  <div id="viewport" class="ss-shell" data-page="editing" data-eu-id="eu_L0_ss_workspace">
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_ss_skip_entry">Skip to Timeline Editor</a>
+
+    <aside id="railDock" class="ss-rail" data-eu-id="eu_L1_ss_nav">
+      <div class="ss-brand-dot" title="Screen Studio">SS</div>
+      <nav class="rail-dock" data-eu-id="eu_L3_ss_rail_dock" aria-label="Studio Modules">
+        <div class="rail-prox-zone" data-eu-id="eu_L4_ss_rail_proximity">
+          <button type="button" class="rail-btn is-active" data-route="recording" title="Recording">Rec</button>
+          <button type="button" class="rail-btn" data-route="editing" title="Editing">Edit</button>
+          <button type="button" class="rail-btn" data-route="cursor" title="Cursor &amp; Camera">Cam</button>
+          <button type="button" class="rail-btn" data-route="sharing" title="Sharing">Share</button>
+        </div>
+      </nav>
+      <div class="rail-foot">
+        <span class="fps-mini">60fps</span>
+      </div>
+    </aside>
+
+    <main id="mainStage" class="main-glass ss-stage" data-eu-id="eu_L1_ss_stage">
+      <div class="ss-stage-inner">
+        <header class="ss-topbar" data-eu-id="eu_L3_ss_topbar">
+          <div class="ss-title-group">
+            <strong>Screen Studio</strong>
+            <span id="projectMeta">macOS Capture · 1440×900 · 60fps</span>
+          </div>
+
+          <div class="ss-mode-switch" data-eu-id="eu_L4_ss_mode_switch" role="tablist" aria-label="Editor Modes">
+            <button type="button" class="mode-tab" data-route="recording" role="tab">Recording</button>
+            <button type="button" class="mode-tab is-active" data-route="editing" role="tab">Editing</button>
+            <button type="button" class="mode-tab" data-route="cursor" role="tab">Cursor &amp; Camera</button>
+            <button type="button" class="mode-tab" data-route="sharing" role="tab">Sharing</button>
+          </div>
+
+          <div class="ss-top-actions">
+            <button type="button" id="playZoomBtn" class="ss-btn-accent">Play 2.0x Auto-Zoom</button>
+            <button type="button" id="openExportBtn" class="ss-btn-primary">Export MP4</button>
+          </div>
+        </header>
+
+        <section class="ss-canvas-wrap" data-eu-id="eu_L3_ss_zoom_stage">
+          <div class="ss-wallpaper">
+            <div id="zoomFrame" class="ss-mock-window" data-eu-id="eu_L4_ss_autozoom_camera">
+              <div class="win-chrome">
+                <span class="wc r"></span><span class="wc y"></span><span class="wc g"></span>
+                <span class="win-title">app.stripe.com — Telemetry Flow Capture</span>
+                <span id="zoomReadout" class="zoom-badge">1.00x Center</span>
+              </div>
+              <div class="win-canvas">
+                <button type="button" class="hotspot h-left" data-zx="26" data-zy="40" data-label="Billing Metrics">
+                  <span>API REVENUE</span>
+                  <strong>$48,920</strong>
+                </button>
+                <button type="button" class="hotspot h-mid" data-zx="52" data-zy="56" data-label="Webhook Inspector">
+                  <span>LATENCY P95</span>
+                  <strong>18.4 ms</strong>
+                </button>
+                <button type="button" class="hotspot h-right" data-zx="78" data-zy="42" data-label="Deployment Trigger">
+                  <span>EDGE STATUS</span>
+                  <strong>99.99% OK</strong>
+                </button>
+                <div id="smoothCursor" class="smooth-cursor" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <button type="button" id="pipCam" class="ss-pip" title="Toggle PiP Camera Corner">
+              <span class="pip-ring"></span>
+              <span>Camera PiP</span>
+            </button>
+          </div>
+
+          <div class="ss-inspector-strip">
+            <div class="ss-cam-controls">
+              <span class="insp-lbl">AUDIO PROCESSING</span>
+              <button type="button" class="aud-btn is-active" data-aud="standard">Standard</button>
+              <button type="button" class="aud-btn" data-aud="noise">Noise Reduction</button>
+              <button type="button" class="aud-btn" data-aud="podcast">Podcast Beta</button>
+            </div>
+            <div class="ss-cam-controls">
+              <span class="insp-lbl">AUTO-ZOOM DEPTH</span>
+              <button type="button" id="resetZoomBtn" class="ss-btn-ghost">Reset 1.0x</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="ss-timeline-wrap" data-eu-id="eu_L3_ss_timeline_array">
+          <div class="ss-tl-hd" data-eu-id="eu_L4_ss_filter_export">
+            <div class="tl-filters">
+              <strong>Multi-Track Timeline</strong>
+              <button type="button" class="track-flt is-active" data-flt="all">All Tracks</button>
+              <button type="button" class="track-flt" data-flt="zoom">Zoom Keys</button>
+              <button type="button" class="track-flt" data-flt="audio">Audio Wave</button>
+            </div>
+            <button type="button" id="exportCsvBtn" class="ss-btn-ghost">Export Timeline CSV</button>
+          </div>
+
+          <div class="ss-tracks" id="trackStack">
+            <div class="ss-track" data-t="video">
+              <span class="tr-name">Video (60fps)</span>
+              <div class="tr-lane">
+                <div class="clip clip-video">00:00 — Fullscreen Screen Capture Clip (5.20s)</div>
+              </div>
+            </div>
+            <div class="ss-track" data-t="zoom">
+              <span class="tr-name">Zoom Keyframes</span>
+              <div class="tr-lane" id="zoomKeyLane">
+                <button type="button" class="z-key" data-zx="26" data-zy="40" data-label="Billing Metrics">1.25s · 2.0x</button>
+                <button type="button" class="z-key" data-zx="52" data-zy="56" data-label="Webhook Inspector">2.60s · 2.0x</button>
+                <button type="button" class="z-key" data-zx="78" data-zy="42" data-label="Deployment Trigger">3.95s · 2.0x</button>
+              </div>
+            </div>
+            <div class="ss-track" data-t="audio">
+              <span class="tr-name">Audio (48kHz)</span>
+              <div class="tr-lane">
+                <div id="audioWave" class="audio-wave"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="exportDialog" class="ss-dialog" data-eu-id="eu_L3_ss_export_dialog" aria-labelledby="ssDlgTitle">
+      <div class="ss-dlg-hd">
+        <h3 id="ssDlgTitle">Export Recording</h3>
+        <button type="button" id="closeExportBtn" class="ss-btn-ghost">Close</button>
+      </div>
+      <div class="ss-dlg-body">
+        <p>Resolution: <strong>3840×2160 (4K · 60fps)</strong> · Audio profile: <strong id="dlgAudMode">Standard</strong></p>
+        <p>Zoom smoothing curve: <code>spring(stiffness: 240, damping: 28)</code></p>
+      </div>
+      <div class="ss-dlg-ft">
+        <button type="button" id="confirmExportCsv" class="ss-btn-primary">Download Clip CSV &amp; Close</button>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+{
+  "case_id": "screen_studio_video",
+  "modality": "video",
+  "fps": 60.0,
+  "duration_sec": 5.2,
+  "coverage_ratio": 1.0,
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "raw_video_size": [
+      1920,
+      1600
+    ],
+    "crop_bbox": [
+      0,
+      0,
+      1920,
+      1200
+    ],
+    "scale": 0.75
+  },
+  "viewport_transform": {
+    "source_size": {
+      "w": 1920,
+      "h": 1600
+    },
+    "crop_rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1920,
+      "h": 1200
+    },
+    "scale": 0.75,
+    "target_size": {
+      "w": 1440,
+      "h": 900
+    }
+  },
+  "noise_regions": [
+    {
+      "id": "nr_ss_overlay_bar",
+      "kind": "platform_overlay",
+      "bbox": [
+        0,
+        1280,
+        1920,
+        320
+      ],
+      "desc": "录屏外围平台播放器控件及外框噪声带"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs_ss_zoom_2x",
+      "eu_id": "eu_L3_ss_zoom_stage",
+      "label": "Auto-Zoom 稳态放大倍率",
+      "value": "2.00x",
+      "settle_state": "steady",
+      "stable_frames": 40,
+      "verified": true
+    },
+    {
+      "id": "obs_ss_audio_khz",
+      "eu_id": "eu_L3_ss_timeline_array",
+      "label": "Podcast Audio 采样率",
+      "value": "48kHz",
+      "settle_state": "steady",
+      "stable_frames": 44,
+      "verified": true
+    },
+    {
+      "id": "obs_ss_overshoot_transient",
+      "eu_id": "eu_L3_ss_zoom_stage",
+      "label": "动效插值过冲末帧瞬态值",
+      "value": "spring_overshoot_unsettled",
+      "settle_state": "transient",
+      "stable_frames": 0,
+      "verified": false,
+      "assumption_id": "ASM-SS-01"
+    }
+  ],
+  "frame_invariants": [
+    {
+      "id": "inv_ss_rail_fixed",
+      "desc": "主舞台多轨编辑区独立下滚时左侧工具导轨位移恒为 0",
+      "holds": true,
+      "evidence": {
+        "t0": 1.25,
+        "t1": 2.6,
+        "frame_bbox": [
+          24,
+          24,
+          1872,
+          1140
+        ]
+      }
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_01",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.25,
+      "label": "0.00–1.25s · 渐变画布舞台与多模式顶栏",
+      "frame_url": "/cases/screen_studio_video/frames/seg_01.png",
+      "active_eu_ids": [
+        "eu_L1_ss_nav",
+        "eu_L3_ss_topbar",
+        "eu_L3_ss_zoom_stage"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ss_s1_rail",
+          "eu_id": "eu_L3_ss_rail_dock",
+          "label": "左侧轨道工具导轨",
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_ss_s1_top",
+          "eu_id": "eu_L3_ss_topbar",
+          "label": "Recording / Editing 模式顶栏",
+          "x": 108,
+          "y": 16,
+          "w": 1316,
+          "h": 84,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_ss_s1_stage",
+          "eu_id": "eu_L3_ss_zoom_stage",
+          "label": "渐变画布与 PiP 录屏区",
+          "x": 108,
+          "y": 116,
+          "w": 1316,
+          "h": 510,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_02",
+      "index": 2,
+      "t0": 1.25,
+      "t1": 2.6,
+      "label": "1.25–2.60s · 左侧轨道工具导轨指针邻近放大",
+      "frame_url": "/cases/screen_studio_video/frames/seg_02.png",
+      "active_eu_ids": [
+        "eu_L3_ss_rail_dock",
+        "eu_L4_ss_rail_proximity"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ss_s2_prox",
+          "eu_id": "eu_L3_ss_rail_dock",
+          "label": "工具导轨鼠标邻近缩放 (1.35x)",
+          "x": 16,
+          "y": 16,
+          "w": 96,
+          "h": 868,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_03",
+      "index": 3,
+      "t0": 2.6,
+      "t1": 3.95,
+      "label": "2.60–3.95s · 2.0x Auto-Zoom 自动运镜聚焦",
+      "frame_url": "/cases/screen_studio_video/frames/seg_03.png",
+      "active_eu_ids": [
+        "eu_L3_ss_zoom_stage",
+        "eu_L4_ss_autozoom_camera"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ss_s3_zoom",
+          "eu_id": "eu_L3_ss_zoom_stage",
+          "label": "2.0x Auto-Zoom 平滑聚焦靶区 + 光标轨迹",
+          "x": 108,
+          "y": 116,
+          "w": 1316,
+          "h": 510,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_04",
+      "index": 4,
+      "t0": 3.95,
+      "t1": 5.2,
+      "label": "3.95–5.20s · 多轨时间轴缩放条与音频模式过滤",
+      "frame_url": "/cases/screen_studio_video/frames/seg_04.png",
+      "active_eu_ids": [
+        "eu_L3_ss_timeline_array",
+        "eu_L4_ss_filter_export",
+        "eu_L3_ss_export_dialog"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ss_s4_tl",
+          "eu_id": "eu_L3_ss_timeline_array",
+          "label": "Video / Zoom / Audio 三轨时间轴 + CSV 导出",
+          "x": 108,
+          "y": 642,
+          "w": 1316,
+          "h": 242,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_ss_s1_rail",
+      "eu_id": "eu_L3_ss_rail_dock",
+      "label": "左侧轨道工具导轨",
+      "x": 16,
+      "y": 16,
+      "w": 76,
+      "h": 868,
+      "role": "nav",
+      "segment_id": "seg_01",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_ss_s1_top",
+      "eu_id": "eu_L3_ss_topbar",
+      "label": "Recording / Editing 模式顶栏",
+      "x": 108,
+      "y": 16,
+      "w": 1316,
+      "h": 84,
+      "role": "stage",
+      "segment_id": "seg_01",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_ss_s1_stage",
+      "eu_id": "eu_L3_ss_zoom_stage",
+      "label": "渐变画布与 PiP 录屏区",
+      "x": 108,
+      "y": 116,
+      "w": 1316,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_01",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ss_s2_prox",
+      "eu_id": "eu_L3_ss_rail_dock",
+      "label": "工具导轨鼠标邻近缩放 (1.35x)",
+      "x": 16,
+      "y": 16,
+      "w": 96,
+      "h": 868,
+      "role": "split",
+      "segment_id": "seg_02",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ss_s3_zoom",
+      "eu_id": "eu_L3_ss_zoom_stage",
+      "label": "2.0x Auto-Zoom 平滑聚焦靶区 + 光标轨迹",
+      "x": 108,
+      "y": 116,
+      "w": 1316,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_03",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ss_s4_tl",
+      "eu_id": "eu_L3_ss_timeline_array",
+      "label": "Video / Zoom / Audio 三轨时间轴 + CSV 导出",
+      "x": 108,
+      "y": 642,
+      "w": 1316,
+      "h": 242,
+      "role": "array",
+      "segment_id": "seg_04",
+      "color_role": "array"
+    }
+  ]
+}

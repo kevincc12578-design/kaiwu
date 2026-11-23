@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raycast — Command Palette &amp; Keyboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="ry-body">
+  <div id="viewport" class="ry-page" data-page="clipboard" data-eu-id="eu_L0_ry_workspace">
+    <canvas id="starCanvas" class="ry-star-canvas" aria-hidden="true"></canvas>
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_ry_skip_entry">Skip to Command Palette</a>
+
+    <main id="mainStage" class="ry-main" data-eu-id="eu_L1_ry_stage">
+      <div class="ry-container">
+        <header class="ry-topbar" data-eu-id="eu_L3_ry_topbar">
+          <div class="ry-brand">
+            <span class="ry-orb" aria-hidden="true"></span>
+            <strong>Raycast</strong>
+          </div>
+
+          <nav class="ry-nav" data-eu-id="eu_L4_ry_nav_tabs" aria-label="Launcher Views">
+            <button type="button" class="ry-tab is-active" data-route="clipboard" role="tab">Clipboard History</button>
+            <button type="button" class="ry-tab" data-route="keyboard" role="tab">Keyboard Matrix</button>
+            <button type="button" class="ry-tab" data-route="extensions" role="tab">Extensions</button>
+          </nav>
+
+          <div class="ry-top-actions">
+            <button type="button" id="focusCmdBtn" class="ry-btn-ghost">Focus Cmd+K</button>
+            <button type="button" id="openHotkeyBtn" class="ry-btn-flame">Bind Hotkey</button>
+          </div>
+        </header>
+
+        <section class="ry-hero">
+          <span class="ry-kicker">YOUR SHORTCUT TO EVERYTHING</span>
+          <h1>Supercharged launcher built for keyboard velocity.</h1>
+        </section>
+
+        <section class="ry-hud-grid" data-eu-id="eu_L3_ry_palette_hud">
+          <!-- Command Palette + Live Preview -->
+          <div class="ry-palette-box">
+            <div class="ry-search-bar">
+              <span class="kbd-hint">⌘ K</span>
+              <input id="paletteInput" type="search" placeholder="Search Clipboard History, Color Tokens or Snippets..." aria-label="Search commands">
+              <span id="matchCounter" class="ry-count">4 items</span>
+            </div>
+
+            <div class="ry-split-body">
+              <div id="clipList" class="ry-clip-list" role="listbox" aria-label="Clipboard Items"></div>
+              <div id="clipPreview" class="ry-clip-preview"></div>
+            </div>
+          </div>
+
+          <!-- Illuminated Virtual Keyboard Matrix -->
+          <div class="ry-keyboard-card" data-eu-id="eu_L4_ry_key_glow">
+            <div class="kbd-hd">
+              <div>
+                <strong>Hotkey Lighting Matrix</strong>
+                <span id="pressedHotkeyLabel">Active Chord: ⌘ + Shift + V</span>
+              </div>
+              <button type="button" id="lightDemoBtn" class="ry-btn-ghost">Flash Chord</button>
+            </div>
+            <div id="kbdRows" class="ry-kbd-rows"></div>
+          </div>
+        </section>
+
+        <section class="ry-ext-wrap" data-eu-id="eu_L3_ry_extensions_array">
+          <div class="ext-hd" data-eu-id="eu_L4_ry_filter_export">
+            <div class="ext-filters">
+              <strong>Extension Commands</strong>
+              <button type="button" class="ext-flt is-active" data-flt="all">All</button>
+              <button type="button" class="ext-flt" data-flt="Productivity">Productivity</button>
+              <button type="button" class="ext-flt" data-flt="Engineering">Engineering</button>
+              <button type="button" class="ext-flt" data-flt="Design">Design</button>
+              <button type="button" class="ext-flt" data-flt="Writing">Writing</button>
+            </div>
+            <button type="button" id="exportCsvBtn" class="ry-btn-ghost">Export Shortcuts CSV</button>
+          </div>
+          <div id="extGrid" class="ry-ext-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="hotkeyDialog" class="ry-dialog" data-eu-id="eu_L3_ry_shortcut_dialog" aria-labelledby="ryDlgTitle">
+      <div class="ry-dlg-hd">
+        <h3 id="ryDlgTitle">Assign Global Hotkey</h3>
+        <button type="button" id="closeHotkeyBtn" class="ry-btn-ghost">Close</button>
+      </div>
+      <div class="ry-dlg-body">
+        <p>Select a global chord preset to illuminate the virtual macOS keycap matrix:</p>
+        <div class="ry-chord-list">
+          <button type="button" class="ry-chord-btn" data-keys="Cmd,Shift,V">⌘ + Shift + V · Clipboard History</button>
+          <button type="button" class="ry-chord-btn" data-keys="Cmd,K">⌘ + K · Command Palette</button>
+          <button type="button" class="ry-chord-btn" data-keys="Opt,Space">⌥ + Space · Quick AI Search</button>
+        </div>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

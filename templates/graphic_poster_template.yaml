@@ -1,0 +1,146 @@
+# ==============================================================================
+# 开物 v3.4 · 原型模板 · 平面海报 / 展板（tpl_graphic_poster_v1）
+# 作用：给 domain = "graphic" 的项目提供 L0~L5 槽位契约、4 大标准 L1 领地、
+#       画幅/出血/网格契约与自适应规则。GN-02 与 GG-01 依据本文件校验。
+# 平面产物无动态路由：交互类横向边整体裁剪，仅保留 SHARES_TOKEN。
+# ==============================================================================
+
+schema_version: "3.4.0"
+version: "3.4.0"
+template_id: "tpl_graphic_poster_v1"
+template_name: "平面海报 / 展板原型"
+domain: "graphic"
+compatible_modalities: ["image", "video", "web"]
+desc: "适用于单页海报、发布展板与规范页：品牌页眉、主视觉、规格网格、版权页脚四大领地，按信息密度分裂、按同构重复折叠。"
+
+# ---------------- L0 ~ L5 槽位契约 ----------------
+level_contract:
+  - level: "L0"
+    role: "画幅根"
+    node_kind_prefix: "product."
+    cardinality: "exactly_one"
+    required_fields: ["eu_id", "name", "node_kind", "envelope_bbox"]
+  - level: "L1"
+    role: "版面领地（模板锚定槽位）"
+    node_kind_prefix: "territory."
+    cardinality: "one_per_slot"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id", "template_slot", "envelope_bbox"]
+  - level: "L2"
+    role: "版块"
+    node_kind_prefix: "region."
+    cardinality: "1..7 per L1"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id", "envelope_bbox"]
+  - level: "L3"
+    role: "图文元素（实体或阵列宿主）"
+    node_kind_prefix: "component."
+    cardinality: "1..7 per L2"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id", "envelope_bbox", "dom_selector"]
+  - level: "L4"
+    role: "特征（版式 / 出血 / 网格吸附 / 字阶）"
+    node_kind_prefix: "feature."
+    cardinality: "0..7 per L3"
+    required_fields: ["eu_id", "name", "node_kind", "parent_id"]
+  - level: "L5"
+    role: "原子引用（只引用 atomic_registry）"
+    node_kind_prefix: "atom."
+    cardinality: "1..7 per L4 or L3"
+    required_fields: ["eu_id", "node_kind", "parent_id", "atom_refs"]
+
+forbidden_tree_kind_prefixes: ["interaction.", "event.", "state.", "edge.", "transition."]
+max_direct_children: 7
+
+# ---------------- 4 大标准 L1 领地 ----------------
+l1_territories:
+  - slot_id: "header_brand"
+    name: "品牌页眉"
+    node_kind: "territory.header_brand"
+    required: true
+    role: "标识、品牌名、期号或版本"
+    allowed_l2_kinds: ["region.logo_lockup", "region.issue_meta"]
+    prunable: false
+  - slot_id: "hero_key_visual"
+    name: "主视觉"
+    node_kind: "territory.hero_key_visual"
+    required: true
+    role: "主标题、核心几何图形或主图"
+    allowed_l2_kinds: ["region.headline", "region.key_graphic", "region.photo"]
+    prunable: false
+  - slot_id: "spec_grid"
+    name: "规格网格"
+    node_kind: "territory.spec_grid"
+    required: true
+    role: "色彩规范、字体规范、数据要点等成组信息"
+    allowed_l2_kinds: ["region.palette", "region.type_specimen", "region.fact_list", "region.grid_overlay"]
+    prunable: false
+  - slot_id: "footer_colophon"
+    name: "版权页脚"
+    node_kind: "territory.footer_colophon"
+    required: true
+    role: "署名、日期、版权与出版信息"
+    allowed_l2_kinds: ["region.credits", "region.imprint"]
+    prunable: false
+
+slot_ids: ["header_brand", "hero_key_visual", "spec_grid", "footer_colophon"]
+
+# ---------------- 画幅契约（GG-01 读取） ----------------
+canvas:
+  series: "ISO 216 A"
+  unit: "mm"
+  width: 297
+  height: 420
+  declared_ratio: 0.7071
+  bleed: 3
+  safe_margin: 12
+  grid:
+    columns: 12
+    column_width: 19.0833
+    gutter: 4
+    margin_left: 12
+    margin_right: 12
+
+# ---------------- 自适应伸缩策略 ----------------
+adaptive_policies:
+  TEMPLATE_ANCHOR:
+    applies_to_levels: ["L1"]
+    rule: "每个 required 槽位恰有一个 L1 节点锚定，template_slot 等于 slot_id。"
+  SPLIT_HIGH_INTERACTION:
+    applies_to_levels: ["L2", "L3"]
+    trigger:
+      metric: "interaction_density"
+      definition: "平面领域无交互边，密度以子树内独立可编辑图层种类数计"
+      min_interaction_edges: 3
+    action: "把信息过密的版块拆为若干 L3 元素，并以 L4 feature.* 记录网格吸附、出血与字阶特征。"
+    split_result_badge: "分裂·高密信息"
+  FOLD_ARRAY:
+    applies_to_levels: ["L2", "L3"]
+    trigger:
+      metric: "isomorphic_siblings"
+      definition: "同一父节点下 node_kind 相同、子结构同构的兄弟数（如色卡、规格条目）"
+      min_isomorphic_siblings: 3
+    action: "用阵列宿主承载同构成员并记录 array_count。"
+    fold_result_badge: "折叠·阵列"
+  ATOMIC_MOUNT:
+    applies_to_levels: ["L5"]
+    rule: "L5 节点只携带 atom_refs，指向 atomic_registry 的 5 个区段（平面领域 motion_atoms 可为空）。"
+  PRUNE_OPTIONAL_SLOT:
+    applies_to_levels: ["L2"]
+    rule: "仅可裁剪 allowed_l2_kinds 中未出现的可选版块；交互类分支在平面领域整体裁剪。"
+
+# ---------------- 横向边 ----------------
+allowed_edge_types: ["SHARES_TOKEN"]
+pruned_edge_types: ["TRIGGERS_STATE", "RESTORES_FOCUS", "FILTERS_VIEW", "MODULATES_NEIGHBOR", "SCROLLS_INDEPENDENTLY"]
+required_edges:
+  - edge_type: "SHARES_TOKEN"
+    source_slot: "hero_key_visual"
+    target_slot: "spec_grid"
+    required_when: "always"
+  - edge_type: "SHARES_TOKEN"
+    source_slot: "header_brand"
+    target_slot: "footer_colophon"
+    required_when: "always"
+
+# ---------------- 生成侧契约 ----------------
+viewport_contract:
+  trace_attribute: "data-eu-id"
+  text_realizations: ["dom_text", "svg_text"]
+  graphic_realizations: ["svg_shape", "css_shape"]

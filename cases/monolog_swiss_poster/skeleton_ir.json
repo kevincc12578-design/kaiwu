@@ -1,0 +1,299 @@
+{
+  "case_id": "monolog_swiss_poster",
+  "modality": "image",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "viewport": {
+    "width": 297.0,
+    "height": 420.0,
+    "unit": "mm",
+    "format": "ISO_A3"
+  },
+  "source_image": {
+    "url": "/cases/monolog_swiss_poster/frames/ref_monolog_poster.png",
+    "w": 297.0,
+    "h": 420.0,
+    "unit": "mm"
+  },
+  "canvas": {
+    "w": 297.0,
+    "h": 420.0,
+    "unit": "mm",
+    "bleed_mm": 3.0,
+    "declared_ratio": 0.7071
+  },
+  "grid": {
+    "columns": 12,
+    "margin_left": 12.0,
+    "margin_right": 12.0,
+    "gutter": 4.0,
+    "column_width": 19.083333333333332
+  },
+  "layers": [
+    {
+      "layer_id": "lyr_mn_paper",
+      "layer_role": "background_material",
+      "contains_text": false,
+      "desc": "报纸暖灰 (#D9DAD6) 颗粒纸基与浅灰图形水印"
+    },
+    {
+      "layer_id": "lyr_mn_vector",
+      "layer_role": "foreground_graphic",
+      "contains_text": false,
+      "desc": "纯 SVG 建筑结构线稿与色卡色块"
+    },
+    {
+      "layer_id": "lyr_mn_type",
+      "layer_role": "foreground_text",
+      "contains_text": true,
+      "desc": "52/26/14/11px 瑞士排版活文字"
+    }
+  ],
+  "noise_regions": [],
+  "segments": [
+    {
+      "segment_id": "seg_poster_full",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "ISO A3 报纸暖灰瑞士网格全幅",
+      "frame_url": "/cases/monolog_swiss_poster/frames/ref_monolog_poster.png",
+      "active_eu_ids": [
+        "eu_L1_mn_header",
+        "eu_L3_mn_logo_lockup",
+        "eu_L3_mn_cta_pill",
+        "eu_L3_mn_intro_copy",
+        "eu_L3_mn_headline",
+        "eu_L3_mn_wins_graphic",
+        "eu_L3_mn_palette_fold",
+        "eu_L3_mn_specimen",
+        "eu_L3_mn_grid_box",
+        "eu_L1_mn_footer"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_mn_header",
+          "eu_id": "eu_L1_mn_header",
+          "label": "MONOLOG 页眉 (Col 1–12)",
+          "x": 12.0,
+          "y": 14.0,
+          "w": 273.0,
+          "h": 28.0,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_mn_logo",
+          "eu_id": "eu_L3_mn_logo_lockup",
+          "label": "MONOLOG 标志与导航 (Col 1–6)",
+          "x": 12.0,
+          "y": 14.0,
+          "w": 134.5,
+          "h": 28.0,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_mn_cta",
+          "eu_id": "eu_L3_mn_cta_pill",
+          "label": "Start a project ↗ (Col 7–12)",
+          "x": 150.5,
+          "y": 14.0,
+          "w": 134.5,
+          "h": 28.0,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_mn_intro",
+          "eu_id": "eu_L3_mn_intro_copy",
+          "label": "B2B 定位声明左栏 (Col 1–4)",
+          "x": 12.0,
+          "y": 48.0,
+          "w": 88.3333,
+          "h": 190.0,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_mn_head",
+          "eu_id": "eu_L3_mn_headline",
+          "label": "巨型紧字距黑体主标题 (Col 5–12)",
+          "x": 104.3333,
+          "y": 48.0,
+          "w": 180.6667,
+          "h": 190.0,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_mn_wins",
+          "eu_id": "eu_L3_mn_wins_graphic",
+          "label": "CLIENT WINS 纯矢量建筑图 (Col 1–6)",
+          "x": 12.0,
+          "y": 244.0,
+          "w": 134.5,
+          "h": 76.0,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_mn_pal",
+          "eu_id": "eu_L3_mn_palette_fold",
+          "label": "报纸暖灰四色卡阵列 ×4 (Col 7–12)",
+          "x": 150.5,
+          "y": 244.0,
+          "w": 134.5,
+          "h": 76.0,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_mn_spec",
+          "eu_id": "eu_L3_mn_specimen",
+          "label": "瑞士印刷字阶样张 (Col 1–8)",
+          "x": 12.0,
+          "y": 326.0,
+          "w": 180.6667,
+          "h": 50.0,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_mn_grid",
+          "eu_id": "eu_L3_mn_grid_box",
+          "label": "12 栏瑞士网格参数卡 (Col 9–12)",
+          "x": 196.6667,
+          "y": 326.0,
+          "w": 88.3333,
+          "h": 50.0,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_mn_foot",
+          "eu_id": "eu_L1_mn_footer",
+          "label": "版权页脚与印记 (Col 1–12)",
+          "x": 12.0,
+          "y": 382.0,
+          "w": 273.0,
+          "h": 24.0,
+          "role": "nav"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_mn_header",
+      "eu_id": "eu_L1_mn_header",
+      "label": "MONOLOG 页眉 (Col 1–12)",
+      "x": 12.0,
+      "y": 14.0,
+      "w": 273.0,
+      "h": 28.0,
+      "role": "nav",
+      "segment_id": "seg_poster_full",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_mn_logo",
+      "eu_id": "eu_L3_mn_logo_lockup",
+      "label": "MONOLOG 标志与导航 (Col 1–6)",
+      "x": 12.0,
+      "y": 14.0,
+      "w": 134.5,
+      "h": 28.0,
+      "role": "nav",
+      "segment_id": "seg_poster_full",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_mn_cta",
+      "eu_id": "eu_L3_mn_cta_pill",
+      "label": "Start a project ↗ (Col 7–12)",
+      "x": 150.5,
+      "y": 14.0,
+      "w": 134.5,
+      "h": 28.0,
+      "role": "stage",
+      "segment_id": "seg_poster_full",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_mn_intro",
+      "eu_id": "eu_L3_mn_intro_copy",
+      "label": "B2B 定位声明左栏 (Col 1–4)",
+      "x": 12.0,
+      "y": 48.0,
+      "w": 88.3333,
+      "h": 190.0,
+      "role": "stage",
+      "segment_id": "seg_poster_full",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_mn_head",
+      "eu_id": "eu_L3_mn_headline",
+      "label": "巨型紧字距黑体主标题 (Col 5–12)",
+      "x": 104.3333,
+      "y": 48.0,
+      "w": 180.6667,
+      "h": 190.0,
+      "role": "split",
+      "segment_id": "seg_poster_full",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_mn_wins",
+      "eu_id": "eu_L3_mn_wins_graphic",
+      "label": "CLIENT WINS 纯矢量建筑图 (Col 1–6)",
+      "x": 12.0,
+      "y": 244.0,
+      "w": 134.5,
+      "h": 76.0,
+      "role": "split",
+      "segment_id": "seg_poster_full",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_mn_pal",
+      "eu_id": "eu_L3_mn_palette_fold",
+      "label": "报纸暖灰四色卡阵列 ×4 (Col 7–12)",
+      "x": 150.5,
+      "y": 244.0,
+      "w": 134.5,
+      "h": 76.0,
+      "role": "array",
+      "segment_id": "seg_poster_full",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_mn_spec",
+      "eu_id": "eu_L3_mn_specimen",
+      "label": "瑞士印刷字阶样张 (Col 1–8)",
+      "x": 12.0,
+      "y": 326.0,
+      "w": 180.6667,
+      "h": 50.0,
+      "role": "stage",
+      "segment_id": "seg_poster_full",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_mn_grid",
+      "eu_id": "eu_L3_mn_grid_box",
+      "label": "12 栏瑞士网格参数卡 (Col 9–12)",
+      "x": 196.6667,
+      "y": 326.0,
+      "w": 88.3333,
+      "h": 50.0,
+      "role": "array",
+      "segment_id": "seg_poster_full",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_mn_foot",
+      "eu_id": "eu_L1_mn_footer",
+      "label": "版权页脚与印记 (Col 1–12)",
+      "x": 12.0,
+      "y": 382.0,
+      "w": 273.0,
+      "h": 24.0,
+      "role": "nav",
+      "segment_id": "seg_poster_full",
+      "color_role": "nav"
+    }
+  ]
+}

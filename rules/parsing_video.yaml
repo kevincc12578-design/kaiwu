@@ -1,0 +1,129 @@
+# ==============================================================================
+# 开物 v3.4 · Kaiwu Adaptive-EU Design Workbench
+# 第一层 · 解析层规则 · 视频模态（PV-01 ~ PV-04）
+# 路由：modality = "video" 的项目激活本文件 4 条（与 image / web 互斥）。
+# 正交分工：PV-01 管时（全时段切分闭合） | PV-02 管域（版式噪声剥离与视口裁切）
+#           PV-03 管值（瞬态与稳态分离） | PV-04 管动（帧间不变量与连续交互取证）
+# 零特例：时长、帧率、裁切矩形等均从项目 skeleton 读取，本文件只写通用阈值。
+# ==============================================================================
+
+schema_version: "3.4.0"
+product: "开物 · Kaiwu Adaptive-EU Design Workbench"
+version: "3.4.0"
+layer: "parsing"
+layer_order: 1
+layer_name: "解析层 · 视频"
+route_key: "modality"
+modality: "video"
+rule_prefix: "PV"
+philosophy: "录屏是证据不是界面：先证明整片每一秒都被看过，再把版式噪声、未定数值和连续交互分别归位，局部时段永远不能代表全片。"
+
+rules:
+  - id: "PV-01"
+    name: "全时段关键帧覆盖与场景切分闭合"
+    name_en: "Full-Timeline Keyframe Coverage & Closed Scene Segmentation"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L0", "L1", "L2"]
+    check_code: "check_pv01_timeline_coverage"
+    desc: "时段切分必须从 0 起、到片长止，相邻时段首尾相接无缝无叠，覆盖率 100%；每个时段至少一张关键帧并至少绑定一个 EU 节点；严禁用局部时段的通过结论代表整片。"
+    thresholds:
+      min_timeline_coverage_ratio: 1.0
+      max_gap_s: 0.0
+      max_overlap_s: 0.0
+      time_epsilon_s: 0.001
+      min_keyframes_per_segment: 1
+      min_bound_eu_per_segment: 1
+      segment_fields: ["segment_id", "t0", "t1", "label", "frame_url", "active_eu_ids"]
+    invariants:
+      - "segments sorted by t0 and len(segments) >= 1"
+      - "abs(segments[0].t0 - 0.0) <= time_epsilon_s"
+      - "abs(segments[-1].t1 - skeleton.duration_sec) <= time_epsilon_s"
+      - "forall i: abs(segments[i+1].t0 - segments[i].t1) <= time_epsilon_s"
+      - "skeleton.coverage_ratio == sum(seg.t1 - seg.t0) / skeleton.duration_sec and skeleton.coverage_ratio >= min_timeline_coverage_ratio - time_epsilon_s"
+      - "forall seg: count(seg.frame_url) >= min_keyframes_per_segment and len(seg.active_eu_ids) >= min_bound_eu_per_segment and all(id in tree_ids for id in seg.active_eu_ids)"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "时间轴存在死角、重叠或时段未绑定 EU"
+      attribution_fields: ["uncovered_intervals", "violated_segment_ids"]
+    counterfactual_preset: "violate_PV01_partial_video_coverage"
+    counterfactual_desc: "删除中间一个时段，只保留局部时段，使时间轴出现未覆盖区间。"
+    related_residuals: ["RES-KW-01"]
+
+  - id: "PV-02"
+    name: "视频外版式噪声剥离与有效视口裁切"
+    name_en: "Layout-Noise Stripping & Effective Viewport Crop"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L0", "L1"]
+    check_code: "check_pv02_viewport_crop"
+    desc: "视频画幅中不属于目标界面的版式区域（代码窗、黑边、平台水印、字幕条等）必须登记为 noise_regions 并剥离；有效视口以可复核的裁切变换记录（源尺寸、裁切矩形、缩放系数、目标尺寸）给出；任何 EU 节点的源帧包络不得落入噪声区。"
+    thresholds:
+      required_transform_fields: ["source_size", "crop_rect", "scale", "target_size"]
+      transform_reproduce_tolerance_px: 1.0
+      max_node_noise_overlap_ratio: 0.0
+      noise_region_kinds: ["code_window", "letterbox", "platform_overlay", "caption_bar"]
+    invariants:
+      - "all(field in skeleton.viewport_transform for field in required_transform_fields)"
+      - "crop_rect inside rect(0, 0, source_size.w, source_size.h)"
+      - "abs(crop_rect.w * scale - target_size.w) <= transform_reproduce_tolerance_px and abs(crop_rect.h * scale - target_size.h) <= transform_reproduce_tolerance_px"
+      - "forall noise in skeleton.noise_regions: noise.kind in noise_region_kinds"
+      - "forall node with frame_bbox: overlap_ratio(node.frame_bbox, union(noise_regions)) <= max_node_noise_overlap_ratio"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "裁切变换缺失/不可复核或噪声区混入 EU"
+      attribution_fields: ["violated_node_ids", "noise_region_ids"]
+    counterfactual_preset: "violate_PV02_layout_noise_leak"
+    counterfactual_desc: "把一个 EU 节点的 frame_bbox 挪进已登记的代码窗噪声区。"
+    related_residuals: ["RES-KW-03"]
+
+  - id: "PV-03"
+    name: "瞬态滚动与稳态真值分离及假设隔离"
+    name_en: "Transient vs Steady-State Value Separation & Assumption Isolation"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L3", "L4", "L5"]
+    check_code: "check_pv03_transient_isolation"
+    desc: "每个从录屏读出的数值或文本观测值必须标注 settle_state：在不少于阈值的连续帧中保持不变才是 steady；片尾或段尾仍在滚动、翻牌、淡入的值是 transient，transient 值不得以 verified 进入设计原子，必须挂接 AssumptionRecord。"
+    thresholds:
+      settle_states: ["steady", "transient"]
+      min_steady_consecutive_frames: 2
+      transient_requires_assumption: true
+      transient_verified_allowed: false
+    invariants:
+      - "forall obs in skeleton.observations: obs.settle_state in settle_states"
+      - "forall obs where obs.settle_state == 'steady': obs.stable_frames >= min_steady_consecutive_frames"
+      - "forall obs where obs.settle_state == 'transient': obs.verified == false and exists assumption where obs.id in assumption.subject_ids"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "未定数值冒充稳态真值"
+      attribution_fields: ["violated_observation_ids", "violated_node_ids"]
+    counterfactual_preset: "violate_PV03_transient_value_as_truth"
+    counterfactual_desc: "把一条 transient 观测值改为 verified 并解除其 AssumptionRecord 关联。"
+    related_residuals: ["RES-KW-02"]
+
+  - id: "PV-04"
+    name: "帧间不变量与连续交互取证"
+    name_en: "Inter-Frame Invariants & Continuous Interaction Evidence"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L2", "L3", "L4"]
+    check_code: "check_pv04_interaction_evidence"
+    desc: "录屏中观察到的每条连续交互与帧间不变量（如一区滚动时另一区静止、指针掠过时邻项按距离梯度缩放）都必须登记为横向边或不变量声明，并绑定时间区间 [t0, t1] 与源帧包络 frame_bbox；区间必须落在片长内且跨越至少阈值帧数。"
+    thresholds:
+      required_evidence_fields: ["t0", "t1", "frame_bbox"]
+      min_evidence_frames: 2
+      evidence_edge_types: ["MODULATES_NEIGHBOR", "SCROLLS_INDEPENDENTLY", "TRIGGERS_STATE", "FILTERS_VIEW", "RESTORES_FOCUS"]
+    invariants:
+      - "forall edge where edge.edge_type in evidence_edge_types and edge.source == 'observed': all(f in edge.evidence for f in required_evidence_fields)"
+      - "forall ev: 0.0 <= ev.t0 < ev.t1 <= skeleton.duration_sec"
+      - "forall ev: (ev.t1 - ev.t0) * skeleton.fps >= min_evidence_frames - 1"
+      - "forall ev: valid_bbox(ev.frame_bbox) and ev.frame_bbox inside skeleton.viewport_transform.crop_rect"
+      - "forall inv in skeleton.frame_invariants: inv.holds == true and all(f in inv.evidence for f in required_evidence_fields)"
+    failure_boundary:
+      blocked_layer: "parsing"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "交互或不变量缺少时间区间/源帧包络"
+      attribution_fields: ["violated_edge_ids", "violated_invariant_ids"]
+    counterfactual_preset: "violate_PV04_unbound_interaction_evidence"
+    counterfactual_desc: "抹去一条已观测交互边的 [t0, t1] 与 frame_bbox。"
+    related_residuals: ["RES-KW-06"]

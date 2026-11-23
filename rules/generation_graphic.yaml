@@ -1,0 +1,130 @@
+# ==============================================================================
+# 开物 v3.4 · Kaiwu Adaptive-EU Design Workbench
+# 第三层 · 生成侧规则 · 平面设计领域（GG-01 ~ GG-04）
+# 路由：domain = "graphic" 的项目激活本文件 4 条（与 uiux 互斥）。
+# 正交分工：GG-01 管幅（画幅出血与网格） | GG-02 管序（字阶层级与对比度）
+#           GG-03 管层（矢量/文字图层可编辑） | GG-04 管验（导出重开零漂移与溯源）
+# 零特例：画幅、出血、安全边距、栏数等取自模板 canvas 契约，本文件只写通用阈值。
+# ==============================================================================
+
+schema_version: "3.4.0"
+product: "开物 · Kaiwu Adaptive-EU Design Workbench"
+version: "3.4.0"
+layer: "generation"
+layer_order: 3
+layer_name: "生成侧 · 平面设计"
+route_key: "domain"
+domain: "graphic"
+rule_prefix: "GG"
+philosophy: "平面产物没有交互，但必须守住画幅、层级、可编辑图层与重开一致性四件事，任何一处变成死位图都算退化。"
+
+rules:
+  - id: "GG-01"
+    name: "画幅尺寸出血与网格对齐守恒"
+    name_en: "Canvas Size, Bleed & Grid Alignment Conservation"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L0", "L1", "L2"]
+    check_code: "check_gg01_canvas_bleed_grid"
+    desc: "产物画幅比例与模板 canvas 契约一致，四边出血不小于契约值，所有非背景元素落在安全框内，L1/L2 区块左右边缘吸附到网格栏线。"
+    thresholds:
+      canvas_source: "template.canvas"
+      aspect_ratio_tolerance: 0.005
+      min_bleed_ratio_of_contract: 1.0
+      max_safe_area_violations: 0
+      snap_tolerance: 1.0
+      background_roles_exempt_from_safe_area: ["background_material", "bleed_fill"]
+    invariants:
+      - "abs(artifact.w / artifact.h - template.canvas.width / template.canvas.height) <= aspect_ratio_tolerance"
+      - "forall side: artifact.bleed[side] >= template.canvas.bleed * min_bleed_ratio_of_contract"
+      - "count(node not in safe_area and node.role not in background_roles_exempt_from_safe_area) <= max_safe_area_violations"
+      - "forall node where node.level in ['L1', 'L2']: snapped_to_column_edges(node.envelope_bbox, template.canvas.grid, snap_tolerance)"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "画幅比例、出血、安全框或网格吸附不守恒"
+      attribution_fields: ["violated_node_ids", "bleed_residual"]
+    counterfactual_preset: "violate_GG01_bleed_grid_break"
+    counterfactual_desc: "把出血置为 0 并让一个 L2 区块偏离栏线。"
+    related_residuals: ["RES-KW-05"]
+
+  - id: "GG-02"
+    name: "视觉主次字阶层级与对比度合规"
+    name_en: "Visual Hierarchy Type Scale & Contrast Compliance"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L2", "L3", "L5"]
+    check_code: "check_gg02_hierarchy_contrast"
+    desc: "按语义主次排序的字阶（主标题 > 副标题 > 正文 > 注记）字号严格递减且相邻比值不低于阈值，层级数不少于阈值；所有文字与其背景对比度合规。"
+    thresholds:
+      hierarchy_roles: ["display", "headline", "body", "caption"]
+      min_hierarchy_levels: 3
+      min_adjacent_scale_ratio: 1.2
+      min_contrast_body: 4.5
+      min_contrast_large: 3.0
+      large_text_min_px: 24
+    invariants:
+      - "count(distinct role used) >= min_hierarchy_levels"
+      - "forall consecutive used roles r_i, r_j in hierarchy_roles order: size(r_i) / size(r_j) >= min_adjacent_scale_ratio"
+      - "forall text: contrast(fg, bg) >= (min_contrast_large if size >= large_text_min_px else min_contrast_body)"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "字阶倒置/过近或对比度不足"
+      attribution_fields: ["violated_node_ids", "violated_roles"]
+    counterfactual_preset: "violate_GG02_hierarchy_inversion"
+    counterfactual_desc: "把正文字号调到大于副标题，造成层级倒置。"
+    related_residuals: ["RES-KW-07"]
+
+  - id: "GG-03"
+    name: "矢量/文字图层独立可编辑"
+    name_en: "Independently Editable Vector & Text Layers"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L3", "L4"]
+    check_code: "check_gg03_editable_layers"
+    desc: "每个文字节点在产物中必须是活文字（DOM 文本或 SVG text），每个图形节点必须是矢量（SVG 或 CSS 几何），栅格化文字数量为 0；只有 background_material / photo_content 角色允许位图。"
+    thresholds:
+      text_realizations: ["dom_text", "svg_text"]
+      graphic_realizations: ["svg_shape", "css_shape"]
+      allowed_bitmap_roles: ["background_material", "photo_content"]
+      min_live_text_ratio: 1.0
+      min_vector_graphic_ratio: 1.0
+      max_rasterized_text: 0
+    invariants:
+      - "forall node where node.carries_text: node.rendered_as in text_realizations"
+      - "forall node where node.layer_role == 'foreground_graphic': node.rendered_as in graphic_realizations"
+      - "count(node where node.carries_text and node.rendered_as == 'bitmap') <= max_rasterized_text"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "文字或图形退化为死位图"
+      attribution_fields: ["violated_node_ids"]
+    counterfactual_preset: "violate_GG03_rasterized_text"
+    counterfactual_desc: "在回检快照中把主标题文字节点替换为位图。"
+    related_residuals: ["RES-KW-05"]
+
+  - id: "GG-04"
+    name: "导出重开版式零漂移与溯源回检"
+    name_en: "Zero-Drift Export Reopen & Trace Readback"
+    severity: "BLOCKER"
+    bound_eu_levels: ["L1", "L2", "L3", "L4"]
+    check_code: "check_gg04_reopen_drift_trace"
+    desc: "导出产物重开后，每个需渲染节点的包络与在线舞台一致（漂移在容差内），且以 data-eu-id 唯一回读到语义树，不存在悬空 ID；版面文字同样不得出现防御性小字。"
+    thresholds:
+      trace_attribute: "data-eu-id"
+      max_reopen_drift: 0.5
+      min_trace_coverage_ratio: 1.0
+      max_dangling_trace_ids: 0
+      max_defensive_phrases: 0
+      defensive_phrase_source: "rules/generation_uiux.yaml#GU-04.thresholds.forbidden_defensive_phrases"
+    invariants:
+      - "forall node where node.rendered: max(abs(export.envelope - stage.envelope)) <= max_reopen_drift"
+      - "forall node where node.rendered: count(export_dom with trace_attribute == node.eu_id) == 1"
+      - "set(export_dom.trace_ids) <= tree_ids"
+      - "count(defensive phrase occurrences in export visible text) <= max_defensive_phrases"
+    failure_boundary:
+      blocked_layer: "generation"
+      admission_on_fail: "BLOCKED"
+      fault_scope: "导出重开漂移或溯源 ID 断链"
+      attribution_fields: ["violated_node_ids", "drift", "dangling_trace_ids"]
+    counterfactual_preset: "violate_GG04_export_drift"
+    counterfactual_desc: "在导出快照中把一个 L2 区块包络平移超出漂移容差。"
+    related_residuals: ["RES-KW-07"]

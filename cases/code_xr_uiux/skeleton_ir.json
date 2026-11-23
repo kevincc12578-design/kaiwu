@@ -1,0 +1,749 @@
+{
+  "case_id": "code_xr_uiux",
+  "modality": "video",
+  "fps": 30.0,
+  "duration_sec": 5.689,
+  "coverage_ratio": 1.0,
+  "viewport": {
+    "width": 1440,
+    "height": 780,
+    "raw_video_size": [
+      1920,
+      2560
+    ],
+    "crop_bbox": [
+      0,
+      380,
+      1920,
+      1040
+    ],
+    "scale": 0.75
+  },
+  "viewport_transform": {
+    "source_size": {
+      "w": 1920,
+      "h": 2560
+    },
+    "crop_rect": {
+      "x": 0,
+      "y": 380,
+      "w": 1920,
+      "h": 1040
+    },
+    "scale": 0.75,
+    "target_size": {
+      "w": 1440,
+      "h": 780
+    }
+  },
+  "noise_regions": [
+    {
+      "id": "noise_top_letterbox",
+      "kind": "letterbox",
+      "bbox": [
+        0,
+        0,
+        1920,
+        380
+      ],
+      "desc": "竖版视频顶部留黑区"
+    },
+    {
+      "id": "noise_bottom_code_window",
+      "kind": "code_window",
+      "bbox": [
+        0,
+        1420,
+        1920,
+        1140
+      ],
+      "desc": "竖版视频下半部代码展示窗（非网页组件）"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs_sprint_progress_68",
+      "eu_id": "eu_L3_sprint_hero",
+      "label": "Sprint 24 进度环百分比",
+      "value": "68%",
+      "settle_state": "steady",
+      "stable_frames": 62,
+      "verified": true
+    },
+    {
+      "id": "obs_kpi_people_128",
+      "eu_id": "eu_L3_metrics_grid_fold",
+      "label": "Active people 指标",
+      "value": "128",
+      "settle_state": "steady",
+      "stable_frames": 48,
+      "verified": true
+    },
+    {
+      "id": "obs_kpi_deals_49",
+      "eu_id": "eu_L3_metrics_grid_fold",
+      "label": "Open deals 指标",
+      "value": "49",
+      "settle_state": "steady",
+      "stable_frames": 48,
+      "verified": true
+    },
+    {
+      "id": "obs_kpi_revenue_42500",
+      "eu_id": "eu_L3_metrics_grid_fold",
+      "label": "Revenue this month 指标",
+      "value": "$42,500",
+      "settle_state": "steady",
+      "stable_frames": 48,
+      "verified": true
+    },
+    {
+      "id": "obs_kpi_uptime_9996",
+      "eu_id": "eu_L3_metrics_grid_fold",
+      "label": "System uptime 指标",
+      "value": "99.96%",
+      "settle_state": "steady",
+      "stable_frames": 48,
+      "verified": true
+    },
+    {
+      "id": "obs_rail_proximity_peak",
+      "eu_id": "eu_L4_feat_proximity_magnify",
+      "label": "窄栏主项峰值放大倍率",
+      "value": "1.37x",
+      "settle_state": "steady",
+      "stable_frames": 4,
+      "verified": true
+    },
+    {
+      "id": "obs_analytics_tail_reels",
+      "eu_id": "eu_L3_analytics_wide_stage",
+      "label": "5.62s Analytics 指标卷轴滚动瞬态值",
+      "value": "rolling_unsettled",
+      "settle_state": "transient",
+      "stable_frames": 0,
+      "verified": false,
+      "assumption_id": "ASM-XR-01"
+    }
+  ],
+  "frame_invariants": [
+    {
+      "id": "inv_rail_stationary_on_scroll",
+      "desc": "主舞台纵向滚动时左侧玻璃导航栏位移恒为 0",
+      "holds": true,
+      "evidence": {
+        "t0": 3.8,
+        "t1": 4.85,
+        "frame_bbox": [
+          84,
+          390,
+          320,
+          1018
+        ]
+      }
+    },
+    {
+      "id": "inv_dock_hitbox_stable",
+      "desc": "收起侧栏邻近放大仅缩放绘制层，命中盒与当前路由保持不变",
+      "holds": true,
+      "evidence": {
+        "t0": 1.6,
+        "t1": 2.23,
+        "frame_bbox": [
+          84,
+          390,
+          96,
+          1018
+        ]
+      }
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_01",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 0.75,
+      "label": "0.00–0.75s · 品牌虹膜揭幕",
+      "frame_url": "/cases/code_xr_uiux/frames/seg_01_opening_0.10s.png",
+      "active_eu_ids": [
+        "eu_L1_intro_shell",
+        "eu_L3_opening_iris",
+        "eu_L4_feat_iris_reveal"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_seg01_opening",
+          "eu_id": "eu_L3_opening_iris",
+          "label": "虹膜揭幕画幅",
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 780,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_seg01_brand",
+          "eu_id": "eu_L4_feat_iris_reveal",
+          "label": "CODE XR 标记与进度线",
+          "x": 560,
+          "y": 270,
+          "w": 320,
+          "h": 210,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_02",
+      "index": 2,
+      "t0": 0.75,
+      "t1": 1.6,
+      "label": "0.75–1.60s · 亮区展开与数值稳定",
+      "frame_url": "/cases/code_xr_uiux/frames/seg_02_aperture_1.44s.png",
+      "active_eu_ids": [
+        "eu_L3_room_backdrop",
+        "eu_L3_sprint_hero",
+        "eu_L3_metrics_grid_fold"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_seg02_room",
+          "eu_id": "eu_L3_room_backdrop",
+          "label": "胡桃木室内环境底图",
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 780,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_seg02_sprint",
+          "eu_id": "eu_L3_sprint_hero",
+          "label": "Sprint 24 英雄区揭开",
+          "x": 168,
+          "y": 134,
+          "w": 776,
+          "h": 356,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_seg02_metrics",
+          "eu_id": "eu_L3_metrics_grid_fold",
+          "label": "四维指标数字卷轴稳定",
+          "x": 168,
+          "y": 506,
+          "w": 1178,
+          "h": 212,
+          "role": "array"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_03",
+      "index": 3,
+      "t0": 1.6,
+      "t1": 2.23,
+      "label": "1.60–2.23s · 窄侧栏鼠标邻近放大",
+      "frame_url": "/cases/code_xr_uiux/frames/seg_03_proximity_1.83s.png",
+      "active_eu_ids": [
+        "eu_L3_rail_proximity_dock",
+        "eu_L4_feat_proximity_magnify",
+        "eu_L4_dock_search_orb",
+        "eu_L4_dock_active_pill",
+        "eu_L4_dock_neighbor_field"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_seg03_rail",
+          "eu_id": "eu_L3_rail_proximity_dock",
+          "label": "66px 收起态交互坞",
+          "x": 63,
+          "y": 8,
+          "w": 68,
+          "h": 764,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_seg03_orb",
+          "eu_id": "eu_L4_dock_search_orb",
+          "label": "搜索光球 (34→46.6px)",
+          "x": 74,
+          "y": 76,
+          "w": 46,
+          "h": 46,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_seg03_active",
+          "eu_id": "eu_L4_dock_active_pill",
+          "label": "主项白底 1.37x (40→54.8px)",
+          "x": 69,
+          "y": 146,
+          "w": 56,
+          "h": 56,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_seg03_neighbor",
+          "eu_id": "eu_L4_dock_neighbor_field",
+          "label": "邻项梯度缩放与浮签",
+          "x": 69,
+          "y": 204,
+          "w": 135,
+          "h": 92,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_04",
+      "index": 4,
+      "t0": 2.23,
+      "t1": 3.8,
+      "label": "2.23–3.80s · 展开侧栏与 Dashboard 首屏",
+      "frame_url": "/cases/code_xr_uiux/frames/seg_04_dashboard_2.78s.png",
+      "active_eu_ids": [
+        "eu_L1_nav_dock",
+        "eu_L3_brand_header",
+        "eu_L3_nav_route_list",
+        "eu_L3_sidebar_footer",
+        "eu_L3_page_heading",
+        "eu_L3_sprint_hero",
+        "eu_L3_orbit_avatars_fold",
+        "eu_L3_studio_calendar",
+        "eu_L3_metrics_grid_fold"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_seg04_sidebar",
+          "eu_id": "eu_L1_nav_dock",
+          "label": "240px 展开折光侧栏",
+          "x": 63,
+          "y": 8,
+          "w": 240,
+          "h": 764,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_seg04_routes",
+          "eu_id": "eu_L3_nav_route_list",
+          "label": "分组路由阵列 ×8",
+          "x": 74,
+          "y": 140,
+          "w": 218,
+          "h": 456,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_seg04_heading",
+          "eu_id": "eu_L3_page_heading",
+          "label": "Dashboard 问候顶栏",
+          "x": 352,
+          "y": 34,
+          "w": 990,
+          "h": 82,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_seg04_hero",
+          "eu_id": "eu_L3_sprint_hero",
+          "label": "Sprint 24 珊瑚红英雄卡",
+          "x": 352,
+          "y": 134,
+          "w": 656,
+          "h": 358,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_seg04_orbit",
+          "eu_id": "eu_L3_orbit_avatars_fold",
+          "label": "68% 进度环 + 6 头像阵列",
+          "x": 742,
+          "y": 182,
+          "w": 252,
+          "h": 252,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_seg04_calendar",
+          "eu_id": "eu_L3_studio_calendar",
+          "label": "November 9 周历卡片",
+          "x": 1024,
+          "y": 134,
+          "w": 318,
+          "h": 358,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_seg04_metrics",
+          "eu_id": "eu_L3_metrics_grid_fold",
+          "label": "经营四指标阵列 ×4",
+          "x": 352,
+          "y": 508,
+          "w": 990,
+          "h": 214,
+          "role": "array"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_05",
+      "index": 5,
+      "t0": 3.8,
+      "t1": 4.85,
+      "label": "3.80–4.85s · 主区独立下滚",
+      "frame_url": "/cases/code_xr_uiux/frames/seg_05_scroll_4.36s.png",
+      "active_eu_ids": [
+        "eu_L1_main_stage",
+        "eu_L3_quick_actions_fold",
+        "eu_L3_revenue_chart_card",
+        "eu_L4_feat_range_segments",
+        "eu_L3_channel_donut_card"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_seg05_sidebar_inv",
+          "eu_id": "eu_L1_nav_dock",
+          "label": "侧栏静止不变量 (Δy=0)",
+          "x": 63,
+          "y": 8,
+          "w": 240,
+          "h": 764,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_seg05_quick",
+          "eu_id": "eu_L3_quick_actions_fold",
+          "label": "快捷动作阵列 ×6",
+          "x": 352,
+          "y": 196,
+          "w": 990,
+          "h": 136,
+          "role": "array"
+        },
+        {
+          "bbox_id": "bb_seg05_rev",
+          "eu_id": "eu_L3_revenue_chart_card",
+          "label": "月度利润/成本双柱图",
+          "x": 352,
+          "y": 348,
+          "w": 656,
+          "h": 396,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_seg05_channels",
+          "eu_id": "eu_L3_channel_donut_card",
+          "label": "$236.8K 渠道环形分布",
+          "x": 1024,
+          "y": 348,
+          "w": 318,
+          "h": 396,
+          "role": "stage"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_06",
+      "index": 6,
+      "t0": 4.85,
+      "t1": 5.689,
+      "label": "4.85–5.689s · Analytics 切页与瞬态隔离",
+      "frame_url": "/cases/code_xr_uiux/frames/seg_06_analytics_5.62s.png",
+      "active_eu_ids": [
+        "eu_L3_analytics_header_csv",
+        "eu_L3_analytics_wide_stage",
+        "eu_L4_feat_csv_export"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_seg06_head",
+          "eu_id": "eu_L3_analytics_header_csv",
+          "label": "Analytics 顶栏与 CSV 导出",
+          "x": 352,
+          "y": 34,
+          "w": 990,
+          "h": 82,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_seg06_wide",
+          "eu_id": "eu_L3_analytics_wide_stage",
+          "label": "全宽 Revenue 与瞬态隔离区",
+          "x": 352,
+          "y": 348,
+          "w": 990,
+          "h": 396,
+          "role": "split"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_seg01_opening",
+      "eu_id": "eu_L3_opening_iris",
+      "label": "虹膜揭幕画幅",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 780,
+      "role": "stage",
+      "segment_id": "seg_01",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_seg01_brand",
+      "eu_id": "eu_L4_feat_iris_reveal",
+      "label": "CODE XR 标记与进度线",
+      "x": 560,
+      "y": 270,
+      "w": 320,
+      "h": 210,
+      "role": "split",
+      "segment_id": "seg_01",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_seg02_room",
+      "eu_id": "eu_L3_room_backdrop",
+      "label": "胡桃木室内环境底图",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 780,
+      "role": "stage",
+      "segment_id": "seg_02",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_seg02_sprint",
+      "eu_id": "eu_L3_sprint_hero",
+      "label": "Sprint 24 英雄区揭开",
+      "x": 168,
+      "y": 134,
+      "w": 776,
+      "h": 356,
+      "role": "split",
+      "segment_id": "seg_02",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_seg02_metrics",
+      "eu_id": "eu_L3_metrics_grid_fold",
+      "label": "四维指标数字卷轴稳定",
+      "x": 168,
+      "y": 506,
+      "w": 1178,
+      "h": 212,
+      "role": "array",
+      "segment_id": "seg_02",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_seg03_rail",
+      "eu_id": "eu_L3_rail_proximity_dock",
+      "label": "66px 收起态交互坞",
+      "x": 63,
+      "y": 8,
+      "w": 68,
+      "h": 764,
+      "role": "nav",
+      "segment_id": "seg_03",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_seg03_orb",
+      "eu_id": "eu_L4_dock_search_orb",
+      "label": "搜索光球 (34→46.6px)",
+      "x": 74,
+      "y": 76,
+      "w": 46,
+      "h": 46,
+      "role": "split",
+      "segment_id": "seg_03",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_seg03_active",
+      "eu_id": "eu_L4_dock_active_pill",
+      "label": "主项白底 1.37x (40→54.8px)",
+      "x": 69,
+      "y": 146,
+      "w": 56,
+      "h": 56,
+      "role": "split",
+      "segment_id": "seg_03",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_seg03_neighbor",
+      "eu_id": "eu_L4_dock_neighbor_field",
+      "label": "邻项梯度缩放与浮签",
+      "x": 69,
+      "y": 204,
+      "w": 135,
+      "h": 92,
+      "role": "split",
+      "segment_id": "seg_03",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_seg04_sidebar",
+      "eu_id": "eu_L1_nav_dock",
+      "label": "240px 展开折光侧栏",
+      "x": 63,
+      "y": 8,
+      "w": 240,
+      "h": 764,
+      "role": "nav",
+      "segment_id": "seg_04",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_seg04_routes",
+      "eu_id": "eu_L3_nav_route_list",
+      "label": "分组路由阵列 ×8",
+      "x": 74,
+      "y": 140,
+      "w": 218,
+      "h": 456,
+      "role": "array",
+      "segment_id": "seg_04",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_seg04_heading",
+      "eu_id": "eu_L3_page_heading",
+      "label": "Dashboard 问候顶栏",
+      "x": 352,
+      "y": 34,
+      "w": 990,
+      "h": 82,
+      "role": "stage",
+      "segment_id": "seg_04",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_seg04_hero",
+      "eu_id": "eu_L3_sprint_hero",
+      "label": "Sprint 24 珊瑚红英雄卡",
+      "x": 352,
+      "y": 134,
+      "w": 656,
+      "h": 358,
+      "role": "split",
+      "segment_id": "seg_04",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_seg04_orbit",
+      "eu_id": "eu_L3_orbit_avatars_fold",
+      "label": "68% 进度环 + 6 头像阵列",
+      "x": 742,
+      "y": 182,
+      "w": 252,
+      "h": 252,
+      "role": "array",
+      "segment_id": "seg_04",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_seg04_calendar",
+      "eu_id": "eu_L3_studio_calendar",
+      "label": "November 9 周历卡片",
+      "x": 1024,
+      "y": 134,
+      "w": 318,
+      "h": 358,
+      "role": "stage",
+      "segment_id": "seg_04",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_seg04_metrics",
+      "eu_id": "eu_L3_metrics_grid_fold",
+      "label": "经营四指标阵列 ×4",
+      "x": 352,
+      "y": 508,
+      "w": 990,
+      "h": 214,
+      "role": "array",
+      "segment_id": "seg_04",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_seg05_sidebar_inv",
+      "eu_id": "eu_L1_nav_dock",
+      "label": "侧栏静止不变量 (Δy=0)",
+      "x": 63,
+      "y": 8,
+      "w": 240,
+      "h": 764,
+      "role": "nav",
+      "segment_id": "seg_05",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_seg05_quick",
+      "eu_id": "eu_L3_quick_actions_fold",
+      "label": "快捷动作阵列 ×6",
+      "x": 352,
+      "y": 196,
+      "w": 990,
+      "h": 136,
+      "role": "array",
+      "segment_id": "seg_05",
+      "color_role": "array"
+    },
+    {
+      "bbox_id": "bb_seg05_rev",
+      "eu_id": "eu_L3_revenue_chart_card",
+      "label": "月度利润/成本双柱图",
+      "x": 352,
+      "y": 348,
+      "w": 656,
+      "h": 396,
+      "role": "split",
+      "segment_id": "seg_05",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_seg05_channels",
+      "eu_id": "eu_L3_channel_donut_card",
+      "label": "$236.8K 渠道环形分布",
+      "x": 1024,
+      "y": 348,
+      "w": 318,
+      "h": 396,
+      "role": "stage",
+      "segment_id": "seg_05",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_seg06_head",
+      "eu_id": "eu_L3_analytics_header_csv",
+      "label": "Analytics 顶栏与 CSV 导出",
+      "x": 352,
+      "y": 34,
+      "w": 990,
+      "h": 82,
+      "role": "stage",
+      "segment_id": "seg_06",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_seg06_wide",
+      "eu_id": "eu_L3_analytics_wide_stage",
+      "label": "全宽 Revenue 与瞬态隔离区",
+      "x": 352,
+      "y": 348,
+      "w": 990,
+      "h": 396,
+      "role": "split",
+      "segment_id": "seg_06",
+      "color_role": "split"
+    }
+  ]
+}

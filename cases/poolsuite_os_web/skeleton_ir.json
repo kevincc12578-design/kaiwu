@@ -1,0 +1,484 @@
+{
+  "case_id": "poolsuite_os_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_ps_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_ps_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_ps_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_ps_stage": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_ps_topbar": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_ps_hero_zone": {
+          "x": 12,
+          "y": 218,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_ps_array_zone": {
+          "x": 12,
+          "y": 1012,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_ps_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_ps_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L1_ps_nav": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        },
+        "eu_L2_ps_nav_rail": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_ps_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_ps_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_ps_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_ps_stage": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 1120
+        },
+        "eu_L2_ps_topbar": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 92
+        },
+        "eu_L2_ps_hero_zone": {
+          "x": 114,
+          "y": 150,
+          "w": 636,
+          "h": 600
+        },
+        "eu_L2_ps_array_zone": {
+          "x": 114,
+          "y": 762,
+          "w": 636,
+          "h": 390
+        },
+        "eu_L1_ps_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_ps_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L1_ps_nav": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        },
+        "eu_L2_ps_nav_rail": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_ps_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_ps_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_ps_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_ps_stage": {
+          "x": 116,
+          "y": 16,
+          "w": 1304,
+          "h": 868
+        },
+        "eu_L2_ps_topbar": {
+          "x": 116,
+          "y": 16,
+          "w": 1304,
+          "h": 96
+        },
+        "eu_L2_ps_hero_zone": {
+          "x": 116,
+          "y": 116,
+          "w": 1304,
+          "h": 496
+        },
+        "eu_L2_ps_array_zone": {
+          "x": 116,
+          "y": 626,
+          "w": 1304,
+          "h": 258
+        },
+        "eu_L1_ps_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_ps_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L1_ps_nav": {
+          "x": 16,
+          "y": 16,
+          "w": 84,
+          "h": 868
+        },
+        "eu_L2_ps_nav_rail": {
+          "x": 16,
+          "y": 16,
+          "w": 84,
+          "h": 868
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "ps_cs_surf",
+      "eu_id": "eu_L3_ps_topbar",
+      "property": "color",
+      "value": "#f4ece1",
+      "token_ref": "ps_surf_bg",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ps_cs_typo",
+      "eu_id": "eu_L3_ps_desktop_stage",
+      "property": "font-size",
+      "value": "clamp(22px, 2.5vw, 32px)",
+      "token_ref": "ps_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ps_cs_lay",
+      "eu_id": "eu_L3_ps_telemetry_array",
+      "property": "gap",
+      "value": "1380px",
+      "token_ref": "ps_lay_maxw",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ps_cs_mot",
+      "eu_id": "eu_L3_ps_rail_dock",
+      "property": "transition-duration",
+      "value": "160ms",
+      "token_ref": "ps_mot_win",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "ps_el_skip",
+      "eu_id": "eu_L3_ps_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ps_el_rail",
+      "eu_id": "eu_L3_ps_rail_dock",
+      "role": "link",
+      "accessible_name": "左侧 90s 桌面快捷图标 Dock (邻近放大)",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ps_el_top",
+      "eu_id": "eu_L3_ps_topbar",
+      "role": "tab",
+      "accessible_name": "Mac OS 9 菜单栏与主题/视图切换",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ps_el_hero",
+      "eu_id": "eu_L3_ps_desktop_stage",
+      "role": "button",
+      "accessible_name": "Poolsuite 卡带电台窗 + 复古像素统计图窗 + System 9 监视窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ps_el_arr",
+      "eu_id": "eu_L3_ps_telemetry_array",
+      "role": "button",
+      "accessible_name": "Synthwave / Yacht / Lo-Fi 频道目录与 CSV 归档 ×4",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ps_el_dlg",
+      "eu_id": "eu_L3_ps_system_dialog",
+      "role": "dialog",
+      "accessible_name": "About Poolsuite System 9 对话框",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "ps_cn_bg",
+      "eu_id": "eu_L0_ps_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "ps_cn_hero",
+      "eu_id": "eu_L3_ps_desktop_stage",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "poolsuite.fm.channels",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "ps_cn_arr",
+      "eu_id": "eu_L3_ps_telemetry_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "poolsuite.fm.channels.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Poolsuite · 90s 复古暖粉 Macintosh 多窗桌面骨架",
+      "frame_url": "/cases/poolsuite_os_web/frames/ref_ps_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_ps_rail_dock",
+        "eu_L3_ps_topbar",
+        "eu_L3_ps_desktop_stage",
+        "eu_L3_ps_telemetry_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ps_nav",
+          "eu_id": "eu_L3_ps_rail_dock",
+          "label": "桌面快捷图标 Dock (邻近放大)",
+          "x": 16,
+          "y": 16,
+          "w": 84,
+          "h": 868,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_ps_top",
+          "eu_id": "eu_L3_ps_topbar",
+          "label": "Mac OS 9 菜单栏与 3 主题换肤",
+          "x": 116,
+          "y": 16,
+          "w": 1304,
+          "h": 72,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_ps_hero",
+          "eu_id": "eu_L3_ps_desktop_stage",
+          "label": "复古卡带电台窗 + 像素收听统计柱图/折线/圆环窗",
+          "x": 116,
+          "y": 100,
+          "w": 1304,
+          "h": 510,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_ps_arr",
+          "eu_id": "eu_L3_ps_telemetry_array",
+          "label": "频道磁带队列 ×4 + CSV 导出",
+          "x": 116,
+          "y": 626,
+          "w": 1304,
+          "h": 258,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_ps_nav",
+      "eu_id": "eu_L3_ps_rail_dock",
+      "label": "桌面快捷图标 Dock (邻近放大)",
+      "x": 16,
+      "y": 16,
+      "w": 84,
+      "h": 868,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_ps_top",
+      "eu_id": "eu_L3_ps_topbar",
+      "label": "Mac OS 9 菜单栏与 3 主题换肤",
+      "x": 116,
+      "y": 16,
+      "w": 1304,
+      "h": 72,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_ps_hero",
+      "eu_id": "eu_L3_ps_desktop_stage",
+      "label": "复古卡带电台窗 + 像素收听统计柱图/折线/圆环窗",
+      "x": 116,
+      "y": 100,
+      "w": 1304,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ps_arr",
+      "eu_id": "eu_L3_ps_telemetry_array",
+      "label": "频道磁带队列 ×4 + CSV 导出",
+      "x": 116,
+      "y": 626,
+      "w": 1304,
+      "h": 258,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

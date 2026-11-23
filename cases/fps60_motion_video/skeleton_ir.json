@@ -1,0 +1,269 @@
+{
+  "case_id": "fps60_motion_video",
+  "modality": "video",
+  "fps": 60.0,
+  "duration_sec": 4.4,
+  "coverage_ratio": 1.0,
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "raw_video_size": [
+      1920,
+      1600
+    ],
+    "crop_bbox": [
+      0,
+      0,
+      1920,
+      1200
+    ],
+    "scale": 0.75
+  },
+  "viewport_transform": {
+    "source_size": {
+      "w": 1920,
+      "h": 1600
+    },
+    "crop_rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1920,
+      "h": 1200
+    },
+    "scale": 0.75,
+    "target_size": {
+      "w": 1440,
+      "h": 900
+    }
+  },
+  "noise_regions": [
+    {
+      "id": "nr_fp_overlay_bar",
+      "kind": "platform_overlay",
+      "bbox": [
+        0,
+        1280,
+        1920,
+        320
+      ],
+      "desc": "录屏外围平台播放器控件及外框噪声带"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs_fp_rate_60",
+      "eu_id": "eu_L3_fp_topbar",
+      "label": "物理求解刷新率",
+      "value": "60fps",
+      "settle_state": "steady",
+      "stable_frames": 30,
+      "verified": true
+    },
+    {
+      "id": "obs_fp_stack_3",
+      "eu_id": "eu_L3_fp_physics_stage",
+      "label": "甩卡堆叠层数",
+      "value": "3 cards",
+      "settle_state": "steady",
+      "stable_frames": 24,
+      "verified": true
+    },
+    {
+      "id": "obs_fp_overshoot_transient",
+      "eu_id": "eu_L3_fp_physics_stage",
+      "label": "动效插值过冲末帧瞬态值",
+      "value": "spring_overshoot_unsettled",
+      "settle_state": "transient",
+      "stable_frames": 0,
+      "verified": false,
+      "assumption_id": "ASM-FP-01"
+    }
+  ],
+  "frame_invariants": [
+    {
+      "id": "inv_fp_spring_energy",
+      "desc": "Card Split 与 Scale Morph 变形前后总盒重心守恒",
+      "holds": true,
+      "evidence": {
+        "t0": 1.1,
+        "t1": 2.15,
+        "frame_bbox": [
+          24,
+          24,
+          1872,
+          1140
+        ]
+      }
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_01",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.1,
+      "label": "0.00–1.10s · 60fps 物理动效顶栏与参数示波",
+      "frame_url": "/cases/fps60_motion_video/frames/seg_01.png",
+      "active_eu_ids": [
+        "eu_L3_fp_topbar",
+        "eu_L3_fp_physics_stage"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_fp_s1_top",
+          "eu_id": "eu_L3_fp_topbar",
+          "label": "60fps 标签筛选胶囊顶栏",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 76,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_fp_s1_stage",
+          "eu_id": "eu_L3_fp_physics_stage",
+          "label": "三大物理交互舞台总览",
+          "x": 16,
+          "y": 108,
+          "w": 1408,
+          "h": 510,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_02",
+      "index": 2,
+      "t0": 1.1,
+      "t1": 2.15,
+      "label": "1.10–2.15s · Airbnb Card Split 卡片分裂展开",
+      "frame_url": "/cases/fps60_motion_video/frames/seg_02.png",
+      "active_eu_ids": [
+        "eu_L3_fp_physics_stage",
+        "eu_L4_fp_spring_solver"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_fp_s2_split",
+          "eu_id": "eu_L3_fp_physics_stage",
+          "label": "Card Split 双翼弹性分裂展开",
+          "x": 16,
+          "y": 108,
+          "w": 470,
+          "h": 510,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_03",
+      "index": 3,
+      "t0": 2.15,
+      "t1": 3.25,
+      "label": "2.15–3.25s · Swipe Stack 惯性拖拽与 Scale Morph 变形",
+      "frame_url": "/cases/fps60_motion_video/frames/seg_03.png",
+      "active_eu_ids": [
+        "eu_L3_fp_physics_stage",
+        "eu_L4_fp_spring_solver"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_fp_s3_morph",
+          "eu_id": "eu_L4_fp_spring_solver",
+          "label": "Scale Morph 共享布局与 Stiffness/Damping 示波",
+          "x": 496,
+          "y": 108,
+          "w": 928,
+          "h": 510,
+          "role": "split"
+        }
+      ]
+    },
+    {
+      "segment_id": "seg_04",
+      "index": 4,
+      "t0": 3.25,
+      "t1": 4.4,
+      "label": "3.25–4.40s · Shots 参数阵列与甩卡过冲隔离",
+      "frame_url": "/cases/fps60_motion_video/frames/seg_04.png",
+      "active_eu_ids": [
+        "eu_L3_fp_cards_array",
+        "eu_L3_fp_tuning_dialog"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_fp_s4_arr",
+          "eu_id": "eu_L3_fp_cards_array",
+          "label": "物理标签对比指标阵列 ×4",
+          "x": 16,
+          "y": 636,
+          "w": 1408,
+          "h": 248,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_fp_s1_top",
+      "eu_id": "eu_L3_fp_topbar",
+      "label": "60fps 标签筛选胶囊顶栏",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 76,
+      "role": "nav",
+      "segment_id": "seg_01",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_fp_s1_stage",
+      "eu_id": "eu_L3_fp_physics_stage",
+      "label": "三大物理交互舞台总览",
+      "x": 16,
+      "y": 108,
+      "w": 1408,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_01",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_fp_s2_split",
+      "eu_id": "eu_L3_fp_physics_stage",
+      "label": "Card Split 双翼弹性分裂展开",
+      "x": 16,
+      "y": 108,
+      "w": 470,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_02",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_fp_s3_morph",
+      "eu_id": "eu_L4_fp_spring_solver",
+      "label": "Scale Morph 共享布局与 Stiffness/Damping 示波",
+      "x": 496,
+      "y": 108,
+      "w": 928,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_03",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_fp_s4_arr",
+      "eu_id": "eu_L3_fp_cards_array",
+      "label": "物理标签对比指标阵列 ×4",
+      "x": 16,
+      "y": 636,
+      "w": 1408,
+      "h": 248,
+      "role": "array",
+      "segment_id": "seg_04",
+      "color_role": "array"
+    }
+  ]
+}

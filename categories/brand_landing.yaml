@@ -1,0 +1,29 @@
+schema_version: "4.0.0"
+category_id: "brand_landing"
+name: "品牌官网 / 硬件发布页"
+name_en: "Brand Landing & Hardware Showcase"
+tier: "extended"
+default_domain: "uiux"
+base_template_id: "tpl_uiux_workspace_v1"
+description: "适用于产品发布官网、硬件展示站与前沿科技品牌主站。允许以 asset_slot 承载 3D/摄影/Shader，不强制侧边表格面板。"
+required_slots: ["main_stage"]
+optional_slots: ["intro_shell", "nav_dock", "auxiliary_overlay", "region.hero", "region.quick_actions"]
+allowed_asset_slots: ["3d_render_slot", "webgl_shader_slot", "hero_photography", "canvas_fx"]
+expected_signals:
+  preferred_aspect: "landscape"
+  hero_prominent: true
+  min_interactive_controls: 3
+  keywords: ["frontier", "manifesto", "order", "keyboard", "hardware", "launch", "studio", "knob", "defined", "explore", "hero"]
+category_rules:
+  - id: "CAT-BRAND-01"
+    name: "核心品牌叙事与合法资产槽位"
+    metric_key: "hero_and_asset_slots"
+    desc: "3D 光追、摄影或 Shader 允许落入声明的视觉资产槽位，核心标题与 CTA 保持真 DOM。"
+  - id: "CAT-BRAND-02"
+    name: "品牌色阶与减动效兼容性"
+    metric_key: "brand_tokens_reduced_motion"
+    desc: "全量声明并引用品牌表面与动效 Token，并在 prefers-reduced-motion 下安全降级。"
+  - id: "CAT-BRAND-03"
+    name: "多端断点首屏无裁切"
+    metric_key: "brand_viewport_closure"
+    desc: "大字号 Hero 与导航条在 1440px 与 390px 视口下重排不产生横向溢出。"

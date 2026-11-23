@@ -1,0 +1,3090 @@
+{
+  "status": "OK",
+  "version": "3.4.0",
+  "schema_version": "3.4.0",
+  "case_id": "code_xr_poster",
+  "admission_status": "PROVISIONAL",
+  "open_assumptions_count": 2,
+  "stage_url": "/cases/code_xr_poster/app/index.html",
+  "case_info": {
+    "case_id": "code_xr_poster",
+    "title": "Code XR · 品牌视觉展板",
+    "subtitle": "图片 → 平面设计",
+    "modality": "image",
+    "domain": "graphic",
+    "template_id": "tpl_graphic_poster_v1",
+    "stage_url": "/cases/code_xr_poster/app/index.html",
+    "source_summary": "IMAGE · ISO A3 · 12 栏瑞士网格",
+    "category_id": "print_graphic",
+    "category_name": "瑞士网格平面 / 海报",
+    "category_tier": "extended",
+    "is_imported": false,
+    "admission_status": "PROVISIONAL",
+    "open_assumptions_count": 2,
+    "total_assumptions_count": 2,
+    "active_rule_summary": "PI 4/4 → GN 4/4 → GG 4/4"
+  },
+  "category_audit": {
+    "category_id": "print_graphic",
+    "category_name": "瑞士网格平面 / 海报",
+    "category_name_en": "Swiss Grid Poster & Print Layout",
+    "tier": "extended",
+    "description": "适用于 ISO A3 展板、瑞士国际风格排版海报与高保真纯矢量印刷设计规范页。",
+    "allowed_asset_slots": [
+      "vector_key_graphic"
+    ],
+    "passed_count": 3,
+    "total_count": 3,
+    "status": "PASS",
+    "rules": [
+      {
+        "rule_id": "CAT-PRINT-01",
+        "name": "100% 纯矢量活文字无位图文字",
+        "desc": "海报全画幅文字保持可选中活文本，主视觉由纯矢量 SVG 图形构建。",
+        "status": "PASS",
+        "metric": "活文字 100% · 栅格字 0",
+        "detail": "瑞士网格印刷出版物保持纯矢量活文字"
+      },
+      {
+        "rule_id": "CAT-PRINT-02",
+        "name": "栅格尺寸链与 3mm 出血契约",
+        "desc": "12 栏宽槽计算与 ISO 画幅比例严格闭合，并支持网格与出血线开关核验。",
+        "status": "PASS",
+        "metric": "矢量 100% · 出血/漂移 0.0mm",
+        "detail": "网格对齐与 3mm 印刷出血精确绑定"
+      },
+      {
+        "rule_id": "CAT-PRINT-03",
+        "name": "零跨模态交互边污染",
+        "desc": "平面静态出版物仅保留 SHARES_TOKEN 约束，不误挂网页路由/滚动动态边。",
+        "status": "PASS",
+        "metric": "纯 SHARES_TOKEN 约束",
+        "detail": "静态印刷品无网页路由/滚动动态边污染"
+      }
+    ]
+  },
+  "skeleton": {
+    "case_id": "code_xr_poster",
+    "modality": "image",
+    "duration_sec": null,
+    "coverage_ratio": 1.0,
+    "viewport": {
+      "width": 297.0,
+      "height": 420.0,
+      "unit": "mm",
+      "format": "ISO 216 A3",
+      "bleed_mm": 3.0,
+      "safe_margin_mm": 12.0,
+      "grid_columns": 12
+    },
+    "canvas": {
+      "w": 297.0,
+      "h": 420.0,
+      "declared_ratio": 0.7071,
+      "bleed": 3.0,
+      "safe_margin": 12.0
+    },
+    "grid": {
+      "columns": 12,
+      "column_width": 19.083333333333332,
+      "gutter": 4.0,
+      "margin_left": 12.0,
+      "margin_right": 12.0
+    },
+    "source_image": {
+      "w": 297.0,
+      "h": 420.0,
+      "url": "/cases/code_xr_poster/frames/poster_source_a3.svg"
+    },
+    "layers": [
+      {
+        "layer_id": "lyr_paper_bg",
+        "layer_role": "background_material",
+        "contains_text": false,
+        "desc": "暖象牙纸基与柔和径向氛围渐变"
+      },
+      {
+        "layer_id": "lyr_orbit_vector",
+        "layer_role": "foreground_graphic",
+        "contains_text": false,
+        "desc": "68% 纯 SVG 几何圆环与色卡色块"
+      },
+      {
+        "layer_id": "lyr_swiss_typography",
+        "layer_role": "foreground_text",
+        "contains_text": true,
+        "desc": "四级字阶活 DOM / SVG 排版层"
+      }
+    ],
+    "noise_regions": [],
+    "segments": [
+      {
+        "segment_id": "seg_poster_full",
+        "index": 1,
+        "t0": 0.0,
+        "t1": 1.0,
+        "label": "ISO A3 全画幅 · 12 栏瑞士网格与 3mm 出血",
+        "frame_url": "/cases/code_xr_poster/frames/poster_source_a3.svg",
+        "active_eu_ids": [
+          "eu_L1_poster_header",
+          "eu_L3_poster_logo_lockup",
+          "eu_L3_poster_issue_meta",
+          "eu_L3_poster_headline",
+          "eu_L3_poster_key_graphic",
+          "eu_L3_poster_palette_fold",
+          "eu_L3_poster_type_specimen",
+          "eu_L3_poster_grid_overlay",
+          "eu_L1_poster_footer"
+        ],
+        "bboxes": [
+          {
+            "bbox_id": "bb_poster_header",
+            "eu_id": "eu_L1_poster_header",
+            "label": "品牌页眉 (Col 1–12)",
+            "x": 12.0,
+            "y": 14.0,
+            "w": 273.0,
+            "h": 28.0,
+            "role": "nav"
+          },
+          {
+            "bbox_id": "bb_poster_logo",
+            "eu_id": "eu_L3_poster_logo_lockup",
+            "label": "标志与主名锁排 (Col 1–8)",
+            "x": 12.0,
+            "y": 14.0,
+            "w": 180.67,
+            "h": 28.0,
+            "role": "nav"
+          },
+          {
+            "bbox_id": "bb_poster_issue",
+            "eu_id": "eu_L3_poster_issue_meta",
+            "label": "期号规格胶囊 (Col 9–12)",
+            "x": 196.67,
+            "y": 14.0,
+            "w": 88.33,
+            "h": 28.0,
+            "role": "stage"
+          },
+          {
+            "bbox_id": "bb_poster_headline",
+            "eu_id": "eu_L3_poster_headline",
+            "label": "主标题四级字阶区 (Col 1–7)",
+            "x": 12.0,
+            "y": 48.0,
+            "w": 157.58,
+            "h": 186.0,
+            "role": "stage"
+          },
+          {
+            "bbox_id": "bb_poster_graphic",
+            "eu_id": "eu_L3_poster_key_graphic",
+            "label": "68% 纯矢量几何主图 (Col 8–12)",
+            "x": 173.58,
+            "y": 48.0,
+            "w": 111.42,
+            "h": 186.0,
+            "role": "split"
+          },
+          {
+            "bbox_id": "bb_poster_palette",
+            "eu_id": "eu_L3_poster_palette_fold",
+            "label": "品牌色卡阵列 ×4 (Col 1–12)",
+            "x": 12.0,
+            "y": 242.0,
+            "w": 273.0,
+            "h": 58.0,
+            "role": "array"
+          },
+          {
+            "bbox_id": "bb_poster_specimen",
+            "eu_id": "eu_L3_poster_type_specimen",
+            "label": "Manrope 字阶标本 (Col 1–8)",
+            "x": 12.0,
+            "y": 306.0,
+            "w": 180.67,
+            "h": 62.0,
+            "role": "stage"
+          },
+          {
+            "bbox_id": "bb_poster_grid_spec",
+            "eu_id": "eu_L3_poster_grid_overlay",
+            "label": "12 栏网格参数卡 (Col 9–12)",
+            "x": 196.67,
+            "y": 306.0,
+            "w": 88.33,
+            "h": 62.0,
+            "role": "array"
+          },
+          {
+            "bbox_id": "bb_poster_footer",
+            "eu_id": "eu_L1_poster_footer",
+            "label": "版权与印前页脚 (Col 1–12)",
+            "x": 12.0,
+            "y": 376.0,
+            "w": 273.0,
+            "h": 32.0,
+            "role": "nav"
+          }
+        ]
+      }
+    ],
+    "bboxes": [
+      {
+        "bbox_id": "bb_poster_header",
+        "eu_id": "eu_L1_poster_header",
+        "label": "品牌页眉 (Col 1–12)",
+        "x": 12.0,
+        "y": 14.0,
+        "w": 273.0,
+        "h": 28.0,
+        "role": "nav",
+        "segment_id": "seg_poster_full",
+        "color_role": "nav"
+      },
+      {
+        "bbox_id": "bb_poster_logo",
+        "eu_id": "eu_L3_poster_logo_lockup",
+        "label": "标志与主名锁排 (Col 1–8)",
+        "x": 12.0,
+        "y": 14.0,
+        "w": 180.67,
+        "h": 28.0,
+        "role": "nav",
+        "segment_id": "seg_poster_full",
+        "color_role": "nav"
+      },
+      {
+        "bbox_id": "bb_poster_issue",
+        "eu_id": "eu_L3_poster_issue_meta",
+        "label": "期号规格胶囊 (Col 9–12)",
+        "x": 196.67,
+        "y": 14.0,
+        "w": 88.33,
+        "h": 28.0,
+        "role": "stage",
+        "segment_id": "seg_poster_full",
+        "color_role": "stage"
+      },
+      {
+        "bbox_id": "bb_poster_headline",
+        "eu_id": "eu_L3_poster_headline",
+        "label": "主标题四级字阶区 (Col 1–7)",
+        "x": 12.0,
+        "y": 48.0,
+        "w": 157.58,
+        "h": 186.0,
+        "role": "stage",
+        "segment_id": "seg_poster_full",
+        "color_role": "stage"
+      },
+      {
+        "bbox_id": "bb_poster_graphic",
+        "eu_id": "eu_L3_poster_key_graphic",
+        "label": "68% 纯矢量几何主图 (Col 8–12)",
+        "x": 173.58,
+        "y": 48.0,
+        "w": 111.42,
+        "h": 186.0,
+        "role": "split",
+        "segment_id": "seg_poster_full",
+        "color_role": "split"
+      },
+      {
+        "bbox_id": "bb_poster_palette",
+        "eu_id": "eu_L3_poster_palette_fold",
+        "label": "品牌色卡阵列 ×4 (Col 1–12)",
+        "x": 12.0,
+        "y": 242.0,
+        "w": 273.0,
+        "h": 58.0,
+        "role": "array",
+        "segment_id": "seg_poster_full",
+        "color_role": "array"
+      },
+      {
+        "bbox_id": "bb_poster_specimen",
+        "eu_id": "eu_L3_poster_type_specimen",
+        "label": "Manrope 字阶标本 (Col 1–8)",
+        "x": 12.0,
+        "y": 306.0,
+        "w": 180.67,
+        "h": 62.0,
+        "role": "stage",
+        "segment_id": "seg_poster_full",
+        "color_role": "stage"
+      },
+      {
+        "bbox_id": "bb_poster_grid_spec",
+        "eu_id": "eu_L3_poster_grid_overlay",
+        "label": "12 栏网格参数卡 (Col 9–12)",
+        "x": 196.67,
+        "y": 306.0,
+        "w": 88.33,
+        "h": 62.0,
+        "role": "array",
+        "segment_id": "seg_poster_full",
+        "color_role": "array"
+      },
+      {
+        "bbox_id": "bb_poster_footer",
+        "eu_id": "eu_L1_poster_footer",
+        "label": "版权与印前页脚 (Col 1–12)",
+        "x": 12.0,
+        "y": 376.0,
+        "w": 273.0,
+        "h": 32.0,
+        "role": "nav",
+        "segment_id": "seg_poster_full",
+        "color_role": "nav"
+      }
+    ],
+    "skeleton_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-6 -6 309 432\" width=\"100%\" height=\"100%\" data-modality=\"image\">\n  <defs><style>\n    .sk-box { cursor: pointer; transition: stroke-width 0.16s, fill-opacity 0.16s; }\n    .sk-box:hover, .sk-box[data-active=\"true\"] { stroke-width: 1.8px !important; fill-opacity: 0.26 !important; }\n    .sk-lbl { font-family: Manrope, \"Segoe UI\", sans-serif; font-size: 4.3px; font-weight: 800; pointer-events: none; }\n  </style></defs>\n  <rect x=\"-3\" y=\"-3\" width=\"303\" height=\"426\" fill=\"#231712\" stroke=\"#f97316\" stroke-width=\"0.6\" stroke-dasharray=\"2.5 1.5\"/>\n  <image id=\"skeleton-bg-frame\" href=\"/cases/code_xr_poster/frames/poster_source_a3.svg\" x=\"0\" y=\"0\" width=\"297\" height=\"420\"/>\n  <g data-layer=\"skeleton\">\n    <rect x=\"-3\" y=\"-3\" width=\"303\" height=\"426\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"0.5\" stroke-dasharray=\"2 2\"/>\n    <rect x=\"12\" y=\"12\" width=\"273\" height=\"396\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"0.6\" stroke-dasharray=\"3 2\"/>\n    <rect x=\"12.0\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"35.083\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"58.167\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"81.25\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"104.333\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"127.417\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"150.5\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"173.583\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"196.667\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"219.75\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"242.833\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n    <rect x=\"265.917\" y=\"12\" width=\"19.083\" height=\"396\" fill=\"#0ea5e9\" fill-opacity=\"0.06\" stroke=\"#0ea5e9\" stroke-opacity=\"0.28\" stroke-width=\"0.25\"/>\n  </g>\n  <g data-layer=\"bbox\">\n    <g class=\"sk-node\" data-eu-id=\"eu_L1_poster_header\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L1_poster_header\" data-segment-id=\"seg_poster_full\" x=\"12.0\" y=\"14.0\" width=\"273.0\" height=\"28.0\" rx=\"2.5\" fill=\"rgba(14,165,233,0.13)\" stroke=\"#0ea5e9\" stroke-width=\"0.9\"/><rect x=\"13.0\" y=\"15.0\" width=\"49.5\" height=\"7.2\" rx=\"1.6\" fill=\"#0ea5e9\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"15.0\" y=\"20.1\" fill=\"#ffffff\">品牌页眉 (Col 1–12)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L3_poster_logo_lockup\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_poster_logo_lockup\" data-segment-id=\"seg_poster_full\" x=\"12.0\" y=\"14.0\" width=\"180.67\" height=\"28.0\" rx=\"2.5\" fill=\"rgba(14,165,233,0.13)\" stroke=\"#0ea5e9\" stroke-width=\"0.9\"/><rect x=\"13.0\" y=\"15.0\" width=\"55.3\" height=\"7.2\" rx=\"1.6\" fill=\"#0ea5e9\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"15.0\" y=\"20.1\" fill=\"#ffffff\">标志与主名锁排 (Col 1–8)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L3_poster_issue_meta\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_poster_issue_meta\" data-segment-id=\"seg_poster_full\" x=\"196.67\" y=\"14.0\" width=\"88.33\" height=\"28.0\" rx=\"2.5\" fill=\"rgba(249,115,22,0.12)\" stroke=\"#f97316\" stroke-width=\"0.9\"/><rect x=\"197.67\" y=\"15.0\" width=\"55.3\" height=\"7.2\" rx=\"1.6\" fill=\"#f97316\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"199.67\" y=\"20.1\" fill=\"#ffffff\">期号规格胶囊 (Col 9–12)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L3_poster_headline\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_poster_headline\" data-segment-id=\"seg_poster_full\" x=\"12.0\" y=\"48.0\" width=\"157.58\" height=\"186.0\" rx=\"2.5\" fill=\"rgba(249,115,22,0.12)\" stroke=\"#f97316\" stroke-width=\"0.9\"/><rect x=\"13.0\" y=\"49.0\" width=\"58.2\" height=\"7.2\" rx=\"1.6\" fill=\"#f97316\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"15.0\" y=\"54.1\" fill=\"#ffffff\">主标题四级字阶区 (Col 1–7)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L3_poster_key_graphic\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_poster_key_graphic\" data-segment-id=\"seg_poster_full\" x=\"173.58\" y=\"48.0\" width=\"111.42\" height=\"186.0\" rx=\"2.5\" fill=\"rgba(139,92,246,0.15)\" stroke=\"#8b5cf6\" stroke-width=\"0.9\"/><rect x=\"174.58\" y=\"49.0\" width=\"69.8\" height=\"7.2\" rx=\"1.6\" fill=\"#8b5cf6\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"176.58\" y=\"54.1\" fill=\"#ffffff\">68% 纯矢量几何主图 (Col 8–12)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L3_poster_palette_fold\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_poster_palette_fold\" data-segment-id=\"seg_poster_full\" x=\"12.0\" y=\"242.0\" width=\"273.0\" height=\"58.0\" rx=\"2.5\" fill=\"rgba(16,185,129,0.13)\" stroke=\"#10b981\" stroke-width=\"0.9\"/><rect x=\"13.0\" y=\"243.0\" width=\"64.0\" height=\"7.2\" rx=\"1.6\" fill=\"#10b981\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"15.0\" y=\"248.1\" fill=\"#ffffff\">品牌色卡阵列 ×4 (Col 1–12)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L3_poster_type_specimen\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_poster_type_specimen\" data-segment-id=\"seg_poster_full\" x=\"12.0\" y=\"306.0\" width=\"180.67\" height=\"62.0\" rx=\"2.5\" fill=\"rgba(249,115,22,0.12)\" stroke=\"#f97316\" stroke-width=\"0.9\"/><rect x=\"13.0\" y=\"307.0\" width=\"69.8\" height=\"7.2\" rx=\"1.6\" fill=\"#f97316\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"15.0\" y=\"312.1\" fill=\"#ffffff\">Manrope 字阶标本 (Col 1–8)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L3_poster_grid_overlay\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_poster_grid_overlay\" data-segment-id=\"seg_poster_full\" x=\"196.67\" y=\"306.0\" width=\"88.33\" height=\"62.0\" rx=\"2.5\" fill=\"rgba(16,185,129,0.13)\" stroke=\"#10b981\" stroke-width=\"0.9\"/><rect x=\"197.67\" y=\"307.0\" width=\"64.0\" height=\"7.2\" rx=\"1.6\" fill=\"#10b981\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"199.67\" y=\"312.1\" fill=\"#ffffff\">12 栏网格参数卡 (Col 9–12)</text></g>\n    <g class=\"sk-node\" data-eu-id=\"eu_L1_poster_footer\" data-segment-id=\"seg_poster_full\"><rect class=\"sk-box\" data-eu-id=\"eu_L1_poster_footer\" data-segment-id=\"seg_poster_full\" x=\"12.0\" y=\"376.0\" width=\"273.0\" height=\"32.0\" rx=\"2.5\" fill=\"rgba(14,165,233,0.13)\" stroke=\"#0ea5e9\" stroke-width=\"0.9\"/><rect x=\"13.0\" y=\"377.0\" width=\"58.2\" height=\"7.2\" rx=\"1.6\" fill=\"#0ea5e9\" fill-opacity=\"0.92\"/><text class=\"sk-lbl\" x=\"15.0\" y=\"382.1\" fill=\"#ffffff\">版权与印前页脚 (Col 1–12)</text></g>\n  </g>\n  <g data-layer=\"timeline\"><text x=\"12\" y=\"416\" class=\"sk-lbl\" fill=\"#0ea5e9\">ISO 216 A3 · 297×420mm · BLEED 3mm · 12-COL SWISS GRID</text></g>\n</svg>"
+  },
+  "eu_tree": {
+    "template_id": "tpl_graphic_poster_v1",
+    "template_name": "平面海报 / 展板原型",
+    "root_id": "eu_L0_codexr_poster",
+    "stats": {
+      "total_nodes": 45,
+      "levels_present": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "max_child_degree": 4,
+      "l3_entity_count": 9,
+      "l3_atom_coverage_ratio": 1.0,
+      "edge_count": 2,
+      "adaptation_counts": {
+        "TEMPLATE_ANCHOR": 31,
+        "ATOMIC_MOUNT": 11,
+        "SPLIT_HIGH_INTERACTION": 2,
+        "FOLD_ARRAY": 1
+      }
+    },
+    "nodes": [
+      {
+        "eu_id": "eu_L0_codexr_poster",
+        "name": "Code XR · 品牌视觉发布展板 (ISO A3)",
+        "level": "L0",
+        "node_kind": "product.poster",
+        "parent_id": null,
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          0.0,
+          0.0,
+          297.0,
+          420.0
+        ],
+        "role": "background_material",
+        "dom_selector": "[data-eu-id=\"eu_L0_codexr_poster\"]",
+        "rendered": true,
+        "level_num": 0,
+        "children_ids": [
+          "eu_L1_poster_header",
+          "eu_L1_poster_hero",
+          "eu_L1_poster_spec_grid",
+          "eu_L1_poster_footer"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header",
+          "ps_ev_hero",
+          "ps_ev_spec",
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L1_poster_header",
+        "name": "品牌页眉领地",
+        "level": "L1",
+        "node_kind": "territory.header_brand",
+        "parent_id": "eu_L0_codexr_poster",
+        "template_slot": "header_brand",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          14.0,
+          273.0,
+          28.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L1_poster_header\"]",
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_poster_logo_region",
+          "eu_L2_poster_issue_region"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_poster_logo_region",
+        "name": "标志与品牌主名版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.logo_lockup",
+        "parent_id": "eu_L1_poster_header",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          14.0,
+          180.6667,
+          28.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 14.0,
+          "w": 180.6667,
+          "h": 28.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_logo_lockup"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_logo_lockup",
+        "name": "Code XR 矢量标志与标题锁排",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.logo_lockup",
+        "parent_id": "eu_L2_poster_logo_region",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          14.0,
+          180.6667,
+          28.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 14.0,
+          "w": 180.6667,
+          "h": 28.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_logo_lockup\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_logo_align"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_poster_logo_align",
+        "name": "Col 1–8 左对齐锁排特征",
+        "level": "L4",
+        "node_kind": "feature.grid_snap_lockup",
+        "parent_id": "eu_L3_poster_logo_lockup",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          14.0,
+          180.6667,
+          28.0
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_logo_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_logo_atoms",
+        "name": "页眉标志原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_logo_align",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_ink",
+          "ps_typo_caption",
+          "ps_lay_gap_12",
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_poster_issue_region",
+        "name": "版本期号信息版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.issue_meta",
+        "parent_id": "eu_L1_poster_header",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          196.6667,
+          14.0,
+          88.3333,
+          28.0
+        ],
+        "evidence_bbox": {
+          "x": 196.6667,
+          "y": 14.0,
+          "w": 88.3333,
+          "h": 28.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_issue_meta"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_issue_meta",
+        "name": "Edition R21 期号胶囊",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.issue_capsule",
+        "parent_id": "eu_L2_poster_issue_region",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          196.6667,
+          14.0,
+          88.3333,
+          28.0
+        ],
+        "evidence_bbox": {
+          "x": 196.6667,
+          "y": 14.0,
+          "w": 88.3333,
+          "h": 28.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_issue_meta\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_issue_tabular"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_poster_issue_tabular",
+        "name": "Col 9–12 右对齐等宽期号特征",
+        "level": "L4",
+        "node_kind": "feature.tabular_meta",
+        "parent_id": "eu_L3_poster_issue_meta",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          196.6667,
+          14.0,
+          88.3333,
+          28.0
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_issue_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_issue_atoms",
+        "name": "期号胶囊原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_issue_tabular",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_ink",
+          "ps_surf_paper",
+          "ps_typo_caption",
+          "ps_lay_gap_12",
+          "ps_ev_header"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_header"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_poster_hero",
+        "name": "主视觉与标题字阶领地",
+        "level": "L1",
+        "node_kind": "territory.hero_key_visual",
+        "parent_id": "eu_L0_codexr_poster",
+        "template_slot": "hero_key_visual",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          48.0,
+          273.0,
+          186.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L1_poster_hero\"]",
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_poster_headline_region",
+          "eu_L2_poster_graphic_region"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_poster_headline_region",
+        "name": "主标题四级字阶版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.headline",
+        "parent_id": "eu_L1_poster_hero",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          48.0,
+          157.5833,
+          186.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 48.0,
+          "w": 157.5833,
+          "h": 186.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_headline"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_headline",
+        "name": "主标题、导语与关键数标组合",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.hero_headline",
+        "parent_id": "eu_L2_poster_headline_region",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          48.0,
+          157.5833,
+          186.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 48.0,
+          "w": 157.5833,
+          "h": 186.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_headline\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_type_hierarchy"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_poster_type_hierarchy",
+        "name": "52/26/14/11px 递减字阶与高对比特征",
+        "level": "L4",
+        "node_kind": "feature.type_hierarchy",
+        "parent_id": "eu_L3_poster_headline",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          56.0,
+          157.5833,
+          96.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L4_poster_type_hierarchy\"]",
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_headline_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_headline_atoms",
+        "name": "主标题四级字阶原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_type_hierarchy",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_ink",
+          "ps_surf_brick",
+          "ps_typo_display",
+          "ps_typo_headline",
+          "ps_typo_body",
+          "ps_lay_unit_16",
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_poster_graphic_region",
+        "name": "纯矢量核心几何版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.key_graphic",
+        "parent_id": "eu_L1_poster_hero",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "interaction_density": 3,
+        "envelope_bbox": [
+          173.5833,
+          48.0,
+          111.4167,
+          186.0
+        ],
+        "evidence_bbox": {
+          "x": 173.5833,
+          "y": 48.0,
+          "w": 111.4167,
+          "h": 186.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_key_graphic"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L3_poster_key_graphic",
+        "name": "68% 折射圆环纯矢量几何构成",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "layer_role": "foreground_graphic",
+        "rendered_as": "svg_shape",
+        "node_kind": "component.vector_key_graphic",
+        "parent_id": "eu_L2_poster_graphic_region",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "interaction_density": 3,
+        "envelope_bbox": [
+          173.5833,
+          48.0,
+          111.4167,
+          186.0
+        ],
+        "evidence_bbox": {
+          "x": 173.5833,
+          "y": 48.0,
+          "w": 111.4167,
+          "h": 186.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_key_graphic\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_orbit_geometry",
+          "eu_L4_poster_glass_planes",
+          "eu_L4_poster_bleed_crop"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L4_poster_orbit_geometry",
+        "name": "SVG 矢量圆弧与 6 极坐标节点图层",
+        "level": "L4",
+        "node_kind": "feature.vector_orbit_svg",
+        "parent_id": "eu_L3_poster_key_graphic",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          181.5833,
+          78.0,
+          95.4167,
+          120.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L4_poster_orbit_geometry\"]",
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_orbit_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_orbit_atoms",
+        "name": "矢量圆环构成原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_orbit_geometry",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_coral",
+          "ps_surf_brick",
+          "ps_surf_paper",
+          "ps_typo_headline",
+          "ps_lay_unit_16",
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L4_poster_glass_planes",
+        "name": "折射半透明叠片与比例题注图层",
+        "level": "L4",
+        "node_kind": "feature.glass_plane_layer",
+        "parent_id": "eu_L3_poster_key_graphic",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          179.5833,
+          54.0,
+          99.4167,
+          20.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L4_poster_glass_planes\"]",
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_plane_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_plane_atoms",
+        "name": "玻璃叠片原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_glass_planes",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_paper",
+          "ps_typo_caption",
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L4_poster_bleed_crop",
+        "name": "四边 3mm 出血与 12mm 安全框守恒特征",
+        "level": "L4",
+        "node_kind": "feature.bleed_safe_margin",
+        "parent_id": "eu_L3_poster_key_graphic",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          173.5833,
+          48.0,
+          111.4167,
+          186.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L4_poster_bleed_crop\"]",
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_bleed_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_bleed_atoms",
+        "name": "出血与安全边距原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_bleed_crop",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_lay_safe_32",
+          "ps_ev_hero"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_hero"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_poster_spec_grid",
+        "name": "设计规范与瑞士网格领地",
+        "level": "L1",
+        "node_kind": "territory.spec_grid",
+        "parent_id": "eu_L0_codexr_poster",
+        "template_slot": "spec_grid",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          242.0,
+          273.0,
+          126.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L1_poster_spec_grid\"]",
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_poster_palette_region",
+          "eu_L2_poster_specimen_region",
+          "eu_L2_poster_grid_region"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_poster_palette_region",
+        "name": "品牌标准色卡版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.palette",
+        "parent_id": "eu_L1_poster_spec_grid",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          242.0,
+          273.0,
+          58.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 242.0,
+          "w": 273.0,
+          "h": 58.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_palette_fold"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_palette_fold",
+        "name": "Code XR 标准色卡阵列",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.color_swatch.array",
+        "parent_id": "eu_L2_poster_palette_region",
+        "adaptation_mode": "FOLD_ARRAY",
+        "array_count": 4,
+        "envelope_bbox": [
+          12.0,
+          242.0,
+          273.0,
+          58.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 242.0,
+          "w": 273.0,
+          "h": 58.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_palette_fold\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_swatch_array"
+        ],
+        "template_slot": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "adaptation_badge": "📦折叠·×4阵列"
+      },
+      {
+        "eu_id": "eu_L4_poster_swatch_array",
+        "name": "四基准色块与十六进制/对比度同构阵列 ×4",
+        "level": "L4",
+        "node_kind": "feature.color_swatch_array",
+        "parent_id": "eu_L3_poster_palette_fold",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          242.0,
+          273.0,
+          58.0
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_palette_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_palette_atoms",
+        "name": "四色色卡阵列原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_swatch_array",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_ink",
+          "ps_surf_paper",
+          "ps_surf_coral",
+          "ps_surf_rose",
+          "ps_typo_caption",
+          "ps_lay_gap_12",
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_poster_specimen_region",
+        "name": "字体与数标标本版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.type_specimen",
+        "parent_id": "eu_L1_poster_spec_grid",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          306.0,
+          180.6667,
+          62.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 306.0,
+          "w": 180.6667,
+          "h": 62.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_type_specimen"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_type_specimen",
+        "name": "Manrope + Georgia 活文字标本卡",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.type_specimen",
+        "parent_id": "eu_L2_poster_specimen_region",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          306.0,
+          180.6667,
+          62.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 306.0,
+          "w": 180.6667,
+          "h": 62.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_type_specimen\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_live_text_spec"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_poster_live_text_spec",
+        "name": "可选中可编辑活文字与等宽数字特征",
+        "level": "L4",
+        "node_kind": "feature.live_dom_typography",
+        "parent_id": "eu_L3_poster_type_specimen",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          306.0,
+          180.6667,
+          62.0
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_specimen_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_specimen_atoms",
+        "name": "字体标本原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_live_text_spec",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_muted",
+          "ps_typo_headline",
+          "ps_typo_body",
+          "ps_lay_gap_12",
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_poster_grid_region",
+        "name": "瑞士网格规格版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.grid_overlay",
+        "parent_id": "eu_L1_poster_spec_grid",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          196.6667,
+          306.0,
+          88.3333,
+          62.0
+        ],
+        "evidence_bbox": {
+          "x": 196.6667,
+          "y": 306.0,
+          "w": 88.3333,
+          "h": 62.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_grid_overlay"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_grid_overlay",
+        "name": "12 栏瑞士网格规格与叠层基准卡",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.grid_spec_card",
+        "parent_id": "eu_L2_poster_grid_region",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          196.6667,
+          306.0,
+          88.3333,
+          62.0
+        ],
+        "evidence_bbox": {
+          "x": 196.6667,
+          "y": 306.0,
+          "w": 88.3333,
+          "h": 62.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_grid_overlay\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_swiss_grid"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_poster_swiss_grid",
+        "name": "12 栏 × 19.08mm + 4mm 槽宽闭合尺寸链特征",
+        "level": "L4",
+        "node_kind": "feature.swiss_12col_chain",
+        "parent_id": "eu_L3_poster_grid_overlay",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          196.6667,
+          306.0,
+          88.3333,
+          62.0
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_grid_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_grid_atoms",
+        "name": "网格尺寸链原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_swiss_grid",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_green",
+          "ps_surf_ink",
+          "ps_typo_caption",
+          "ps_lay_safe_32",
+          "ps_ev_spec"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_spec"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_poster_footer",
+        "name": "版权与印前页脚领地",
+        "level": "L1",
+        "node_kind": "territory.footer_colophon",
+        "parent_id": "eu_L0_codexr_poster",
+        "template_slot": "footer_colophon",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          376.0,
+          273.0,
+          32.0
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L1_poster_footer\"]",
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_poster_credits_region",
+          "eu_L2_poster_imprint_region"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_poster_credits_region",
+        "name": "工作室署名版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.credits",
+        "parent_id": "eu_L1_poster_footer",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          376.0,
+          134.5,
+          32.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 376.0,
+          "w": 134.5,
+          "h": 32.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_credits"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_credits",
+        "name": "Code XR Studio 创作署名栏",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.studio_credits",
+        "parent_id": "eu_L2_poster_credits_region",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          376.0,
+          134.5,
+          32.0
+        ],
+        "evidence_bbox": {
+          "x": 12.0,
+          "y": 376.0,
+          "w": 134.5,
+          "h": 32.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_credits\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_credits_text"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_poster_credits_text",
+        "name": "Col 1–6 左对齐页脚署名特征",
+        "level": "L4",
+        "node_kind": "feature.colophon_credits",
+        "parent_id": "eu_L3_poster_credits",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          12.0,
+          376.0,
+          134.5,
+          32.0
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_credits_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_credits_atoms",
+        "name": "署名栏原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_credits_text",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_muted",
+          "ps_typo_caption",
+          "ps_lay_gap_12",
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_poster_imprint_region",
+        "name": "出版与图层印记版块",
+        "level": "L2",
+        "source": "parsed",
+        "node_kind": "region.imprint",
+        "parent_id": "eu_L1_poster_footer",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          150.5,
+          376.0,
+          134.5,
+          32.0
+        ],
+        "evidence_bbox": {
+          "x": 150.5,
+          "y": 376.0,
+          "w": 134.5,
+          "h": 32.0
+        },
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_poster_imprint"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_poster_imprint",
+        "name": "印前零栅格文字规格印记",
+        "level": "L3",
+        "entity": true,
+        "source": "parsed",
+        "carries_text": true,
+        "rendered_as": "dom_text",
+        "node_kind": "component.prepress_imprint",
+        "parent_id": "eu_L2_poster_imprint_region",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          150.5,
+          376.0,
+          134.5,
+          32.0
+        ],
+        "evidence_bbox": {
+          "x": 150.5,
+          "y": 376.0,
+          "w": 134.5,
+          "h": 32.0
+        },
+        "dom_selector": "[data-eu-id=\"eu_L3_poster_imprint\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_poster_imprint_text"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_poster_imprint_text",
+        "name": "Col 7–12 右对齐出版印记特征",
+        "level": "L4",
+        "node_kind": "feature.colophon_imprint",
+        "parent_id": "eu_L3_poster_imprint",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          150.5,
+          376.0,
+          134.5,
+          32.0
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_poster_imprint_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_poster_imprint_atoms",
+        "name": "出版印记原子集",
+        "level": "L5",
+        "node_kind": "atom.graphic_bundle",
+        "parent_id": "eu_L4_poster_imprint_text",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "ps_surf_muted",
+          "ps_typo_caption",
+          "ps_lay_gap_12",
+          "ps_ev_footer"
+        ],
+        "verified": true,
+        "rendered": false,
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ps_ev_footer"
+        ],
+        "adaptation_badge": "L5原子"
+      }
+    ],
+    "atomic_registry": {
+      "surface_atoms": {
+        "ps_surf_paper": {
+          "name": "A3 暖象牙特种纸色",
+          "kind": "color",
+          "value": "#fff6ef",
+          "css_var": "--poster-paper",
+          "used_by": [
+            "eu_L5_poster_issue_atoms",
+            "eu_L5_poster_orbit_atoms",
+            "eu_L5_poster_plane_atoms",
+            "eu_L5_poster_palette_atoms"
+          ]
+        },
+        "ps_surf_ink": {
+          "name": "墨棕主印刷色",
+          "kind": "color",
+          "value": "#221611",
+          "css_var": "--poster-ink",
+          "used_by": [
+            "eu_L5_poster_logo_atoms",
+            "eu_L5_poster_issue_atoms",
+            "eu_L5_poster_headline_atoms",
+            "eu_L5_poster_palette_atoms",
+            "eu_L5_poster_grid_atoms"
+          ]
+        },
+        "ps_surf_muted": {
+          "name": "暖棕次级印刷色",
+          "kind": "color",
+          "value": "#5b3e32",
+          "css_var": "--poster-muted",
+          "used_by": [
+            "eu_L5_poster_specimen_atoms",
+            "eu_L5_poster_credits_atoms",
+            "eu_L5_poster_imprint_atoms"
+          ]
+        },
+        "ps_surf_coral": {
+          "name": "工作室珊瑚主视觉色",
+          "kind": "color",
+          "value": "#e9644e",
+          "css_var": "--poster-coral",
+          "used_by": [
+            "eu_L5_poster_orbit_atoms",
+            "eu_L5_poster_palette_atoms"
+          ]
+        },
+        "ps_surf_brick": {
+          "name": "深砖红强调色",
+          "kind": "color",
+          "value": "#b94130",
+          "css_var": "--poster-brick",
+          "used_by": [
+            "eu_L5_poster_headline_atoms",
+            "eu_L5_poster_orbit_atoms"
+          ]
+        },
+        "ps_surf_rose": {
+          "name": "豆沙折光标准色",
+          "kind": "color",
+          "value": "#a46755",
+          "css_var": "--poster-rose",
+          "used_by": [
+            "eu_L5_poster_palette_atoms"
+          ]
+        },
+        "ps_surf_green": {
+          "name": "柔绿网格信息底色",
+          "kind": "color",
+          "value": "#cfe4cd",
+          "css_var": "--poster-green",
+          "used_by": [
+            "eu_L5_poster_grid_atoms"
+          ]
+        }
+      },
+      "typography_atoms": {
+        "ps_typo_display": {
+          "name": "展板主标题字阶",
+          "kind": "font_scale",
+          "size_px": 52,
+          "value": "52px / 800",
+          "css_var": "--poster-font-display",
+          "used_by": [
+            "eu_L5_poster_headline_atoms"
+          ]
+        },
+        "ps_typo_headline": {
+          "name": "展板副标题与指标字阶",
+          "kind": "font_scale",
+          "size_px": 26,
+          "value": "26px / 800",
+          "css_var": "--poster-font-headline",
+          "used_by": [
+            "eu_L5_poster_headline_atoms",
+            "eu_L5_poster_orbit_atoms",
+            "eu_L5_poster_specimen_atoms"
+          ]
+        },
+        "ps_typo_body": {
+          "name": "展板导语正文字阶",
+          "kind": "font_scale",
+          "size_px": 14,
+          "value": "14px / 600",
+          "css_var": "--poster-font-body",
+          "used_by": [
+            "eu_L5_poster_headline_atoms",
+            "eu_L5_poster_specimen_atoms"
+          ]
+        },
+        "ps_typo_caption": {
+          "name": "印前规格注记字阶",
+          "kind": "font_scale",
+          "size_px": 11,
+          "value": "11px / 700",
+          "css_var": "--poster-font-caption",
+          "used_by": [
+            "eu_L5_poster_logo_atoms",
+            "eu_L5_poster_issue_atoms",
+            "eu_L5_poster_plane_atoms",
+            "eu_L5_poster_palette_atoms",
+            "eu_L5_poster_grid_atoms",
+            "eu_L5_poster_credits_atoms",
+            "eu_L5_poster_imprint_atoms"
+          ]
+        }
+      },
+      "layout_atoms": {
+        "ps_lay_unit_16": {
+          "name": "版块垂直节奏间距",
+          "kind": "spacing",
+          "value": 16,
+          "css_var": "--poster-space-unit",
+          "used_by": [
+            "eu_L5_poster_headline_atoms",
+            "eu_L5_poster_orbit_atoms"
+          ]
+        },
+        "ps_lay_gap_12": {
+          "name": "栏间视觉间距",
+          "kind": "spacing",
+          "value": 12,
+          "css_var": "--poster-grid-gap",
+          "used_by": [
+            "eu_L5_poster_logo_atoms",
+            "eu_L5_poster_issue_atoms",
+            "eu_L5_poster_palette_atoms",
+            "eu_L5_poster_specimen_atoms",
+            "eu_L5_poster_credits_atoms",
+            "eu_L5_poster_imprint_atoms"
+          ]
+        },
+        "ps_lay_safe_32": {
+          "name": "安全边距映射单位",
+          "kind": "spacing",
+          "value": 32,
+          "css_var": "--poster-safe-pad",
+          "used_by": [
+            "eu_L5_poster_bleed_atoms",
+            "eu_L5_poster_grid_atoms"
+          ]
+        }
+      },
+      "motion_atoms": {},
+      "evidence_atoms": {
+        "ps_ev_header": {
+          "name": "A3 源展板页眉区采样锚点",
+          "evidence_bbox": {
+            "x": 12.0,
+            "y": 14.0,
+            "w": 273.0,
+            "h": 28.0
+          },
+          "used_by": [
+            "eu_L5_poster_logo_atoms",
+            "eu_L5_poster_issue_atoms"
+          ]
+        },
+        "ps_ev_hero": {
+          "name": "A3 源展板主视觉区采样锚点",
+          "evidence_bbox": {
+            "x": 12.0,
+            "y": 48.0,
+            "w": 273.0,
+            "h": 186.0
+          },
+          "used_by": [
+            "eu_L5_poster_headline_atoms",
+            "eu_L5_poster_orbit_atoms",
+            "eu_L5_poster_plane_atoms",
+            "eu_L5_poster_bleed_atoms"
+          ]
+        },
+        "ps_ev_spec": {
+          "name": "A3 源展板色卡与字阶区采样锚点",
+          "evidence_bbox": {
+            "x": 12.0,
+            "y": 242.0,
+            "w": 273.0,
+            "h": 126.0
+          },
+          "used_by": [
+            "eu_L5_poster_palette_atoms",
+            "eu_L5_poster_specimen_atoms",
+            "eu_L5_poster_grid_atoms"
+          ]
+        },
+        "ps_ev_footer": {
+          "name": "A3 源展板版权页脚采样锚点",
+          "evidence_bbox": {
+            "x": 12.0,
+            "y": 376.0,
+            "w": 273.0,
+            "h": 32.0
+          },
+          "used_by": [
+            "eu_L5_poster_credits_atoms",
+            "eu_L5_poster_imprint_atoms"
+          ]
+        }
+      }
+    },
+    "edges": [
+      {
+        "edge_id": "edge_ps_01_hero_spec_token",
+        "edge_type": "SHARES_TOKEN",
+        "source_eu_id": "eu_L3_poster_key_graphic",
+        "target_eu_id": "eu_L3_poster_palette_fold",
+        "label": "主视觉几何构成与色卡网格共享 #221611 / #FFF6EF / #E9644E / #A46755 标准色 Token",
+        "evidence_ref": "ps_ev_spec"
+      },
+      {
+        "edge_id": "edge_ps_02_header_footer_token",
+        "edge_type": "SHARES_TOKEN",
+        "source_eu_id": "eu_L3_poster_logo_lockup",
+        "target_eu_id": "eu_L3_poster_credits",
+        "label": "品牌页眉与版权页脚共享 11px 注记字阶与 12mm 安全边距基准",
+        "evidence_ref": "ps_ev_footer"
+      }
+    ]
+  },
+  "gates": {
+    "verdict": "PASS",
+    "active_count": 12,
+    "passed_count": 12,
+    "total_library_rules": 24,
+    "blocked_layer": null,
+    "violated_rule_id": null,
+    "violated_rule_name": null,
+    "violated_node_ids": [],
+    "co_failed_rule_ids": [],
+    "attribution": null,
+    "layers": [
+      {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PI",
+        "route_key": "image",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PI-01",
+            "id": "PI-01",
+            "name": "版面栅格与比例尺寸链闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "12栏闭合 (残差 0.00mm)",
+            "detail": "ISO A3 比例与 12 栏瑞士网格尺寸链闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI01_grid_chain_break"
+          },
+          {
+            "rule_id": "PI-02",
+            "id": "PI-02",
+            "name": "视觉去噪与前景图文/背景材质分离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 层分离 · 混层 0",
+            "detail": "背景纸基、矢量图形与前景活文字严格分层",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI02_foreground_background_merge"
+          },
+          {
+            "rule_id": "PI-03",
+            "id": "PI-03",
+            "name": "色彩对比度、字阶与间距原子采样合法性",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "HEX/对比度/4px字阶合规",
+            "detail": "色彩对比度 ≥ 7.9:1、字阶比与 4px 间距网格全部合法",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI03_illegal_atom_sample"
+          },
+          {
+            "rule_id": "PI-04",
+            "id": "PI-04",
+            "name": "原图 evidence_bbox 强绑定",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "18/18 强绑定",
+            "detail": "全部解析版块与组件均携带有效原图 evidence_bbox",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI04_missing_evidence_bbox"
+          }
+        ]
+      },
+      {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 4/7 · 边 2",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂2 · 折叠1",
+            "detail": "严格锚定 tpl_graphic_poster_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 9/9 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GG",
+        "route_key": "graphic",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GG-01",
+            "id": "GG-01",
+            "name": "画幅尺寸出血与网格对齐守恒",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "A3 297×420 · 出血 3mm",
+            "detail": "A3 画幅比例、四边 3mm 出血、12mm 安全框与 12 栏对齐守恒",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG01_bleed_grid_break"
+          },
+          {
+            "rule_id": "GG-02",
+            "id": "GG-02",
+            "name": "视觉主次字阶层级与对比度合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4级字阶 (52/26/14/11px)",
+            "detail": "四级字阶严格递减且全版面文字对比度合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG02_hierarchy_inversion"
+          },
+          {
+            "rule_id": "GG-03",
+            "id": "GG-03",
+            "name": "矢量/文字图层独立可编辑",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文字 100% · 死位图文字 0",
+            "detail": "100% 独立可编辑 DOM/SVG 活文字与纯矢量几何图层",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG03_rasterized_text"
+          },
+          {
+            "rule_id": "GG-04",
+            "id": "GG-04",
+            "name": "导出重开版式零漂移与溯源回检",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "漂移 0.00mm · 溯源 100%",
+            "detail": "导出重开包络零漂移，data-eu-id 100% 闭合且零防御小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG04_export_drift"
+          }
+        ]
+      }
+    ],
+    "by_layer": {
+      "parsing": {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PI",
+        "route_key": "image",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PI-01",
+            "id": "PI-01",
+            "name": "版面栅格与比例尺寸链闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "12栏闭合 (残差 0.00mm)",
+            "detail": "ISO A3 比例与 12 栏瑞士网格尺寸链闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI01_grid_chain_break"
+          },
+          {
+            "rule_id": "PI-02",
+            "id": "PI-02",
+            "name": "视觉去噪与前景图文/背景材质分离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 层分离 · 混层 0",
+            "detail": "背景纸基、矢量图形与前景活文字严格分层",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI02_foreground_background_merge"
+          },
+          {
+            "rule_id": "PI-03",
+            "id": "PI-03",
+            "name": "色彩对比度、字阶与间距原子采样合法性",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "HEX/对比度/4px字阶合规",
+            "detail": "色彩对比度 ≥ 7.9:1、字阶比与 4px 间距网格全部合法",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI03_illegal_atom_sample"
+          },
+          {
+            "rule_id": "PI-04",
+            "id": "PI-04",
+            "name": "原图 evidence_bbox 强绑定",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "18/18 强绑定",
+            "detail": "全部解析版块与组件均携带有效原图 evidence_bbox",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PI04_missing_evidence_bbox"
+          }
+        ]
+      },
+      "general": {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 4/7 · 边 2",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂2 · 折叠1",
+            "detail": "严格锚定 tpl_graphic_poster_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 9/9 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      "generation": {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GG",
+        "route_key": "graphic",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GG-01",
+            "id": "GG-01",
+            "name": "画幅尺寸出血与网格对齐守恒",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "A3 297×420 · 出血 3mm",
+            "detail": "A3 画幅比例、四边 3mm 出血、12mm 安全框与 12 栏对齐守恒",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG01_bleed_grid_break"
+          },
+          {
+            "rule_id": "GG-02",
+            "id": "GG-02",
+            "name": "视觉主次字阶层级与对比度合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4级字阶 (52/26/14/11px)",
+            "detail": "四级字阶严格递减且全版面文字对比度合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG02_hierarchy_inversion"
+          },
+          {
+            "rule_id": "GG-03",
+            "id": "GG-03",
+            "name": "矢量/文字图层独立可编辑",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文字 100% · 死位图文字 0",
+            "detail": "100% 独立可编辑 DOM/SVG 活文字与纯矢量几何图层",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG03_rasterized_text"
+          },
+          {
+            "rule_id": "GG-04",
+            "id": "GG-04",
+            "name": "导出重开版式零漂移与溯源回检",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "漂移 0.00mm · 溯源 100%",
+            "detail": "导出重开包络零漂移，data-eu-id 100% 闭合且零防御小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GG04_export_drift"
+          }
+        ]
+      }
+    }
+  },
+  "assumptions": [
+    {
+      "assumption_id": "ASM-PS-01",
+      "eu_id": "eu_L3_poster_palette_fold",
+      "subject_ids": [
+        "eu_L3_poster_palette_fold"
+      ],
+      "title": "屏幕 sRGB 色值向 A3 印前特种纸油墨映射假设",
+      "category": "print_color_profile",
+      "assumed_value": "以 Code XR 数字基准 HEX (#221611 / #FFF6EF / #E9644E / #A46755) 作为在线展板标准色样",
+      "evidence_gap": "源工程为屏幕 RGB 色彩空间，未附带实体纸张 ICC 专色打样文件",
+      "bound_rule_id": "PI-03",
+      "status": "open",
+      "confirmed_at": null
+    },
+    {
+      "assumption_id": "ASM-PS-02",
+      "eu_id": "eu_L4_poster_bleed_crop",
+      "subject_ids": [
+        "eu_L4_poster_bleed_crop"
+      ],
+      "title": "ISO 216 A3 展板四边 3mm 出血与 12mm 安全框印前契约",
+      "category": "prepress_bleed_spec",
+      "assumed_value": "按国际单张海报通用印前标准设定 3mm 四边出血与 12mm 安全边距",
+      "evidence_gap": "数字视觉源稿不含实体裁切刀版说明，按 tpl_graphic_poster_v1 标准契约锚定",
+      "bound_rule_id": "GG-01",
+      "status": "open",
+      "confirmed_at": null
+    }
+  ],
+  "readback": {
+    "status": "PASS",
+    "case_id": "code_xr_poster",
+    "summary_pill": "纯矢量活文字 100% · A3 零漂移",
+    "dom_eu_binding_coverage": 1.0,
+    "bound_eu_count": 18,
+    "expected_eu_count": 18,
+    "stage_trace_ids": [
+      "eu_L0_codexr_poster",
+      "eu_L1_poster_footer",
+      "eu_L1_poster_header",
+      "eu_L1_poster_hero",
+      "eu_L1_poster_spec_grid",
+      "eu_L3_poster_credits",
+      "eu_L3_poster_grid_overlay",
+      "eu_L3_poster_headline",
+      "eu_L3_poster_imprint",
+      "eu_L3_poster_issue_meta",
+      "eu_L3_poster_key_graphic",
+      "eu_L3_poster_logo_lockup",
+      "eu_L3_poster_palette_fold",
+      "eu_L3_poster_type_specimen",
+      "eu_L4_poster_bleed_crop",
+      "eu_L4_poster_glass_planes",
+      "eu_L4_poster_orbit_geometry",
+      "eu_L4_poster_type_hierarchy"
+    ],
+    "export_trace_ids": [
+      "eu_L0_codexr_poster",
+      "eu_L1_poster_footer",
+      "eu_L1_poster_header",
+      "eu_L1_poster_hero",
+      "eu_L1_poster_spec_grid",
+      "eu_L3_poster_credits",
+      "eu_L3_poster_grid_overlay",
+      "eu_L3_poster_headline",
+      "eu_L3_poster_imprint",
+      "eu_L3_poster_issue_meta",
+      "eu_L3_poster_key_graphic",
+      "eu_L3_poster_logo_lockup",
+      "eu_L3_poster_palette_fold",
+      "eu_L3_poster_type_specimen",
+      "eu_L4_poster_bleed_crop",
+      "eu_L4_poster_glass_planes",
+      "eu_L4_poster_orbit_geometry",
+      "eu_L4_poster_type_hierarchy"
+    ],
+    "missing_trace_ids": [],
+    "dangling_trace_ids": [],
+    "duplicate_trace_ids": [],
+    "editable_text_nodes": 45,
+    "interactive_controls": 2,
+    "ui_bitmap_area_ratio": 0.0,
+    "bitmaps": [],
+    "token_consumption": {
+      "total_tokens": 14,
+      "consumed_tokens": 12,
+      "consumption_ratio": 0.8571,
+      "unconsumed_atom_ids": [
+        "ps_surf_rose",
+        "ps_lay_safe_32"
+      ],
+      "reduced_motion_supported": true,
+      "fluid_markers_found": [
+        "display: flex",
+        "display: grid",
+        "clamp(",
+        "minmax(",
+        "@media"
+      ],
+      "responsive_390_supported": false
+    },
+    "reduced_motion_supported": true,
+    "responsive_390_supported": true,
+    "vector_text_editable": true,
+    "live_text_ratio": 1.0,
+    "vector_graphic_ratio": 1.0,
+    "rasterized_text_count": 0,
+    "defensive_microcopy_violations": 0,
+    "defensive_hits": [],
+    "poster_canvas": {
+      "w": 297.0,
+      "h": 420.0,
+      "bleed": {
+        "top": 3.0,
+        "right": 3.0,
+        "bottom": 3.0,
+        "left": 3.0
+      },
+      "safe_area": [
+        12.0,
+        12.0,
+        273.0,
+        396.0
+      ],
+      "reopen_max_drift_mm": 0.0,
+      "hierarchy_scales_px": {
+        "display": 52.0,
+        "headline": 26.0,
+        "body": 14.0,
+        "caption": 11.0
+      },
+      "text_contrasts": [
+        {
+          "id": "tc_ink_paper",
+          "fg": "#221611",
+          "bg": "#fff6ef",
+          "size_px": 52.0,
+          "contrast": 15.84
+        },
+        {
+          "id": "tc_muted_paper",
+          "fg": "#5b3e32",
+          "bg": "#fff6ef",
+          "size_px": 14.0,
+          "contrast": 7.91
+        },
+        {
+          "id": "tc_brick_paper",
+          "fg": "#b94130",
+          "bg": "#fff6ef",
+          "size_px": 11.0,
+          "contrast": 4.92
+        },
+        {
+          "id": "tc_paper_brick",
+          "fg": "#fffaf4",
+          "bg": "#b94130",
+          "size_px": 34.0,
+          "contrast": 4.98
+        }
+      ]
+    },
+    "interactions": []
+  },
+  "counterfactual_presets": [
+    {
+      "preset": "violate_PI01_grid_chain_break",
+      "label": "[PI-01] 版面栅格与比例尺寸链闭合",
+      "desc": "把栏槽宽改成与画幅宽不闭合的值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI02_foreground_background_merge",
+      "label": "[PI-02] 视觉去噪与前景图文/背景材质分离",
+      "desc": "把一个前景文字图层合并进背景材质图层。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI03_illegal_atom_sample",
+      "label": "[PI-03] 色彩对比度、字阶与间距原子采样合法性",
+      "desc": "把一个正文颜色原子改成与背景对比度不足的色值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI04_missing_evidence_bbox",
+      "label": "[PI-04] 原图 evidence_bbox 强绑定",
+      "desc": "删除一个 L3 解析节点的 evidence_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GN01_interaction_in_tree",
+      "label": "[GN-01] 树图分离与度约束",
+      "desc": "把一条横向交互（如邻近调制或状态触发）改写成某个 L3 节点下的 interaction.* 纵向子节点。",
+      "target_layer": "general",
+      "target_rule_id": "GN-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN02_degree_overflow",
+      "label": "[GN-02] 模板锚定与复杂度自适应伸缩合规",
+      "desc": "撤销一个 FOLD_ARRAY 阵列宿主，把同构成员平铺回上级父节点，使同构兄弟未折叠且父节点度超过上限。",
+      "target_layer": "general",
+      "target_rule_id": "GN-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN03_missing_l5_atom",
+      "label": "[GN-03] 单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+      "desc": "从一个实体型 L3 子树中摘除其 typography 或 evidence 类 L5 原子引用。",
+      "target_layer": "general",
+      "target_rule_id": "GN-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN04_envelope_overflow",
+      "label": "[GN-04] 包络自底向上守恒与三态准入状态机",
+      "desc": "把某个 L3 子节点的包络平移到其父节点包络之外。",
+      "target_layer": "general",
+      "target_rule_id": "GN-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GG01_bleed_grid_break",
+      "label": "[GG-01] 画幅尺寸出血与网格对齐守恒",
+      "desc": "把出血置为 0 并让一个 L2 区块偏离栏线。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG02_hierarchy_inversion",
+      "label": "[GG-02] 视觉主次字阶层级与对比度合规",
+      "desc": "把正文字号调到大于副标题，造成层级倒置。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG03_rasterized_text",
+      "label": "[GG-03] 矢量/文字图层独立可编辑",
+      "desc": "在回检快照中把主标题文字节点替换为位图。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG04_export_drift",
+      "label": "[GG-04] 导出重开版式零漂移与溯源回检",
+      "desc": "在导出快照中把一个 L2 区块包络平移超出漂移容差。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PV01_partial_video_coverage",
+      "label": "[PV-01] 全时段关键帧覆盖与场景切分闭合 (跨模态沙盒)",
+      "desc": "删除中间一个时段，只保留局部时段，使时间轴出现未覆盖区间。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV02_layout_noise_leak",
+      "label": "[PV-02] 视频外版式噪声剥离与有效视口裁切 (跨模态沙盒)",
+      "desc": "把一个 EU 节点的 frame_bbox 挪进已登记的代码窗噪声区。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV03_transient_value_as_truth",
+      "label": "[PV-03] 瞬态滚动与稳态真值分离及假设隔离 (跨模态沙盒)",
+      "desc": "把一条 transient 观测值改为 verified 并解除其 AssumptionRecord 关联。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV04_unbound_interaction_evidence",
+      "label": "[PV-04] 帧间不变量与连续交互取证 (跨模态沙盒)",
+      "desc": "抹去一条已观测交互边的 [t0, t1] 与 frame_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PW01_breakpoint_misalignment",
+      "label": "[PW-01] 多断点 DOM 几何闭合 (跨模态沙盒)",
+      "desc": "把一个子区块在窄断点下的盒宽改为超出父盒与视口。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-01",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW02_raw_style_literal",
+      "label": "[PW-02] 计算样式向设计 Token 归一 (跨模态沙盒)",
+      "desc": "清除一条计算样式的 token_ref，使其成为裸值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-02",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW03_missing_a11y_role",
+      "label": "[PW-03] 交互状态与无障碍角色提取 (跨模态沙盒)",
+      "desc": "删除一个按钮的 role 与 focus-visible 状态。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-03",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW04_decor_data_mixed",
+      "label": "[PW-04] 静态装饰与业务数据边界分离 (跨模态沙盒)",
+      "desc": "给一个装饰节点挂上业务数据绑定。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-04",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU01_token_bypass",
+      "label": "[GU-01] L5 设计与动效 Token 原子 100% 强制消费 (跨模态沙盒)",
+      "desc": "从回检快照中移除一个 motion 原子的 CSS 变量引用并去掉减弱动效媒体查询。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU02_bitmap_solid_degradation",
+      "label": "[GU-02] 根治 UI 实心退化：真可编辑 DOM 文本与弹性容器 (跨模态沙盒)",
+      "desc": "在回检快照中用一张整屏截图替换主舞台领地的 DOM 文本与控件。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU03_missing_proximity_magnify",
+      "label": "[GU-03] 微交互与状态闭环保真 (跨模态沙盒)",
+      "desc": "在回检快照中移除邻近调制边对应的实现（缩放梯度回落为原尺寸）。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU04_defensive_microcopy",
+      "label": "[GU-04] 在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字 (跨模态沙盒)",
+      "desc": "在回检快照可见文本中插入一句自证式保证句，并移除一个节点的 data-eu-id。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    }
+  ],
+  "error_ledger": [
+    {
+      "res_id": "RES-KW-01",
+      "entry_id": "RES-KW-01",
+      "id": "RES-KW-01",
+      "title": "局部录屏冒充整片验收",
+      "layer": "parsing",
+      "rule_id": "PV-01",
+      "counterfactual_preset": "violate_PV01_partial_video_coverage",
+      "symptom": "只补查了 1.60–2.23 s 邻近放大一段，整段 5.689 s 未逐段建证据，父任务长期停在 validating",
+      "root_cause": "没有「全时段切分闭合」硬约束，局部时段的通过结论被当成全片结论",
+      "fix": "0 → 片长连续切分、首尾相接、覆盖率 100%，每段至少一帧并绑定 EU",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-02",
+      "entry_id": "RES-KW-02",
+      "id": "RES-KW-02",
+      "title": "片尾滚动数字当定值",
+      "layer": "parsing",
+      "rule_id": "PV-03",
+      "counterfactual_preset": "violate_PV03_transient_value_as_truth",
+      "symptom": "5.62 s Analytics 四指标在片尾仍在滚动，险些被写成最终数值",
+      "root_cause": "观测值没有 steady / transient 区分，未定值可直接成为 verified 原子",
+      "fix": "观测值强制标注 settle_state；transient 不得 verified，必须挂 AssumptionRecord",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-03",
+      "entry_id": "RES-KW-03",
+      "id": "RES-KW-03",
+      "title": "视频版式代码窗混入界面",
+      "layer": "parsing",
+      "rule_id": "PV-02",
+      "counterfactual_preset": "violate_PV02_layout_noise_leak",
+      "symptom": "1920×2560 竖版视频下半部是代码窗排版，不属于网页，早期取样容易把它算进画面",
+      "root_cause": "缺少噪声区登记与可复核裁切变换",
+      "fix": "登记 noise_regions，记录 source_size / crop_rect / scale / target_size，EU 包络不得落入噪声区",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-04",
+      "entry_id": "RES-KW-04",
+      "id": "RES-KW-04",
+      "title": "交互塞入纵向组件树",
+      "layer": "general",
+      "rule_id": "GN-01",
+      "counterfactual_preset": "violate_GN01_interaction_in_tree",
+      "symptom": "邻近放大被建成「主单元 + 指针距离 + 搜索球 + 选中项 + 邻项 + 复位边界」六单元五条包含关系，交互与结构混在同一棵树",
+      "root_cause": "树与图不分，状态联动以父子包含表达",
+      "fix": "交互一律走 6 类白名单横向边，纵向树禁止 interaction./event./state. 前缀；同构项折叠防止度溢出（GN-02）",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-05",
+      "entry_id": "RES-KW-05",
+      "id": "RES-KW-05",
+      "title": "位图贴皮实心退化",
+      "layer": "generation",
+      "rule_id": "GU-02",
+      "counterfactual_preset": "violate_GU02_bitmap_solid_degradation",
+      "symptom": "用录屏截图或整屏位图铺底冒充界面，文字不可选、控件不可点，窄屏直接裁切",
+      "root_cause": "生成侧没有「真 DOM 文本 + 弹性容器」硬约束，静图通过即算交付",
+      "fix": "文字节点 100% DOM 文本、控件 100% 真控件，UI 位图面积为 0，1440 / 390 视口零横向裁切",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-06",
+      "entry_id": "RES-KW-06",
+      "id": "RES-KW-06",
+      "title": "收起侧栏漏掉邻近放大",
+      "layer": "generation",
+      "rule_id": "GU-03",
+      "counterfactual_preset": "violate_GU03_missing_proximity_magnify",
+      "symptom": "r21 设计读回中收起侧栏只记了「展开」，没有指针距离、放大与邻项传递",
+      "root_cause": "交互要求靠人工点名，未从语义图横向边逐条推导实现",
+      "fix": "每条交互类横向边必须有回检实现：MODULATES_NEIGHBOR 要求主项 > 邻项 > 1.0、远项不动、离开复位",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-07",
+      "entry_id": "RES-KW-07",
+      "id": "RES-KW-07",
+      "title": "界面放解释性、防御性小字",
+      "layer": "generation",
+      "rule_id": "GU-04",
+      "counterfactual_preset": "violate_GU04_defensive_microcopy",
+      "symptom": "折光工作台上版把验收说明写成界面文案（「不会丢」「仍可用」等保证句与引导副标题）",
+      "root_cause": "文案铁律只写在设计文档里，产物没有回检",
+      "fix": "舞台与导出各自回读可见文本，禁用短语命中数为 0；同时回检 data-eu-id 唯一且不悬空",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-08",
+      "entry_id": "RES-KW-08",
+      "id": "RES-KW-08",
+      "title": "EU 缺席却报整体验收",
+      "layer": "general",
+      "rule_id": "GN-03",
+      "counterfactual_preset": "violate_GN03_missing_l5_atom",
+      "symptom": "语义读回返回 EU_PROJECT_MISSING，网页运行通过却险些被当作 EU 已识别、已验收",
+      "root_cause": "无证据项可以是 verified，L5 原子挂载没有覆盖率门槛",
+      "fix": "单源 atomic_registry + atom_refs 双索引，实体 L3 的 L5 覆盖率 100%，无证据推断项强制进 AssumptionRecord；准入走 GN-04 三态机",
+      "status": "closed_by_rule"
+    }
+  ]
+}

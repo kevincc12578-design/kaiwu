@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resend — Email for Developers</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="rs-body">
+  <div id="viewport" class="rs-page" data-page="testmode" data-eu-id="eu_L0_rs_workspace">
+    <canvas id="beamCanvas" class="rs-beam-canvas" aria-hidden="true"></canvas>
+    <a class="skip-link" href="#mainStage" data-eu-id="eu_L3_rs_skip_entry">Skip to Console</a>
+
+    <main id="mainStage" class="rs-main" data-eu-id="eu_L1_rs_stage">
+      <div class="rs-container">
+        <header class="rs-topbar" data-eu-id="eu_L3_rs_topbar">
+          <div class="rs-logo">
+            <span class="rs-cube" aria-hidden="true">R</span>
+            <strong>Resend</strong>
+          </div>
+
+          <nav class="rs-nav" data-eu-id="eu_L4_rs_route_tabs" aria-label="Console Modes">
+            <button type="button" class="rs-tab is-active" data-route="testmode" role="tab">Test Mode</button>
+            <button type="button" class="rs-tab" data-route="webhooks" role="tab">Webhooks</button>
+            <button type="button" class="rs-tab" data-route="reactemail" role="tab">React Email</button>
+          </nav>
+
+          <div class="rs-top-actions">
+            <button type="button" id="openApiBtn" class="rs-btn-ghost">API Keys</button>
+            <button type="button" id="heroSendBtn" class="rs-btn-primary">Send Test Email</button>
+          </div>
+        </header>
+
+        <section class="rs-hero">
+          <span class="rs-pill">RESEND API · ZERO INFRASTRUCTURE DRIFT</span>
+          <h1>Email for developers, crafted for deliverability.</h1>
+          <p>Switch SDK languages seamlessly, dispatch live Test Mode emails with streaming HTTP 200 logs, and inspect React Email layouts in dark or light mode.</p>
+        </section>
+
+        <section class="rs-console-grid" data-eu-id="eu_L3_rs_console">
+          <!-- Left: Multi-SDK Code Block -->
+          <div class="rs-panel rs-sdk-panel">
+            <div class="panel-hd">
+              <div class="sdk-tabs" id="sdkTabs" role="tablist">
+                <span class="sdk-slider" id="sdkSlider" aria-hidden="true"></span>
+                <button type="button" class="sdk-btn is-active" data-sdk="node">Node.js</button>
+                <button type="button" class="sdk-btn" data-sdk="python">Python</button>
+                <button type="button" class="sdk-btn" data-sdk="go">Go</button>
+                <button type="button" class="sdk-btn" data-sdk="rust">Rust</button>
+              </div>
+              <button type="button" id="sendNowBtn" class="rs-btn-emerald">Send →</button>
+            </div>
+            <pre id="sdkCode" class="rs-code"></pre>
+          </div>
+
+          <!-- Right: Streaming Test Console -->
+          <div class="rs-panel rs-log-panel" data-eu-id="eu_L4_rs_stream_send">
+            <div class="panel-hd">
+              <span class="panel-label">LIVE TEST CONSOLE · STREAM</span>
+              <span id="statusBadge" class="status-200">HTTP 200 OK · 19ms</span>
+            </div>
+            <div id="logStream" class="rs-log-stream" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="rs-lower-grid" data-eu-id="eu_L3_rs_webhooks_array">
+          <!-- Webhooks Table + Filter -->
+          <div class="rs-panel">
+            <div class="panel-hd" data-eu-id="eu_L4_rs_filter_export">
+              <div class="wh-filters">
+                <strong>Modular Webhooks</strong>
+                <button type="button" class="wh-btn is-active" data-flt="all">All</button>
+                <button type="button" class="wh-btn" data-flt="delivered">Delivered</button>
+                <button type="button" class="wh-btn" data-flt="opened">Opened</button>
+                <button type="button" class="wh-btn" data-flt="bounced">Bounced</button>
+              </div>
+              <button type="button" id="exportCsvBtn" class="rs-btn-ghost">Export CSV</button>
+            </div>
+            <div id="webhookList" class="rs-webhook-list"></div>
+          </div>
+
+          <!-- React Email Split Preview -->
+          <div class="rs-panel rs-email-preview" id="emailPreviewCard">
+            <div class="panel-hd">
+              <strong>React Email Preview</strong>
+              <button type="button" id="toggleEmailThemeBtn" class="rs-btn-ghost">Toggle Light/Dark</button>
+            </div>
+            <div id="emailCanvas" class="email-mock">
+              <span class="em-badge">WELCOME TO RESEND</span>
+              <h3>Verify your developer workspace</h3>
+              <p>Click below to activate real-time transactional webhooks for your production domain.</p>
+              <a href="#verify" class="em-cta" onclick="return false;">Verify Domain Token</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="apiDialog" class="rs-dialog" data-eu-id="eu_L3_rs_api_dialog" aria-labelledby="rsDlgTitle">
+      <div class="rs-dlg-hd">
+        <h3 id="rsDlgTitle">Sandbox API Key</h3>
+        <button type="button" id="closeApiBtn" class="rs-btn-ghost">Close</button>
+      </div>
+      <div class="rs-dlg-body">
+        <p>Token Scope: <code>sending_access</code> · Endpoint: <code>https://api.resend.com/emails</code></p>
+        <p>Key: <code>re_test_sandbox_89f0c21e_resend_v4</code></p>
+      </div>
+      <div class="rs-dlg-ft">
+        <button type="button" id="triggerFromDlg" class="rs-btn-emerald">Send Sample &amp; Close</button>
+      </div>
+    </dialog>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

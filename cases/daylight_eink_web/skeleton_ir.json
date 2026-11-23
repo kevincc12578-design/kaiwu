@@ -1,0 +1,484 @@
+{
+  "case_id": "daylight_eink_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_dl_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_dl_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_dl_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_dl_stage": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_dl_topbar": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_dl_hero_zone": {
+          "x": 12,
+          "y": 218,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_dl_array_zone": {
+          "x": 12,
+          "y": 1012,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_dl_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_dl_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L1_dl_nav": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        },
+        "eu_L2_dl_nav_rail": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_dl_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_dl_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_dl_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_dl_stage": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 1120
+        },
+        "eu_L2_dl_topbar": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 92
+        },
+        "eu_L2_dl_hero_zone": {
+          "x": 114,
+          "y": 150,
+          "w": 636,
+          "h": 600
+        },
+        "eu_L2_dl_array_zone": {
+          "x": 114,
+          "y": 762,
+          "w": 636,
+          "h": 390
+        },
+        "eu_L1_dl_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_dl_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L1_dl_nav": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        },
+        "eu_L2_dl_nav_rail": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_dl_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_dl_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_dl_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_dl_stage": {
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 868
+        },
+        "eu_L2_dl_topbar": {
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 96
+        },
+        "eu_L2_dl_hero_zone": {
+          "x": 108,
+          "y": 116,
+          "w": 1312,
+          "h": 496
+        },
+        "eu_L2_dl_array_zone": {
+          "x": 108,
+          "y": 626,
+          "w": 1312,
+          "h": 258
+        },
+        "eu_L1_dl_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_dl_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L1_dl_nav": {
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868
+        },
+        "eu_L2_dl_nav_rail": {
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "dl_cs_surf",
+      "eu_id": "eu_L3_dl_topbar",
+      "property": "color",
+      "value": "#efe9dc",
+      "token_ref": "dl_surf_paper",
+      "delta_e": 0.0
+    },
+    {
+      "id": "dl_cs_typo",
+      "eu_id": "eu_L3_dl_reader_stage",
+      "property": "font-size",
+      "value": "clamp(24px, 2.8vw, 36px)",
+      "token_ref": "dl_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "dl_cs_lay",
+      "eu_id": "eu_L3_dl_notes_array",
+      "property": "gap",
+      "value": "76px",
+      "token_ref": "dl_lay_rail",
+      "delta_e": 0.0
+    },
+    {
+      "id": "dl_cs_mot",
+      "eu_id": "eu_L3_dl_rail_dock",
+      "property": "transition-duration",
+      "value": "180ms",
+      "token_ref": "dl_mot_ink",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "dl_el_skip",
+      "eu_id": "eu_L3_dl_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "dl_el_rail",
+      "eu_id": "eu_L3_dl_rail_dock",
+      "role": "link",
+      "accessible_name": "Sol:OS 电子纸左侧导轨 (邻近放大)",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "dl_el_top",
+      "eu_id": "eu_L3_dl_topbar",
+      "role": "tab",
+      "accessible_name": "Sol 顶栏、Amber Backlight 色温滑块与视图切换",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "dl_el_hero",
+      "eu_id": "eu_L3_dl_reader_stage",
+      "role": "button",
+      "accessible_name": "无眩光沉浸批注页 + 番茄钟 + 墨水风阅读柱图/热力图/圆环",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "dl_el_arr",
+      "eu_id": "eu_L3_dl_notes_array",
+      "role": "button",
+      "accessible_name": "Reading / Notes / Tasks 纸面笔记与 CSV 导出阵列 ×4",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "dl_el_dlg",
+      "eu_id": "eu_L3_dl_note_dialog",
+      "role": "dialog",
+      "accessible_name": "新建纸面批注与专注计时弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "dl_cn_bg",
+      "eu_id": "eu_L0_dl_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "dl_cn_hero",
+      "eu_id": "eu_L3_dl_reader_stage",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "daylight.sol.reading",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "dl_cn_arr",
+      "eu_id": "eu_L3_dl_notes_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "daylight.sol.reading.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Daylight DC-1 · 反射式琥珀电子纸专注工作台骨架",
+      "frame_url": "/cases/daylight_eink_web/frames/ref_dl_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_dl_rail_dock",
+        "eu_L3_dl_topbar",
+        "eu_L3_dl_reader_stage",
+        "eu_L3_dl_notes_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_dl_nav",
+          "eu_id": "eu_L3_dl_rail_dock",
+          "label": "Sol 导轨 (邻近放大)",
+          "x": 16,
+          "y": 16,
+          "w": 76,
+          "h": 868,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_dl_top",
+          "eu_id": "eu_L3_dl_topbar",
+          "label": "Amber Backlight 色温控制顶栏",
+          "x": 108,
+          "y": 16,
+          "w": 1312,
+          "h": 82,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_dl_hero",
+          "eu_id": "eu_L3_dl_reader_stage",
+          "label": "纸感批注舞台 + 阅读柱图/热力矩/负荷环",
+          "x": 108,
+          "y": 114,
+          "w": 1312,
+          "h": 496,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_dl_arr",
+          "eu_id": "eu_L3_dl_notes_array",
+          "label": "Reading/Notes 阵列 ×4 + CSV 导出",
+          "x": 108,
+          "y": 626,
+          "w": 1312,
+          "h": 258,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_dl_nav",
+      "eu_id": "eu_L3_dl_rail_dock",
+      "label": "Sol 导轨 (邻近放大)",
+      "x": 16,
+      "y": 16,
+      "w": 76,
+      "h": 868,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_dl_top",
+      "eu_id": "eu_L3_dl_topbar",
+      "label": "Amber Backlight 色温控制顶栏",
+      "x": 108,
+      "y": 16,
+      "w": 1312,
+      "h": 82,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_dl_hero",
+      "eu_id": "eu_L3_dl_reader_stage",
+      "label": "纸感批注舞台 + 阅读柱图/热力矩/负荷环",
+      "x": 108,
+      "y": 114,
+      "w": 1312,
+      "h": 496,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_dl_arr",
+      "eu_id": "eu_L3_dl_notes_array",
+      "label": "Reading/Notes 阵列 ×4 + CSV 导出",
+      "x": 108,
+      "y": 626,
+      "w": 1312,
+      "h": 258,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

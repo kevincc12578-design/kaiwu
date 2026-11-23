@@ -1,0 +1,401 @@
+{
+  "case_id": "defined_aurora_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_df_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_df_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_df_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_df_stage": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_df_topbar": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_df_hero_zone": {
+          "x": 12,
+          "y": 150,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_df_array_zone": {
+          "x": 12,
+          "y": 950,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_df_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_df_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_df_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_df_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_df_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_df_stage": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 1120
+        },
+        "eu_L2_df_topbar": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 92
+        },
+        "eu_L2_df_hero_zone": {
+          "x": 18,
+          "y": 150,
+          "w": 732,
+          "h": 620
+        },
+        "eu_L2_df_array_zone": {
+          "x": 18,
+          "y": 782,
+          "w": 732,
+          "h": 370
+        },
+        "eu_L1_df_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_df_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_df_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_df_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_df_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_df_stage": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 868
+        },
+        "eu_L2_df_topbar": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 100
+        },
+        "eu_L2_df_hero_zone": {
+          "x": 16,
+          "y": 126,
+          "w": 1408,
+          "h": 510
+        },
+        "eu_L2_df_array_zone": {
+          "x": 16,
+          "y": 646,
+          "w": 1408,
+          "h": 238
+        },
+        "eu_L1_df_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_df_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "df_cs_surf",
+      "eu_id": "eu_L3_df_brand_menu",
+      "property": "color",
+      "value": "#000000",
+      "token_ref": "df_surf_black",
+      "delta_e": 0.0
+    },
+    {
+      "id": "df_cs_typo",
+      "eu_id": "eu_L3_df_aurora_stage",
+      "property": "font-size",
+      "value": "clamp(40px, 5.4vw, 76px)",
+      "token_ref": "df_typo_hero",
+      "delta_e": 0.0
+    },
+    {
+      "id": "df_cs_lay",
+      "eu_id": "eu_L3_df_portfolio_grid",
+      "property": "gap",
+      "value": "540px",
+      "token_ref": "df_lay_cutw",
+      "delta_e": 0.0
+    },
+    {
+      "id": "df_cs_mot",
+      "eu_id": "eu_L3_df_brand_menu",
+      "property": "transition-duration",
+      "value": "340ms",
+      "token_ref": "df_mot_fluid",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "df_el_skip",
+      "eu_id": "eu_L3_df_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "df_el_top",
+      "eu_id": "eu_L3_df_brand_menu",
+      "role": "tab",
+      "accessible_name": "defined® 悬浮徽标与四点矩阵切换",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "df_el_hero",
+      "eu_id": "eu_L3_df_aurora_stage",
+      "role": "button",
+      "accessible_name": "全幅 Canvas 极光磁流体与纯黑 L 型宣言框",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "df_el_dlg",
+      "eu_id": "eu_L3_df_manifesto_dialog",
+      "role": "dialog",
+      "accessible_name": "全屏极简宣言模态浮层",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "df_cn_bg",
+      "eu_id": "eu_L0_df_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "df_cn_hero",
+      "eu_id": "eu_L3_df_aurora_stage",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "defined.frontier.portfolio",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "df_cn_arr",
+      "eu_id": "eu_L3_df_portfolio_grid",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "defined.frontier.portfolio.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Defined 全幅极光磁流体空间页骨架",
+      "frame_url": "/cases/defined_aurora_web/frames/ref_defined_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_df_brand_menu",
+        "eu_L3_df_aurora_stage",
+        "eu_L3_df_portfolio_grid"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_df_top",
+          "eu_id": "eu_L3_df_brand_menu",
+          "label": "defined® & 4-Dot 矩阵按钮",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 68,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_df_stage",
+          "eu_id": "eu_L3_df_aurora_stage",
+          "label": "全屏磁流体 Canvas + 纯黑 L 型 Build the AI Frontier®",
+          "x": 16,
+          "y": 96,
+          "w": 1408,
+          "h": 580,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_df_port",
+          "eu_id": "eu_L3_df_portfolio_grid",
+          "label": "AI Frontier 投资组合卡片阵列 ×4",
+          "x": 16,
+          "y": 690,
+          "w": 1408,
+          "h": 194,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_df_top",
+      "eu_id": "eu_L3_df_brand_menu",
+      "label": "defined® & 4-Dot 矩阵按钮",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 68,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_df_stage",
+      "eu_id": "eu_L3_df_aurora_stage",
+      "label": "全屏磁流体 Canvas + 纯黑 L 型 Build the AI Frontier®",
+      "x": 16,
+      "y": 96,
+      "w": 1408,
+      "h": 580,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_df_port",
+      "eu_id": "eu_L3_df_portfolio_grid",
+      "label": "AI Frontier 投资组合卡片阵列 ×4",
+      "x": 16,
+      "y": 690,
+      "w": 1408,
+      "h": 194,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

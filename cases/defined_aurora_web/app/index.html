@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>defined® · Build the AI Frontier</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="df-page" id="viewport" data-page="frontier" data-eu-id="eu_L0_df_workspace">
+    <a class="skip-link" href="#main-stage" data-eu-id="eu_L3_df_skip_entry">Skip to frontier experience</a>
+
+    <main class="df-main" id="main-stage" tabindex="-1" data-eu-id="eu_L1_df_stage">
+      <section class="aurora-hero-screen" id="auroraStage" data-eu-id="eu_L3_df_aurora_stage">
+        <canvas id="ferroCanvas" class="ferrofluid-canvas" width="1440" height="840" data-eu-id="eu_L4_df_ferrofluid_canvas"></canvas>
+
+        <header class="brand-menu" data-eu-id="eu_L3_df_brand_menu">
+          <div class="brand-wordmark">
+            <span class="brand-name">defined</span><span class="brand-reg">®</span>
+          </div>
+
+          <nav class="view-matrix" aria-label="Defined primary menu" data-eu-id="eu_L4_df_view_matrix">
+            <button type="button" class="matrix-btn is-active" data-route="frontier">Frontier</button>
+            <button type="button" class="matrix-btn" data-route="portfolio">Portfolio</button>
+            <button type="button" class="matrix-dot-trigger" id="openManifestoTopBtn" title="Open Manifesto">
+              <span class="dot-2x2" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </button>
+          </nav>
+        </header>
+
+        <div class="lcut-bottom-mask">
+          <div class="lcut-inner">
+            <h1 class="hero-frontier">Build the AI<br>Frontier®</h1>
+            <div class="lcut-actions">
+              <button type="button" class="btn-manifesto" id="openManifestoBtn">Read our manifesto →</button>
+              <button type="button" class="btn-jump" id="jumpPortfolioBtn">08 Portfolio Systems ↓</button>
+            </div>
+          </div>
+        </div>
+        <div class="lcut-right-step" aria-hidden="true"></div>
+      </section>
+
+      <section class="portfolio-section" id="portfolioSection" data-eu-id="eu_L3_df_portfolio_grid">
+        <div class="portfolio-head" data-eu-id="eu_L4_df_filter_export">
+          <div class="port-kicker">SELECTED FRONTIER PORTFOLIO · FUND III</div>
+          <div class="sector-tabs" role="group" aria-label="Sector filter">
+            <button type="button" class="sec-btn is-active" data-filter="all">All (8)</button>
+            <button type="button" class="sec-btn" data-filter="Foundation">Foundation</button>
+            <button type="button" class="sec-btn" data-filter="Robotics">Robotics</button>
+            <button type="button" class="sec-btn" data-filter="Infra">Infra</button>
+          </div>
+        </div>
+
+        <div class="portfolio-cards" id="portfolioCards"></div>
+      </section>
+    </main>
+
+    <dialog class="df-dialog" id="manifestoDialog" aria-labelledby="dfDlgTitle" data-eu-id="eu_L3_df_manifesto_dialog">
+      <form method="dialog" class="manifesto-panel">
+        <div class="m-head">
+          <span class="m-badge">DEFINED CAPITAL · MANIFESTO 03</span>
+          <button type="submit" value="cancel" class="btn-jump btn-sm">ESC</button>
+        </div>
+        <h2 id="dfDlgTitle">We back technical founders compressing decades into quarters.</h2>
+        <p class="m-body">Software is transitioning from deterministic scripts to learned physical and cognitive loops. We lead first institutional rounds in foundation compilers, verifiable robotic control, and photonic compute.</p>
+        <div class="m-stats">
+          <div><b>$180M</b><span>Frontier Pool</span></div>
+          <div><b>Lead</b><span>First Check</span></div>
+          <div><b>08</b><span>Active Systems</span></div>
+        </div>
+        <div class="m-foot">
+          <button type="submit" value="close" class="btn-manifesto">Return to Frontier</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+{
+  "case_id": "knob_hardware_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_kb_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_kb_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_kb_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_kb_stage": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_kb_topbar": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_kb_hero_zone": {
+          "x": 12,
+          "y": 150,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_kb_array_zone": {
+          "x": 12,
+          "y": 950,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_kb_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_kb_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_kb_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_kb_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_kb_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_kb_stage": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 1120
+        },
+        "eu_L2_kb_topbar": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 92
+        },
+        "eu_L2_kb_hero_zone": {
+          "x": 18,
+          "y": 150,
+          "w": 732,
+          "h": 620
+        },
+        "eu_L2_kb_array_zone": {
+          "x": 18,
+          "y": 782,
+          "w": 732,
+          "h": 370
+        },
+        "eu_L1_kb_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_kb_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_kb_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_kb_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_kb_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_kb_stage": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 868
+        },
+        "eu_L2_kb_topbar": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 100
+        },
+        "eu_L2_kb_hero_zone": {
+          "x": 16,
+          "y": 126,
+          "w": 1408,
+          "h": 510
+        },
+        "eu_L2_kb_array_zone": {
+          "x": 16,
+          "y": 646,
+          "w": 1408,
+          "h": 238
+        },
+        "eu_L1_kb_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_kb_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "kb_cs_surf",
+      "eu_id": "eu_L3_kb_topbar",
+      "property": "color",
+      "value": "#080808",
+      "token_ref": "kb_surf_bg",
+      "delta_e": 0.0
+    },
+    {
+      "id": "kb_cs_typo",
+      "eu_id": "eu_L3_kb_hardware_rig",
+      "property": "font-size",
+      "value": "clamp(34px, 3.8vw, 54px)",
+      "token_ref": "kb_typo_serif",
+      "delta_e": 0.0
+    },
+    {
+      "id": "kb_cs_lay",
+      "eu_id": "eu_L3_kb_specs_array",
+      "property": "gap",
+      "value": "56px",
+      "token_ref": "kb_lay_key",
+      "delta_e": 0.0
+    },
+    {
+      "id": "kb_cs_mot",
+      "eu_id": "eu_L3_kb_topbar",
+      "property": "transition-duration",
+      "value": "220ms",
+      "token_ref": "kb_mot_dial",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "kb_el_skip",
+      "eu_id": "eu_L3_kb_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "kb_el_top",
+      "eu_id": "eu_L3_kb_topbar",
+      "role": "tab",
+      "accessible_name": "KNOB 品牌顶栏与邮件订阅入口",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "kb_el_hero",
+      "eu_id": "eu_L3_kb_hardware_rig",
+      "role": "button",
+      "accessible_name": "k.no.b.1 机械键盘与双旋钮控制台",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "kb_el_dlg",
+      "eu_id": "eu_L3_kb_order_dialog",
+      "role": "dialog",
+      "accessible_name": "预订配置与固件更新弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "kb_cn_bg",
+      "eu_id": "eu_L0_kb_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "kb_cn_hero",
+      "eu_id": "eu_L3_kb_hardware_rig",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "knob.hardware.telemetry",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "kb_cn_arr",
+      "eu_id": "eu_L3_kb_specs_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "knob.hardware.telemetry.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · KNOB 工业硬件品牌发布页骨架",
+      "frame_url": "/cases/knob_hardware_web/frames/ref_knob_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_kb_topbar",
+        "eu_L3_kb_hardware_rig",
+        "eu_L3_kb_specs_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_kb_top",
+          "eu_id": "eu_L3_kb_topbar",
+          "label": "KNOB 水平顶栏与 Get Updates",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 68,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_kb_rig",
+          "eu_id": "eu_L3_kb_hardware_rig",
+          "label": "全幅暗棚 Hero + k.no.b.1 倾斜键盘与双旋钮",
+          "x": 16,
+          "y": 96,
+          "w": 1408,
+          "h": 540,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_kb_specs",
+          "eu_id": "eu_L3_kb_specs_array",
+          "label": "硬件规格与模式卡片阵列 ×4",
+          "x": 16,
+          "y": 650,
+          "w": 1408,
+          "h": 234,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_kb_top",
+      "eu_id": "eu_L3_kb_topbar",
+      "label": "KNOB 水平顶栏与 Get Updates",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 68,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_kb_rig",
+      "eu_id": "eu_L3_kb_hardware_rig",
+      "label": "全幅暗棚 Hero + k.no.b.1 倾斜键盘与双旋钮",
+      "x": 16,
+      "y": 96,
+      "w": 1408,
+      "h": 540,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_kb_specs",
+      "eu_id": "eu_L3_kb_specs_array",
+      "label": "硬件规格与模式卡片阵列 ×4",
+      "x": 16,
+      "y": 650,
+      "w": 1408,
+      "h": 234,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>开物 v3.4 · 宣纸瑞士检验台</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-eu-id="eu_L0_kw_workbench">
+<div class="shell-layer" data-eu-id="eu_L1_kw_intro_shell" aria-hidden="true">
+  <div class="paper-canvas" data-eu-id="eu_L2_kw_paper_canvas" aria-hidden="true">
+    <div class="ambient" data-eu-id="eu_L3_kw_swiss_grid_bg" aria-hidden="true"></div>
+  </div>
+</div>
+
+<header class="topbar" id="topbar" data-eu-id="eu_L1_kw_nav_dock">
+  <div class="topbar-left" data-eu-id="eu_L2_kw_brand_case_bar">
+    <div class="brand" data-eu-id="eu_L3_kw_brand_seal">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+      <strong>开物</strong>
+      <span class="ver-badge">v3.4</span>
+    </div>
+    <div class="case-router" data-eu-id="eu_L3_kw_case_switcher">
+      <label class="select-wrap case-select" title="切换检验案例">
+        <span class="sel-val" id="caseSelectVal" aria-hidden="true">载入案例…</span>
+        <span class="sel-caret" aria-hidden="true"></span>
+        <select id="caseSelect" aria-label="切换检验案例"></select>
+      </label>
+      <button class="btn btn-ghost btn-sm" id="importBtn" type="button" title="从任意网页 URL 真机三断点自动解析">+ 解析 URL</button>
+    </div>
+  </div>
+
+  <div class="gate-telemetry" data-eu-id="eu_L2_kw_gate_telemetry">
+    <nav class="gate-chain" id="gateChain" data-eu-id="eu_L3_kw_gate_chain" aria-label="三层规则门禁"></nav>
+    <span class="status-pill" id="statusPill" data-eu-id="eu_L3_kw_admission_pill" data-state="loading">载入中</span>
+  </div>
+
+  <div class="sandbox" id="sandbox" data-eu-id="eu_L2_kw_sandbox_deck">
+    <div class="case-router" data-eu-id="eu_L3_kw_sandbox_controls">
+      <label class="select-wrap sandbox-select" title="选择反事实预设">
+        <span class="sel-val" id="presetSelectVal" aria-hidden="true">反事实沙盒</span>
+        <span class="sel-caret" aria-hidden="true"></span>
+        <select id="presetSelect" aria-label="反事实预设"></select>
+      </label>
+      <button class="btn btn-danger btn-sm" id="injectBtn" type="button">注入</button>
+      <button class="btn btn-ghost btn-sm" id="resetBtn" type="button">复位</button>
+      <button class="btn btn-ghost btn-sm" id="selfXrayBtn" type="button" title="查看开物工作台自身 EU 语义树与 Token 消费审计">自检</button>
+    </div>
+  </div>
+</header>
+
+<div data-eu-id="eu_L2_kw_fault_banner">
+  <div class="banner" id="banner" data-eu-id="eu_L3_kw_banner_bar" hidden></div>
+</div>
+
+<nav class="mobile-pane-nav" id="mobilePaneNav" aria-label="工作台窗格切换">
+  <div class="tabs" role="tablist">
+    <button type="button" class="tab on" role="tab" data-mpane="right">活舞台</button>
+    <button type="button" class="tab" role="tab" data-mpane="left">骨架测绘</button>
+    <button type="button" class="tab" role="tab" data-mpane="mid">语义树</button>
+  </div>
+</nav>
+
+<main class="panes" id="panes" data-eu-id="eu_L1_kw_main_stage">
+  <!-- 左侧满高竖栏：自适应 EU 语义树 / 三层规则表 / 假设台账 -->
+  <section class="pane pane-mid" id="paneMid" data-eu-id="eu_L2_kw_pane_inspector" aria-label="自适应 EU 与门禁">
+    <div class="pane-bar">
+      <div class="tabs" id="midTabs" role="tablist">
+        <button class="tab on" role="tab" data-tab="tree">自适应 EU 树</button>
+        <button class="tab" role="tab" data-tab="gates" id="tabGates">三层规则</button>
+        <button class="tab" role="tab" data-tab="ledger" id="tabLedger">假设与台账</button>
+      </div>
+    </div>
+
+    <div class="tabpane on" id="tab-tree">
+      <div class="tree-meta-bar">
+        <span class="chip chip-tpl" id="tplChip">—</span>
+        <span class="chip chip-cat" id="catChip">—</span>
+      </div>
+      <div class="tree-tools">
+        <div class="seg" id="depthSeg">
+          <button type="button" data-depth="3">L3</button>
+          <button type="button" data-depth="5" class="on">L0~L5</button>
+        </div>
+        <input type="search" id="treeSearch" class="search" placeholder="搜索节点 / ID / 特征…" aria-label="搜索 EU">
+      </div>
+      <div class="explain" id="explain" data-eu-id="eu_L3_kw_explain_card" hidden></div>
+      <div class="tree-scroll" id="treeScroll" data-eu-id="eu_L3_kw_eu_tree_view">
+        <ul class="tree" id="tree" role="tree"></ul>
+      </div>
+    </div>
+
+    <div class="tabpane" id="tab-gates" data-eu-id="eu_L3_kw_rules_matrix">
+      <div class="gates-head">
+        <div class="seg" id="gateScope">
+          <button type="button" data-scope="active" class="on" id="scopeActive">当前 12</button>
+          <button type="button" data-scope="all" id="scopeAll">全库 24</button>
+        </div>
+      </div>
+      <div class="gates-scroll" id="gatesBody"></div>
+    </div>
+
+    <div class="tabpane" id="tab-ledger" data-eu-id="eu_L3_kw_ledger_panel">
+      <div class="ledger-head">
+        <span class="chip" id="asmCount">—</span>
+        <button class="btn btn-primary btn-sm" id="confirmAllBtn" type="button">全部签认放行</button>
+      </div>
+      <div class="ledger-scroll">
+        <ul class="asm-list" id="asmList"></ul>
+        <h3 class="sect">RES-KW 残差台账</h3>
+        <ul class="res-list" id="resList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="pane-resizer resizer-v" id="resizerV" role="separator" aria-orientation="vertical" aria-label="调节左侧语义栏宽度" title="拖拽调节语义栏宽度，双击复位"></div>
+
+  <!-- 右上方超大主舞台：真实产物活画布 -->
+  <section class="pane pane-right m-active" id="paneRight" data-eu-id="eu_L2_kw_pane_artifact" aria-label="真实产物与回检">
+    <div class="pane-bar" data-eu-id="eu_L3_kw_stage_controls">
+      <span class="pane-index" aria-hidden="true">STAGE</span>
+      <div class="seg" id="vpSeg">
+        <button type="button" data-vp="desktop" class="on" title="桌面视口">桌面</button>
+        <button type="button" data-vp="mobile" title="390px 窄屏视口">390px</button>
+      </div>
+      <div class="seg" id="actSeg"></div>
+      <button type="button" class="btn btn-ghost btn-sm" id="compareModeBtn" aria-pressed="false" title="切换骨架与舞台左右并排像素对照">并排对照</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="stageFocusBtn" aria-pressed="false" title="收起底部测绘坞以全高展示舞台">全高舞台</button>
+      <span class="chip chip-readback" id="readbackChip">—</span>
+    </div>
+    <div class="stage" id="stage" data-eu-id="eu_L3_kw_live_stage">
+      <div class="stage-fit" id="stageFit">
+        <iframe id="stageFrame" title="真实产物" referrerpolicy="no-referrer"></iframe>
+      </div>
+      <div class="stage-meta num" id="stageMeta" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <div class="pane-resizer resizer-h" id="resizerH" role="separator" aria-orientation="horizontal" aria-label="调节底部骨架测绘坞高度" title="拖拽调节测绘坞高度，双击复位"></div>
+
+  <!-- 右下方水平骨架测绘坞：预览镜 + 水平 6 段轨道 + 活跃 EU 索引 -->
+  <section class="pane pane-left" id="paneLeft" data-eu-id="eu_L2_kw_pane_skeleton" aria-label="源输入与骨架">
+    <div class="pane-bar">
+      <span class="pane-index" aria-hidden="true">SOURCE</span>
+      <span class="chip chip-modal" id="modalChip">—</span>
+      <div class="toggles" id="layerToggles">
+        <button type="button" class="tog on" data-layer="skeleton" title="骨架叠图">骨架</button>
+        <button type="button" class="tog on" data-layer="bbox" title="证据锚点 bbox">bbox</button>
+        <button type="button" class="tog on" data-layer="timeline" id="togTimeline" title="时间轴分段">时间轴</button>
+      </div>
+    </div>
+    <div class="dock-body">
+      <div class="skel-stage" id="skelStage" data-eu-id="eu_L3_kw_skel_canvas">
+        <div class="skel-frame" id="skelFrame">
+          <div class="skel-base" id="skelBase"></div>
+          <div class="skel-svg" id="skelSvg"></div>
+          <div class="skel-hit" id="skelHit"></div>
+        </div>
+        <div class="skel-tag" id="skelTag" hidden></div>
+      </div>
+      <div class="dock-tracks">
+        <div class="timeline" id="timeline" data-eu-id="eu_L3_kw_timeline_array" aria-label="时间轴分段"></div>
+        <div class="seg-eus" id="segEus" data-eu-id="eu_L3_kw_seg_eu_chips"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="aux-overlay-root" data-eu-id="eu_L1_kw_aux_overlay">
+  <dialog class="import-dlg" id="importDialog" data-eu-id="eu_L2_kw_import_dialog" aria-labelledby="impDlgTitle">
+    <form id="importForm" class="imp-dlg-box" data-eu-id="eu_L3_kw_url_parser_modal">
+      <div class="imp-dlg-hd">
+        <h2 id="impDlgTitle">真机 URL 三断点自动解析与品类分类</h2>
+        <button type="button" class="btn btn-ghost btn-sm" id="impCloseBtn">关闭</button>
+      </div>
+      <p class="imp-dlg-desc">使用本地无头 Chromium 在 1440 / 768 / 390px 测绘 DOM 几何、聚簇设计 Token、判定产品分类并生成可审计骨架。</p>
+      <div class="imp-form-grid">
+        <label class="imp-field">
+          <span>目标网页 URL</span>
+          <input id="impUrlInput" type="url" required placeholder="http://127.0.0.1:4340/cases/weeksync_paper_web/app/index.html">
+        </label>
+        <div class="imp-row-2">
+          <label class="imp-field">
+            <span>案例 ID（可选，自动生成）</span>
+            <input id="impCaseInput" type="text" placeholder="imp_demo_workspace">
+          </label>
+          <label class="imp-field">
+            <span>产品分类路由</span>
+            <div class="select-wrap imp-select">
+              <span class="sel-val" id="impCatSelectVal" aria-hidden="true">自动特征识别分类</span>
+              <span class="sel-caret" aria-hidden="true"></span>
+              <select id="impCatSelect" aria-label="产品分类路由">
+                <option value="auto">自动特征识别分类</option>
+              </select>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="imp-dlg-ft">
+        <span class="imp-status" id="impStatus"></span>
+        <button type="submit" class="btn btn-primary" id="impSubmitBtn">开始真机解析</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="xray-dlg" id="selfXrayDialog" data-eu-id="eu_L2_kw_self_xray_dialog" aria-labelledby="xrayDlgTitle">
+    <div class="imp-dlg-box" id="selfXrayBody" data-eu-id="eu_L3_kw_self_xray_drawer">
+      <div class="imp-dlg-hd">
+        <h2 id="xrayDlgTitle">开物工作台 · 自举 EU 语义与 Token 实时审计</h2>
+        <button type="button" class="btn btn-ghost btn-sm" id="xrayCloseBtn">关闭</button>
+      </div>
+      <p class="imp-dlg-desc">宣纸·瑞士极简明棚遵循 tpl_uiux_workspace_v1 四大 L1 领地、单源 L5 原子注册表与 6 类横向交互边契约。</p>
+      <div class="xray-grid" id="xrayStats"></div>
+      <div class="xray-list" id="xrayEdges"></div>
+      <div class="imp-dlg-ft">
+        <button type="button" class="btn btn-ghost" id="toggleXrayWireBtn">开启 EU 线框透视</button>
+        <span class="imp-status" id="xrayVerdict">PW · GN · GU 自举合规</span>
+      </div>
+    </div>
+  </dialog>
+
+  <div data-eu-id="eu_L2_kw_toast_layer">
+    <div class="toast" id="toast" data-eu-id="eu_L3_kw_toast_pill" role="status" hidden></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

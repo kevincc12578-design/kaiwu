@@ -1,0 +1,29 @@
+schema_version: "4.0.0"
+category_id: "editorial_grid"
+name: "粗野网格 / 作品集画廊"
+name_en: "Editorial Bento & Brutalist Gallery"
+tier: "extended"
+default_domain: "uiux"
+base_template_id: "tpl_uiux_workspace_v1"
+description: "适用于新粗野主义创意工作室、高对比多栏 Bento 作品集与多媒体实验刊物网站。"
+required_slots: ["main_stage"]
+optional_slots: ["intro_shell", "nav_dock", "auxiliary_overlay", "region.list", "region.hero"]
+allowed_asset_slots: ["artwork_slot", "vector_illustration", "audio_stream_widget"]
+expected_signals:
+  preferred_aspect: "landscape"
+  sharp_borders_or_grid: true
+  min_interactive_controls: 4
+  keywords: ["brutal", "illustration", "sketchbook", "radio", "cart", "monograph", "nogood", "gallery", "work", "archive"]
+category_rules:
+  - id: "CAT-EDIT-01"
+    name: "硬核网格边界与插画槽位分离"
+    metric_key: "grid_artwork_separation"
+    desc: "插画/视觉卡槽位与文本排版、商店/日志交互控件严格分离，不以整页位图贴皮。"
+  - id: "CAT-EDIT-02"
+    name: "强烈语义对比与真交互控件"
+    metric_key: "brutal_interactive_truth"
+    desc: "电台开关、购物车浮层、日志筛选与跑马灯导航均为真实可操作控件。"
+  - id: "CAT-EDIT-03"
+    name: "窄屏分栏自适应重排"
+    metric_key: "grid_mobile_stack"
+    desc: "多列 Bento 网格在 390px 视口下自动堆叠为单列无溢出。"

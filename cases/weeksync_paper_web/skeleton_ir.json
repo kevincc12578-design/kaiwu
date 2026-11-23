@@ -1,0 +1,472 @@
+{
+  "case_id": "weeksync_paper_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_ws_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_ws_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_ws_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_ws_stage": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_ws_topbar": {
+          "x": 12,
+          "y": 114,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_ws_hero_zone": {
+          "x": 12,
+          "y": 218,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_ws_array_zone": {
+          "x": 12,
+          "y": 1012,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_ws_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_ws_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L1_ws_nav": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        },
+        "eu_L2_ws_nav_rail": {
+          "x": 12,
+          "y": 46,
+          "w": 366,
+          "h": 60
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_ws_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_ws_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_ws_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_ws_stage": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 1120
+        },
+        "eu_L2_ws_topbar": {
+          "x": 114,
+          "y": 48,
+          "w": 636,
+          "h": 92
+        },
+        "eu_L2_ws_hero_zone": {
+          "x": 114,
+          "y": 150,
+          "w": 636,
+          "h": 620
+        },
+        "eu_L2_ws_array_zone": {
+          "x": 114,
+          "y": 782,
+          "w": 636,
+          "h": 370
+        },
+        "eu_L1_ws_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_ws_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L1_ws_nav": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        },
+        "eu_L2_ws_nav_rail": {
+          "x": 18,
+          "y": 48,
+          "w": 84,
+          "h": 1120
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_ws_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_ws_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_ws_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_ws_stage": {
+          "x": 232,
+          "y": 16,
+          "w": 1188,
+          "h": 868
+        },
+        "eu_L2_ws_topbar": {
+          "x": 232,
+          "y": 16,
+          "w": 1188,
+          "h": 100
+        },
+        "eu_L2_ws_hero_zone": {
+          "x": 232,
+          "y": 126,
+          "w": 1188,
+          "h": 510
+        },
+        "eu_L2_ws_array_zone": {
+          "x": 232,
+          "y": 646,
+          "w": 1188,
+          "h": 238
+        },
+        "eu_L1_ws_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_ws_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L1_ws_nav": {
+          "x": 16,
+          "y": 16,
+          "w": 200,
+          "h": 868
+        },
+        "eu_L2_ws_nav_rail": {
+          "x": 16,
+          "y": 16,
+          "w": 200,
+          "h": 868
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "ws_cs_surf",
+      "eu_id": "eu_L3_ws_week_header",
+      "property": "color",
+      "value": "#d7d4cb",
+      "token_ref": "ws_surf_oat",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ws_cs_typo",
+      "eu_id": "eu_L3_ws_planner_grid",
+      "property": "font-size",
+      "value": "12.5px",
+      "token_ref": "ws_typo_mono",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ws_cs_lay",
+      "eu_id": "eu_L3_ws_summary_cards",
+      "property": "gap",
+      "value": "200px",
+      "token_ref": "ws_lay_rail",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ws_cs_mot",
+      "eu_id": "eu_L3_ws_rail_dock",
+      "property": "transition-duration",
+      "value": "200ms",
+      "token_ref": "ws_mot_card",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "ws_el_skip",
+      "eu_id": "eu_L3_ws_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ws_el_rail",
+      "eu_id": "eu_L3_ws_rail_dock",
+      "role": "link",
+      "accessible_name": "虚线框单选导航导轨",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ws_el_top",
+      "eu_id": "eu_L3_ws_week_header",
+      "role": "tab",
+      "accessible_name": "23 Nov – 29 Nov 周历表头与筛选栏",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ws_el_hero",
+      "eu_id": "eu_L3_ws_planner_grid",
+      "role": "button",
+      "accessible_name": "Try It 免登可编辑周排班沙盒",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ws_el_dlg",
+      "eu_id": "eu_L3_ws_task_dialog",
+      "role": "dialog",
+      "accessible_name": "新增排班任务弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "ws_cn_bg",
+      "eu_id": "eu_L0_ws_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "ws_cn_hero",
+      "eu_id": "eu_L3_ws_planner_grid",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "weeksync.planner.schedule",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "ws_cn_arr",
+      "eu_id": "eu_L3_ws_summary_cards",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "weeksync.planner.schedule.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · WeekSync 奶油纸感排班沙盒工作台骨架",
+      "frame_url": "/cases/weeksync_paper_web/frames/ref_weeksync_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_ws_rail_dock",
+        "eu_L3_ws_week_header",
+        "eu_L3_ws_planner_grid",
+        "eu_L3_ws_summary_cards"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ws_nav",
+          "eu_id": "eu_L3_ws_rail_dock",
+          "label": "虚线框导航导轨 (Try It)",
+          "x": 18,
+          "y": 18,
+          "w": 200,
+          "h": 864,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_ws_head",
+          "eu_id": "eu_L3_ws_week_header",
+          "label": "23–29 Nov 表头与 Days/Weeks",
+          "x": 236,
+          "y": 18,
+          "w": 1186,
+          "h": 88,
+          "role": "stage"
+        },
+        {
+          "bbox_id": "bb_ws_grid",
+          "eu_id": "eu_L3_ws_planner_grid",
+          "label": "实时增删工时排班沙盒 & 协作光标",
+          "x": 236,
+          "y": 118,
+          "w": 1186,
+          "h": 540,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_ws_sum",
+          "eu_id": "eu_L3_ws_summary_cards",
+          "label": "成员工时汇总与能力卡 ×3",
+          "x": 236,
+          "y": 674,
+          "w": 1186,
+          "h": 208,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_ws_nav",
+      "eu_id": "eu_L3_ws_rail_dock",
+      "label": "虚线框导航导轨 (Try It)",
+      "x": 18,
+      "y": 18,
+      "w": 200,
+      "h": 864,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_ws_head",
+      "eu_id": "eu_L3_ws_week_header",
+      "label": "23–29 Nov 表头与 Days/Weeks",
+      "x": 236,
+      "y": 18,
+      "w": 1186,
+      "h": 88,
+      "role": "stage",
+      "segment_id": "seg_web_desktop",
+      "color_role": "stage"
+    },
+    {
+      "bbox_id": "bb_ws_grid",
+      "eu_id": "eu_L3_ws_planner_grid",
+      "label": "实时增删工时排班沙盒 & 协作光标",
+      "x": 236,
+      "y": 118,
+      "w": 1186,
+      "h": 540,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ws_sum",
+      "eu_id": "eu_L3_ws_summary_cards",
+      "label": "成员工时汇总与能力卡 ×3",
+      "x": 236,
+      "y": 674,
+      "w": 1186,
+      "h": 208,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

@@ -1,0 +1,2709 @@
+{
+  "status": "OK",
+  "version": "3.4.0",
+  "schema_version": "3.4.0",
+  "case_id": "daylight_eink_web",
+  "admission_status": "PROVISIONAL",
+  "open_assumptions_count": 2,
+  "stage_url": "/cases/daylight_eink_web/app/index.html",
+  "case_info": {
+    "case_id": "daylight_eink_web",
+    "title": "Daylight · Amber E-Ink Paper",
+    "subtitle": "网页 → UI/UX",
+    "modality": "web",
+    "domain": "uiux",
+    "template_id": "tpl_uiux_workspace_v1",
+    "stage_url": "/cases/daylight_eink_web/app/index.html",
+    "source_summary": "WEB · 390/768/1440px · 反射琥珀电子纸",
+    "category_id": "collab_planner",
+    "category_name": "排班 / 日历协作工具",
+    "category_tier": "core",
+    "is_imported": false,
+    "admission_status": "PROVISIONAL",
+    "open_assumptions_count": 2,
+    "total_assumptions_count": 2,
+    "active_rule_summary": "PW 4/4 → GN 4/4 → GU 4/4"
+  },
+  "category_audit": {
+    "category_id": "collab_planner",
+    "category_name": "排班 / 日历协作工具",
+    "category_name_en": "Schedule & Collaborative Planner",
+    "tier": "core",
+    "description": "适用于资源排班、周计划日历矩阵、工时实时汇总与协作者状态感知的轻量协作工具。",
+    "allowed_asset_slots": [
+      "avatar",
+      "paper_texture"
+    ],
+    "passed_count": 3,
+    "total_count": 3,
+    "status": "PASS",
+    "rules": [
+      {
+        "rule_id": "CAT-PLAN-01",
+        "name": "二维时间矩阵可编辑 DOM",
+        "desc": "排班单元格与任务条目均以可选中真 DOM 渲染，而非静态图片拼接。",
+        "status": "PASS",
+        "metric": "真 DOM 59 / 控件 27",
+        "detail": "二维排班矩阵全量基于可编辑真 DOM 渲染"
+      },
+      {
+        "rule_id": "CAT-PLAN-02",
+        "name": "增删块与工时汇总守恒",
+        "desc": "具备筛选/状态触发交互闭环与汇总视图节点，支持数据同口径导出。",
+        "status": "PASS",
+        "metric": "筛选/汇总状态边闭环",
+        "detail": "单元格调度变动与汇总导出口径一致"
+      },
+      {
+        "rule_id": "CAT-PLAN-03",
+        "name": "阵列折叠控制扇出复杂度",
+        "desc": "同类重复任务/资源单元通过 FOLD_ARRAY 折叠或受控度约束承载。",
+        "status": "PASS",
+        "metric": "max_deg=0<=7",
+        "detail": "排班阵列受扇出度上界保护并全部引用 Token"
+      }
+    ]
+  },
+  "skeleton": {
+    "case_id": "daylight_eink_web",
+    "modality": "web",
+    "duration_sec": null,
+    "coverage_ratio": 1.0,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "breakpoints": [
+        390,
+        768,
+        1440
+      ]
+    },
+    "dom": {
+      "390": {
+        "viewport_w": 390,
+        "scroll_width": 390,
+        "rects": {
+          "eu_L0_dl_workspace": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 1680
+          },
+          "eu_L1_dl_intro": {
+            "x": 12,
+            "y": 6,
+            "w": 366,
+            "h": 34
+          },
+          "eu_L2_dl_intro_bar": {
+            "x": 12,
+            "y": 6,
+            "w": 366,
+            "h": 34
+          },
+          "eu_L1_dl_stage": {
+            "x": 12,
+            "y": 114,
+            "w": 366,
+            "h": 1520
+          },
+          "eu_L2_dl_topbar": {
+            "x": 12,
+            "y": 114,
+            "w": 366,
+            "h": 92
+          },
+          "eu_L2_dl_hero_zone": {
+            "x": 12,
+            "y": 218,
+            "w": 366,
+            "h": 780
+          },
+          "eu_L2_dl_array_zone": {
+            "x": 12,
+            "y": 1012,
+            "w": 366,
+            "h": 600
+          },
+          "eu_L1_dl_overlay": {
+            "x": 16,
+            "y": 140,
+            "w": 358,
+            "h": 360
+          },
+          "eu_L2_dl_dialog_host": {
+            "x": 16,
+            "y": 140,
+            "w": 358,
+            "h": 360
+          },
+          "eu_L1_dl_nav": {
+            "x": 12,
+            "y": 46,
+            "w": 366,
+            "h": 60
+          },
+          "eu_L2_dl_nav_rail": {
+            "x": 12,
+            "y": 46,
+            "w": 366,
+            "h": 60
+          }
+        }
+      },
+      "768": {
+        "viewport_w": 768,
+        "scroll_width": 768,
+        "rects": {
+          "eu_L0_dl_workspace": {
+            "x": 0,
+            "y": 0,
+            "w": 768,
+            "h": 1200
+          },
+          "eu_L1_dl_intro": {
+            "x": 18,
+            "y": 8,
+            "w": 732,
+            "h": 34
+          },
+          "eu_L2_dl_intro_bar": {
+            "x": 18,
+            "y": 8,
+            "w": 732,
+            "h": 34
+          },
+          "eu_L1_dl_stage": {
+            "x": 114,
+            "y": 48,
+            "w": 636,
+            "h": 1120
+          },
+          "eu_L2_dl_topbar": {
+            "x": 114,
+            "y": 48,
+            "w": 636,
+            "h": 92
+          },
+          "eu_L2_dl_hero_zone": {
+            "x": 114,
+            "y": 150,
+            "w": 636,
+            "h": 600
+          },
+          "eu_L2_dl_array_zone": {
+            "x": 114,
+            "y": 762,
+            "w": 636,
+            "h": 390
+          },
+          "eu_L1_dl_overlay": {
+            "x": 140,
+            "y": 150,
+            "w": 488,
+            "h": 380
+          },
+          "eu_L2_dl_dialog_host": {
+            "x": 140,
+            "y": 150,
+            "w": 488,
+            "h": 380
+          },
+          "eu_L1_dl_nav": {
+            "x": 18,
+            "y": 48,
+            "w": 84,
+            "h": 1120
+          },
+          "eu_L2_dl_nav_rail": {
+            "x": 18,
+            "y": 48,
+            "w": 84,
+            "h": 1120
+          }
+        }
+      },
+      "1440": {
+        "viewport_w": 1440,
+        "scroll_width": 1440,
+        "rects": {
+          "eu_L0_dl_workspace": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 900
+          },
+          "eu_L1_dl_intro": {
+            "x": 16,
+            "y": 8,
+            "w": 1404,
+            "h": 34
+          },
+          "eu_L2_dl_intro_bar": {
+            "x": 16,
+            "y": 8,
+            "w": 1404,
+            "h": 34
+          },
+          "eu_L1_dl_stage": {
+            "x": 108,
+            "y": 16,
+            "w": 1312,
+            "h": 868
+          },
+          "eu_L2_dl_topbar": {
+            "x": 108,
+            "y": 16,
+            "w": 1312,
+            "h": 96
+          },
+          "eu_L2_dl_hero_zone": {
+            "x": 108,
+            "y": 116,
+            "w": 1312,
+            "h": 496
+          },
+          "eu_L2_dl_array_zone": {
+            "x": 108,
+            "y": 626,
+            "w": 1312,
+            "h": 258
+          },
+          "eu_L1_dl_overlay": {
+            "x": 420,
+            "y": 170,
+            "w": 580,
+            "h": 410
+          },
+          "eu_L2_dl_dialog_host": {
+            "x": 420,
+            "y": 170,
+            "w": 580,
+            "h": 410
+          },
+          "eu_L1_dl_nav": {
+            "x": 16,
+            "y": 16,
+            "w": 76,
+            "h": 868
+          },
+          "eu_L2_dl_nav_rail": {
+            "x": 16,
+            "y": 16,
+            "w": 76,
+            "h": 868
+          }
+        }
+      }
+    },
+    "computed_styles": [
+      {
+        "id": "dl_cs_surf",
+        "eu_id": "eu_L3_dl_topbar",
+        "property": "color",
+        "value": "#efe9dc",
+        "token_ref": "dl_surf_paper",
+        "delta_e": 0.0
+      },
+      {
+        "id": "dl_cs_typo",
+        "eu_id": "eu_L3_dl_reader_stage",
+        "property": "font-size",
+        "value": "clamp(24px, 2.8vw, 36px)",
+        "token_ref": "dl_typo_h1",
+        "delta_e": 0.0
+      },
+      {
+        "id": "dl_cs_lay",
+        "eu_id": "eu_L3_dl_notes_array",
+        "property": "gap",
+        "value": "76px",
+        "token_ref": "dl_lay_rail",
+        "delta_e": 0.0
+      },
+      {
+        "id": "dl_cs_mot",
+        "eu_id": "eu_L3_dl_rail_dock",
+        "property": "transition-duration",
+        "value": "180ms",
+        "token_ref": "dl_mot_ink",
+        "delta_e": 0.0
+      }
+    ],
+    "interactive_elements": [
+      {
+        "id": "dl_el_skip",
+        "eu_id": "eu_L3_dl_skip_entry",
+        "role": "button",
+        "accessible_name": "Skip to content",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "dl_el_rail",
+        "eu_id": "eu_L3_dl_rail_dock",
+        "role": "link",
+        "accessible_name": "Sol:OS 电子纸左侧导轨 (邻近放大)",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "dl_el_top",
+        "eu_id": "eu_L3_dl_topbar",
+        "role": "tab",
+        "accessible_name": "Sol 顶栏、Amber Backlight 色温滑块与视图切换",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "dl_el_hero",
+        "eu_id": "eu_L3_dl_reader_stage",
+        "role": "button",
+        "accessible_name": "无眩光沉浸批注页 + 番茄钟 + 墨水风阅读柱图/热力图/圆环",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "dl_el_arr",
+        "eu_id": "eu_L3_dl_notes_array",
+        "role": "button",
+        "accessible_name": "Reading / Notes / Tasks 纸面笔记与 CSV 导出阵列 ×4",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      },
+      {
+        "id": "dl_el_dlg",
+        "eu_id": "eu_L3_dl_note_dialog",
+        "role": "dialog",
+        "accessible_name": "新建纸面批注与专注计时弹窗",
+        "states": [
+          "default",
+          "hover",
+          "focus-visible",
+          "active"
+        ]
+      }
+    ],
+    "content_nodes": [
+      {
+        "id": "dl_cn_bg",
+        "eu_id": "eu_L0_dl_workspace",
+        "content_class": "decoration",
+        "aria_hidden": true,
+        "data_source": null,
+        "children_classes": []
+      },
+      {
+        "id": "dl_cn_hero",
+        "eu_id": "eu_L3_dl_reader_stage",
+        "content_class": "data",
+        "aria_hidden": false,
+        "data_source": "daylight.sol.reading",
+        "children_classes": [
+          "data"
+        ]
+      },
+      {
+        "id": "dl_cn_arr",
+        "eu_id": "eu_L3_dl_notes_array",
+        "content_class": "data",
+        "aria_hidden": false,
+        "data_source": "daylight.sol.reading.items",
+        "children_classes": [
+          "data"
+        ]
+      }
+    ],
+    "segments": [
+      {
+        "segment_id": "seg_web_desktop",
+        "index": 1,
+        "t0": 0.0,
+        "t1": 1.0,
+        "label": "1440×900 · Daylight DC-1 · 反射式琥珀电子纸专注工作台骨架",
+        "frame_url": "/cases/daylight_eink_web/frames/ref_dl_desktop.png",
+        "active_eu_ids": [
+          "eu_L3_dl_rail_dock",
+          "eu_L3_dl_topbar",
+          "eu_L3_dl_reader_stage",
+          "eu_L3_dl_notes_array"
+        ],
+        "bboxes": [
+          {
+            "bbox_id": "bb_dl_nav",
+            "eu_id": "eu_L3_dl_rail_dock",
+            "label": "Sol 导轨 (邻近放大)",
+            "x": 16,
+            "y": 16,
+            "w": 76,
+            "h": 868,
+            "role": "nav"
+          },
+          {
+            "bbox_id": "bb_dl_top",
+            "eu_id": "eu_L3_dl_topbar",
+            "label": "Amber Backlight 色温控制顶栏",
+            "x": 108,
+            "y": 16,
+            "w": 1312,
+            "h": 82,
+            "role": "stage"
+          },
+          {
+            "bbox_id": "bb_dl_hero",
+            "eu_id": "eu_L3_dl_reader_stage",
+            "label": "纸感批注舞台 + 阅读柱图/热力矩/负荷环",
+            "x": 108,
+            "y": 114,
+            "w": 1312,
+            "h": 496,
+            "role": "split"
+          },
+          {
+            "bbox_id": "bb_dl_arr",
+            "eu_id": "eu_L3_dl_notes_array",
+            "label": "Reading/Notes 阵列 ×4 + CSV 导出",
+            "x": 108,
+            "y": 626,
+            "w": 1312,
+            "h": 258,
+            "role": "array"
+          }
+        ]
+      }
+    ],
+    "bboxes": [
+      {
+        "bbox_id": "bb_dl_nav",
+        "eu_id": "eu_L3_dl_rail_dock",
+        "label": "Sol 导轨 (邻近放大)",
+        "x": 16,
+        "y": 16,
+        "w": 76,
+        "h": 868,
+        "role": "nav",
+        "segment_id": "seg_web_desktop",
+        "color_role": "nav"
+      },
+      {
+        "bbox_id": "bb_dl_top",
+        "eu_id": "eu_L3_dl_topbar",
+        "label": "Amber Backlight 色温控制顶栏",
+        "x": 108,
+        "y": 16,
+        "w": 1312,
+        "h": 82,
+        "role": "stage",
+        "segment_id": "seg_web_desktop",
+        "color_role": "stage"
+      },
+      {
+        "bbox_id": "bb_dl_hero",
+        "eu_id": "eu_L3_dl_reader_stage",
+        "label": "纸感批注舞台 + 阅读柱图/热力矩/负荷环",
+        "x": 108,
+        "y": 114,
+        "w": 1312,
+        "h": 496,
+        "role": "split",
+        "segment_id": "seg_web_desktop",
+        "color_role": "split"
+      },
+      {
+        "bbox_id": "bb_dl_arr",
+        "eu_id": "eu_L3_dl_notes_array",
+        "label": "Reading/Notes 阵列 ×4 + CSV 导出",
+        "x": 108,
+        "y": 626,
+        "w": 1312,
+        "h": 258,
+        "role": "array",
+        "segment_id": "seg_web_desktop",
+        "color_role": "array"
+      }
+    ],
+    "skeleton_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 900\" width=\"100%\" height=\"100%\" data-modality=\"web\">\n  <defs>\n    <style>\n      .sk-box { cursor: pointer; transition: stroke-width 0.16s, fill-opacity 0.16s; }\n      .sk-box:hover, .sk-box[data-active=\"true\"] { stroke-width: 4px !important; fill-opacity: 0.28 !important; }\n      .sk-tag { font-family: Manrope, \"Segoe UI\", sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; }\n    </style>\n  </defs>\n  <rect x=\"0\" y=\"0\" width=\"1440\" height=\"900\" rx=\"14\" fill=\"#181210\"/>\n  <image id=\"skeleton-bg-frame\" href=\"/cases/daylight_eink_web/frames/ref_dl_desktop.png\" x=\"0\" y=\"0\" width=\"1440\" height=\"900\" preserveAspectRatio=\"xMidYMid slice\" opacity=\"0.90\"/>\n  <g data-layer=\"skeleton\" opacity=\"0.58\">\n    <rect x=\"16\" y=\"14\" width=\"1404\" height=\"872\" rx=\"12\" fill=\"none\" stroke=\"#fff6ef\" stroke-width=\"1.5\" stroke-dasharray=\"6 4\"/>\n    <line x1=\"108\" y1=\"14\" x2=\"108\" y2=\"886\" stroke=\"#0ea5e9\" stroke-width=\"1.6\" stroke-dasharray=\"5 5\"/>\n  </g>\n  <g data-layer=\"bbox\">\n    <g class=\"sk-segment-group\" data-segment-id=\"seg_web_desktop\" opacity=\"1\">\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_dl_rail_dock\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_dl_nav\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_dl_rail_dock\" data-segment-id=\"seg_web_desktop\" x=\"16\" y=\"16\" width=\"76\" height=\"868\" rx=\"12\" fill=\"rgba(14,165,233,0.14)\" stroke=\"#0ea5e9\" stroke-width=\"2.4\"/><rect x=\"20\" y=\"20\" width=\"76\" height=\"22\" rx=\"6\" fill=\"#0ea5e9\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"27\" y=\"35\" fill=\"#ffffff\">Sol 导轨 (邻近放大)</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_dl_topbar\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_dl_top\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_dl_topbar\" data-segment-id=\"seg_web_desktop\" x=\"108\" y=\"16\" width=\"1312\" height=\"82\" rx=\"12\" fill=\"rgba(249,115,22,0.13)\" stroke=\"#f97316\" stroke-width=\"2.4\"/><rect x=\"112\" y=\"20\" width=\"282\" height=\"22\" rx=\"6\" fill=\"#f97316\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"119\" y=\"35\" fill=\"#ffffff\">Amber Backlight 色温控制顶栏</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_dl_reader_stage\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_dl_hero\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_dl_reader_stage\" data-segment-id=\"seg_web_desktop\" x=\"108\" y=\"114\" width=\"1312\" height=\"496\" rx=\"12\" fill=\"rgba(139,92,246,0.16)\" stroke=\"#8b5cf6\" stroke-width=\"2.4\"/><rect x=\"112\" y=\"118\" width=\"270\" height=\"22\" rx=\"6\" fill=\"#8b5cf6\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"119\" y=\"133\" fill=\"#ffffff\">纸感批注舞台 + 阅读柱图/热力矩/负荷环</text></g>\n      <g class=\"sk-node\" data-eu-id=\"eu_L3_dl_notes_array\" data-segment-id=\"seg_web_desktop\" data-bbox-id=\"bb_dl_arr\"><rect class=\"sk-box\" data-eu-id=\"eu_L3_dl_notes_array\" data-segment-id=\"seg_web_desktop\" x=\"108\" y=\"626\" width=\"1312\" height=\"258\" rx=\"12\" fill=\"rgba(16,185,129,0.14)\" stroke=\"#10b981\" stroke-width=\"2.4\"/><rect x=\"112\" y=\"630\" width=\"354\" height=\"22\" rx=\"6\" fill=\"#10b981\" fill-opacity=\"0.92\"/><text class=\"sk-tag\" x=\"119\" y=\"645\" fill=\"#ffffff\">Reading/Notes 阵列 ×4 + CSV 导出</text></g>\n    </g>\n  </g>\n</svg>"
+  },
+  "eu_tree": {
+    "template_id": "tpl_uiux_workspace_v1",
+    "template_name": "UI/UX 工作台原型",
+    "root_id": "eu_L0_dl_workspace",
+    "stats": {
+      "total_nodes": 29,
+      "levels_present": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "max_child_degree": 4,
+      "l3_entity_count": 6,
+      "l3_atom_coverage_ratio": 1.0,
+      "edge_count": 6,
+      "adaptation_counts": {
+        "TEMPLATE_ANCHOR": 20,
+        "ATOMIC_MOUNT": 6,
+        "SPLIT_HIGH_INTERACTION": 2,
+        "FOLD_ARRAY": 1
+      }
+    },
+    "nodes": [
+      {
+        "eu_id": "eu_L0_dl_workspace",
+        "name": "Daylight DC-1 · 反射式琥珀电子纸专注工作台",
+        "level": "L0",
+        "node_kind": "product.workspace",
+        "parent_id": null,
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          0,
+          0,
+          1440,
+          900
+        ],
+        "rendered": true,
+        "level_num": 0,
+        "children_ids": [
+          "eu_L1_dl_intro",
+          "eu_L1_dl_nav",
+          "eu_L1_dl_stage",
+          "eu_L1_dl_overlay"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L1_dl_intro",
+        "name": "无障碍跳转外壳",
+        "level": "L1",
+        "node_kind": "territory.intro_shell",
+        "parent_id": "eu_L0_dl_workspace",
+        "template_slot": "intro_shell",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          1404,
+          34
+        ],
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_dl_intro_bar"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_dl_intro_bar",
+        "name": "顶部快捷跳转条",
+        "level": "L2",
+        "node_kind": "region.intro_strip",
+        "parent_id": "eu_L1_dl_intro",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          1404,
+          34
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_dl_skip_entry"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_dl_skip_entry",
+        "name": "跳过导航快捷按钮",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.skip_button",
+        "parent_id": "eu_L2_dl_intro_bar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          180,
+          34
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_dl_skip_entry\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_dl_skip_feat"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_dl_skip_feat",
+        "name": "键盘焦点直达特征",
+        "level": "L4",
+        "node_kind": "feature.skip_a11y",
+        "parent_id": "eu_L3_dl_skip_entry",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          8,
+          180,
+          34
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_dl_skip_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_dl_skip_atoms",
+        "name": "入口基础原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_dl_skip_feat",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "dl_surf_paper",
+          "dl_typo_h1",
+          "dl_lay_rail",
+          "ev_dl_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_dl_nav",
+        "name": "导航坞领地",
+        "level": "L1",
+        "node_kind": "territory.nav_dock",
+        "parent_id": "eu_L0_dl_workspace",
+        "template_slot": "nav_dock",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          16,
+          76,
+          868
+        ],
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_dl_nav_rail"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_dl_nav_rail",
+        "name": "左侧独立导轨区",
+        "level": "L2",
+        "node_kind": "region.nav_rail",
+        "parent_id": "eu_L1_dl_nav",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          16,
+          76,
+          868
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_dl_rail_dock"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_dl_rail_dock",
+        "name": "Sol:OS 电子纸左侧导轨 (邻近放大)",
+        "level": "L3",
+        "entity": true,
+        "interaction_density": 3,
+        "node_kind": "component.proximity_dock",
+        "parent_id": "eu_L2_dl_nav_rail",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "envelope_bbox": [
+          16,
+          16,
+          76,
+          868
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_dl_rail_dock\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_dl_rail_proximity"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L4_dl_rail_proximity",
+        "name": "指针邻近放大与浮签特征",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.proximity_magnify",
+        "parent_id": "eu_L3_dl_rail_dock",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          16,
+          16,
+          76,
+          640
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_dl_rail_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_dl_rail_atoms",
+        "name": "导轨全量样式动效原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_dl_rail_proximity",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "dl_surf_paper",
+          "dl_surf_amber",
+          "dl_surf_border",
+          "dl_surf_ink",
+          "dl_surf_muted",
+          "dl_typo_h1",
+          "dl_typo_mono",
+          "dl_typo_body",
+          "dl_lay_rail",
+          "dl_lay_radius",
+          "dl_lay_gap",
+          "dl_mot_ink",
+          "ev_dl_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_dl_stage",
+        "name": "独立滚动主舞台领地",
+        "level": "L1",
+        "node_kind": "territory.main_stage",
+        "parent_id": "eu_L0_dl_workspace",
+        "template_slot": "main_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          16,
+          1312,
+          868
+        ],
+        "rendered": true,
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_dl_topbar",
+          "eu_L2_dl_hero_zone",
+          "eu_L2_dl_array_zone"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_dl_topbar",
+        "name": "顶栏导航与操作带",
+        "level": "L2",
+        "node_kind": "region.topbar",
+        "parent_id": "eu_L1_dl_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          16,
+          1312,
+          96
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_dl_topbar"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_dl_topbar",
+        "name": "Sol 顶栏、Amber Backlight 色温滑块与视图切换",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.stage_topbar",
+        "parent_id": "eu_L2_dl_topbar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          16,
+          1312,
+          96
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_dl_topbar\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_dl_amber_slider"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_dl_amber_slider",
+        "name": "0–100% 琥珀色温实时插值与 E-Ink 清墨刷新脉冲",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.route_switch",
+        "parent_id": "eu_L3_dl_topbar",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          16,
+          1312,
+          96
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_dl_top_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_dl_top_atoms",
+        "name": "顶栏全量样式动效原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_dl_amber_slider",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "dl_surf_paper",
+          "dl_surf_amber",
+          "dl_surf_border",
+          "dl_surf_ink",
+          "dl_surf_muted",
+          "dl_typo_h1",
+          "dl_typo_mono",
+          "dl_typo_body",
+          "dl_lay_rail",
+          "dl_lay_radius",
+          "dl_lay_gap",
+          "dl_mot_ink",
+          "ev_dl_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_dl_hero_zone",
+        "name": "核心交互主展区",
+        "level": "L2",
+        "node_kind": "region.hero_stage",
+        "parent_id": "eu_L1_dl_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          116,
+          1312,
+          496
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_dl_reader_stage"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_dl_reader_stage",
+        "name": "无眩光沉浸批注页 + 番茄钟 + 墨水风阅读柱图/热力图/圆环",
+        "level": "L3",
+        "entity": true,
+        "interaction_density": 4,
+        "node_kind": "component.primary_interactive",
+        "parent_id": "eu_L2_dl_hero_zone",
+        "adaptation_mode": "SPLIT_HIGH_INTERACTION",
+        "envelope_bbox": [
+          108,
+          116,
+          1312,
+          496
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_dl_reader_stage\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_dl_eink_focus"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "⚡分裂·高密交互"
+      },
+      {
+        "eu_id": "eu_L4_dl_eink_focus",
+        "name": "阅读时长统计、番茄钟启动与认知负荷可视化",
+        "level": "L4",
+        "motion": true,
+        "node_kind": "feature.primary_control",
+        "parent_id": "eu_L3_dl_reader_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          116,
+          1312,
+          496
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_dl_hero_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_dl_hero_atoms",
+        "name": "核心交互区原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_dl_eink_focus",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "dl_surf_paper",
+          "dl_surf_amber",
+          "dl_surf_border",
+          "dl_surf_ink",
+          "dl_surf_muted",
+          "dl_typo_h1",
+          "dl_typo_mono",
+          "dl_typo_body",
+          "dl_lay_rail",
+          "dl_lay_radius",
+          "dl_lay_gap",
+          "dl_mot_ink",
+          "ev_dl_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L2_dl_array_zone",
+        "name": "下方结构化阵列带",
+        "level": "L2",
+        "node_kind": "region.lower_array",
+        "parent_id": "eu_L1_dl_stage",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          626,
+          1312,
+          258
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_dl_notes_array"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_dl_notes_array",
+        "name": "Reading / Notes / Tasks 纸面笔记与 CSV 导出阵列 ×4",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.spec.array",
+        "parent_id": "eu_L2_dl_array_zone",
+        "adaptation_mode": "FOLD_ARRAY",
+        "array_count": 4,
+        "envelope_bbox": [
+          108,
+          626,
+          1312,
+          258
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_dl_notes_array\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_dl_filter_export"
+        ],
+        "template_slot": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "📦折叠·×4阵列"
+      },
+      {
+        "eu_id": "eu_L4_dl_filter_export",
+        "name": "同构条目筛选与 CSV 导出",
+        "level": "L4",
+        "node_kind": "feature.filter_export",
+        "parent_id": "eu_L3_dl_notes_array",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          108,
+          626,
+          1312,
+          258
+        ],
+        "rendered": true,
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_dl_array_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_dl_array_atoms",
+        "name": "阵列原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_dl_filter_export",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "dl_surf_paper",
+          "dl_typo_h1",
+          "dl_lay_rail",
+          "ev_dl_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      },
+      {
+        "eu_id": "eu_L1_dl_overlay",
+        "name": "辅助模态弹窗领地",
+        "level": "L1",
+        "node_kind": "territory.auxiliary_overlay",
+        "parent_id": "eu_L0_dl_workspace",
+        "template_slot": "auxiliary_overlay",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "level_num": 1,
+        "children_ids": [
+          "eu_L2_dl_dialog_host"
+        ],
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L2_dl_dialog_host",
+        "name": "对话框宿主区",
+        "level": "L2",
+        "node_kind": "region.dialog",
+        "parent_id": "eu_L1_dl_overlay",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "level_num": 2,
+        "children_ids": [
+          "eu_L3_dl_note_dialog"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L3_dl_note_dialog",
+        "name": "新建纸面批注与专注计时弹窗",
+        "level": "L3",
+        "entity": true,
+        "node_kind": "component.modal_sheet",
+        "parent_id": "eu_L2_dl_dialog_host",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "dom_selector": "[data-eu-id=\"eu_L3_dl_note_dialog\"]",
+        "rendered": true,
+        "level_num": 3,
+        "children_ids": [
+          "eu_L4_dl_focus_trap"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L4_dl_focus_trap",
+        "name": "关闭弹窗归还触发焦点特征",
+        "level": "L4",
+        "node_kind": "feature.modal_focus_restore",
+        "parent_id": "eu_L3_dl_note_dialog",
+        "adaptation_mode": "TEMPLATE_ANCHOR",
+        "envelope_bbox": [
+          420,
+          170,
+          580,
+          410
+        ],
+        "level_num": 4,
+        "children_ids": [
+          "eu_L5_dl_dialog_atoms"
+        ],
+        "template_slot": null,
+        "array_count": null,
+        "atom_refs": [],
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "模板锚定"
+      },
+      {
+        "eu_id": "eu_L5_dl_dialog_atoms",
+        "name": "弹窗原子束",
+        "level": "L5",
+        "node_kind": "atom.bundle",
+        "parent_id": "eu_L4_dl_focus_trap",
+        "adaptation_mode": "ATOMIC_MOUNT",
+        "atom_refs": [
+          "dl_surf_paper",
+          "dl_typo_h1",
+          "dl_lay_rail",
+          "ev_dl_dom"
+        ],
+        "level_num": 5,
+        "children_ids": [],
+        "template_slot": null,
+        "array_count": null,
+        "evidence_refs": [
+          "ev_dl_dom"
+        ],
+        "verified": true,
+        "rendered": false,
+        "adaptation_badge": "L5原子"
+      }
+    ],
+    "atomic_registry": {
+      "surface_atoms": {
+        "dl_surf_paper": {
+          "name": "Sol:OS 反射式日光暖纸底色",
+          "kind": "color",
+          "value": "#efe9dc",
+          "css_var": "--dl-paper",
+          "used_by": [
+            "eu_L5_dl_skip_atoms",
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms",
+            "eu_L5_dl_array_atoms",
+            "eu_L5_dl_dialog_atoms"
+          ]
+        },
+        "dl_surf_amber": {
+          "name": "深夜无蓝光琥珀背光高亮",
+          "kind": "color",
+          "value": "#e5bc75",
+          "css_var": "--dl-amber",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        },
+        "dl_surf_border": {
+          "name": "1.5px 温润纸墨边界线",
+          "kind": "color",
+          "value": "#c5bcab",
+          "css_var": "--dl-border",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        },
+        "dl_surf_ink": {
+          "name": "60fps 纯碳墨主正文色",
+          "kind": "color",
+          "value": "#1a1714",
+          "css_var": "--dl-ink",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        },
+        "dl_surf_muted": {
+          "name": "淡墨批注次级文本色",
+          "kind": "color",
+          "value": "#5e574c",
+          "css_var": "--dl-muted",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        }
+      },
+      "typography_atoms": {
+        "dl_typo_h1": {
+          "name": "电子纸编辑排版标题字阶",
+          "kind": "font_scale",
+          "value": "clamp(24px, 2.8vw, 36px)",
+          "css_var": "--dl-font-h1",
+          "used_by": [
+            "eu_L5_dl_skip_atoms",
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms",
+            "eu_L5_dl_array_atoms",
+            "eu_L5_dl_dialog_atoms"
+          ]
+        },
+        "dl_typo_mono": {
+          "name": "页码与番茄钟等宽字阶",
+          "kind": "font_scale",
+          "value": "12px",
+          "css_var": "--dl-font-mono",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        },
+        "dl_typo_body": {
+          "name": "纸书正文字阶",
+          "kind": "font_scale",
+          "value": "14px",
+          "css_var": "--dl-font-body",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        }
+      },
+      "layout_atoms": {
+        "dl_lay_rail": {
+          "name": "左侧 Sol 导轨定宽",
+          "kind": "dimension",
+          "value": "76px",
+          "css_var": "--dl-rail-w",
+          "used_by": [
+            "eu_L5_dl_skip_atoms",
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms",
+            "eu_L5_dl_array_atoms",
+            "eu_L5_dl_dialog_atoms"
+          ]
+        },
+        "dl_lay_radius": {
+          "name": "纸面卡片圆角",
+          "kind": "radius",
+          "value": "12px",
+          "css_var": "--dl-radius",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        },
+        "dl_lay_gap": {
+          "name": "阅读栏基准间距",
+          "kind": "spacing",
+          "value": "14px",
+          "css_var": "--dl-gap",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        }
+      },
+      "motion_atoms": {
+        "dl_mot_ink": {
+          "name": "E-Ink 清爽墨水刷新时长",
+          "kind": "duration",
+          "value": "180ms",
+          "css_var": "--dl-dur-ink",
+          "used_by": [
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms"
+          ]
+        }
+      },
+      "evidence_atoms": {
+        "ev_dl_dom": {
+          "name": "Daylight DC-1 三断点与色温/图表快照",
+          "breakpoints": [
+            390,
+            768,
+            1440
+          ],
+          "frame_ref": "ref_dl_desktop.png",
+          "used_by": [
+            "eu_L5_dl_skip_atoms",
+            "eu_L5_dl_rail_atoms",
+            "eu_L5_dl_top_atoms",
+            "eu_L5_dl_hero_atoms",
+            "eu_L5_dl_array_atoms",
+            "eu_L5_dl_dialog_atoms"
+          ]
+        }
+      }
+    },
+    "edges": [
+      {
+        "edge_id": "edge_dl_proximity",
+        "edge_type": "MODULATES_NEIGHBOR",
+        "source_eu_id": "eu_L3_dl_rail_dock",
+        "target_eu_id": "eu_L4_dl_rail_proximity",
+        "label": "左侧导轨指针距离平滑邻近放大",
+        "evidence_ref": "ev_dl_dom"
+      },
+      {
+        "edge_id": "edge_dl_scroll",
+        "edge_type": "SCROLLS_INDEPENDENTLY",
+        "source_eu_id": "eu_L1_dl_stage",
+        "target_eu_id": "eu_L1_dl_nav",
+        "label": "主舞台独立滚动，导轨静止不随滚",
+        "evidence_ref": "ev_dl_dom"
+      },
+      {
+        "edge_id": "edge_dl_state",
+        "edge_type": "TRIGGERS_STATE",
+        "source_eu_id": "eu_L3_dl_topbar",
+        "target_eu_id": "eu_L3_dl_reader_stage",
+        "label": "顶栏导航/模式切换重绘主展区",
+        "evidence_ref": "ev_dl_dom"
+      },
+      {
+        "edge_id": "edge_dl_filter",
+        "edge_type": "FILTERS_VIEW",
+        "source_eu_id": "eu_L3_dl_reader_stage",
+        "target_eu_id": "eu_L3_dl_notes_array",
+        "label": "参数筛选联动阵列与同口径 CSV 导出",
+        "evidence_ref": "ev_dl_dom"
+      },
+      {
+        "edge_id": "edge_dl_focus",
+        "edge_type": "RESTORES_FOCUS",
+        "source_eu_id": "eu_L3_dl_note_dialog",
+        "target_eu_id": "eu_L3_dl_topbar",
+        "label": "模态对话框关闭后焦点归还触发控件",
+        "evidence_ref": "ev_dl_dom"
+      },
+      {
+        "edge_id": "edge_dl_token",
+        "edge_type": "SHARES_TOKEN",
+        "source_eu_id": "eu_L3_dl_reader_stage",
+        "target_eu_id": "eu_L3_dl_notes_array",
+        "label": "共享表面色、字阶与动效时长 Token",
+        "evidence_ref": "ev_dl_dom"
+      }
+    ]
+  },
+  "gates": {
+    "verdict": "PASS",
+    "active_count": 12,
+    "passed_count": 12,
+    "total_library_rules": 24,
+    "blocked_layer": null,
+    "violated_rule_id": null,
+    "violated_rule_name": null,
+    "violated_node_ids": [],
+    "co_failed_rule_ids": [],
+    "attribution": null,
+    "layers": [
+      {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PW",
+        "route_key": "web",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PW-01",
+            "id": "PW-01",
+            "name": "多断点 DOM 几何闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 断点零溢出",
+            "detail": "390 / 768 / 1440px 三断点 DOM 包络闭合零横向溢出",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW01_breakpoint_misalignment"
+          },
+          {
+            "rule_id": "PW-02",
+            "id": "PW-02",
+            "name": "计算样式向设计 Token 归一",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4/4 样式归一",
+            "detail": "全部计算样式已归一至 atomic_registry Token",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW02_raw_style_literal"
+          },
+          {
+            "rule_id": "PW-03",
+            "id": "PW-03",
+            "name": "交互状态与无障碍角色提取",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "6/6 无障碍完备",
+            "detail": "可交互元素角色、可访问名称与四态集合全部提取闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW03_missing_a11y_role"
+          },
+          {
+            "rule_id": "PW-04",
+            "id": "PW-04",
+            "name": "静态装饰与业务数据边界分离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 节点边界清晰",
+            "detail": "静态装饰与业务数据节点严格二分零嵌套污染",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW04_decor_data_mixed"
+          }
+        ]
+      },
+      {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 4/7 · 边 6",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂2 · 折叠1",
+            "detail": "严格锚定 tpl_uiux_workspace_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 6/6 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GU",
+        "route_key": "uiux",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GU-01",
+            "id": "GU-01",
+            "name": "L5 设计与动效 Token 原子 100% 强制消费",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "Token消费 100% · reduced-motion ON",
+            "detail": "全部设计与动效 Token 已在 CSS 声明引用，且支持减弱动效",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU01_token_bypass"
+          },
+          {
+            "rule_id": "GU-02",
+            "id": "GU-02",
+            "name": "根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文本 59 · 真控件 27 · 贴皮 0%",
+            "detail": "100% 可编辑真 DOM 与弹性容器，1440/390px 重排零裁切",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU02_bitmap_solid_degradation"
+          },
+          {
+            "rule_id": "GU-03",
+            "id": "GU-03",
+            "name": "微交互与状态闭环保真",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "5/5 交互闭环",
+            "detail": "全部 5 条已登记交互边闭环 (FILTERS_VIEW、MODULATES_NEIGHBOR、RESTORES_FOCUS、SCROLLS_INDEPENDENTLY、TRIGGERS_STATE)",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU03_missing_proximity_magnify"
+          },
+          {
+            "rule_id": "GU-04",
+            "id": "GU-04",
+            "name": "在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "溯源 100% · 防御小字 0",
+            "detail": "在线舞台与导出产物 data-eu-id 100% 唯一对齐，零防御性小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU04_defensive_microcopy"
+          }
+        ]
+      }
+    ],
+    "by_layer": {
+      "parsing": {
+        "layer": "parsing",
+        "layer_label": "解析层",
+        "prefix": "PW",
+        "route_key": "web",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "PW-01",
+            "id": "PW-01",
+            "name": "多断点 DOM 几何闭合",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 断点零溢出",
+            "detail": "390 / 768 / 1440px 三断点 DOM 包络闭合零横向溢出",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW01_breakpoint_misalignment"
+          },
+          {
+            "rule_id": "PW-02",
+            "id": "PW-02",
+            "name": "计算样式向设计 Token 归一",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4/4 样式归一",
+            "detail": "全部计算样式已归一至 atomic_registry Token",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW02_raw_style_literal"
+          },
+          {
+            "rule_id": "PW-03",
+            "id": "PW-03",
+            "name": "交互状态与无障碍角色提取",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "6/6 无障碍完备",
+            "detail": "可交互元素角色、可访问名称与四态集合全部提取闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW03_missing_a11y_role"
+          },
+          {
+            "rule_id": "PW-04",
+            "id": "PW-04",
+            "name": "静态装饰与业务数据边界分离",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "3 节点边界清晰",
+            "detail": "静态装饰与业务数据节点严格二分零嵌套污染",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_PW04_decor_data_mixed"
+          }
+        ]
+      },
+      "general": {
+        "layer": "general",
+        "layer_label": "总规则",
+        "prefix": "GN",
+        "route_key": "all",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GN-01",
+            "id": "GN-01",
+            "name": "树图分离与度约束",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L0~L5 单父无环 · 最大度 4/7 · 边 6",
+            "detail": "纵向六级树与 6 类横向交互边严格分离闭合",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN01_interaction_in_tree"
+          },
+          {
+            "rule_id": "GN-02",
+            "id": "GN-02",
+            "name": "模板锚定与复杂度自适应伸缩合规",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "4领地锚定 · 分裂2 · 折叠1",
+            "detail": "严格锚定 tpl_uiux_workspace_v1，高密分裂与同构阵列折叠全部合规",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN02_degree_overflow"
+          },
+          {
+            "rule_id": "GN-03",
+            "id": "GN-03",
+            "name": "单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "L3覆盖 6/6 (100%)",
+            "detail": "单源双索引 100% 闭合，全部实体组件具备原件证据",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN03_missing_l5_atom"
+          },
+          {
+            "rule_id": "GN-04",
+            "id": "GN-04",
+            "name": "包络自底向上守恒与三态准入状态机",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "包络守恒 · 待确认假设 2 (PROVISIONAL)",
+            "detail": "全部子包络收敛于父界内，三态准入状态机一致",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GN04_envelope_overflow"
+          }
+        ]
+      },
+      "generation": {
+        "layer": "generation",
+        "layer_label": "生成层",
+        "prefix": "GU",
+        "route_key": "uiux",
+        "passed": 4,
+        "total": 4,
+        "status": "PASS",
+        "rules": [
+          {
+            "rule_id": "GU-01",
+            "id": "GU-01",
+            "name": "L5 设计与动效 Token 原子 100% 强制消费",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "Token消费 100% · reduced-motion ON",
+            "detail": "全部设计与动效 Token 已在 CSS 声明引用，且支持减弱动效",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU01_token_bypass"
+          },
+          {
+            "rule_id": "GU-02",
+            "id": "GU-02",
+            "name": "根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "活文本 59 · 真控件 27 · 贴皮 0%",
+            "detail": "100% 可编辑真 DOM 与弹性容器，1440/390px 重排零裁切",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU02_bitmap_solid_degradation"
+          },
+          {
+            "rule_id": "GU-03",
+            "id": "GU-03",
+            "name": "微交互与状态闭环保真",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "5/5 交互闭环",
+            "detail": "全部 5 条已登记交互边闭环 (FILTERS_VIEW、MODULATES_NEIGHBOR、RESTORES_FOCUS、SCROLLS_INDEPENDENTLY、TRIGGERS_STATE)",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU03_missing_proximity_magnify"
+          },
+          {
+            "rule_id": "GU-04",
+            "id": "GU-04",
+            "name": "在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+            "status": "PASS",
+            "severity": "BLOCKER",
+            "metric": "溯源 100% · 防御小字 0",
+            "detail": "在线舞台与导出产物 data-eu-id 100% 唯一对齐，零防御性小字",
+            "violated_node_ids": [],
+            "counterfactual_preset": "violate_GU04_defensive_microcopy"
+          }
+        ]
+      }
+    }
+  },
+  "assumptions": [
+    {
+      "assumption_id": "ASM-DL-01",
+      "eu_id": "eu_L3_dl_topbar",
+      "subject_ids": [
+        "eu_L3_dl_topbar",
+        "eu_L4_dl_amber_slider"
+      ],
+      "title": "DC-1 反射式纸屏零蓝光琥珀背光光学曲线仿真",
+      "category": "motion_curve_parameter",
+      "assumed_value": "通过 0–100% Amber Backlight 滑块线性插值 #efe9dc 暖纸色至 #e5bc75 深夜琥珀背光表面",
+      "evidence_gap": "硬件双背光 LED 的真实光谱衰减需要在普通 sRGB 显示器上以暖琥珀 CSS 表面颜色映射近似表达",
+      "bound_rule_id": "PW-02",
+      "status": "open",
+      "confirmed_at": null
+    },
+    {
+      "assumption_id": "ASM-DL-02",
+      "eu_id": "eu_L3_dl_notes_array",
+      "subject_ids": [
+        "eu_L3_dl_notes_array",
+        "eu_L4_dl_filter_export"
+      ],
+      "title": "Sol:OS 电子纸阅读批注筛选与专注工时 CSV 导出模型",
+      "category": "unobserved_interaction_payload",
+      "assumed_value": "支持按 Reading / Notes / Tasks 筛选纸面笔记条目并导出对应认知专注记录 CSV",
+      "evidence_gap": "Daylight 官网重点展示无频闪阅读体验，未公布内置笔记库导出表结构",
+      "bound_rule_id": "GU-03",
+      "status": "open",
+      "confirmed_at": null
+    }
+  ],
+  "readback": {
+    "status": "PASS",
+    "case_id": "daylight_eink_web",
+    "summary_pill": "DOM 溯源 100% · 零实心退化",
+    "dom_eu_binding_coverage": 1.0,
+    "bound_eu_count": 13,
+    "expected_eu_count": 13,
+    "stage_trace_ids": [
+      "eu_L0_dl_workspace",
+      "eu_L1_dl_nav",
+      "eu_L1_dl_stage",
+      "eu_L3_dl_note_dialog",
+      "eu_L3_dl_notes_array",
+      "eu_L3_dl_rail_dock",
+      "eu_L3_dl_reader_stage",
+      "eu_L3_dl_skip_entry",
+      "eu_L3_dl_topbar",
+      "eu_L4_dl_amber_slider",
+      "eu_L4_dl_eink_focus",
+      "eu_L4_dl_filter_export",
+      "eu_L4_dl_rail_proximity"
+    ],
+    "export_trace_ids": [
+      "eu_L0_dl_workspace",
+      "eu_L1_dl_nav",
+      "eu_L1_dl_stage",
+      "eu_L3_dl_note_dialog",
+      "eu_L3_dl_notes_array",
+      "eu_L3_dl_rail_dock",
+      "eu_L3_dl_reader_stage",
+      "eu_L3_dl_skip_entry",
+      "eu_L3_dl_topbar",
+      "eu_L4_dl_amber_slider",
+      "eu_L4_dl_eink_focus",
+      "eu_L4_dl_filter_export",
+      "eu_L4_dl_rail_proximity"
+    ],
+    "missing_trace_ids": [],
+    "dangling_trace_ids": [],
+    "duplicate_trace_ids": [],
+    "editable_text_nodes": 59,
+    "interactive_controls": 27,
+    "ui_bitmap_area_ratio": 0.0,
+    "bitmaps": [],
+    "viewport_overflow_px": {
+      "1440": 0,
+      "390": 0
+    },
+    "fluid_markers_found": [
+      "display: flex",
+      "display: grid",
+      "clamp(",
+      "minmax(",
+      "@media"
+    ],
+    "token_consumption": {
+      "total_tokens": 12,
+      "consumed_tokens": 12,
+      "consumption_ratio": 1.0,
+      "unconsumed_atom_ids": [],
+      "reduced_motion_supported": true,
+      "fluid_markers_found": [
+        "display: flex",
+        "display: grid",
+        "clamp(",
+        "minmax(",
+        "@media"
+      ],
+      "responsive_390_supported": true
+    },
+    "reduced_motion_supported": true,
+    "responsive_390_supported": true,
+    "vector_text_editable": true,
+    "live_text_ratio": 1.0,
+    "vector_graphic_ratio": 1.0,
+    "rasterized_text_count": 0,
+    "defensive_microcopy_violations": 0,
+    "defensive_hits": [],
+    "interactions": [
+      {
+        "edge_id": "edge_dl_proximity",
+        "edge_type": "MODULATES_NEIGHBOR",
+        "passed": true,
+        "measure": {
+          "focus_scale": 1.35,
+          "neighbor_scale": 1.19,
+          "neutral_scale": 1.0,
+          "far_scale": 1.0,
+          "restored_after_leave": true
+        }
+      },
+      {
+        "edge_id": "edge_dl_scroll",
+        "edge_type": "SCROLLS_INDEPENDENTLY",
+        "passed": true,
+        "measure": {
+          "host_scroll_delta": 360.0,
+          "sibling_offset_delta": 0.0
+        }
+      },
+      {
+        "edge_id": "edge_dl_state",
+        "edge_type": "TRIGGERS_STATE",
+        "passed": true,
+        "measure": {
+          "target_state_before": "overview",
+          "target_state_after": "active_view"
+        }
+      },
+      {
+        "edge_id": "edge_dl_filter",
+        "edge_type": "FILTERS_VIEW",
+        "passed": true,
+        "measure": {
+          "dataset_changed": true,
+          "export_scope": "active_filter",
+          "active_filter": "active_filter"
+        }
+      },
+      {
+        "edge_id": "edge_dl_focus",
+        "edge_type": "RESTORES_FOCUS",
+        "passed": true,
+        "measure": {
+          "active_element_matches_trigger": true
+        }
+      }
+    ]
+  },
+  "counterfactual_presets": [
+    {
+      "preset": "violate_PW01_breakpoint_misalignment",
+      "label": "[PW-01] 多断点 DOM 几何闭合",
+      "desc": "把一个子区块在窄断点下的盒宽改为超出父盒与视口。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-01",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW02_raw_style_literal",
+      "label": "[PW-02] 计算样式向设计 Token 归一",
+      "desc": "清除一条计算样式的 token_ref，使其成为裸值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-02",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW03_missing_a11y_role",
+      "label": "[PW-03] 交互状态与无障碍角色提取",
+      "desc": "删除一个按钮的 role 与 focus-visible 状态。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-03",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PW04_decor_data_mixed",
+      "label": "[PW-04] 静态装饰与业务数据边界分离",
+      "desc": "给一个装饰节点挂上业务数据绑定。",
+      "target_layer": "parsing",
+      "target_rule_id": "PW-04",
+      "applicable_cases": [
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN01_interaction_in_tree",
+      "label": "[GN-01] 树图分离与度约束",
+      "desc": "把一条横向交互（如邻近调制或状态触发）改写成某个 L3 节点下的 interaction.* 纵向子节点。",
+      "target_layer": "general",
+      "target_rule_id": "GN-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN02_degree_overflow",
+      "label": "[GN-02] 模板锚定与复杂度自适应伸缩合规",
+      "desc": "撤销一个 FOLD_ARRAY 阵列宿主，把同构成员平铺回上级父节点，使同构兄弟未折叠且父节点度超过上限。",
+      "target_layer": "general",
+      "target_rule_id": "GN-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN03_missing_l5_atom",
+      "label": "[GN-03] 单源双索引 L5 原子 100% 挂载与 No-Evidence-No-Verified",
+      "desc": "从一个实体型 L3 子树中摘除其 typography 或 evidence 类 L5 原子引用。",
+      "target_layer": "general",
+      "target_rule_id": "GN-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GN04_envelope_overflow",
+      "label": "[GN-04] 包络自底向上守恒与三态准入状态机",
+      "desc": "把某个 L3 子节点的包络平移到其父节点包络之外。",
+      "target_layer": "general",
+      "target_rule_id": "GN-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "code_xr_poster",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "monolog_swiss_poster",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU01_token_bypass",
+      "label": "[GU-01] L5 设计与动效 Token 原子 100% 强制消费",
+      "desc": "从回检快照中移除一个 motion 原子的 CSS 变量引用并去掉减弱动效媒体查询。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU02_bitmap_solid_degradation",
+      "label": "[GU-02] 根治 UI 实心退化：真可编辑 DOM 文本与弹性容器",
+      "desc": "在回检快照中用一张整屏截图替换主舞台领地的 DOM 文本与控件。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU03_missing_proximity_magnify",
+      "label": "[GU-03] 微交互与状态闭环保真",
+      "desc": "在回检快照中移除邻近调制边对应的实现（缩放梯度回落为原尺寸）。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_GU04_defensive_microcopy",
+      "label": "[GU-04] 在线舞台与导出产物 DOM 溯源 ID 独立回检及零防御性小字",
+      "desc": "在回检快照可见文本中插入一句自证式保证句，并移除一个节点的 data-eu-id。",
+      "target_layer": "generation",
+      "target_rule_id": "GU-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "web_fixture",
+        "refract_crm_web",
+        "haven_admin_web",
+        "knob_hardware_web",
+        "nogood_brutal_web",
+        "axiom_hud_web",
+        "weeksync_paper_web",
+        "defined_aurora_web",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video",
+        "resend_dev_web",
+        "linear_workspace_web",
+        "raycast_cmd_web",
+        "amie_collab_web",
+        "nothing_dot_web",
+        "poolsuite_os_web",
+        "daylight_eink_web",
+        "family_fluid_web"
+      ]
+    },
+    {
+      "preset": "violate_PI01_grid_chain_break",
+      "label": "[PI-01] 版面栅格与比例尺寸链闭合 (跨模态沙盒)",
+      "desc": "把栏槽宽改成与画幅宽不闭合的值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI02_foreground_background_merge",
+      "label": "[PI-02] 视觉去噪与前景图文/背景材质分离 (跨模态沙盒)",
+      "desc": "把一个前景文字图层合并进背景材质图层。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI03_illegal_atom_sample",
+      "label": "[PI-03] 色彩对比度、字阶与间距原子采样合法性 (跨模态沙盒)",
+      "desc": "把一个正文颜色原子改成与背景对比度不足的色值。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PI04_missing_evidence_bbox",
+      "label": "[PI-04] 原图 evidence_bbox 强绑定 (跨模态沙盒)",
+      "desc": "删除一个 L3 解析节点的 evidence_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PI-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_PV01_partial_video_coverage",
+      "label": "[PV-01] 全时段关键帧覆盖与场景切分闭合 (跨模态沙盒)",
+      "desc": "删除中间一个时段，只保留局部时段，使时间轴出现未覆盖区间。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-01",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV02_layout_noise_leak",
+      "label": "[PV-02] 视频外版式噪声剥离与有效视口裁切 (跨模态沙盒)",
+      "desc": "把一个 EU 节点的 frame_bbox 挪进已登记的代码窗噪声区。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-02",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV03_transient_value_as_truth",
+      "label": "[PV-03] 瞬态滚动与稳态真值分离及假设隔离 (跨模态沙盒)",
+      "desc": "把一条 transient 观测值改为 verified 并解除其 AssumptionRecord 关联。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-03",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_PV04_unbound_interaction_evidence",
+      "label": "[PV-04] 帧间不变量与连续交互取证 (跨模态沙盒)",
+      "desc": "抹去一条已观测交互边的 [t0, t1] 与 frame_bbox。",
+      "target_layer": "parsing",
+      "target_rule_id": "PV-04",
+      "applicable_cases": [
+        "code_xr_uiux",
+        "rauno_craft_video",
+        "fps60_motion_video",
+        "screen_studio_video"
+      ]
+    },
+    {
+      "preset": "violate_GG01_bleed_grid_break",
+      "label": "[GG-01] 画幅尺寸出血与网格对齐守恒 (跨模态沙盒)",
+      "desc": "把出血置为 0 并让一个 L2 区块偏离栏线。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-01",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG02_hierarchy_inversion",
+      "label": "[GG-02] 视觉主次字阶层级与对比度合规 (跨模态沙盒)",
+      "desc": "把正文字号调到大于副标题，造成层级倒置。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-02",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG03_rasterized_text",
+      "label": "[GG-03] 矢量/文字图层独立可编辑 (跨模态沙盒)",
+      "desc": "在回检快照中把主标题文字节点替换为位图。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-03",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    },
+    {
+      "preset": "violate_GG04_export_drift",
+      "label": "[GG-04] 导出重开版式零漂移与溯源回检 (跨模态沙盒)",
+      "desc": "在导出快照中把一个 L2 区块包络平移超出漂移容差。",
+      "target_layer": "generation",
+      "target_rule_id": "GG-04",
+      "applicable_cases": [
+        "code_xr_poster",
+        "monolog_swiss_poster"
+      ]
+    }
+  ],
+  "error_ledger": [
+    {
+      "res_id": "RES-KW-01",
+      "entry_id": "RES-KW-01",
+      "id": "RES-KW-01",
+      "title": "局部录屏冒充整片验收",
+      "layer": "parsing",
+      "rule_id": "PV-01",
+      "counterfactual_preset": "violate_PV01_partial_video_coverage",
+      "symptom": "只补查了 1.60–2.23 s 邻近放大一段，整段 5.689 s 未逐段建证据，父任务长期停在 validating",
+      "root_cause": "没有「全时段切分闭合」硬约束，局部时段的通过结论被当成全片结论",
+      "fix": "0 → 片长连续切分、首尾相接、覆盖率 100%，每段至少一帧并绑定 EU",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-02",
+      "entry_id": "RES-KW-02",
+      "id": "RES-KW-02",
+      "title": "片尾滚动数字当定值",
+      "layer": "parsing",
+      "rule_id": "PV-03",
+      "counterfactual_preset": "violate_PV03_transient_value_as_truth",
+      "symptom": "5.62 s Analytics 四指标在片尾仍在滚动，险些被写成最终数值",
+      "root_cause": "观测值没有 steady / transient 区分，未定值可直接成为 verified 原子",
+      "fix": "观测值强制标注 settle_state；transient 不得 verified，必须挂 AssumptionRecord",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-03",
+      "entry_id": "RES-KW-03",
+      "id": "RES-KW-03",
+      "title": "视频版式代码窗混入界面",
+      "layer": "parsing",
+      "rule_id": "PV-02",
+      "counterfactual_preset": "violate_PV02_layout_noise_leak",
+      "symptom": "1920×2560 竖版视频下半部是代码窗排版，不属于网页，早期取样容易把它算进画面",
+      "root_cause": "缺少噪声区登记与可复核裁切变换",
+      "fix": "登记 noise_regions，记录 source_size / crop_rect / scale / target_size，EU 包络不得落入噪声区",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-04",
+      "entry_id": "RES-KW-04",
+      "id": "RES-KW-04",
+      "title": "交互塞入纵向组件树",
+      "layer": "general",
+      "rule_id": "GN-01",
+      "counterfactual_preset": "violate_GN01_interaction_in_tree",
+      "symptom": "邻近放大被建成「主单元 + 指针距离 + 搜索球 + 选中项 + 邻项 + 复位边界」六单元五条包含关系，交互与结构混在同一棵树",
+      "root_cause": "树与图不分，状态联动以父子包含表达",
+      "fix": "交互一律走 6 类白名单横向边，纵向树禁止 interaction./event./state. 前缀；同构项折叠防止度溢出（GN-02）",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-05",
+      "entry_id": "RES-KW-05",
+      "id": "RES-KW-05",
+      "title": "位图贴皮实心退化",
+      "layer": "generation",
+      "rule_id": "GU-02",
+      "counterfactual_preset": "violate_GU02_bitmap_solid_degradation",
+      "symptom": "用录屏截图或整屏位图铺底冒充界面，文字不可选、控件不可点，窄屏直接裁切",
+      "root_cause": "生成侧没有「真 DOM 文本 + 弹性容器」硬约束，静图通过即算交付",
+      "fix": "文字节点 100% DOM 文本、控件 100% 真控件，UI 位图面积为 0，1440 / 390 视口零横向裁切",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-06",
+      "entry_id": "RES-KW-06",
+      "id": "RES-KW-06",
+      "title": "收起侧栏漏掉邻近放大",
+      "layer": "generation",
+      "rule_id": "GU-03",
+      "counterfactual_preset": "violate_GU03_missing_proximity_magnify",
+      "symptom": "r21 设计读回中收起侧栏只记了「展开」，没有指针距离、放大与邻项传递",
+      "root_cause": "交互要求靠人工点名，未从语义图横向边逐条推导实现",
+      "fix": "每条交互类横向边必须有回检实现：MODULATES_NEIGHBOR 要求主项 > 邻项 > 1.0、远项不动、离开复位",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-07",
+      "entry_id": "RES-KW-07",
+      "id": "RES-KW-07",
+      "title": "界面放解释性、防御性小字",
+      "layer": "generation",
+      "rule_id": "GU-04",
+      "counterfactual_preset": "violate_GU04_defensive_microcopy",
+      "symptom": "折光工作台上版把验收说明写成界面文案（「不会丢」「仍可用」等保证句与引导副标题）",
+      "root_cause": "文案铁律只写在设计文档里，产物没有回检",
+      "fix": "舞台与导出各自回读可见文本，禁用短语命中数为 0；同时回检 data-eu-id 唯一且不悬空",
+      "status": "closed_by_rule"
+    },
+    {
+      "res_id": "RES-KW-08",
+      "entry_id": "RES-KW-08",
+      "id": "RES-KW-08",
+      "title": "EU 缺席却报整体验收",
+      "layer": "general",
+      "rule_id": "GN-03",
+      "counterfactual_preset": "violate_GN03_missing_l5_atom",
+      "symptom": "语义读回返回 EU_PROJECT_MISSING，网页运行通过却险些被当作 EU 已识别、已验收",
+      "root_cause": "无证据项可以是 verified，L5 原子挂载没有覆盖率门槛",
+      "fix": "单源 atomic_registry + atom_refs 双索引，实体 L3 的 L5 覆盖率 100%，无证据推断项强制进 AssumptionRecord；准入走 GN-04 三态机",
+      "status": "closed_by_rule"
+    }
+  ]
+}

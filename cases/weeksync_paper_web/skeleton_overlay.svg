@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%" data-modality="web">
+  <defs>
+    <style>
+      .sk-box { cursor: pointer; transition: stroke-width 0.16s, fill-opacity 0.16s; }
+      .sk-box:hover, .sk-box[data-active="true"] { stroke-width: 4px !important; fill-opacity: 0.28 !important; }
+      .sk-tag { font-family: Manrope, "Segoe UI", sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="1440" height="900" rx="14" fill="#181210"/>
+  <image id="skeleton-bg-frame" href="/cases/weeksync_paper_web/frames/ref_weeksync_desktop.png" x="0" y="0" width="1440" height="900" preserveAspectRatio="xMidYMid slice" opacity="0.90"/>
+  <g data-layer="skeleton" opacity="0.58">
+    <rect x="16" y="14" width="1404" height="872" rx="24" fill="none" stroke="#fff6ef" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <line x1="232" y1="14" x2="232" y2="886" stroke="#0ea5e9" stroke-width="1.6" stroke-dasharray="5 5"/>
+  </g>
+  <g data-layer="bbox">
+    <g class="sk-segment-group" data-segment-id="seg_web_desktop" opacity="1">
+      <g class="sk-node" data-eu-id="eu_L3_ws_rail_dock" data-segment-id="seg_web_desktop" data-bbox-id="bb_ws_nav"><rect class="sk-box" data-eu-id="eu_L3_ws_rail_dock" data-segment-id="seg_web_desktop" x="18" y="18" width="200" height="864" rx="12" fill="rgba(14,165,233,0.14)" stroke="#0ea5e9" stroke-width="2.4"/><rect x="22" y="22" width="200" height="22" rx="6" fill="#0ea5e9" fill-opacity="0.92"/><text class="sk-tag" x="29" y="37" fill="#ffffff">虚线框导航导轨 (Try It)</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_ws_week_header" data-segment-id="seg_web_desktop" data-bbox-id="bb_ws_head"><rect class="sk-box" data-eu-id="eu_L3_ws_week_header" data-segment-id="seg_web_desktop" x="236" y="18" width="1186" height="88" rx="12" fill="rgba(249,115,22,0.13)" stroke="#f97316" stroke-width="2.4"/><rect x="240" y="22" width="306" height="22" rx="6" fill="#f97316" fill-opacity="0.92"/><text class="sk-tag" x="247" y="37" fill="#ffffff">23–29 Nov 表头与 Days/Weeks</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_ws_planner_grid" data-segment-id="seg_web_desktop" data-bbox-id="bb_ws_grid"><rect class="sk-box" data-eu-id="eu_L3_ws_planner_grid" data-segment-id="seg_web_desktop" x="236" y="118" width="1186" height="540" rx="12" fill="rgba(139,92,246,0.16)" stroke="#8b5cf6" stroke-width="2.4"/><rect x="240" y="122" width="222" height="22" rx="6" fill="#8b5cf6" fill-opacity="0.92"/><text class="sk-tag" x="247" y="137" fill="#ffffff">实时增删工时排班沙盒 &amp; 协作光标</text></g>
+      <g class="sk-node" data-eu-id="eu_L3_ws_summary_cards" data-segment-id="seg_web_desktop" data-bbox-id="bb_ws_sum"><rect class="sk-box" data-eu-id="eu_L3_ws_summary_cards" data-segment-id="seg_web_desktop" x="236" y="674" width="1186" height="208" rx="12" fill="rgba(16,185,129,0.14)" stroke="#10b981" stroke-width="2.4"/><rect x="240" y="678" width="174" height="22" rx="6" fill="#10b981" fill-opacity="0.92"/><text class="sk-tag" x="247" y="693" fill="#ffffff">成员工时汇总与能力卡 ×3</text></g>
+    </g>
+  </g>
+</svg>

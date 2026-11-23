@@ -1,0 +1,401 @@
+{
+  "case_id": "axiom_hud_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_ax_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_ax_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_ax_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_ax_stage": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_ax_topbar": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_ax_hero_zone": {
+          "x": 12,
+          "y": 150,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_ax_array_zone": {
+          "x": 12,
+          "y": 950,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_ax_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_ax_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_ax_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_ax_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_ax_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_ax_stage": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 1120
+        },
+        "eu_L2_ax_topbar": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 92
+        },
+        "eu_L2_ax_hero_zone": {
+          "x": 18,
+          "y": 150,
+          "w": 732,
+          "h": 620
+        },
+        "eu_L2_ax_array_zone": {
+          "x": 18,
+          "y": 782,
+          "w": 732,
+          "h": 370
+        },
+        "eu_L1_ax_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_ax_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_ax_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_ax_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_ax_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_ax_stage": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 868
+        },
+        "eu_L2_ax_topbar": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 100
+        },
+        "eu_L2_ax_hero_zone": {
+          "x": 16,
+          "y": 126,
+          "w": 1408,
+          "h": 510
+        },
+        "eu_L2_ax_array_zone": {
+          "x": 16,
+          "y": 646,
+          "w": 1408,
+          "h": 238
+        },
+        "eu_L1_ax_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_ax_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "ax_cs_surf",
+      "eu_id": "eu_L3_ax_hero_deck",
+      "property": "color",
+      "value": "#050608",
+      "token_ref": "ax_surf_void",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ax_cs_typo",
+      "eu_id": "eu_L3_ax_query_hud",
+      "property": "font-size",
+      "value": "clamp(34px, 4vw, 54px)",
+      "token_ref": "ax_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ax_cs_lay",
+      "eu_id": "eu_L3_ax_results_array",
+      "property": "gap",
+      "value": "1240px",
+      "token_ref": "ax_lay_maxw",
+      "delta_e": 0.0
+    },
+    {
+      "id": "ax_cs_mot",
+      "eu_id": "eu_L3_ax_hero_deck",
+      "property": "transition-duration",
+      "value": "180ms",
+      "token_ref": "ax_mot_run",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "ax_el_skip",
+      "eu_id": "eu_L3_ax_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ax_el_top",
+      "eu_id": "eu_L3_ax_hero_deck",
+      "role": "tab",
+      "accessible_name": "AXIOM 居中顶栏与 Start free 入口",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ax_el_hero",
+      "eu_id": "eu_L3_ax_query_hud",
+      "role": "button",
+      "accessible_name": "The modern machine data platform. + APL 查询 HUD",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "ax_el_dlg",
+      "eu_id": "eu_L3_ax_query_dialog",
+      "role": "dialog",
+      "accessible_name": "接入 Token 与快速开始弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "ax_cn_bg",
+      "eu_id": "eu_L0_ax_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "ax_cn_hero",
+      "eu_id": "eu_L3_ax_query_hud",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "axiom.telemetry.apl_events",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "ax_cn_arr",
+      "eu_id": "eu_L3_ax_results_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "axiom.telemetry.apl_events.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Axiom 极暗精工数据平台与 APL HUD骨架",
+      "frame_url": "/cases/axiom_hud_web/frames/ref_axiom_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_ax_hero_deck",
+        "eu_L3_ax_query_hud",
+        "eu_L3_ax_results_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_ax_top",
+          "eu_id": "eu_L3_ax_hero_deck",
+          "label": "AXIOM 居中平台顶栏 & The modern machine data platform.",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 270,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_ax_hud",
+          "eu_id": "eu_L3_ax_query_hud",
+          "label": "全宽嵌入式 Query / Stream HUD · APL 编辑器 · Run",
+          "x": 16,
+          "y": 298,
+          "w": 1408,
+          "h": 320,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_ax_res",
+          "eu_id": "eu_L3_ax_results_array",
+          "label": "Results 时序分布图与日志流 ×4",
+          "x": 16,
+          "y": 632,
+          "w": 1408,
+          "h": 252,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_ax_top",
+      "eu_id": "eu_L3_ax_hero_deck",
+      "label": "AXIOM 居中平台顶栏 & The modern machine data platform.",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 270,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_ax_hud",
+      "eu_id": "eu_L3_ax_query_hud",
+      "label": "全宽嵌入式 Query / Stream HUD · APL 编辑器 · Run",
+      "x": 16,
+      "y": 298,
+      "w": 1408,
+      "h": 320,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_ax_res",
+      "eu_id": "eu_L3_ax_results_array",
+      "label": "Results 时序分布图与日志流 ×4",
+      "x": 16,
+      "y": 632,
+      "w": 1408,
+      "h": 252,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}

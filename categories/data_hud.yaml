@@ -1,0 +1,29 @@
+schema_version: "4.0.0"
+category_id: "data_hud"
+name: "高密度数据 HUD / 查询台"
+name_en: "High-Density Data HUD & Query Console"
+tier: "core"
+default_domain: "uiux"
+base_template_id: "tpl_uiux_workspace_v1"
+description: "适用于开发者观测平台、SQL/APL 查询控制台与高密度极暗工程监控 HUD 界面。"
+required_slots: ["main_stage"]
+optional_slots: ["intro_shell", "nav_dock", "auxiliary_overlay", "region.chart", "region.list"]
+allowed_asset_slots: ["telemetry_canvas"]
+expected_signals:
+  preferred_aspect: "landscape"
+  has_monospace_or_query: true
+  min_interactive_controls: 6
+  keywords: ["query", "apl", "sql", "hud", "stream", "logs", "metrics", "console", "traces", "latency", "axiom", "editor", "builder"]
+category_rules:
+  - id: "CAT-HUD-01"
+    name: "高密度结构线与视口零溢出"
+    metric_key: "density_zero_overflow"
+    desc: "桌面 1440px 与移动端 390px 下高密度分栏面板保持零横向溢出。"
+  - id: "CAT-HUD-02"
+    name: "等宽查询与可视化联动区"
+    metric_key: "query_results_loop"
+    desc: "语义树中存在查询或控制输入区与结果展示区，并消费字号/间距 Token。"
+  - id: "CAT-HUD-03"
+    name: "可访问性与键盘焦距可达"
+    metric_key: "hud_a11y_focus"
+    desc: "核心查询执行与浮层控件具备明确状态转换或焦点回归能力。"

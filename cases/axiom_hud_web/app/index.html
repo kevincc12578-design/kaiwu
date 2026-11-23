@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AXIOM · The modern machine data platform.</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="ax-page" id="viewport" data-page="query" data-eu-id="eu_L0_ax_workspace">
+    <a class="skip-link" href="#main-stage" data-eu-id="eu_L3_ax_skip_entry">Skip to APL query HUD</a>
+
+    <main class="ax-main" id="main-stage" tabindex="-1" data-eu-id="eu_L1_ax_stage">
+      <div class="ax-container">
+        <div class="ax-hero-block" data-eu-id="eu_L3_ax_hero_deck">
+          <header class="ax-topbar">
+            <div class="ax-logo">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <polygon points="12,3 21,19 3,19" fill="none" stroke="currentColor" stroke-width="2"/>
+                <line x1="7" y1="14" x2="17" y2="14" stroke="#e8642c" stroke-width="2"/>
+              </svg>
+              <span>AXIOM</span>
+            </div>
+
+            <nav class="ax-nav-links" aria-label="Axiom navigation" data-eu-id="eu_L4_ax_cta_bar">
+              <button type="button" class="ax-link is-active" data-route="query">Platform</button>
+              <button type="button" class="ax-link" data-route="stream">Solutions</button>
+              <button type="button" class="ax-link" data-route="dashboards">Use cases</button>
+              <button type="button" class="ax-link" data-route="monitors">Pricing</button>
+              <button type="button" class="ax-link" data-route="datasets">Docs</button>
+            </nav>
+
+            <div class="ax-auth-pair">
+              <button type="button" class="ax-ghost-btn" id="openDialogTopBtn">Sign in</button>
+              <button type="button" class="btn-orange" id="startFreeBtn">Start free →</button>
+            </div>
+          </header>
+
+          <section class="ax-hero">
+            <h1 class="ax-h1">The modern<br>machine data platform.</h1>
+            <p class="ax-lead">Petabyte-scale, schema-less ingest on a fully managed event store, so you keep every byte without the operational cost of running it yourself.</p>
+            <div class="ax-hero-ctas">
+              <button type="button" class="btn-orange" id="heroStartBtn">Start free →</button>
+              <button type="button" class="btn-dark" id="jumpHudBtn">Talk to sales</button>
+            </div>
+          </section>
+        </div>
+
+        <section class="query-hud" data-eu-id="eu_L3_ax_query_hud">
+          <div class="hud-tabs" role="tablist" aria-label="Telemetry workbench">
+            <button type="button" class="hud-tab is-active" data-route="query">Query</button>
+            <button type="button" class="hud-tab" data-route="stream">Stream</button>
+            <button type="button" class="hud-tab" data-route="dashboards">Dashboards</button>
+            <button type="button" class="hud-tab" data-route="monitors">Monitors</button>
+            <button type="button" class="hud-tab" data-route="datasets">Datasets</button>
+          </div>
+
+          <div class="hud-controls">
+            <div class="mode-switch" role="group" aria-label="Query input mode">
+              <button type="button" class="mode-btn" data-mode="builder">Builder</button>
+              <button type="button" class="mode-btn is-active" data-mode="editor">&lt;/&gt; Editor</button>
+            </div>
+
+            <label class="time-wrap">
+              <span class="sr-only">Timeframe</span>
+              <select id="timeWindowSelect" class="ax-select">
+                <option value="15m">Last 15 mins</option>
+                <option value="30m" selected>Last 30 mins</option>
+                <option value="6h">Last 6 hours</option>
+                <option value="24h">Last 24 hours</option>
+              </select>
+            </label>
+
+            <button type="button" class="btn-run" id="runAplBtn">▶ Run</button>
+            <span class="run-meta" id="runLatencyLabel">Last execution: 16 ms · 4,820,190 events scanned</span>
+          </div>
+
+          <div class="apl-editor" data-eu-id="eu_L4_ax_apl_editor">
+            <div id="builderControls" class="builder-row is-hidden">
+              <span class="chip-kv">where <b>['event.type'] == "charge.failed"</b></span>
+              <span class="chip-kv">summarize <b>count()</b></span>
+              <span class="chip-kv">by <b>['decline.reason']</b></span>
+            </div>
+            <div class="editor-grid">
+              <div class="line-nums" aria-hidden="true"><span>1</span><span>2</span><span>3</span></div>
+              <textarea id="aplInput" class="apl-textarea" spellcheck="false" aria-label="APL query input">['payment-service']
+| where ['event.type'] == "charge.failed"
+| summarize count() by ['decline.reason']</textarea>
+            </div>
+          </div>
+
+          <div class="results-array" data-eu-id="eu_L3_ax_results_array">
+            <div class="results-toolbar" data-eu-id="eu_L4_ax_filter_export">
+              <div class="res-title-row">
+                <span class="res-badge">Results</span>
+                <span class="chart-caption" id="chartTitle">EVENT DISTRIBUTION (30M BUCKETS)</span>
+              </div>
+              <div class="filter-actions">
+                <button type="button" class="flt-btn is-active" data-filter="all">All Services</button>
+                <button type="button" class="flt-btn" data-filter="payment-service">payment-service</button>
+                <button type="button" class="flt-btn" data-filter="edge-proxy">edge-proxy</button>
+                <button type="button" class="flt-btn" data-filter="auth-core">auth-core</button>
+                <button type="button" class="ax-ghost-btn btn-sm" id="exportCsvBtn">Export CSV</button>
+              </div>
+            </div>
+
+            <div class="bar-grid" id="barGrid" aria-live="polite"></div>
+
+            <div class="table-wrap">
+              <table class="ax-table">
+                <thead>
+                  <tr>
+                    <th>_time (UTC)</th>
+                    <th>service</th>
+                    <th>decline.reason</th>
+                    <th>status</th>
+                    <th>duration_ms</th>
+                    <th>trace_id</th>
+                  </tr>
+                </thead>
+                <tbody id="eventsTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog class="ax-dialog" id="queryDialog" aria-labelledby="axDlgTitle" data-eu-id="eu_L3_ax_query_dialog">
+      <form method="dialog" class="dialog-panel">
+        <div class="dialog-top">
+          <h2 id="axDlgTitle">Provision Axiom Workspace</h2>
+          <button type="submit" value="cancel" class="ax-ghost-btn btn-sm">ESC</button>
+        </div>
+        <p class="dialog-desc">Bind an API token to ingest structured JSON events, OpenTelemetry traces, and Prometheus metrics directly into your APL dataset.</p>
+        <div class="token-box">
+          <code>xaat-92f4c8e1-prod-us-east-1-edge</code>
+          <span class="token-perm">INGEST + QUERY</span>
+        </div>
+        <div class="dialog-actions">
+          <button type="submit" value="close" class="btn-dark">Close</button>
+          <button type="button" class="btn-orange" id="confirmRunFromDialog">Execute Query</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+{
+  "product": "开物 · Kaiwu Adaptive-EU Design Workbench",
+  "version": "3.4.0",
+  "verification_timestamp": "2026-11-23T15:34:27+08:00",
+  "overall_verdict": "PASS",
+  "summary": {
+    "total_checks": 59,
+    "passed_checks": 59,
+    "failed_checks": 0,
+    "pass_rate_pct": 100.0
+  },
+  "category_summaries": {
+    "rules_and_templates": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "verdict": "PASS"
+    },
+    "adaptive_eu_and_lifecycle": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "verdict": "PASS"
+    },
+    "counterfactual_gates": {
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "verdict": "PASS"
+    },
+    "api_and_readback": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "verdict": "PASS"
+    },
+    "browser_e2e": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "verdict": "PASS"
+    }
+  },
+  "metrics": {
+    "code_xr_uiux_stats": {
+      "total_nodes": 80,
+      "levels_present": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "max_child_degree": 4,
+      "l3_entity_count": 18,
+      "l3_atom_coverage_ratio": 1.0,
+      "edge_count": 6,
+      "adaptation_counts": {
+        "TEMPLATE_ANCHOR": 49,
+        "ATOMIC_MOUNT": 23,
+        "SPLIT_HIGH_INTERACTION": 4,
+        "FOLD_ARRAY": 4
+      }
+    },
+    "code_xr_poster_stats": {
+      "total_nodes": 45,
+      "levels_present": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "max_child_degree": 4,
+      "l3_entity_count": 9,
+      "l3_atom_coverage_ratio": 1.0,
+      "edge_count": 2,
+      "adaptation_counts": {
+        "TEMPLATE_ANCHOR": 31,
+        "ATOMIC_MOUNT": 11,
+        "SPLIT_HIGH_INTERACTION": 2,
+        "FOLD_ARRAY": 1
+      }
+    },
+    "web_fixture_stats": {
+      "total_nodes": 21,
+      "levels_present": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "max_child_degree": 4,
+      "l3_entity_count": 4,
+      "l3_atom_coverage_ratio": 1.0,
+      "edge_count": 4,
+      "adaptation_counts": {
+        "TEMPLATE_ANCHOR": 15,
+        "ATOMIC_MOUNT": 4,
+        "FOLD_ARRAY": 2
+      }
+    }
+  },
+  "screenshots": [
+    {
+      "path": "C:\\Users\\admin\\.gemini\\antigravity\\brain\\b85c63e6-7c18-4ab3-b837-fdc0cf829de0\\scratch\\verify_v34_v3\\v34_01_workbench_codexr_linkage.png",
+      "caption": "开物v3.4三窗格检验台与Code XR全段联动"
+    },
+    {
+      "path": "C:\\Users\\admin\\.gemini\\antigravity\\brain\\b85c63e6-7c18-4ab3-b837-fdc0cf829de0\\scratch\\verify_v34_v3\\v34_02_codexr_proximity_magnify.png",
+      "caption": "Code XR窄侧栏邻近放大与双向解释链"
+    },
+    {
+      "path": "C:\\Users\\admin\\.gemini\\antigravity\\brain\\b85c63e6-7c18-4ab3-b837-fdc0cf829de0\\scratch\\verify_v34_v3\\v34_03_counterfactual_blocked.png",
+      "caption": "反事实异常注入当层阻断演练"
+    },
+    {
+      "path": "C:\\Users\\admin\\.gemini\\antigravity\\brain\\b85c63e6-7c18-4ab3-b837-fdc0cf829de0\\scratch\\verify_v34_v3\\v34_04_poster_release_ready.png",
+      "caption": "平面设计案例路由与全假设签认放行"
+    }
+  ],
+  "details": {
+    "rules_and_templates": [
+      {
+        "id": "version_340",
+        "status": "PASS",
+        "detail": "VERSION 精确为 3.4.0"
+      },
+      {
+        "id": "doc_README",
+        "status": "PASS",
+        "detail": "README.md 存在且非空 (2563 bytes)"
+      },
+      {
+        "id": "doc_CHANGELOG",
+        "status": "PASS",
+        "detail": "CHANGELOG.md 存在且非空 (1968 bytes)"
+      },
+      {
+        "id": "doc_UI与交互EU错误排查台账",
+        "status": "PASS",
+        "detail": "UI与交互EU错误排查台账.md 存在且非空 (6985 bytes)"
+      },
+      {
+        "id": "doc_ARCHITECTURE_v3.4",
+        "status": "PASS",
+        "detail": "docs/ARCHITECTURE_v3.4.md 存在且非空 (20943 bytes)"
+      },
+      {
+        "id": "rule_yaml_general_rules.yaml",
+        "status": "PASS",
+        "detail": "general_rules.yaml 含 ['GN-01', 'GN-02', 'GN-03', 'GN-04'] 共 4 条 BLOCKER 规则，字段齐全，零单项目硬编码"
+      },
+      {
+        "id": "rule_yaml_parsing_video.yaml",
+        "status": "PASS",
+        "detail": "parsing_video.yaml 含 ['PV-01', 'PV-02', 'PV-03', 'PV-04'] 共 4 条 BLOCKER 规则，字段齐全，零单项目硬编码"
+      },
+      {
+        "id": "rule_yaml_parsing_image.yaml",
+        "status": "PASS",
+        "detail": "parsing_image.yaml 含 ['PI-01', 'PI-02', 'PI-03', 'PI-04'] 共 4 条 BLOCKER 规则，字段齐全，零单项目硬编码"
+      },
+      {
+        "id": "rule_yaml_parsing_web.yaml",
+        "status": "PASS",
+        "detail": "parsing_web.yaml 含 ['PW-01', 'PW-02', 'PW-03', 'PW-04'] 共 4 条 BLOCKER 规则，字段齐全，零单项目硬编码"
+      },
+      {
+        "id": "rule_yaml_generation_uiux.yaml",
+        "status": "PASS",
+        "detail": "generation_uiux.yaml 含 ['GU-01', 'GU-02', 'GU-03', 'GU-04'] 共 4 条 BLOCKER 规则，字段齐全，零单项目硬编码"
+      },
+      {
+        "id": "rule_yaml_generation_graphic.yaml",
+        "status": "PASS",
+        "detail": "generation_graphic.yaml 含 ['GG-01', 'GG-02', 'GG-03', 'GG-04'] 共 4 条 BLOCKER 规则，字段齐全，零单项目硬编码"
+      },
+      {
+        "id": "total_24_unique_presets",
+        "status": "PASS",
+        "detail": "全库 24 条规则与 24 个反事实预设唯一且闭合"
+      },
+      {
+        "id": "template_tpl_uiux_workspace_v1",
+        "status": "PASS",
+        "detail": "uiux_workspace_template.yaml 结构完整，含 4 大 L1 领地与分裂/折叠策略"
+      },
+      {
+        "id": "template_tpl_graphic_poster_v1",
+        "status": "PASS",
+        "detail": "graphic_poster_template.yaml 结构完整，含 4 大 L1 领地与分裂/折叠策略"
+      },
+      {
+        "id": "y_route_code_xr_uiux",
+        "status": "PASS",
+        "detail": "code_xr_uiux 精准激活 PV(4)+GN(4)+GU(4)=12 条且全部 PASS"
+      },
+      {
+        "id": "y_route_code_xr_poster",
+        "status": "PASS",
+        "detail": "code_xr_poster 精准激活 PI(4)+GN(4)+GG(4)=12 条且全部 PASS"
+      },
+      {
+        "id": "y_route_web_fixture",
+        "status": "PASS",
+        "detail": "web_fixture 精准激活 PW(4)+GN(4)+GU(4)=12 条且全部 PASS"
+      }
+    ],
+    "adaptive_eu_and_lifecycle": [
+      {
+        "id": "tree_and_atoms_code_xr_uiux",
+        "status": "PASS",
+        "detail": "code_xr_uiux L0~L5 共 80 节点, max_degree=4<=7, 6 条横向边合规, 含锚定/分裂/折叠, L5覆盖率=100%"
+      },
+      {
+        "id": "tree_and_atoms_code_xr_poster",
+        "status": "PASS",
+        "detail": "code_xr_poster L0~L5 共 45 节点, max_degree=4<=7, 2 条横向边合规, 含锚定/分裂/折叠, L5覆盖率=100%"
+      },
+      {
+        "id": "tree_and_atoms_web_fixture",
+        "status": "PASS",
+        "detail": "web_fixture L0~L5 共 21 节点, max_degree=4<=7, 4 条横向边合规, 含锚定/分裂/折叠, L5覆盖率=100%"
+      },
+      {
+        "id": "codexr_full_timeline_5689s",
+        "status": "PASS",
+        "detail": "Code XR 0.00~5.689s 共 6 段无缝闭合覆盖 100%，6 张真帧文件全部落盘"
+      },
+      {
+        "id": "tri_state_admission_fsm",
+        "status": "PASS",
+        "detail": "准入状态机闭环：初始 PROVISIONAL (4 open) → confirm_all 跃迁 RELEASE_READY → reset 恢复 PROVISIONAL"
+      }
+    ],
+    "counterfactual_gates": [
+      {
+        "id": "gate_violate_PI01_grid_chain_break",
+        "status": "PASS",
+        "detail": "[parsing] PI-01 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_PI02_foreground_background_merge",
+        "status": "PASS",
+        "detail": "[parsing] PI-02 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_PI03_illegal_atom_sample",
+        "status": "PASS",
+        "detail": "[parsing] PI-03 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_PI04_missing_evidence_bbox",
+        "status": "PASS",
+        "detail": "[parsing] PI-04 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_PV01_partial_video_coverage",
+        "status": "PASS",
+        "detail": "[parsing] PV-01 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_PV02_layout_noise_leak",
+        "status": "PASS",
+        "detail": "[parsing] PV-02 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_PV03_transient_value_as_truth",
+        "status": "PASS",
+        "detail": "[parsing] PV-03 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_PV04_unbound_interaction_evidence",
+        "status": "PASS",
+        "detail": "[parsing] PV-04 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_PW01_breakpoint_misalignment",
+        "status": "PASS",
+        "detail": "[parsing] PW-01 真实 FAIL 并阻断 (web_fixture)"
+      },
+      {
+        "id": "gate_violate_PW02_raw_style_literal",
+        "status": "PASS",
+        "detail": "[parsing] PW-02 真实 FAIL 并阻断 (web_fixture)"
+      },
+      {
+        "id": "gate_violate_PW03_missing_a11y_role",
+        "status": "PASS",
+        "detail": "[parsing] PW-03 真实 FAIL 并阻断 (web_fixture)"
+      },
+      {
+        "id": "gate_violate_PW04_decor_data_mixed",
+        "status": "PASS",
+        "detail": "[parsing] PW-04 真实 FAIL 并阻断 (web_fixture)"
+      },
+      {
+        "id": "gate_violate_GN01_interaction_in_tree",
+        "status": "PASS",
+        "detail": "[general] GN-01 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_GN02_degree_overflow",
+        "status": "PASS",
+        "detail": "[general] GN-02 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_GN03_missing_l5_atom",
+        "status": "PASS",
+        "detail": "[general] GN-03 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_GN04_envelope_overflow",
+        "status": "PASS",
+        "detail": "[general] GN-04 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_GG01_bleed_grid_break",
+        "status": "PASS",
+        "detail": "[generation] GG-01 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_GG02_hierarchy_inversion",
+        "status": "PASS",
+        "detail": "[generation] GG-02 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_GG03_rasterized_text",
+        "status": "PASS",
+        "detail": "[generation] GG-03 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_GG04_export_drift",
+        "status": "PASS",
+        "detail": "[generation] GG-04 真实 FAIL 并阻断 (code_xr_poster)"
+      },
+      {
+        "id": "gate_violate_GU01_token_bypass",
+        "status": "PASS",
+        "detail": "[generation] GU-01 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_GU02_bitmap_solid_degradation",
+        "status": "PASS",
+        "detail": "[generation] GU-02 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_GU03_missing_proximity_magnify",
+        "status": "PASS",
+        "detail": "[generation] GU-03 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_violate_GU04_defensive_microcopy",
+        "status": "PASS",
+        "detail": "[generation] GU-04 真实 FAIL 并阻断 (code_xr_uiux)"
+      },
+      {
+        "id": "gate_reset_pass",
+        "status": "PASS",
+        "detail": "反事实沙盒复位后恢复 PASS / PROVISIONAL"
+      }
+    ],
+    "api_and_readback": [
+      {
+        "id": "api_health",
+        "status": "PASS",
+        "detail": "/api/health 200 OK (v3.4.0, rules=24)"
+      },
+      {
+        "id": "api_cases",
+        "status": "PASS",
+        "detail": "/api/cases 返回双案例: ['code_xr_uiux', 'code_xr_poster', 'refract_crm_web', 'haven_admin_web', 'knob_hardware_web', 'nogood_brutal_web', 'axiom_hud_web', 'monolog_swiss_poster', 'weeksync_paper_web', 'defined_aurora_web', 'rauno_craft_video', 'fps60_motion_video', 'screen_studio_video', 'resend_dev_web', 'linear_workspace_web', 'raycast_cmd_web', 'amie_collab_web', 'nothing_dot_web', 'poolsuite_os_web', 'daylight_eink_web', 'family_fluid_web']"
+      },
+      {
+        "id": "api_error_ledger",
+        "status": "PASS",
+        "detail": "/api/error_ledger 返回完整 8 条台账 (RES-KW-01..RES-KW-08)"
+      },
+      {
+        "id": "api_explain_code_xr_uiux",
+        "status": "PASS",
+        "detail": "/explain/eu_L3_rail_proximity_dock 返回完整向上链/L5原子/横向边"
+      },
+      {
+        "id": "api_explain_code_xr_poster",
+        "status": "PASS",
+        "detail": "/explain/eu_L3_poster_key_graphic 返回完整向上链/L5原子/横向边"
+      },
+      {
+        "id": "independent_readback",
+        "status": "PASS",
+        "detail": "双案例源码回检均 PASS：UI/UX DOM覆盖=100% (texts=116), Poster 活文字/矢量=True, 防御小字=0"
+      }
+    ],
+    "browser_e2e": [
+      {
+        "id": "workbench_boot_zero_errors",
+        "status": "PASS",
+        "detail": "1440×900 载入正常，门禁=解析 PV 4/4 → 总规则 GN 4/4 → 生成 GU 4/4, 状态=PROVISIONAL · 待确认假设 4"
+      },
+      {
+        "id": "three_pane_linkage",
+        "status": "PASS",
+        "detail": "三屏联动生效：点击 eu_L3_sprint_hero 后左骨架/中解释链/右DOM 同步高亮"
+      },
+      {
+        "id": "codexr_proximity_and_analytics",
+        "status": "PASS",
+        "detail": "邻近放大实测生效 (focus=1.370 > neighbor=1.200 > 1.0, far=1.0)，Analytics 12月切换正常"
+      },
+      {
+        "id": "ui_counterfactual_blocked_reset",
+        "status": "PASS",
+        "detail": "浏览器端触发 GU-03 反事实 BLOCKED 横幅归因并成功复位"
+      },
+      {
+        "id": "poster_routing_and_release_ready",
+        "status": "PASS",
+        "detail": "平面设计案例 PI→GN→GG 路由、12列网格开关与全部签认跃迁 RELEASE_READY 全通过"
+      },
+      {
+        "id": "zero_browser_console_errors",
+        "status": "PASS",
+        "detail": "全流程无任何 pageerror 或 console.error"
+      }
+    ]
+  },
+  "errors": []
+}

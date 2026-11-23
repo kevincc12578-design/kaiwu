@@ -1,0 +1,413 @@
+{
+  "case_id": "nothing_dot_web",
+  "modality": "web",
+  "duration_sec": null,
+  "coverage_ratio": 1.0,
+  "breakpoints": [
+    390,
+    768,
+    1440
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "breakpoints": [
+      390,
+      768,
+      1440
+    ]
+  },
+  "dom": {
+    "390": {
+      "viewport_w": 390,
+      "scroll_width": 390,
+      "rects": {
+        "eu_L0_nd_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 1680
+        },
+        "eu_L1_nd_intro": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L2_nd_intro_bar": {
+          "x": 12,
+          "y": 6,
+          "w": 366,
+          "h": 34
+        },
+        "eu_L1_nd_stage": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 1520
+        },
+        "eu_L2_nd_topbar": {
+          "x": 12,
+          "y": 48,
+          "w": 366,
+          "h": 92
+        },
+        "eu_L2_nd_hero_zone": {
+          "x": 12,
+          "y": 150,
+          "w": 366,
+          "h": 780
+        },
+        "eu_L2_nd_array_zone": {
+          "x": 12,
+          "y": 950,
+          "w": 366,
+          "h": 600
+        },
+        "eu_L1_nd_overlay": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        },
+        "eu_L2_nd_dialog_host": {
+          "x": 16,
+          "y": 140,
+          "w": 358,
+          "h": 360
+        }
+      }
+    },
+    "768": {
+      "viewport_w": 768,
+      "scroll_width": 768,
+      "rects": {
+        "eu_L0_nd_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 1200
+        },
+        "eu_L1_nd_intro": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L2_nd_intro_bar": {
+          "x": 18,
+          "y": 8,
+          "w": 732,
+          "h": 34
+        },
+        "eu_L1_nd_stage": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 1120
+        },
+        "eu_L2_nd_topbar": {
+          "x": 18,
+          "y": 48,
+          "w": 732,
+          "h": 92
+        },
+        "eu_L2_nd_hero_zone": {
+          "x": 18,
+          "y": 150,
+          "w": 732,
+          "h": 600
+        },
+        "eu_L2_nd_array_zone": {
+          "x": 18,
+          "y": 762,
+          "w": 732,
+          "h": 390
+        },
+        "eu_L1_nd_overlay": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        },
+        "eu_L2_nd_dialog_host": {
+          "x": 140,
+          "y": 150,
+          "w": 488,
+          "h": 380
+        }
+      }
+    },
+    "1440": {
+      "viewport_w": 1440,
+      "scroll_width": 1440,
+      "rects": {
+        "eu_L0_nd_workspace": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 900
+        },
+        "eu_L1_nd_intro": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L2_nd_intro_bar": {
+          "x": 16,
+          "y": 8,
+          "w": 1404,
+          "h": 34
+        },
+        "eu_L1_nd_stage": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 868
+        },
+        "eu_L2_nd_topbar": {
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 96
+        },
+        "eu_L2_nd_hero_zone": {
+          "x": 16,
+          "y": 116,
+          "w": 1408,
+          "h": 496
+        },
+        "eu_L2_nd_array_zone": {
+          "x": 16,
+          "y": 626,
+          "w": 1408,
+          "h": 258
+        },
+        "eu_L1_nd_overlay": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        },
+        "eu_L2_nd_dialog_host": {
+          "x": 420,
+          "y": 170,
+          "w": 580,
+          "h": 410
+        }
+      }
+    }
+  },
+  "computed_styles": [
+    {
+      "id": "nd_cs_surf",
+      "eu_id": "eu_L3_nd_topbar",
+      "property": "color",
+      "value": "#000000",
+      "token_ref": "nd_surf_bg",
+      "delta_e": 0.0
+    },
+    {
+      "id": "nd_cs_typo",
+      "eu_id": "eu_L3_nd_matrix_hud",
+      "property": "font-size",
+      "value": "clamp(26px, 3vw, 38px)",
+      "token_ref": "nd_typo_h1",
+      "delta_e": 0.0
+    },
+    {
+      "id": "nd_cs_lay",
+      "eu_id": "eu_L3_nd_widgets_array",
+      "property": "gap",
+      "value": "1380px",
+      "token_ref": "nd_lay_maxw",
+      "delta_e": 0.0
+    },
+    {
+      "id": "nd_cs_mot",
+      "eu_id": "eu_L3_nd_topbar",
+      "property": "transition-duration",
+      "value": "180ms",
+      "token_ref": "nd_mot_dot",
+      "delta_e": 0.0
+    }
+  ],
+  "interactive_elements": [
+    {
+      "id": "nd_el_skip",
+      "eu_id": "eu_L3_nd_skip_entry",
+      "role": "button",
+      "accessible_name": "Skip to content",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "nd_el_top",
+      "eu_id": "eu_L3_nd_topbar",
+      "role": "tab",
+      "accessible_name": "Nothing 极简顶栏与 [GLYPH / STUDIO / QUIET] 模式切换",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "nd_el_hero",
+      "eu_id": "eu_L3_nd_matrix_hud",
+      "role": "button",
+      "accessible_name": "LED 点阵时钟 + Glyph 12 节段灯环 + 点阵 CPU/音频频谱图组",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "nd_el_arr",
+      "eu_id": "eu_L3_nd_widgets_array",
+      "role": "button",
+      "accessible_name": "SYSTEM / AUDIO / SENSOR 微件日志与 CSV 导出阵列 ×4",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    },
+    {
+      "id": "nd_el_dlg",
+      "eu_id": "eu_L3_nd_diag_dialog",
+      "role": "dialog",
+      "accessible_name": "Glyph 硬件节点自检弹窗",
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ]
+    }
+  ],
+  "content_nodes": [
+    {
+      "id": "nd_cn_bg",
+      "eu_id": "eu_L0_nd_workspace",
+      "content_class": "decoration",
+      "aria_hidden": true,
+      "data_source": null,
+      "children_classes": []
+    },
+    {
+      "id": "nd_cn_hero",
+      "eu_id": "eu_L3_nd_matrix_hud",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "nothing.os.telemetry",
+      "children_classes": [
+        "data"
+      ]
+    },
+    {
+      "id": "nd_cn_arr",
+      "eu_id": "eu_L3_nd_widgets_array",
+      "content_class": "data",
+      "aria_hidden": false,
+      "data_source": "nothing.os.telemetry.items",
+      "children_classes": [
+        "data"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "seg_web_desktop",
+      "index": 1,
+      "t0": 0.0,
+      "t1": 1.0,
+      "label": "1440×900 · Nothing OS · 工业纯黑红点阵控制矩阵骨架",
+      "frame_url": "/cases/nothing_dot_web/frames/ref_nd_desktop.png",
+      "active_eu_ids": [
+        "eu_L3_nd_topbar",
+        "eu_L3_nd_matrix_hud",
+        "eu_L3_nd_widgets_array"
+      ],
+      "bboxes": [
+        {
+          "bbox_id": "bb_nd_top",
+          "eu_id": "eu_L3_nd_topbar",
+          "label": "Nothing OS 顶栏与模式切换",
+          "x": 16,
+          "y": 16,
+          "w": 1408,
+          "h": 74,
+          "role": "nav"
+        },
+        {
+          "bbox_id": "bb_nd_hero",
+          "eu_id": "eu_L3_nd_matrix_hud",
+          "label": "点阵时钟 + Glyph 灯环 + 3 大点阵数据图",
+          "x": 16,
+          "y": 102,
+          "w": 1408,
+          "h": 510,
+          "role": "split"
+        },
+        {
+          "bbox_id": "bb_nd_arr",
+          "eu_id": "eu_L3_nd_widgets_array",
+          "label": "微件遥测阵列 ×4 + CSV 导出",
+          "x": 16,
+          "y": 626,
+          "w": 1408,
+          "h": 258,
+          "role": "array"
+        }
+      ]
+    }
+  ],
+  "bboxes": [
+    {
+      "bbox_id": "bb_nd_top",
+      "eu_id": "eu_L3_nd_topbar",
+      "label": "Nothing OS 顶栏与模式切换",
+      "x": 16,
+      "y": 16,
+      "w": 1408,
+      "h": 74,
+      "role": "nav",
+      "segment_id": "seg_web_desktop",
+      "color_role": "nav"
+    },
+    {
+      "bbox_id": "bb_nd_hero",
+      "eu_id": "eu_L3_nd_matrix_hud",
+      "label": "点阵时钟 + Glyph 灯环 + 3 大点阵数据图",
+      "x": 16,
+      "y": 102,
+      "w": 1408,
+      "h": 510,
+      "role": "split",
+      "segment_id": "seg_web_desktop",
+      "color_role": "split"
+    },
+    {
+      "bbox_id": "bb_nd_arr",
+      "eu_id": "eu_L3_nd_widgets_array",
+      "label": "微件遥测阵列 ×4 + CSV 导出",
+      "x": 16,
+      "y": 626,
+      "w": 1408,
+      "h": 258,
+      "role": "array",
+      "segment_id": "seg_web_desktop",
+      "color_role": "array"
+    }
+  ]
+}
