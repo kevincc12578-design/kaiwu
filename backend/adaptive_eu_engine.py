@@ -14,8 +14,10 @@ import copy
 import datetime as dt
 import json
 import re
+import tempfile
+from contextlib import nullcontext
 from pathlib import Path
-from typing import Any
+from typing import Any, NamedTuple
 
 import cases_catalog as catalog_mod
 import category_registry as cat_reg
@@ -1977,58 +1979,105 @@ DEFAULT_ASSUMPTIONS: dict[str, list[dict[str, Any]]] = {
 _ASSUMPTION_MEMORY_STATE: dict[str, dict[str, dict[str, Any]]] = {}
 
 
+def _write_bytes_atomically(path: Path, value: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    stream = tempfile.NamedTemporaryFile(
+        mode="wb", dir=path.parent, prefix=f".{path.stem}-",
+        suffix=".tmp", delete=False,
+    )
+    temporary = Path(stream.name)
+    try:
+        with stream:
+            stream.write(value)
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _write_json_atomically(path: Path, value: Any) -> None:
+    _write_bytes_atomically(path, json.dumps(value, ensure_ascii=False, indent=2).encode("utf-8"))
+
+
 def _state_file_for_case(case_id: str) -> Path:
     return CASES_DIR / case_id / "assumptions_state.json"
 
 
 def get_case_assumptions(case_id: str) -> list[dict[str, Any]]:
-    default_list = DEFAULT_ASSUMPTIONS.get(case_id)
-    if default_list is None:
-        imported = parsers_mod.load_imported_case(case_id)
-        default_list = (imported or {}).get("assumptions", [])
+    with parsers_mod.CASE_FILES_LOCK:
+        default_list = DEFAULT_ASSUMPTIONS.get(case_id)
+        if default_list is None:
+            imported = parsers_mod.load_imported_case(case_id)
+            default_list = (imported or {}).get("assumptions", [])
+        if case_id == "web_fixture":
+            state_map = _ASSUMPTION_MEMORY_STATE.get(case_id, {})
+        else:
+            try:
+                state_map = json.loads(_state_file_for_case(case_id).read_text(encoding="utf-8"))
+            except (FileNotFoundError, UnicodeError, json.JSONDecodeError):
+                state_map = {}
     base = copy.deepcopy(default_list)
-    state_map = _ASSUMPTION_MEMORY_STATE.get(case_id)
-    state_file = _state_file_for_case(case_id)
-    if state_map is None and state_file.exists():
-        try:
-            state_map = json.loads(state_file.read_text(encoding="utf-8"))
-            _ASSUMPTION_MEMORY_STATE[case_id] = state_map
-        except Exception:
-            state_map = {}
-    state_map = state_map or {}
+    if not isinstance(state_map, dict):
+        state_map = {}
     for item in base:
         saved = state_map.get(item["assumption_id"])
-        if saved:
+        if isinstance(saved, dict):
             item["status"] = saved.get("status", item["status"])
             item["confirmed_at"] = saved.get("confirmed_at")
     return base
 
 
 def update_case_assumptions(case_id: str, assumption_id: str, action: str) -> list[dict[str, Any]]:
-    current = get_case_assumptions(case_id)
-    now_iso = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     act = (action or "confirm").lower()
+    if act not in {"confirm", "confirm_all", "reset"}:
+        raise ValueError(f"Unknown assumption action: {action}")
+    apply_to_all = (
+        act == "confirm_all" or assumption_id in ("ALL", "all")
+        or (act == "reset" and not assumption_id)
+    )
 
-    state_map: dict[str, dict[str, Any]] = {}
-    for item in current:
-        aid = item["assumption_id"]
-        if act == "reset" and (assumption_id in ("ALL", "all", "", None) or aid == assumption_id):
-            item["status"] = "open"
-            item["confirmed_at"] = None
-        elif act in ("confirm_all",) or (act == "confirm" and assumption_id in ("ALL", "all")):
-            item["status"] = "confirmed"
-            item["confirmed_at"] = now_iso
-        elif act == "confirm" and aid == assumption_id:
-            item["status"] = "confirmed"
-            item["confirmed_at"] = now_iso
-        state_map[aid] = {"status": item["status"], "confirmed_at": item["confirmed_at"]}
+    with parsers_mod.CASE_FILES_LOCK:
+        _get_case_meta(case_id)
+        current = get_case_assumptions(case_id)
+        if not apply_to_all and not any(item["assumption_id"] == assumption_id for item in current):
+            raise ValueError(f"Unknown assumption: {assumption_id}")
+        confirmed_at = None if act == "reset" else dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        status = "open" if act == "reset" else "confirmed"
+        state_map: dict[str, dict[str, Any]] = {}
+        for item in current:
+            aid = item["assumption_id"]
+            if apply_to_all or aid == assumption_id:
+                item["status"] = status
+                item["confirmed_at"] = confirmed_at
+            state_map[aid] = {"status": item["status"], "confirmed_at": item["confirmed_at"]}
+        if case_id == "web_fixture":
+            _ASSUMPTION_MEMORY_STATE[case_id] = state_map
+        else:
+            _write_json_atomically(_state_file_for_case(case_id), state_map)
+        return current
 
-    _ASSUMPTION_MEMORY_STATE[case_id] = state_map
-    if case_id != "web_fixture":
-        sf = _state_file_for_case(case_id)
-        sf.parent.mkdir(parents=True, exist_ok=True)
-        sf.write_text(json.dumps(state_map, ensure_ascii=False, indent=2), encoding="utf-8")
-    return current
+
+def publish_assumption_change(case_id: str, assumption_id: str, action: str) -> dict[str, Any]:
+    """Publish the new state and its bundle together under the case file lock."""
+    with parsers_mod.CASE_FILES_LOCK:
+        _get_case_meta(case_id)
+        memory_only = case_id == "web_fixture"
+        old_memory = _ASSUMPTION_MEMORY_STATE.get(case_id)
+        state_path = _state_file_for_case(case_id)
+        old_state = state_path.read_bytes() if not memory_only and state_path.is_file() else None
+        update_case_assumptions(case_id, assumption_id, action)
+        try:
+            return build_case_bundle(case_id, persist=not memory_only)
+        except BaseException:
+            if memory_only:
+                if old_memory is None:
+                    _ASSUMPTION_MEMORY_STATE.pop(case_id, None)
+                else:
+                    _ASSUMPTION_MEMORY_STATE[case_id] = old_memory
+            elif old_state is None:
+                state_path.unlink(missing_ok=True)
+            else:
+                _write_bytes_atomically(state_path, old_state)
+            raise
 
 
 # ==============================================================================
@@ -2583,8 +2632,7 @@ def check_gn02_template_adaptive_compliance(ctx: dict[str, Any], thresholds: dic
 
     # 1. 必选 L1 领地锚定检查（按品类插件裁剪后必选槽位动态决定，兼容原模板基线）
     tpl_req_slots = [s["slot_id"] for s in tpl.get("l1_territories", []) if s.get("required")]
-    cid_cat = ctx.get("category_id")
-    cat_def = cat_reg.load_categories().get(str(cid_cat)) if cid_cat else None
+    cat_def = ctx.get("category_definition")
     req_slots = list(cat_def["required_slots"]) if (cat_def and cat_def.get("required_slots")) else tpl_req_slots
     l1_by_slot = {n.get("template_slot"): n for n in nodes if n["level"] == "L1"}
     for sid in req_slots:
@@ -3082,10 +3130,15 @@ def evaluate_three_layer_gates(
     target_rule_hint: str | None = None,
     forced_admission_override: str | None = None,
     category_id: str | None = None,
+    *,
+    rule_modules: list[dict[str, Any]] | None = None,
+    templates: dict[str, dict[str, Any]] | None = None,
+    categories: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], str]:
     """按 modality + scope=all + domain 动态激活 12 条规则并执行真实求值。"""
-    all_modules = load_all_rule_modules()
-    templates = load_all_templates()
+    all_modules = load_all_rule_modules() if rule_modules is None else rule_modules
+    if templates is None:
+        templates = load_all_templates()
     total_lib_rules = sum(len(m.get("rules", [])) for m in all_modules)
 
     active_modules: list[dict[str, Any]] = []
@@ -3099,10 +3152,15 @@ def evaluate_three_layer_gates(
             active_modules.append(mod)
     active_modules.sort(key=lambda m: int(m.get("layer_order", 9)))
 
+    category_definition = None
+    if category_id:
+        catalog = cat_reg.load_categories() if categories is None else categories
+        category_definition = catalog.get(category_id)
     ctx = {
         "modality": modality,
         "domain": domain,
         "category_id": category_id,
+        "category_definition": category_definition,
         "skeleton": skeleton,
         "eu_tree": eu_tree,
         "assumptions": assumptions,
@@ -3127,8 +3185,17 @@ def evaluate_three_layer_gates(
 
         for rdef in mod.get("rules", []):
             rid = str(rdef["id"])
-            fn = CHECK_DISPATCH.get(str(rdef.get("check_code", "")))
-            res = fn(ctx, rdef.get("thresholds") or {}) if fn else {"passed": True, "metric": "OK", "detail": "", "violated_node_ids": []}
+            check_code = str(rdef.get("check_code", ""))
+            fn = CHECK_DISPATCH.get(check_code)
+            if fn is None:
+                res = {
+                    "passed": False,
+                    "metric": "CHECK_HANDLER_MISSING",
+                    "detail": f"No rule handler for {check_code or '(empty check_code)'}",
+                    "violated_node_ids": [],
+                }
+            else:
+                res = fn(ctx, rdef.get("thresholds") or {})
             ok = bool(res["passed"])
             if ok:
                 passed_in_layer += 1
@@ -3215,20 +3282,26 @@ def _get_all_case_meta() -> dict[str, dict[str, Any]]:
     return merged
 
 
+class UnknownCaseError(ValueError):
+    """A requested case does not exist."""
+
+
 def _get_case_meta(case_id: str) -> dict[str, Any]:
     if case_id in CASE_META:
         return CASE_META[case_id]
     imported = parsers_mod.load_imported_case(case_id)
     if imported and isinstance(imported.get("case_meta"), dict):
         return imported["case_meta"]
-    raise ValueError(f"Unknown case_id: {case_id}")
+    raise UnknownCaseError(f"Unknown case_id: {case_id}")
 
 
-def get_counterfactual_presets(case_id: str | None = None) -> list[dict[str, Any]]:
+def get_counterfactual_presets(
+    case_id: str | None = None, *, rule_modules: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     presets: list[dict[str, Any]] = []
     all_meta = _get_all_case_meta()
     all_case_ids = list(all_meta.keys())
-    for mod in load_all_rule_modules():
+    for mod in load_all_rule_modules() if rule_modules is None else rule_modules:
         layer = str(mod["layer"])
         rk = mod.get("route_key")
         if rk == "modality":
@@ -3523,7 +3596,6 @@ def build_eu_tree_for_case(case_id: str) -> dict[str, Any]:
 
 
 def _build_raw_case_components(case_id: str, persist_skeleton: bool = False) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]], dict[str, Any]]:
-    _get_case_meta(case_id)
     skeleton = skel_mod.extract_case_skeleton(case_id, persist=persist_skeleton)
     eu_tree = build_eu_tree_for_case(case_id)
     assumptions = get_case_assumptions(case_id)
@@ -3531,11 +3603,28 @@ def _build_raw_case_components(case_id: str, persist_skeleton: bool = False) -> 
     return skeleton, eu_tree, assumptions, readback
 
 
-def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
-    """构建并返回指定案例的完整 inspection_bundle.json 结构。"""
+class _CaseLibrary(NamedTuple):
+    rule_modules: list[dict[str, Any]]
+    templates: dict[str, dict[str, Any]]
+    categories: dict[str, dict[str, Any]]
+
+
+def _load_case_library(categories: dict[str, dict[str, Any]] | None = None) -> _CaseLibrary:
+    return _CaseLibrary(
+        load_all_rule_modules(), load_all_templates(),
+        cat_reg.load_categories() if categories is None else categories,
+    )
+
+
+def _case_read_scope(case_id: str):
+    # Imported case paths can change together while a new snapshot is published.
+    return nullcontext() if case_id in CASE_META else parsers_mod.CASE_FILES_LOCK
+
+
+def _evaluate_case(case_id: str, library: _CaseLibrary, persist_skeleton: bool = False) -> dict[str, Any]:
     meta = _get_case_meta(case_id)
-    cat_info = cat_reg.get_case_category(case_id, meta)
-    skeleton, eu_tree, assumptions, readback = _build_raw_case_components(case_id, persist_skeleton=persist)
+    cat_info = cat_reg.get_case_category(case_id, meta, categories=library.categories)
+    skeleton, eu_tree, assumptions, readback = _build_raw_case_components(case_id, persist_skeleton=persist_skeleton)
     gates, admission = evaluate_three_layer_gates(
         modality=meta["modality"],
         domain=meta["domain"],
@@ -3544,11 +3633,12 @@ def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
         assumptions=assumptions,
         readback=readback,
         category_id=cat_info["category_id"],
+        rule_modules=library.rule_modules,
+        templates=library.templates,
+        categories=library.categories,
     )
     open_cnt = sum(1 for a in assumptions if a.get("status") == "open")
     rule_summary = " → ".join(f"{l['prefix']} {l['passed']}/{l['total']}" for l in gates["layers"])
-    category_audit = cat_reg.evaluate_category_audit(cat_info["category_id"], skeleton, eu_tree, readback)
-
     case_info = {
         **meta,
         "category_id": cat_info["category_id"],
@@ -3560,7 +3650,7 @@ def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
         "total_assumptions_count": len(assumptions),
         "active_rule_summary": rule_summary,
     }
-    bundle = {
+    return {
         "status": "OK",
         "version": WORKBENCH_VERSION,
         "schema_version": SCHEMA_VERSION,
@@ -3569,21 +3659,41 @@ def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
         "open_assumptions_count": open_cnt,
         "stage_url": meta["stage_url"],
         "case_info": case_info,
-        "category_audit": category_audit,
         "skeleton": skeleton,
         "eu_tree": eu_tree,
         "gates": gates,
         "assumptions": assumptions,
         "readback": readback,
-        "counterfactual_presets": get_counterfactual_presets(case_id),
-        "error_ledger": load_error_ledger(),
     }
 
-    if persist and case_id != "web_fixture":
-        out_path = CASES_DIR / case_id / "inspection_bundle.json"
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(json.dumps(bundle, ensure_ascii=False, indent=2), encoding="utf-8")
-    return bundle
+
+def build_case_summaries(
+    case_ids: list[str], *, categories: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """Evaluate each case with one shared rule, template and category snapshot."""
+    library = _load_case_library(categories)
+    summaries = []
+    for case_id in case_ids:
+        with _case_read_scope(case_id):
+            summaries.append(_evaluate_case(case_id, library)["case_info"])
+    return summaries
+
+
+def build_case_bundle(case_id: str, persist: bool = False) -> dict[str, Any]:
+    """构建并返回指定案例的完整 inspection_bundle.json 结构。"""
+    library = _load_case_library()
+    with _case_read_scope(case_id):
+        bundle = _evaluate_case(case_id, library, persist_skeleton=persist)
+        bundle["category_audit"] = cat_reg.evaluate_category_audit(
+            bundle["case_info"]["category_id"], bundle["skeleton"], bundle["eu_tree"], bundle["readback"],
+            categories=library.categories,
+        )
+        bundle["counterfactual_presets"] = get_counterfactual_presets(case_id, rule_modules=library.rule_modules)
+        bundle["error_ledger"] = load_error_ledger()
+        if persist and case_id != "web_fixture":
+            out_path = CASES_DIR / case_id / "inspection_bundle.json"
+            _write_json_atomically(out_path, bundle)
+        return bundle
 
 
 def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
@@ -3607,15 +3717,18 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
             "readback": b["readback"],
         }
 
-    all_presets = {p["preset"]: p for p in get_counterfactual_presets(None)}
-    pinfo = all_presets.get(preset)
-    if not pinfo:
-        raise ValueError(f"Unknown counterfactual preset: {preset}")
+    library = _load_case_library()
+    with parsers_mod.CASE_FILES_LOCK:
+        _get_case_meta(case_id)
+        presets = get_counterfactual_presets(rule_modules=library.rule_modules)
+        pinfo = next((info for info in presets if info["preset"] == preset), None)
+        if not pinfo or not pinfo["applicable_cases"]:
+            raise ValueError(f"No case is available for counterfactual preset: {preset}")
 
-    # 若当前案例未激活该预设所属模态/领域，自动路由至适用的宿主案例内存快照
-    eval_case_id = case_id if case_id in pinfo["applicable_cases"] else pinfo["applicable_cases"][0]
-    meta = _get_case_meta(eval_case_id)
-    skeleton, eu_tree, assumptions, readback = _build_raw_case_components(eval_case_id, persist_skeleton=False)
+        # 若当前案例未激活该预设所属模态/领域，自动路由至适用的宿主案例内存快照
+        eval_case_id = case_id if case_id in pinfo["applicable_cases"] else pinfo["applicable_cases"][0]
+        meta = _get_case_meta(eval_case_id)
+        skeleton, eu_tree, assumptions, readback = _build_raw_case_components(eval_case_id, persist_skeleton=False)
 
     skeleton_sb = copy.deepcopy(skeleton)
     eu_tree_sb = copy.deepcopy(eu_tree)
@@ -3623,7 +3736,7 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
     readback_sb = copy.deepcopy(readback)
 
     forced_adm = _apply_counterfactual_mutation(preset, skeleton_sb, eu_tree_sb, assumptions_sb, readback_sb)
-    eval_cat_id = cat_reg.get_case_category(eval_case_id, meta)["category_id"]
+    eval_cat_id = cat_reg.get_case_category(eval_case_id, meta, categories=library.categories)["category_id"]
     gates, admission = evaluate_three_layer_gates(
         modality=meta["modality"],
         domain=meta["domain"],
@@ -3634,6 +3747,9 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
         target_rule_hint=pinfo["target_rule_id"],
         forced_admission_override=forced_adm,
         category_id=eval_cat_id,
+        rule_modules=library.rule_modules,
+        templates=library.templates,
+        categories=library.categories,
     )
 
     return {
@@ -3656,7 +3772,9 @@ def run_counterfactual_sandbox(case_id: str, preset: str) -> dict[str, Any]:
 
 def explain_eu_node(case_id: str, eu_id: str) -> dict[str, Any]:
     """组装指定 EU 节点的向上祖先链 (L0->parent)、向下特征/L5原子链、横向交互边与关联假设。"""
-    bundle = build_case_bundle(case_id, persist=False)
+    library = _load_case_library()
+    with _case_read_scope(case_id):
+        bundle = _evaluate_case(case_id, library)
     eu_tree = bundle["eu_tree"]
     by_id = {n["eu_id"]: n for n in eu_tree["nodes"]}
     if eu_id not in by_id:

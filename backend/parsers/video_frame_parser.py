@@ -8,13 +8,10 @@
 """
 from __future__ import annotations
 
-import functools
-import http.server
+import base64
 import json
 import pathlib
-import socketserver
 import sys
-import threading
 from typing import Any
 
 import numpy as np
@@ -28,70 +25,75 @@ if str(BACKEND_DIR) not in sys.path:
 from parsers import image_local_parser  # noqa: E402
 
 
-def _extract_video_frames_via_browser(video_path: pathlib.Path, out_frames_dir: pathlib.Path, max_samples: int = 12) -> tuple[float, list[dict[str, Any]]]:
-    """无需 ffmpeg：借由本地一次性 HTTP 静态服务 + Playwright <video>+<canvas> 离线抽帧。"""
-    from playwright.sync_api import sync_playwright
+def _extract_video_frames_via_browser(
+    video_path: pathlib.Path, out_frames_dir: pathlib.Path, max_samples: int = 12,
+) -> tuple[float, list[dict[str, Any]]]:
+    """Decode only the selected file through Chromium's video and canvas APIs."""
+    from playwright.sync_api import Error as BrowserError, sync_playwright
+
+    with sync_playwright() as playwright:
+        with playwright.chromium.launch(headless=True, args=["--no-proxy-server"]) as browser:
+            page = browser.new_page()
+            page.set_content('<input type="file" id="source"><video muted playsinline preload="auto"></video>')
+            page.locator("#source").set_input_files(str(video_path.resolve()))
+            try:
+                result = page.evaluate(
+                    """async (maxSamples) => {
+                        const video = document.querySelector("video");
+                        const source = URL.createObjectURL(document.querySelector("#source").files[0]);
+                        const waitFor = (event, start) => new Promise((resolve, reject) => {
+                            const finish = (error) => {
+                                clearTimeout(timer);
+                                video.removeEventListener(event, ready);
+                                video.removeEventListener("error", failed);
+                                if (error) reject(error);
+                                else resolve();
+                            };
+                            const ready = () => finish();
+                            const failed = () => finish(new Error("Video decode failed"));
+                            const timer = setTimeout(() => finish(new Error("Video decode timed out")), 8000);
+                            video.addEventListener(event, ready);
+                            video.addEventListener("error", failed);
+                            start();
+                        });
+                        try {
+                            await waitFor("loadeddata", () => { video.src = source; });
+                            const duration = video.duration;
+                            if (!Number.isFinite(duration) || duration <= 0) {
+                                throw new Error("Video has no finite duration");
+                            }
+                            const canvas = document.createElement("canvas");
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            const context = canvas.getContext("2d");
+                            const last = duration - Math.min(duration / 2, 0.01);
+                            const count = Math.min(maxSamples, Math.floor(last * 1000) + 1);
+                            const frames = [];
+                            for (let i = 0; i < count; i++) {
+                                const time = last * i / Math.max(1, count - 1);
+                                if (Math.abs(video.currentTime - time) >= 0.0005) {
+                                    await waitFor("seeked", () => { video.currentTime = time; });
+                                }
+                                context.drawImage(video, 0, 0);
+                                frames.push({t: Number(time.toFixed(3)), data: canvas.toDataURL("image/png")});
+                            }
+                            return {duration, frames};
+                        } finally {
+                            URL.revokeObjectURL(source);
+                        }
+                    }""",
+                    max_samples,
+                )
+            except BrowserError as error:
+                raise ValueError(f"Could not decode video: {video_path.name}") from error
 
     out_frames_dir.mkdir(parents=True, exist_ok=True)
-    serve_dir = str(video_path.parent)
-    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=serve_dir)
-
-    class _QuietTCPServer(socketserver.TCPServer):
-        allow_reuse_address = True
-
-    with _QuietTCPServer(("127.0.0.1", 0), handler) as httpd:
-        port = httpd.server_address[1]
-        t = threading.Thread(target=httpd.serve_forever, daemon=True)
-        t.start()
-        try:
-            video_url = f"http://127.0.0.1:{port}/{video_path.name}"
-            html = f"""<!doctype html><html><body>
-            <video id="v" src="{video_url}" crossorigin="anonymous" muted playsinline preload="auto"></video>
-            <script>
-              window.__sampleFrames = async (maxSamples) => {{
-                const v = document.getElementById('v');
-                await new Promise((res, rej) => {{
-                  if (v.readyState >= 1) return res();
-                  v.onloadedmetadata = res;
-                  v.onerror = () => rej('video load error');
-                }});
-                const dur = v.duration || 1.0;
-                const w = v.videoWidth || 1280;
-                const h = v.videoHeight || 720;
-                const c = document.createElement('canvas');
-                c.width = w; c.height = h;
-                const ctx = c.getContext('2d');
-                const frames = [];
-                const n = Math.max(2, maxSamples);
-                for (let i = 0; i < n; i++) {{
-                  const ts = Math.min(dur - 0.01, (dur * i) / Math.max(1, n - 1));
-                  v.currentTime = Math.max(0, ts);
-                  await new Promise((res) => {{ v.onseeked = res; }});
-                  ctx.drawImage(v, 0, 0, w, h);
-                  frames.push({{ t: Number(ts.toFixed(3)), data_url: c.toDataURL('image/png') }});
-                }}
-                return {{ duration: Number(dur.toFixed(3)), w, h, frames }};
-              }};
-            </script></body></html>"""
-
-            with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True, args=["--no-proxy-server"])
-                page = browser.new_page()
-                page.set_content(html)
-                res = page.evaluate(f"window.__sampleFrames({int(max_samples)})")
-                browser.close()
-        finally:
-            httpd.shutdown()
-
-    import base64
-
-    saved: list[dict[str, Any]] = []
-    for idx, f in enumerate(res["frames"], start=1):
-        b64 = f["data_url"].split(",", 1)[1]
-        fp = out_frames_dir / f"frame_{idx:03d}.png"
-        fp.write_bytes(base64.b64decode(b64))
-        saved.append({"path": fp, "t": float(f["t"])})
-    return float(res["duration"]), saved
+    frames = []
+    for index, frame in enumerate(result["frames"], 1):
+        path = out_frames_dir / f"frame_{index:03d}.png"
+        path.write_bytes(base64.b64decode(frame["data"].split(",", 1)[1]))
+        frames.append({"path": path, "t": frame["t"]})
+    return result["duration"], frames
 
 
 def _load_frame_series(source_path: pathlib.Path, out_root: pathlib.Path, max_samples: int) -> tuple[float, list[dict[str, Any]]]:
@@ -100,11 +102,9 @@ def _load_frame_series(source_path: pathlib.Path, out_root: pathlib.Path, max_sa
         files = sorted([p for p in source_path.iterdir() if p.is_file() and p.suffix.lower() in exts])
         if not files:
             raise ValueError(f"No frame images found in directory: {source_path}")
-        if len(files) > max_samples:
-            idxs = np.linspace(0, len(files) - 1, max_samples, dtype=int)
-            files = [files[int(i)] for i in idxs]
-        dur = round(float(len(files)) * 0.9, 3)
-        frames = [{"path": fp, "t": round((i / max(1, len(files) - 1)) * dur, 3) if len(files) > 1 else 0.0} for i, fp in enumerate(files)]
+        dur = round(len(files) * 0.9, 3)
+        indices = np.linspace(0, len(files) - 1, min(len(files), max_samples), dtype=int)
+        frames = [{"path": files[i], "t": round(i * 0.9, 3)} for i in indices.tolist()]
         return dur, frames
 
     if source_path.is_file() and source_path.suffix.lower() in {".mp4", ".webm", ".mov"}:
@@ -175,12 +175,19 @@ def parse_local_video(
     纯本地提取录屏/帧序列稳态分段、跨帧空间差异热点、交互边推理建议，
     并生成首张关键帧的 Set-of-Mark 标号图。
     """
+    if type(max_samples) is not int or max_samples < 1:
+        raise ValueError("max_samples must be a positive integer")
     src = pathlib.Path(source_path)
-    if not src.exists():
+    if not source_path or not src.exists():
         raise FileNotFoundError(f"Source path not found: {source_path}")
 
-    out_root = pathlib.Path(output_dir) if output_dir else (PROJECT_ROOT / "cases" / "_video_diff_outputs" / (case_id or src.stem))
-    out_root.mkdir(parents=True, exist_ok=True)
+    if output_dir:
+        out_root = pathlib.Path(output_dir)
+    else:
+        output_base = (PROJECT_ROOT / "cases" / "_video_diff_outputs").resolve()
+        out_root = (output_base / (case_id or src.stem)).resolve()
+        if out_root.parent != output_base:
+            raise ValueError("The video case ID must identify a single output directory")
 
     duration_sec, frames = _load_frame_series(src, out_root, max_samples=max_samples)
 
@@ -188,10 +195,17 @@ def parse_local_video(
     arrays: list[np.ndarray] = []
     orig_res = {"w": 1440, "h": 900}
     for i, item in enumerate(frames):
-        im = Image.open(item["path"]).convert("RGB")
-        if i == 0:
-            orig_res = {"w": im.size[0], "h": im.size[1]}
-        small = im.resize((360, max(120, int(360 * im.size[1] / max(1, im.size[0])))), Image.Resampling.BILINEAR)
+        try:
+            with Image.open(item["path"]) as source:
+                width, height = source.size
+                if i == 0:
+                    orig_res = {"w": width, "h": height}
+                if width * orig_res["h"] != height * orig_res["w"]:
+                    raise ValueError("Frame sequence images must have the same aspect ratio")
+                target_size = (360, max(120, int(360 * orig_res["h"] / orig_res["w"])))
+                small = source.convert("RGB").resize(target_size, Image.Resampling.BILINEAR)
+        except (OSError, Image.DecompressionBombError) as error:
+            raise ValueError(f"Could not decode frame: {item['path'].name}") from error
         arrays.append(np.array(small))
 
     # Segment contiguous steady keyframes
@@ -223,8 +237,6 @@ def parse_local_video(
     for i, kf in enumerate(keyframes):
         t0 = 0.0 if i == 0 else kf["t"]
         t1 = duration_sec if i == len(keyframes) - 1 else keyframes[i + 1]["t"]
-        if t1 <= t0:
-            t1 = round(t0 + max(0.3, duration_sec / max(1, len(keyframes))), 3)
         segments.append(
             {
                 "segment_id": f"seg_vid_{i+1:02d}",

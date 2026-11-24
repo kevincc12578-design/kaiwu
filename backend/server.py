@@ -20,6 +20,7 @@ import json
 import mimetypes
 import sys
 import traceback
+from contextlib import nullcontext
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -100,13 +101,14 @@ def api_cases(include_fixtures: bool = False) -> dict[str, Any]:
             cids.append(imp_cid)
     if include_fixtures:
         cids.append("web_fixture")
-    items = [engine.build_case_bundle(cid, persist=False)["case_info"] for cid in cids]
+    categories = cat_reg.load_categories()
+    items = engine.build_case_summaries(cids, categories=categories)
     return {
         "status": "OK",
         "product": engine.PRODUCT_NAME,
         "version": engine.WORKBENCH_VERSION,
         "default_case_id": "code_xr_uiux",
-        "categories": cat_reg.list_categories(),
+        "categories": cat_reg.list_categories(categories=categories),
         "cases": items,
     }
 
@@ -157,15 +159,23 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(raw)
 
     def _send_static(self, base_dir: Path, rel_path: str) -> None:
-        clean_rel = rel_path.lstrip("/\\")
-        target = (base_dir / clean_rel).resolve()
-        base_resolved = base_dir.resolve()
-        if not str(target).startswith(str(base_resolved)):
+        case_scope = parsers_mod.CASE_FILES_LOCK if base_dir == CASES_DIR else nullcontext()
+        try:
+            with case_scope:
+                clean_rel = rel_path.lstrip("/\\")
+                base_resolved = base_dir.resolve()
+                target = (base_resolved / clean_rel).resolve()
+                if target.is_relative_to(base_resolved) and target.is_dir():
+                    target = (target / "index.html").resolve()
+                if not target.is_relative_to(base_resolved):
+                    raise PermissionError
+                if not target.is_file():
+                    raise FileNotFoundError
+                data = target.read_bytes()
+        except PermissionError:
             self._send_json({"status": "ERROR", "message": "Forbidden path"}, 403)
             return
-        if target.is_dir():
-            target = target / "index.html"
-        if not target.exists() or not target.is_file():
+        except FileNotFoundError:
             self._send_json({"status": "ERROR", "message": f"Not found: {rel_path}"}, 404)
             return
 
@@ -175,7 +185,6 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
         if ctype.startswith("text/") or ctype in ("application/javascript", "application/json", "image/svg+xml"):
             ctype = f"{ctype}; charset=utf-8"
 
-        data = target.read_bytes()
         self.send_response(200)
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(data)))
@@ -186,13 +195,17 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def _read_json_body(self) -> dict[str, Any]:
         length = int(self.headers.get("Content-Length") or 0)
-        if length <= 0:
+        if length < 0:
+            raise ValueError("Content-Length must be nonnegative")
+        if length == 0:
             return {}
-        raw = self.rfile.read(length).decode("utf-8", errors="replace")
+        raw = self.rfile.read(length).decode("utf-8")
         if not raw.strip():
             return {}
         data = json.loads(raw)
-        return data if isinstance(data, dict) else {}
+        if not isinstance(data, dict):
+            raise ValueError("The JSON request body must be an object")
+        return data
 
     def do_OPTIONS(self) -> None:
         self.send_response(204)
@@ -251,7 +264,7 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
             rel_front = "index.html" if path in ("", "/") else path
             self._send_static(FRONTEND_DIR, rel_front)
 
-        except KeyError as ke:
+        except (engine.UnknownCaseError, KeyError) as ke:
             self._send_json({"status": "ERROR", "message": str(ke)}, 404)
         except ValueError as ve:
             self._send_json({"status": "ERROR", "message": str(ve)}, 400)
@@ -269,8 +282,7 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
                 url = str(body.get("url") or "").strip()
                 cid = body.get("case_id")
                 cat_ov = body.get("category")
-                parsed = parsers_mod.parse_web_url(url=url, case_id=cid, category_override=cat_ov, persist=True)
-                bundle = engine.build_case_bundle(parsed["case_id"], persist=True)
+                parsed, bundle = ai_tools.import_web_case(url, cid, cat_ov)
                 self._send_json(
                     {
                         "status": "OK",
@@ -294,7 +306,13 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
             if path == "/api/parse/video":
                 src_path = str(body.get("source_path") or "").strip()
                 cid = body.get("case_id")
-                max_samples = int(body.get("max_samples") or 12)
+                requested_samples = body.get("max_samples")
+                max_samples = 12 if requested_samples is None else requested_samples
+                if isinstance(max_samples, str):
+                    try:
+                        max_samples = int(max_samples)
+                    except ValueError as error:
+                        raise ValueError("max_samples must be a positive integer") from error
                 out_dir = body.get("out_dir")
                 res = parsers_mod.parse_local_video(source_path=src_path, case_id=cid, max_samples=max_samples, output_dir=out_dir)
                 self._send_json(res)
@@ -330,6 +348,10 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
                     return
 
             self._send_json({"status": "ERROR", "message": f"Unknown POST endpoint: {path}"}, 404)
+        except parsers_mod.CaseConflictError as error:
+            self._send_json({"status": "ERROR", "message": str(error)}, 409)
+        except (engine.UnknownCaseError, FileNotFoundError) as error:
+            self._send_json({"status": "ERROR", "message": str(error)}, 404)
         except ValueError as ve:
             self._send_json({"status": "ERROR", "message": str(ve)}, 400)
         except Exception as exc:
@@ -339,13 +361,13 @@ class KaiwuHTTPRequestHandler(BaseHTTPRequestHandler):
 
 def run_server(host: str = "127.0.0.1", port: int = 4340) -> None:
     global SERVER_PORT
-    SERVER_PORT = port
     # 启动时预构建并刷新各落地案例的持久化 inspection_bundle.json 与骨架文件
     for cid in ALL_PUBLISHED_CASES:
         engine.build_case_bundle(cid, persist=True)
 
     httpd = ThreadingHTTPServer((host, port), KaiwuHTTPRequestHandler)
-    print(f"[Kaiwu-v3.4] Server listening at http://{host}:{port}/ (version {engine.WORKBENCH_VERSION})")
+    SERVER_PORT = httpd.server_port
+    print(f"[Kaiwu-v3.4] Server listening at http://{host}:{SERVER_PORT}/ (version {engine.WORKBENCH_VERSION})")
     sys.stdout.flush()
     try:
         httpd.serve_forever()

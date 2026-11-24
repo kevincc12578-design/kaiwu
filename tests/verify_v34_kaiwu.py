@@ -2,7 +2,7 @@
 """
 开物 v3.4 · Kaiwu Adaptive-EU Design Workbench 独立全栈与浏览器自动化验收套件
 文件所有权：@verifier
-运行方式：python tests/verify_v34_kaiwu.py [--skip-e2e] [--screenshot-dir <dir>]
+运行方式：python tests/verify_v34_kaiwu.py [--artifacts-dir <dir>] [--skip-e2e] [--screenshot-dir <dir>]
 
 验收覆盖 5 大维度：
 1. 三层 Y 型正交规则与原型模板规范核验（6 YAML × 4 = 24 条规则、零单项目硬编码、Y 型 3 路由各激活 12 条）
@@ -12,44 +12,29 @@
 5. 真实服务与无头 Chromium (1440×900) 端到端交互核验 + 4 张核心实测截图留存
 
 输出成果：
-- tests/v34_verification_report.json
+- 本次输出目录中的 v34_verification_report.json
 - 4 张 1440×900 实测截图
 """
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import pathlib
-import subprocess
 import sys
 import time
-import urllib.error
 import urllib.parse
-import urllib.request
 from typing import Any
 
 import yaml
+
+from verification_env import VerificationRun, isolated_workbench
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
-WORKSPACE = pathlib.Path(r"D:\gemini库\开物v3.3")
-RULES_DIR = WORKSPACE / "rules"
-TEMPLATES_DIR = WORKSPACE / "templates"
-DOCS_DIR = WORKSPACE / "docs"
-CASES_DIR = WORKSPACE / "cases"
-TESTS_DIR = WORKSPACE / "tests"
-REPORT_PATH = TESTS_DIR / "v34_verification_report.json"
-
-DEFAULT_SCREENSHOT_DIR = pathlib.Path(
-    r"C:\Users\admin\.gemini\antigravity\brain\085118b5-ef80-440b-94ea-c32e6e4d4f2d"
-)
-
-PORT = 4340
-BASE_URL = f"http://127.0.0.1:{PORT}"
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXPECTED_VERSION = "3.4.0"
 
 RULE_FILES_SPEC = {
@@ -99,41 +84,14 @@ FORBIDDEN_DEFENSIVE_MICROCOPY = [
 ]
 
 
-def _opener():
-    return urllib.request.build_opener(urllib.request.ProxyHandler({}))
-
-
-def _http_get(path: str, timeout: float = 10.0) -> dict[str, Any]:
-    url = f"{BASE_URL}{path}"
-    req = urllib.request.Request(url, headers={"User-Agent": "Kaiwu-Verifier-v3.4"})
-    with _opener().open(req, timeout=timeout) as resp:
-        assert resp.status == 200, f"GET {url} returned HTTP {resp.status}"
-        return json.loads(resp.read().decode("utf-8"))
-
-
-def _http_post(path: str, payload: dict[str, Any], timeout: float = 15.0) -> dict[str, Any]:
-    url = f"{BASE_URL}{path}"
-    data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(
-        url,
-        data=data,
-        headers={"Content-Type": "application/json", "User-Agent": "Kaiwu-Verifier-v3.4"},
-        method="POST",
-    )
-    with _opener().open(req, timeout=timeout) as resp:
-        assert resp.status == 200, f"POST {url} returned HTTP {resp.status}"
-        return json.loads(resp.read().decode("utf-8"))
-
-
 class VerificationContext:
-    def __init__(self, screenshot_dir: pathlib.Path):
+    def __init__(self, run: VerificationRun, screenshot_dir: pathlib.Path):
+        self.run = run
         self.results: dict[str, list[dict[str, Any]]] = {}
         self.errors: list[str] = []
         self.metrics: dict[str, Any] = {}
         self.screenshots: list[dict[str, str]] = []
         self.screenshot_dir = screenshot_dir
-        self.server_proc: subprocess.Popen[bytes] | None = None
-        self.started_server_by_self = False
 
     def record_pass(self, category: str, test_id: str, detail: str = "") -> None:
         self.results.setdefault(category, []).append({"id": test_id, "status": "PASS", "detail": detail})
@@ -143,41 +101,6 @@ class VerificationContext:
         self.results.setdefault(category, []).append({"id": test_id, "status": "FAIL", "reason": reason})
         self.errors.append(f"[{category}] {test_id}: {reason}")
         print(f"  [FAIL] [{category}] {test_id}: {reason}")
-
-
-def _ensure_backend_server(ctx: VerificationContext) -> bool:
-    try:
-        health = _http_get("/api/health", timeout=2.0)
-        if health.get("status") == "OK" and health.get("version") == EXPECTED_VERSION:
-            return True
-    except Exception:
-        pass
-
-    server_script = WORKSPACE / "backend" / "server.py"
-    if not server_script.exists():
-        print(f"  [ERROR] {server_script} 不存在")
-        return False
-
-    proc = subprocess.Popen(
-        [sys.executable, str(server_script), "--port", str(PORT)],
-        cwd=str(WORKSPACE),
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    ctx.server_proc = proc
-    ctx.started_server_by_self = True
-
-    for _ in range(40):
-        time.sleep(0.25)
-        try:
-            health = _http_get("/api/health", timeout=1.0)
-            if health.get("status") == "OK" and health.get("version") == EXPECTED_VERSION:
-                print(f"  [INFO] 已拉起后端服务 {BASE_URL} (PID={proc.pid})")
-                return True
-        except Exception:
-            pass
-    print("  [ERROR] 后端服务启动超时")
-    return False
 
 
 # ==============================================================================
@@ -190,14 +113,14 @@ def test_1_rules_and_templates(ctx: VerificationContext) -> None:
     cat = "rules_and_templates"
 
     # 1.1 文档与 VERSION 检查
-    ver_path = WORKSPACE / "VERSION"
+    ver_path = ctx.run.root / "VERSION"
     if ver_path.exists() and ver_path.read_text(encoding="utf-8").strip() == EXPECTED_VERSION:
         ctx.record_pass(cat, "version_340", f"VERSION 精确为 {EXPECTED_VERSION}")
     else:
         ctx.record_fail(cat, "version_340", f"VERSION 缺失或不等于 {EXPECTED_VERSION}")
 
     for doc_rel in ("README.md", "CHANGELOG.md", "UI与交互EU错误排查台账.md", "docs/ARCHITECTURE_v3.4.md"):
-        p = WORKSPACE / doc_rel
+        p = ctx.run.root / doc_rel
         if p.exists() and p.stat().st_size > 200:
             ctx.record_pass(cat, f"doc_{p.stem}", f"{doc_rel} 存在且非空 ({p.stat().st_size} bytes)")
         else:
@@ -207,7 +130,7 @@ def test_1_rules_and_templates(ctx: VerificationContext) -> None:
     all_presets: list[str] = []
     all_rule_ids: list[str] = []
     for fname, spec in RULE_FILES_SPEC.items():
-        ypath = RULES_DIR / fname
+        ypath = ctx.run.root / "rules" / fname
         try:
             assert ypath.exists(), f"Missing {ypath}"
             raw_text = ypath.read_text(encoding="utf-8")
@@ -268,7 +191,7 @@ def test_1_rules_and_templates(ctx: VerificationContext) -> None:
         ("uiux_workspace_template.yaml", "tpl_uiux_workspace_v1", "uiux"),
         ("graphic_poster_template.yaml", "tpl_graphic_poster_v1", "graphic"),
     ):
-        tpath = TEMPLATES_DIR / tpl_name
+        tpath = ctx.run.root / "templates" / tpl_name
         try:
             assert tpath.exists(), f"Missing {tpath}"
             tdata = yaml.safe_load(tpath.read_text(encoding="utf-8"))
@@ -283,10 +206,6 @@ def test_1_rules_and_templates(ctx: VerificationContext) -> None:
             ctx.record_fail(cat, f"template_{exp_id}", str(e))
 
     # 1.4 Y 型动态三路由激活矩阵核验（需要后端 API）
-    if not _ensure_backend_server(ctx):
-        ctx.record_fail(cat, "y_routing_server", "Backend server unavailable")
-        return
-
     expected_routes = {
         "code_xr_uiux": (["PV-01", "PV-02", "PV-03", "PV-04"], ["GN-01", "GN-02", "GN-03", "GN-04"], ["GU-01", "GU-02", "GU-03", "GU-04"]),
         "code_xr_poster": (["PI-01", "PI-02", "PI-03", "PI-04"], ["GN-01", "GN-02", "GN-03", "GN-04"], ["GG-01", "GG-02", "GG-03", "GG-04"]),
@@ -294,7 +213,7 @@ def test_1_rules_and_templates(ctx: VerificationContext) -> None:
     }
     for cid, (exp_p, exp_g, exp_o) in expected_routes.items():
         try:
-            b = _http_get(f"/api/case/{cid}/bundle")
+            b = ctx.run.get_json(f"/api/case/{cid}/bundle")
             gates = b["gates"]
             assert gates["active_count"] == 12, f"active_count={gates['active_count']}"
             assert gates["total_library_rules"] == 24
@@ -324,13 +243,9 @@ def test_2_adaptive_eu_and_lifecycle(ctx: VerificationContext) -> None:
     print("=" * 80)
     cat = "adaptive_eu_and_lifecycle"
 
-    if not _ensure_backend_server(ctx):
-        ctx.record_fail(cat, "server_ready", "Backend unavailable")
-        return
-
     for cid in ("code_xr_uiux", "code_xr_poster", "web_fixture"):
         try:
-            b = _http_get(f"/api/case/{cid}/bundle")
+            b = ctx.run.get_json(f"/api/case/{cid}/bundle")
             tree = b["eu_tree"]
             nodes = tree["nodes"]
             by_id = {n["eu_id"]: n for n in nodes}
@@ -408,7 +323,7 @@ def test_2_adaptive_eu_and_lifecycle(ctx: VerificationContext) -> None:
 
     # 2.5 Code XR 5.689s 连续时段 100% 全覆盖校验
     try:
-        b = _http_get("/api/case/code_xr_uiux/bundle")
+        b = ctx.run.get_json("/api/case/code_xr_uiux/bundle")
         sk = b["skeleton"]
         dur = float(sk["duration_sec"])
         segs = sorted(sk["segments"], key=lambda s: float(s["t0"]))
@@ -422,7 +337,7 @@ def test_2_adaptive_eu_and_lifecycle(ctx: VerificationContext) -> None:
         for s in segs:
             assert len(s.get("active_eu_ids", [])) >= 1
             f_url = s["frame_url"].lstrip("/")
-            assert (WORKSPACE / f_url).exists(), f"Missing frame file {f_url}"
+            assert (ctx.run.root / f_url).exists(), f"Missing frame file {f_url}"
         ctx.record_pass(
             cat,
             "codexr_full_timeline_5689s",
@@ -434,20 +349,20 @@ def test_2_adaptive_eu_and_lifecycle(ctx: VerificationContext) -> None:
     # 2.6 三态准入状态机实测：PROVISIONAL -> RELEASE_READY -> PROVISIONAL
     try:
         # 先确保处于初始 open 状态
-        _http_post("/api/case/code_xr_uiux/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
-        b0 = _http_get("/api/case/code_xr_uiux/bundle")
+        ctx.run.post_json("/api/case/code_xr_uiux/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
+        b0 = ctx.run.get_json("/api/case/code_xr_uiux/bundle")
         assert b0["admission_status"] == "PROVISIONAL", f"Initial status={b0['admission_status']}"
         open_n = b0["open_assumptions_count"]
         assert open_n >= 3, f"Expected >= 3 open assumptions, got {open_n}"
 
-        res_confirm = _http_post(
+        res_confirm = ctx.run.post_json(
             "/api/case/code_xr_uiux/confirm_assumption",
             {"assumption_id": "ALL", "action": "confirm_all"},
         )
         assert res_confirm["open_assumptions_count"] == 0
         assert res_confirm["admission_status"] == "RELEASE_READY"
 
-        res_reset = _http_post(
+        res_reset = ctx.run.post_json(
             "/api/case/code_xr_uiux/confirm_assumption",
             {"assumption_id": "ALL", "action": "reset"},
         )
@@ -472,11 +387,7 @@ def test_3_counterfactual_rule_gates(ctx: VerificationContext) -> None:
     print("=" * 80)
     cat = "counterfactual_gates"
 
-    if not _ensure_backend_server(ctx):
-        ctx.record_fail(cat, "server_ready", "Backend unavailable")
-        return
-
-    rules_cat = _http_get("/api/rules")
+    rules_cat = ctx.run.get_json("/api/rules")
     expected_presets: list[tuple[str, str, str, str]] = []
     for mod in rules_cat["modules"]:
         layer = mod["layer"]
@@ -491,7 +402,7 @@ def test_3_counterfactual_rule_gates(ctx: VerificationContext) -> None:
     for preset, cid, exp_layer, exp_rule in expected_presets:
         test_id = f"gate_{preset}"
         try:
-            res = _http_post(f"/api/case/{cid}/test_rule_gate", {"preset": preset})
+            res = ctx.run.post_json(f"/api/case/{cid}/test_rule_gate", {"preset": preset})
             assert res.get("verdict") == "BLOCKED", f"verdict={res.get('verdict')}"
             assert res.get("admission_status") == "BLOCKED", f"admission={res.get('admission_status')}"
             assert res.get("blocked_layer") == exp_layer, f"blocked_layer={res.get('blocked_layer')} != {exp_layer}"
@@ -513,7 +424,7 @@ def test_3_counterfactual_rule_gates(ctx: VerificationContext) -> None:
 
     # 验证复位
     try:
-        reset_res = _http_post("/api/case/code_xr_uiux/test_rule_gate", {"preset": "reset"})
+        reset_res = ctx.run.post_json("/api/case/code_xr_uiux/test_rule_gate", {"preset": "reset"})
         assert reset_res.get("verdict") == "PASS"
         assert reset_res.get("admission_status") == "PROVISIONAL"
         ctx.record_pass(cat, "gate_reset_pass", "反事实沙盒复位后恢复 PASS / PROVISIONAL")
@@ -530,12 +441,8 @@ def test_4_api_and_readback(ctx: VerificationContext) -> None:
     print("=" * 80)
     cat = "api_and_readback"
 
-    if not _ensure_backend_server(ctx):
-        ctx.record_fail(cat, "server_ready", "Backend unavailable")
-        return
-
     try:
-        h = _http_get("/api/health")
+        h = ctx.run.get_json("/api/health")
         assert h["status"] == "OK" and h["version"] == EXPECTED_VERSION
         assert h["rules_loaded"] == 24 and h["templates_loaded"] == 2
         ctx.record_pass(cat, "api_health", f"/api/health 200 OK (v{h['version']}, rules={h['rules_loaded']})")
@@ -543,7 +450,7 @@ def test_4_api_and_readback(ctx: VerificationContext) -> None:
         ctx.record_fail(cat, "api_health", str(e))
 
     try:
-        cases = _http_get("/api/cases")
+        cases = ctx.run.get_json("/api/cases")
         cids = [c["case_id"] for c in cases["cases"]]
         assert "code_xr_uiux" in cids and "code_xr_poster" in cids
         ctx.record_pass(cat, "api_cases", f"/api/cases 返回双案例: {cids}")
@@ -551,7 +458,7 @@ def test_4_api_and_readback(ctx: VerificationContext) -> None:
         ctx.record_fail(cat, "api_cases", str(e))
 
     try:
-        ledger = _http_get("/api/error_ledger")
+        ledger = ctx.run.get_json("/api/error_ledger")
         entries = ledger["entries"]
         res_ids = [e["res_id"] for e in entries]
         assert len(entries) == 8 and res_ids[0] == "RES-KW-01" and res_ids[-1] == "RES-KW-08"
@@ -561,7 +468,7 @@ def test_4_api_and_readback(ctx: VerificationContext) -> None:
 
     for cid, sample_eu in (("code_xr_uiux", "eu_L3_rail_proximity_dock"), ("code_xr_poster", "eu_L3_poster_key_graphic")):
         try:
-            exp = _http_get(f"/api/case/{cid}/explain/{urllib.parse.quote(sample_eu)}")
+            exp = ctx.run.get_json(f"/api/case/{cid}/explain/{urllib.parse.quote(sample_eu)}")
             assert exp["eu_id"] == sample_eu
             assert len(exp["ancestors"]) == 3  # L0, L1, L2
             assert len(exp["descendants"]["l5_atoms"]) >= 1
@@ -572,7 +479,7 @@ def test_4_api_and_readback(ctx: VerificationContext) -> None:
 
     # 独立源码回检核验
     try:
-        b_ui = _http_get("/api/case/code_xr_uiux/bundle")
+        b_ui = ctx.run.get_json("/api/case/code_xr_uiux/bundle")
         rb_ui = b_ui["readback"]
         assert rb_ui["status"] == "PASS"
         assert rb_ui["dom_eu_binding_coverage"] == 1.0
@@ -581,7 +488,7 @@ def test_4_api_and_readback(ctx: VerificationContext) -> None:
         assert rb_ui["defensive_microcopy_violations"] == 0
         assert rb_ui["editable_text_nodes"] >= 10 and rb_ui["interactive_controls"] >= 5
 
-        b_po = _http_get("/api/case/code_xr_poster/bundle")
+        b_po = ctx.run.get_json("/api/case/code_xr_poster/bundle")
         rb_po = b_po["readback"]
         assert rb_po["status"] == "PASS"
         assert rb_po["dom_eu_binding_coverage"] == 1.0
@@ -611,13 +518,9 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
         print("  [SKIP] 已跳过 Playwright 端到端测试")
         return
 
-    if not _ensure_backend_server(ctx):
-        ctx.record_fail(cat, "server_ready", "Backend unavailable")
-        return
-
     # 预先复位两个案例假设，保证进入浏览器的初始状态诚实为 PROVISIONAL
-    _http_post("/api/case/code_xr_uiux/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
-    _http_post("/api/case/code_xr_poster/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
+    ctx.run.post_json("/api/case/code_xr_uiux/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
+    ctx.run.post_json("/api/case/code_xr_poster/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
 
     ctx.screenshot_dir.mkdir(parents=True, exist_ok=True)
     shot1 = ctx.screenshot_dir / "v34_01_workbench_codexr_linkage.png"
@@ -626,7 +529,7 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
     shot4 = ctx.screenshot_dir / "v34_04_poster_release_ready.png"
 
     try:
-        from playwright.sync_api import sync_playwright
+        from playwright.sync_api import expect, sync_playwright
 
         page_errors: list[str] = []
         console_errors: list[str] = []
@@ -642,7 +545,7 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
             )
 
             # 5.1 加载主页并检查零断链、零防御小字、Y 型门禁显示
-            page.goto(f"{BASE_URL}/", wait_until="networkidle", timeout=20000)
+            page.goto(f"{ctx.run.base_url}/", wait_until="networkidle", timeout=20000)
             page.wait_for_selector("#tree .tn-row", timeout=10000)
             page.wait_for_selector("#stageFrame", timeout=10000)
             # 等待 iframe 内部渲染就绪
@@ -676,6 +579,11 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
             page.screenshot(path=str(shot1), full_page=False)
             ctx.screenshots.append({"path": str(shot1), "caption": "开物v3.4三窗格检验台与Code XR全段联动"})
             ctx.record_pass(cat, "three_pane_linkage", f"三屏联动生效：点击 {target_eu} 后左骨架/中解释链/右DOM 同步高亮")
+
+            source_readback = ctx.run.get_json("/api/case/code_xr_uiux/bundle")["readback"]
+            assert target_eu in source_readback["stage_trace_ids"], "source readback omitted the observed EU"
+            expect(stage_frame.locator(f'[data-eu-id="{target_eu}"]')).to_have_count(1)
+            ctx.record_pass(cat, "stage_trace_readback", f"{target_eu} 的源码索引与舞台 DOM 一致")
 
             # 5.3 Code XR 右窗格内交互：收起左侧栏 + 真实鼠标悬停 Dock 邻近放大 + Analytics 切换
             # 点击中窗格邻近放大拆分节点 eu_L4_feat_proximity_magnify 或直接触发收起侧栏
@@ -736,7 +644,7 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
 
             # 5.4 反事实异常注入当层阻断演练
             page.locator("#presetSelect").select_option("violate_GU03_missing_proximity_magnify")
-            time.sleep(0.6)
+            expect(page.locator("#statusPill")).to_contain_text("BLOCKED", timeout=15000)
             banner_vis = page.locator("#banner").is_visible()
             banner_txt = page.locator("#banner").inner_text()
             status_blocked = page.locator("#statusPill").inner_text()
@@ -746,13 +654,64 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
             ctx.screenshots.append({"path": str(shot3), "caption": "反事实异常注入当层阻断演练"})
 
             page.locator("#resetBtn").click()
-            time.sleep(0.5)
-            assert "PROVISIONAL" in page.locator("#statusPill").inner_text()
+            expect(page.locator("#statusPill")).to_contain_text("PROVISIONAL", timeout=15000)
             ctx.record_pass(cat, "ui_counterfactual_blocked_reset", "浏览器端触发 GU-03 反事实 BLOCKED 横幅归因并成功复位")
+
+            # 同一案例连续操作时，慢响应不能覆盖最后一次选择。
+            slow = "violate_GU03_missing_proximity_magnify"
+            recent = "violate_GU04_defensive_microcopy"
+            endpoint = "**/api/case/code_xr_uiux/test_rule_gate"
+            delayed = []
+
+            def order_response(route):
+                if route.request.post_data_json["preset"] == slow:
+                    delayed.append(route)
+                else:
+                    route.continue_()
+
+            page.route(endpoint, order_response)
+            with page.expect_request(lambda req: req.url.endswith("/test_rule_gate") and req.post_data_json["preset"] == slow):
+                page.evaluate("(preset) => { window.slowVerificationRequest = injectPreset(preset); }", slow)
+            page.evaluate("(preset) => injectPreset(preset)", recent)
+            expect(page.locator("#banner")).to_contain_text("GU-04")
+            assert len(delayed) == 1
+            delayed[0].continue_()
+            page.evaluate("window.slowVerificationRequest")
+            expect(page.locator("#presetSelect")).to_have_value(recent, timeout=1000)
+            expect(page.locator("#banner")).to_contain_text("GU-04", timeout=1000)
+            page.unroute(endpoint, order_response)
+            ctx.record_pass(cat, "same_case_request_order", "乱序返回后保留最新反事实预设")
+
+            write_endpoint = "**/api/case/code_xr_uiux/confirm_assumption"
+            delayed_writes = []
+            page.route(write_endpoint, lambda route: delayed_writes.append(route))
+            with page.expect_request(lambda req: req.url.endswith("/confirm_assumption")):
+                page.evaluate('() => { window.pendingSignoff = confirmAssumption("confirm_all", "ALL"); }')
+            page.evaluate(
+                """() => {
+                    window.afterSignoff = clearSandbox();
+                    return Promise.race([window.afterSignoff, new Promise(resolve => setTimeout(resolve, 600))]);
+                }"""
+            )
+            assert len(delayed_writes) == 1
+            delayed_writes[0].continue_()
+            page.evaluate("Promise.all([window.pendingSignoff, window.afterSignoff])")
+            expect(page.locator("#statusPill")).to_have_text("RELEASE_READY", timeout=5000)
+            page.unroute(write_endpoint)
+            page.evaluate('() => confirmAssumption("reset", "ALL")')
+            ctx.record_pass(cat, "pending_signoff_reconciled", "复位沙盒读到已完成签认的正式案例")
+
+            bundle_endpoint = "**/api/case/code_xr_poster/bundle"
+            page.route(bundle_endpoint, lambda route: route.fulfill(json={"status": "ERROR", "message": "验证用加载失败"}))
+            page.locator("#caseSelect").select_option("code_xr_poster")
+            expect(page.locator("#caseSelect")).to_have_value("code_xr_uiux", timeout=5000)
+            expect(page.locator("#modalChip")).to_contain_text("VIDEO")
+            page.unroute(bundle_endpoint)
+            ctx.record_pass(cat, "case_failure_keeps_last_bundle", "加载失败时选择器和舞台保留同一案例")
 
             # 5.5 切换 code_xr_poster 平面设计案例 + 网格预览 + 全假设签认 RELEASE_READY
             page.locator("#caseSelect").select_option("code_xr_poster")
-            time.sleep(0.9)
+            expect(page.locator("#modalChip")).to_contain_text("IMAGE", timeout=15000)
             poster_gate = page.locator("#gateChain").inner_text()
             assert "PI" in poster_gate and "GN" in poster_gate and "GG" in poster_gate, f"Poster gate chain mismatch: {poster_gate}"
             modal_txt = page.locator("#modalChip").inner_text()
@@ -778,15 +737,22 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
 
             # 切换到假设与台账页签，点击全部签认放行 -> 跃迁为 RELEASE_READY
             page.locator('#midTabs .tab[data-tab="ledger"]').click()
-            time.sleep(0.3)
             page.locator("#confirmAllBtn").click()
-            time.sleep(0.6)
+            expect(page.locator("#statusPill")).to_have_text("RELEASE_READY", timeout=15000)
             status_ready = page.locator("#statusPill").inner_text().strip()
             assert status_ready == "RELEASE_READY", f"Expected RELEASE_READY, got {status_ready}"
 
             page.screenshot(path=str(shot4), full_page=False)
             ctx.screenshots.append({"path": str(shot4), "caption": "平面设计案例路由与全假设签认放行"})
             ctx.record_pass(cat, "poster_routing_and_release_ready", "平面设计案例 PI→GN→GG 路由、12列网格开关与全部签认跃迁 RELEASE_READY 全通过")
+
+            page.set_viewport_size({"width": 390, "height": 844})
+            expect(page.locator("#mobilePaneNav")).to_be_visible()
+            page.locator('#mobilePaneNav [data-mpane="mid"]').click()
+            expect(page.locator("#paneMid")).to_be_visible()
+            page.locator('#mobilePaneNav [data-mpane="right"]').click()
+            expect(stage_frame.locator(".poster-canvas")).to_be_visible()
+            ctx.record_pass(cat, "narrow_workbench", "390×844 下可切换语义树与舞台")
 
             browser.close()
 
@@ -795,12 +761,12 @@ def test_5_playwright_browser_e2e(ctx: VerificationContext, skip_e2e: bool = Fal
         ctx.record_pass(cat, "zero_browser_console_errors", "全流程无任何 pageerror 或 console.error")
 
     except Exception as e:
-        ctx.record_fail(cat, "playwright_e2e_run", str(e))
+        ctx.record_fail(cat, "playwright_e2e_run", f"{type(e).__name__}: {e}")
     finally:
         # 验收收尾：恢复两案例假设为初始 open (PROVISIONAL)
         try:
-            _http_post("/api/case/code_xr_uiux/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
-            _http_post("/api/case/code_xr_poster/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
+            ctx.run.post_json("/api/case/code_xr_uiux/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
+            ctx.run.post_json("/api/case/code_xr_poster/confirm_assumption", {"assumption_id": "ALL", "action": "reset"})
         except Exception:
             pass
 
@@ -837,10 +803,10 @@ def generate_report(ctx: VerificationContext) -> dict[str, Any]:
         "details": ctx.results,
         "errors": ctx.errors,
     }
-    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    report_path = ctx.run.artifacts_dir / "v34_verification_report.json"
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print("\n" + "=" * 80)
-    print(f"【开物 v3.4 验收报告已生成】{REPORT_PATH}")
+    print(f"【开物 v3.4 验收报告已生成】{report_path}")
     print(f"总检查项: {total} | 通过: {passed} | 失败: {failed} | 通过率: {rate:.2f}% | 结论: {verdict}")
     print("=" * 80)
     return report
@@ -849,28 +815,22 @@ def generate_report(ctx: VerificationContext) -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Kaiwu v3.4 Full-Stack & Browser Verification Suite")
     parser.add_argument("--skip-e2e", action="store_true", help="跳过 Playwright 浏览器端到端实测")
-    parser.add_argument("--screenshot-dir", default=str(DEFAULT_SCREENSHOT_DIR), help="实测截图保存目录")
+    parser.add_argument("--artifacts-dir", type=pathlib.Path, help="验收输出所在目录")
+    parser.add_argument("--screenshot-dir", type=pathlib.Path, help="实测截图保存目录")
     args = parser.parse_args()
 
-    ctx = VerificationContext(screenshot_dir=pathlib.Path(args.screenshot_dir))
-    try:
+    with isolated_workbench(REPO_ROOT, args.artifacts_dir) as run:
+        ctx = VerificationContext(run, args.screenshot_dir or (run.artifacts_dir / "screenshots"))
         test_1_rules_and_templates(ctx)
         test_2_adaptive_eu_and_lifecycle(ctx)
         test_3_counterfactual_rule_gates(ctx)
         test_4_api_and_readback(ctx)
         test_5_playwright_browser_e2e(ctx, skip_e2e=args.skip_e2e)
-    finally:
-        if ctx.started_server_by_self and ctx.server_proc:
-            print(f"  [CLEANUP] 正在干净关闭测试子进程 server.py (PID={ctx.server_proc.pid})")
-            ctx.server_proc.terminate()
-            try:
-                ctx.server_proc.wait(timeout=4.0)
-            except Exception:
-                ctx.server_proc.kill()
+        report = generate_report(ctx)
 
-    report = generate_report(ctx)
     if report["overall_verdict"] != "PASS":
         sys.exit(1)
+
 
 
 if __name__ == "__main__":

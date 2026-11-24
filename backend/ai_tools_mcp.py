@@ -73,11 +73,9 @@ def simulate_counterfactual(case_id: str = "code_xr_uiux", preset: str = "violat
 
 def manage_assumptions(case_id: str = "code_xr_uiux", action: str = "list", assumption_id: str = "ALL") -> dict[str, Any]:
     if action == "list":
-        asms = engine.get_case_assumptions(case_id)
-        bundle = engine.build_case_bundle(case_id, persist=False)
+        bundle = engine.build_case_bundle(case_id)
     else:
-        asms = engine.update_case_assumptions(case_id, assumption_id, action)
-        bundle = engine.build_case_bundle(case_id, persist=(case_id != "web_fixture"))
+        bundle = engine.publish_assumption_change(case_id, assumption_id, action)
     return {
         "status": "OK",
         "tool": "manage_assumptions",
@@ -86,7 +84,7 @@ def manage_assumptions(case_id: str = "code_xr_uiux", action: str = "list", assu
         "assumption_id": assumption_id,
         "admission_status": bundle["admission_status"],
         "open_assumptions_count": bundle["open_assumptions_count"],
-        "assumptions": asms,
+        "assumptions": bundle["assumptions"],
         "bundle": bundle,
     }
 
@@ -113,10 +111,21 @@ def list_categories() -> dict[str, Any]:
     return {"status": "OK", "tool": "list_categories", "count": len(cats), "categories": cats}
 
 
+def import_web_case(
+    url: str, case_id: str | None = None, category: str | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    bundle: dict[str, Any] = {}
+
+    def finalize(parsed: dict[str, Any]) -> None:
+        bundle.update(engine.build_case_bundle(parsed["case_id"], persist=True))
+
+    parsed = parsers_mod.parse_web_url(url=url, case_id=case_id, category_override=category, finalize=finalize)
+    return parsed, bundle
+
+
 def parse_url_live(url: str, case_id: str | None = None, category: str | None = None) -> dict[str, Any]:
-    parsed = parsers_mod.parse_web_url(url=url, case_id=case_id, category_override=category, persist=True)
+    parsed, bundle = import_web_case(url, case_id, category)
     cid = parsed["case_id"]
-    bundle = engine.build_case_bundle(cid, persist=True)
     return {
         "status": "OK",
         "tool": "parse_url_live",

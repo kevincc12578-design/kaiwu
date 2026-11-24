@@ -60,9 +60,9 @@ def load_categories() -> dict[str, dict[str, Any]]:
     return loaded
 
 
-def list_categories() -> list[dict[str, Any]]:
+def list_categories(*, categories: dict[str, dict[str, Any]] | None = None) -> list[dict[str, Any]]:
     """按核心族优先、标准顺序返回全部产品分类列表。"""
-    cats = load_categories()
+    cats = load_categories() if categories is None else categories
     ordered_ids = [cid for cid in CATEGORY_ORDER if cid in cats] + sorted(
         cid for cid in cats if cid not in CATEGORY_ORDER
     )
@@ -88,9 +88,12 @@ def list_categories() -> list[dict[str, Any]]:
     return out
 
 
-def get_case_category(case_id: str, dynamic_meta: dict[str, Any] | None = None) -> dict[str, Any]:
+def get_case_category(
+    case_id: str, dynamic_meta: dict[str, Any] | None = None, *,
+    categories: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     """获取指定案例所属分类元信息。"""
-    cats = load_categories()
+    cats = load_categories() if categories is None else categories
     cat_id = (
         (dynamic_meta or {}).get("category_id")
         or CASE_CATEGORY_MAP.get(case_id)
@@ -247,9 +250,11 @@ def evaluate_category_audit(
     skeleton: dict[str, Any],
     eu_tree: dict[str, Any],
     readback: dict[str, Any],
+    *,
+    categories: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """根据产品所属分类的专属规则包执行非破坏性品类审计。"""
-    cats = load_categories()
+    cats = load_categories() if categories is None else categories
     cat = cats.get(category_id) or next(iter(cats.values()), {})
     nodes = eu_tree.get("nodes", [])
     edges = eu_tree.get("edges", [])
